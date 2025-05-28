@@ -1,5 +1,5 @@
 package game.skills;
 
 public enum AiSkillTag {
-    FAITH_GAIN, COMBO_ENABLED
+    FAITH_GAIN, MOVE, COMBO_ENABLED
 }

@@ -22,11 +22,11 @@ public class S_Cleanse extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
         this.targetType = TargetType.SINGLE;
-        this.possibleCastPositions = new int[]{0,1,2,3};
-        this.possibleTargetPositions = new int[]{0,1,2,3};
+        this.possibleCastPositions = new int[]{0,1,2};
+        this.possibleTargetPositions = new int[]{0,1,2};
         this.manaCost = 4;
+        this.level = 2;
     }
-
 
     @Override
     public void applySkillEffects(Hero target) {
@@ -42,7 +42,7 @@ public class S_Cleanse extends Skill {
 
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "Cleanse target of all debuffs";
+        return "Remove all debuffs";
     }
 
 

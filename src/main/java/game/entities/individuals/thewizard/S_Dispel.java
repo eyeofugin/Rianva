@@ -22,10 +22,9 @@ public class S_Dispel extends Skill {
         this.tags = List.of(SkillTag.TACTICAL);
         this.targetType = TargetType.SINGLE;
         this.possibleCastPositions = new int[]{1,2};
-        this.possibleTargetPositions = new int[]{4,5};
+        this.possibleTargetPositions = new int[]{3,4};
         this.manaCost = 4;
     }
-
 
     @Override
     public int getAIRating(Hero target) {
@@ -41,7 +40,7 @@ public class S_Dispel extends Skill {
 
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "Target loses 25% of their max secondary resource (Faith/Mana)";
+        return "Target loses 25% of either "+Stat.FAITH.getIconString()+","+Stat.MANA.getIconString()+" or "+Stat.HALO.getIconString()+".";
     }
     @Override
     public void applySkillEffects(Hero target) {
@@ -52,6 +51,8 @@ public class S_Dispel extends Skill {
         } else if (target.getSecondaryResource().equals(Stat.FAITH)) {
             int resourceLoss = target.getStat(Stat.FAITH)/4;
             target.addResource(Stat.CURRENT_FAITH, Stat.FAITH, -1*resourceLoss, this.hero);
+        } else if (target.getSecondaryResource().equals(Stat.HALO)) {
+            target.addResource(Stat.CURRENT_HALO, Stat.HALO, -1, this.hero);
         }
     }
 

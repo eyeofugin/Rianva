@@ -24,29 +24,12 @@ public class S_Slash extends Skill {
         this.tags = List.of(SkillTag.PRIMARY);
         this.dmgMultipliers = List.of(new Multiplier(Stat.POWER, 0.2), new Multiplier(Stat.SPEED, 0.5));
         this.targetType = TargetType.SINGLE;
-        this.possibleCastPositions = new int[]{1,2,3};
-        this.possibleTargetPositions = new int[]{4,5};
+        this.possibleCastPositions = new int[]{1,2};
+        this.possibleTargetPositions = new int[]{3,4};
         this.dmg = 7;
         this.damageMode = DamageMode.PHYSICAL;
+        this.effects = List.of(new Injured(2));
     }
-
-
-
-    @Override
-    public void applySkillEffects(Hero target) {
-        super.applySkillEffects(target);
-        if (this.hero.hasPermanentEffect(Combo.class) > 0) {
-            this.hero.removePermanentEffectOfClass(Combo.class);
-            target.addEffect(new Injured(1), this.hero);
-        } else {
-            this.hero.addEffect(new Combo(), this.hero);
-        }
-    }
-    @Override
-    public String getDescriptionFor(Hero hero) {
-        return "Combo: Injure. Else gain combo.";
-    }
-
 
     @Override
     public String getName() {

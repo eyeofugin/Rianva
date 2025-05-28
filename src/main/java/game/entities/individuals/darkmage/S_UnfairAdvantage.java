@@ -23,9 +23,10 @@ public class S_UnfairAdvantage extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
         this.targetType = TargetType.SINGLE_OTHER;
-        this.possibleCastPositions = new int[]{0,1,2,3};
-        this.possibleTargetPositions = new int[]{0,1,2,3};
+        this.possibleCastPositions = new int[]{0,1,2};
+        this.possibleTargetPositions = new int[]{0,1,2};
         this.manaCost = 3;
+        this.level = 2;
     }
 
 
@@ -37,15 +38,14 @@ public class S_UnfairAdvantage extends Skill {
     @Override
     public void applySkillEffects(Hero target) {
         super.applySkillEffects(target);
-        int magicAdd = target.getStat(Stat.MAGIC) / 10;
-        int speedAdd = target.getStat(Stat.SPEED) / 10;
+        int magicAdd = target.getStat(Stat.MAGIC) / 15;
+        int speedAdd = target.getStat(Stat.SPEED) / 15;
         target.addToStat(Stat.MAGIC, magicAdd);
         target.addToStat(Stat.SPEED, speedAdd);
-        target.addEffect(new Combo(), this.hero);
     }
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "Give "+Combo.getStaticIconString()+"(~), +10%"+Stat.MAGIC.getIconString()+" and +10%"+Stat.SPEED.getIconString()+".";
+        return "Give +15%"+Stat.MAGIC.getIconString()+" and +15%"+Stat.SPEED.getIconString()+".";
     }
 
     @Override

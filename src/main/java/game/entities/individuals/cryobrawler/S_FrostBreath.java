@@ -25,11 +25,11 @@ public class S_FrostBreath extends Skill {
         this.dmgMultipliers = List.of(new Multiplier(Stat.MAGIC, 0.2),
                 new Multiplier(Stat.MANA, 0.3));
         this.targetType = TargetType.ALL_TARGETS;
-        this.possibleCastPositions = new int[]{3};
-        this.possibleTargetPositions = new int[]{4,5};
+        this.possibleCastPositions = new int[]{2};
+        this.possibleTargetPositions = new int[]{3,4};
         this.dmg = 5;
         this.damageMode = DamageMode.MAGICAL;
-        this.manaCost = 4;
+        this.manaCost = 10;
     }
 
 

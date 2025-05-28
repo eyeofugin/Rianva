@@ -25,11 +25,12 @@ public class S_DragonBreath extends Skill {
         this.dmgMultipliers = List.of(new Multiplier(Stat.MAGIC, 0.5));
         this.effects = List.of(new Burning(4));
         this.targetType = TargetType.ALL_TARGETS;
-        this.possibleCastPositions = new int[]{3};
-        this.possibleTargetPositions = new int[]{4,5};
+        this.possibleCastPositions = new int[]{2};
+        this.possibleTargetPositions = new int[]{3,4};
         this.dmg = 8;
         this.damageMode = DamageMode.MAGICAL;
         this.manaCost = 6;
+        this.level = 2;
     }
 
     @Override

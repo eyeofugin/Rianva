@@ -18,6 +18,8 @@ public class AllyHeal extends Skill {
     @Override
     public void setToInitial() {
         super.setToInitial();
+        this.targetType = TargetType.SELF;
+        this.possibleCastPositions = new int[]{0,1,2};
         this.heal = 1;
     }
 

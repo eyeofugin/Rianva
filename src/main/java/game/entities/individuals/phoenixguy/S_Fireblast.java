@@ -26,12 +26,11 @@ public class S_Fireblast extends Skill {
     public void setToInitial() {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
-        this.dmgMultipliers = List.of(new Multiplier(Stat.FAITH, 0.6));
+        this.dmgMultipliers = List.of(new Multiplier(Stat.FAITH, 0.4));
         this.targetType = TargetType.SINGLE;
         this.effects = List.of(new Burning(2));
         this.possibleCastPositions = new int[]{1,2};
-        this.possibleTargetPositions = new int[]{4,5};
-        this.dmg = 7;
+        this.possibleTargetPositions = new int[]{3,4};
         this.damageMode = DamageMode.MAGICAL;
     }
 
@@ -44,7 +43,7 @@ public class S_Fireblast extends Skill {
 
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "Double power if target under 50% life. Burns 2.";
+        return "Deals double the damage, if the target has less than 50%" + Stat.LIFE.getReference() + ".";
     }
     @Override
     public String getName() {

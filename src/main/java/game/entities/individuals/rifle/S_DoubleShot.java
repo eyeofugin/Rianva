@@ -3,6 +3,7 @@ package game.entities.individuals.rifle;
 import framework.connector.Connection;
 import framework.connector.Connector;
 import framework.connector.payloads.CastChangePayload;
+import framework.graphics.text.TextEditor;
 import game.entities.Hero;
 import game.skills.Skill;
 import game.skills.SkillTag;
@@ -26,14 +27,10 @@ public class S_DoubleShot extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
         this.targetType = TargetType.SELF;
-        this.possibleCastPositions = new int[]{0,1,2,3};
+        this.possibleCastPositions = new int[]{0,1,2};
+        this.effects = List.of(new DoubleShot(3));
         this.cdMax = 2;
-    }
-
-    @Override
-    public void applySkillEffects(Hero target) {
-        super.applySkillEffects(target);
-        this.hero.addEffect(new DoubleShot(3), this.hero);
+        this.level = 2;
     }
 
     @Override
@@ -55,7 +52,7 @@ public class S_DoubleShot extends Skill {
 
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "Passive: -1 CD for Barrage. Active: Primary Skills count as two hits. For 3 turns";
+        return "Passive: -1["+ TextEditor.TURN_KEY+"] for Barrage.";
     }
 
     @Override

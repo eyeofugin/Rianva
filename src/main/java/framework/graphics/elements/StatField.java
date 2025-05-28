@@ -37,19 +37,22 @@ public class StatField extends GUIElement {
             int totalValue = hero.getStat(stat);
             int statChange = hero.getStatChange(stat);
             int baseValue = totalValue - statChange;
-            String baseStatString = stat.getReference() + ":" + baseValue;
-            String statChangeString = "";
-            if (statChange != 0) {
-                statChangeString = statChange > 0 ? "{006}+" : "{012}";
-                statChangeString += statChange;
-                statChangeString += "{000}";
+            if (baseValue != 100 && (statChange != 0 || baseValue != 0)) {
+                String baseStatString = stat.getReference() + ":" + baseValue;
+                String statChangeString = "";
+                if (statChange != 0) {
+                    statChangeString = statChange > 0 ? "{006}+" : "{012}";
+                    statChangeString += statChange;
+                    statChangeString += "{000}";
+                }
+                baseStatString += statChangeString;
+
+                int[] baseStatStringPixels = getTextLine(baseStatString, this.width / 2 - 5, 8, TextAlignment.LEFT, Color.VOID, Color.WHITE);
+                fillWithGraphicsSize(x,yf,this.width / 2 - 5, 8, baseStatStringPixels, false);
+
+                yf += 9;
             }
-            baseStatString += statChangeString;
 
-            int[] baseStatStringPixels = getTextLine(baseStatString, this.width / 2 - 5, 8, TextAlignment.LEFT, Color.VOID, Color.WHITE);
-            fillWithGraphicsSize(x,yf,this.width / 2 - 5, 8, baseStatStringPixels, false);
-
-            yf += 9;
         }
     }
 }

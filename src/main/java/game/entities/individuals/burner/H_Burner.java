@@ -2,9 +2,10 @@ package game.entities.individuals.burner;
 
 import game.entities.Animator;
 import game.entities.Hero;
-import game.skills.Skill;
+import game.entities.Role;
 import game.skills.Stat;
-import game.skills.genericskills.S_Skip;
+
+import java.util.List;
 
 public class H_Burner extends Hero {
 
@@ -17,6 +18,7 @@ public class H_Burner extends Hero {
         this.initSkills();
         this.initStats();
         this.setLevel(1);
+        this.role = Role.DPS;
         this.effectiveRange = 3;
     }
 
@@ -28,7 +30,7 @@ public class H_Burner extends Hero {
 
         anim.setupAnimation(this.basePath + "/sprites/idle_w.png", "idle", new int[]{40,80});
         anim.setupAnimation(this.basePath + "/sprites/damaged_w.png", "damaged", new int[]{3,6,9,12});
-        anim.setupAnimation(this.basePath + "/sprites/action_w.png", "action_w", new int[]{15, 30, 45});
+        anim.setupAnimation(this.basePath + "/sprites/action_w.png", "action_w", new int[]{15, 60, 100});
 
         anim.setDefaultAnim("idle");
         anim.currentAnim = anim.getDefaultAnim();
@@ -37,15 +39,8 @@ public class H_Burner extends Hero {
 
     @Override
     protected void initSkills() {
-        this.primary = new Skill[]{
-                new S_Spark(this), new S_Burn(this)
-        };
-        this.tactical = new Skill[]{
-                new S_FlareUp(this),
-                new S_Heat(this),
-                new S_TwinFlames(this)
-        };
-        this.ult = new S_SpreadingFlames(this);
-        randomizeSkills();
+        this.skills.addAll(List.of(new S_Burn(this), new S_FlareUp(this)));
+        this.learnableSkillList.addAll(List.of(new S_Heat(this), new S_SpreadingFlames(this)));
+//        randomizeSkills();
     }
 }

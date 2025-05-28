@@ -230,13 +230,15 @@ public class ActiveCharCard extends GUIElement {
     @Override
     public int[] render() {
         background(Color.BLACK);
-        for (GUIElement child: modeIcons) {
-            int[] childP = child.render();
-            fillWithGraphicsSize(child.getX(), child.getY(), child.getWidth(), child.getHeight(), childP, false);
-        }
-        renderChildren();
-        if (this.active) {
-            addBorder(this.width, this.height, this.pixels, Color.WHITE);
+        if (this.activeHero != null) {
+            for (GUIElement child: modeIcons) {
+                int[] childP = child.render();
+                fillWithGraphicsSize(child.getX(), child.getY(), child.getWidth(), child.getHeight(), childP, false);
+            }
+            renderChildren();
+            if (this.active) {
+                addBorder(this.width, this.height, this.pixels, Color.WHITE);
+            }
         }
         return this.pixels;
     }

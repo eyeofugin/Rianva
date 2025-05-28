@@ -22,9 +22,10 @@ public class S_PhoenixFlames extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.ULT);
         this.targetType = TargetType.SELF;
-        this.possibleCastPositions = new int[]{0,1,2,3};
+        this.possibleCastPositions = new int[]{0,1,2};
         this.effects = List.of(new Exalted(3));
-        this.faithCost = 13;
+        this.faithRequirement = 100;
+        this.level = 5;
     }
 
     @Override
@@ -49,7 +50,7 @@ public class S_PhoenixFlames extends Skill {
 
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "Get Exalted(3). All enemies get 5 Burning stacks.";
+        return "All enemies get " + Burning.getStaticIconString() + "(5).";
     }
 
 }

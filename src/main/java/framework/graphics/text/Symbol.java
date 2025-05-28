@@ -143,6 +143,7 @@ public class Symbol {
     public static Symbol eightx8=		new Symbol("8", 64,	47,50,	24,31,	SpriteSheet.fonts8x);
     public static Symbol ninex8=		new Symbol("9", 64,	51,54,	24,31,	SpriteSheet.fonts8x);
 
+    public static Symbol exclamationMarkx8 = new Symbol("!", "fonts/8x/exclamationMark.png", 2, 8);
     public static Symbol pointx8 =		new Symbol(".","fonts/8x/point.png",2,8);
     public static Symbol starx8 =		new Symbol("*","fonts/8x/star.png",3,8);
     public static Symbol slashx8 = 	new Symbol("/","fonts/8x/slash.png",3,8);
@@ -199,6 +200,8 @@ public class Symbol {
     public static Symbol exalted = new Symbol("icons/effect/exalted.png", 8,8);
     public static Symbol frost = new Symbol("icons/effect/frost.png", 8,8);
     public static Symbol gifted = new Symbol("icons/effect/gifted.png", 8,8);
+    public static Symbol tired = new Symbol("icons/effect/tired.png", 8,8);
+    public static Symbol exhausted = new Symbol("icons/effect/exhausted.png", 8,8);
     public static Symbol immunity = new Symbol("icons/effect/immunity.png", 8,8);
     public static Symbol invincible = new Symbol("icons/effect/invincible.png", 8,8);
     public static Symbol lifesteal = new Symbol("icons/effect/lifesteal.png", 8,8);
@@ -218,7 +221,12 @@ public class Symbol {
     public static Symbol injured = new Symbol("icons/effect/injured.png", 8,8);
     public static Symbol rooted = new Symbol("icons/effect/rooted.png", 8,8);
     public static Symbol taunted = new Symbol("icons/effect/taunted.png", 8,8);
+    public static Symbol missingx8 = new Symbol("icons/effect/missing.png", 8,8);
 
+    public static Symbol tank = new Symbol("icons/gui/tank.png", 8,8);
+    public static Symbol fighter = new Symbol("icons/gui/fighter.png", 8,8);
+    public static Symbol dps = new Symbol("icons/gui/dps.png", 8,8);
+    public static Symbol support = new Symbol("icons/gui/support.png", 8,8);
 
     public static Symbol magic = new Symbol("fonts/magic.png", 8,8);
     public static Symbol finesse = new Symbol("fonts/finesse.png", 8,8);

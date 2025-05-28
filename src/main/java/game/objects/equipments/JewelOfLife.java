@@ -5,6 +5,7 @@ import framework.connector.Connector;
 import framework.connector.payloads.DmgTriggerPayload;
 import framework.connector.payloads.HealChangesPayload;
 import game.objects.Equipment;
+import game.skills.Stat;
 import game.skills.changeeffects.effects.RegenBoost;
 
 public class JewelOfLife extends Equipment {
@@ -17,7 +18,7 @@ public class JewelOfLife extends Equipment {
 
     @Override
     public String getDescription() {
-        return "+30 Life, +50% Heal. Once: When less than 50% Life, gain healboost 5.";
+        return "Trigger: When less than 50%"+ Stat.LIFE.getReference()+", gain " + RegenBoost.getStaticIconString() + "(5).";
     }
 
     @Override

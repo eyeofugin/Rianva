@@ -14,7 +14,6 @@ public class TeamArenaOverview extends GUIElement {
 
     ActiveCharCard activeCharCard;
     ActiveAbilitiesCard activeAbilitiesCard;
-    LogCard logCard;
 
     public int cardPointer = 1;
 
@@ -23,18 +22,17 @@ public class TeamArenaOverview extends GUIElement {
         this.engine = e;
         this.simpleBorder = false;
         this.arena = arena;
-        this.active = true;
+        this.active = false;
         this.activeCharCard = new ActiveCharCard(e, arena);
         this.activeAbilitiesCard = new ActiveAbilitiesCard(e, arena);
-        this.logCard = new LogCard(e);
         this.children.add(activeCharCard);
         this.children.add(activeAbilitiesCard);
-        this.children.add(logCard);
     }
 
     @Override
     public void update(int frame) {
         if (this.active) {
+            deactivateAllChildren();
             if (engine.keyB._shoulderLeftPressed) {
                 if (cardPointer != 0) {
                     cardPointer--;
@@ -45,16 +43,12 @@ public class TeamArenaOverview extends GUIElement {
                     cardPointer++;
                 }
             }
-            deactivateAllChildren();
             switch (cardPointer) {
                 case 0:
                     this.activeCharCard.setActive(true);
                     break;
                 case 1:
                     this.activeAbilitiesCard.setActive(true);
-                    break;
-                case 2:
-                    this.logCard.setActive(true);
                     break;
             }
             updateChildren(frame);

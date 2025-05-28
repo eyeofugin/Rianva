@@ -3,6 +3,8 @@ package game.entities.individuals.paladin;
 import game.entities.Hero;
 import game.entities.Multiplier;
 import game.skills.*;
+import game.skills.changeeffects.statusinflictions.Dazed;
+import game.skills.changeeffects.statusinflictions.Disenchanted;
 import game.skills.changeeffects.statusinflictions.Injured;
 import utils.MyMaths;
 
@@ -23,10 +25,10 @@ public class S_ShatteringSwing extends Skill {
         this.tags = List.of(SkillTag.PRIMARY);
         this.dmgMultipliers = List.of(new Multiplier(Stat.POWER, 0.1));
         this.targetType = TargetType.SINGLE;
-        this.possibleCastPositions = new int[]{2,3};
-        this.possibleTargetPositions = new int[]{4};
+        this.possibleCastPositions = new int[]{1,2};
+        this.possibleTargetPositions = new int[]{3};
         this.dmg = 5;
-        this.aiTags = List.of(AiSkillTag.FAITH_GAIN);
+        this.faithGain = 15;
         this.damageMode = DamageMode.PHYSICAL;
     }
 
@@ -35,14 +37,15 @@ public class S_ShatteringSwing extends Skill {
     @Override
     public void applySkillEffects(Hero target) {
         super.applySkillEffects(target);
-        if (MyMaths.success(this.hero.getStat(Stat.CURRENT_FAITH) *2)) {
-            target.arena.stun(target);
+        this.hero.addToStat(Stat.CURRENT_FAITH, 2);
+        if (MyMaths.success(this.hero.getStat(Stat.CURRENT_FAITH))) {
+            target.addEffect(new Dazed(1), this.hero);
         }
     }
 
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "2*"+Stat.FAITH.getIconString()+" chance to stun";
+        return "Gain +15"+Stat.FAITH.getIconString()+". "+ 2*this.hero.getStat(Stat.FAITH)+"(100%"+Stat.FAITH.getIconString()+")% chance to give " + Dazed.getStaticIconString() + "(1).";
     }
 
 

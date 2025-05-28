@@ -23,21 +23,17 @@ public class S_ImbueWithLight extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.ULT);
         this.targetType = TargetType.ALL_TARGETS;
-        this.possibleCastPositions = new int[]{0,1,2,3};
-        this.possibleTargetPositions = new int[]{0,1,2,3};
+        this.possibleCastPositions = new int[]{0,1,2};
+        this.possibleTargetPositions = new int[]{0,1,2};
         this.manaCost = 6;
-        this.healMultipliers = List.of(new Multiplier(Stat.MAGIC, 0.2),
-                new Multiplier(Stat.MANA, 0.2),
+        this.healMultipliers = List.of(new Multiplier(Stat.MAGIC, 0.2));
+        this.shieldMultipliers = List.of(new Multiplier(Stat.MANA, 0.2),
                 new Multiplier(Stat.LIFE, 0.2));
+        this.level = 5;
     }
     @Override
     public int getAIRating(Hero target) {
         return target.getMissingLifePercentage() / 50;
-    }
-
-    @Override
-    public String getDescriptionFor(Hero hero) {
-        return "";
     }
 
     @Override

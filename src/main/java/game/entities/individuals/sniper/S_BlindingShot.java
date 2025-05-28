@@ -22,7 +22,7 @@ public class S_BlindingShot extends Skill {
         this.tags = List.of(SkillTag.TACTICAL);
         this.targetType = TargetType.SINGLE;
         this.possibleCastPositions = new int[]{0,1};
-        this.possibleTargetPositions = new int[]{4,5,6};
+        this.possibleTargetPositions = new int[]{3,4};
         this.cdMax = 3;
         this.damageMode = DamageMode.PHYSICAL;
         this.dmg = 8;
@@ -35,13 +35,6 @@ public class S_BlindingShot extends Skill {
         return 4;
     }
 
-
-
-
-    @Override
-    public String getDescriptionFor(Hero hero) {
-        return "Blinds";
-    }
 
     @Override
     public String getName() {

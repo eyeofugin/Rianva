@@ -26,6 +26,7 @@ public class S_Challenge extends Skill {
         this.cdMax = 3;
         this.casterEffects = List.of(new Threatening(1));
         this.tags = List.of(SkillTag.TACTICAL);
+        this.level = 2;
     }
     @Override
     public void applySkillEffects(Hero target) {
@@ -42,7 +43,7 @@ public class S_Challenge extends Skill {
 
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "Move. Threaten";
+        return "Move to position.";
     }
 
     @Override

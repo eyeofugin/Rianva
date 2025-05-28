@@ -4,6 +4,7 @@ import framework.connector.Connection;
 import framework.connector.Connector;
 import framework.connector.payloads.CastChangePayload;
 import game.entities.Hero;
+import game.entities.individuals.rifle.stash.S_AnkleShot;
 import game.skills.Skill;
 import game.skills.SkillTag;
 import game.skills.TargetType;
@@ -26,14 +27,9 @@ public class S_UseTheScope extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
         this.targetType = TargetType.SELF;
-        this.possibleCastPositions = new int[]{0,1,2,3};
+        this.possibleCastPositions = new int[]{0,1,2};
+        this.effects = List.of(new Scoped(2));
         this.cdMax = 2;
-    }
-
-    @Override
-    public void applySkillEffects(Hero target) {
-        super.applySkillEffects(target);
-        this.hero.addEffect(new Scoped(2), this.hero);
     }
 
     @Override
@@ -52,10 +48,9 @@ public class S_UseTheScope extends Skill {
         }
     }
 
-
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "Passive: +20 Accuracy for primary skills. Active: +1 Range on all skills for 2 turns.";
+        return "Passive: +20 Accuracy for primary skills.";
     }
 
     @Override

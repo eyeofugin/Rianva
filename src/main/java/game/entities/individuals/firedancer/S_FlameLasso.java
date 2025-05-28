@@ -22,12 +22,12 @@ public class S_FlameLasso extends Skill {
         this.tags = List.of(SkillTag.TACTICAL);
         this.dmgMultipliers = List.of(new Multiplier(Stat.MAGIC, 0.5));
         this.targetType = TargetType.SINGLE;
-        this.possibleCastPositions = new int[]{1,2};
-        this.possibleTargetPositions = new int[]{5,6};
+        this.possibleCastPositions = new int[]{1};
+        this.possibleTargetPositions = new int[]{4,5};
         this.dmg = 4;
         this.damageMode = DamageMode.MAGICAL;
         this.aiTags = List.of(AiSkillTag.COMBO_ENABLED);
-        this.faithCost = 4;
+        this.faithRequirement = 40;
     }
 
 
@@ -52,12 +52,12 @@ public class S_FlameLasso extends Skill {
 
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "Pull 2";
+        return "Pull 1";
     }
     @Override
     public void applySkillEffects(Hero target) {
         super.applySkillEffects(target);
-        this.hero.arena.move(target, 2, target.isTeam2()?-1:1);
+        this.hero.arena.moveTo(target, target.getPosition() + (target.isTeam2()?-1:1));
     }
 
     @Override

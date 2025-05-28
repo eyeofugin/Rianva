@@ -24,11 +24,12 @@ public class S_HonorTheFirstFlame extends Skill {
     public void setToInitial() {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL, SkillTag.PASSIVE);
+        this.level = 2;
     }
 
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "Whenever an enemy is dealt dmg by burning, get that much favor";
+        return "Whenever an opponent is dealt damage by "+Burning.getStaticIconString()+", get that much " + Stat.FAITH.getIconString() + ".";
     }
 
     @Override

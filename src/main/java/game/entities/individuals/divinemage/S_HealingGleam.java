@@ -24,7 +24,8 @@ public class S_HealingGleam extends Skill {
         this.healMultipliers = List.of(new Multiplier(Stat.MAGIC, 0.3));
         this.possibleCastPositions = new int[]{0,1};
         this.possibleTargetPositions = new int[]{2,3};
-        this.faithCost = 12;
+        this.faithRequirement = 100;
+        this.level = 5;
     }
 
     @Override
@@ -32,7 +33,7 @@ public class S_HealingGleam extends Skill {
         int rating = 0;
         for (Effect effect : target.getEffects()) {
             if (effect.type != null && effect.type.equals(Effect.ChangeEffectType.DEBUFF) ||
-                effect.type.equals(Effect.ChangeEffectType.STATUS_INFLICTION)) {
+                effect.type.equals(Effect.ChangeEffectType.DEBUFF)) {
                 rating += 2;
             }
         }

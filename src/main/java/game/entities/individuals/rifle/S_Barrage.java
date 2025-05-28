@@ -23,17 +23,12 @@ public class S_Barrage extends Skill {
         this.dmgMultipliers = List.of(new Multiplier(Stat.POWER, 0.15));
         this.effects = List.of(new Injured(1));
         this.possibleCastPositions = new int[]{0,1};
-        this.possibleTargetPositions = new int[]{4,5,6};
+        this.possibleTargetPositions = new int[]{3,4};
         this.targetType = TargetType.ALL_TARGETS;
         this.dmg = 10;
         this.damageMode = DamageMode.PHYSICAL;
         this.cdMax = 4;
-    }
-
-
-    @Override
-    public String getDescriptionFor(Hero hero) {
-        return "Hits enemies on line, injures";
+        this.level = 5;
     }
 
     @Override

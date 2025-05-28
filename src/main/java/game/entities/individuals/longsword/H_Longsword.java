@@ -2,10 +2,13 @@ package game.entities.individuals.longsword;
 
 import game.entities.Animator;
 import game.entities.Hero;
+import game.entities.Role;
 import game.skills.Skill;
 import game.skills.Stat;
 import game.skills.changeeffects.statusinflictions.Taunted;
 import game.skills.genericskills.S_Skip;
+
+import java.util.List;
 
 public class H_Longsword extends Hero {
 
@@ -16,6 +19,7 @@ public class H_Longsword extends Hero {
         initSkills();
         this.initStats();
         setLevel(1);
+        this.role = Role.TANK;
         this.effectiveRange = 2;
     }
 
@@ -27,7 +31,7 @@ public class H_Longsword extends Hero {
 
         anim.setupAnimation(this.basePath + "/sprites/idle_w.png", "idle", new int[]{40,80});
         anim.setupAnimation(this.basePath + "/sprites/damaged_w.png", "damaged", new int[]{3,6,9,12});
-        anim.setupAnimation(this.basePath + "/sprites/action_w.png", "action_w", new int[]{15, 30, 45});
+        anim.setupAnimation(this.basePath + "/sprites/action_w.png", "action_w", new int[]{15, 60, 100});
 
         anim.setDefaultAnim("idle");
         anim.currentAnim = anim.getDefaultAnim();
@@ -36,16 +40,8 @@ public class H_Longsword extends Hero {
 
     @Override
     protected void initSkills() {
-        this.primary = new Skill[]{
-                new S_Stab(this), new S_Swing(this)
-        };
-        this.tactical = new Skill[]{
-                new S_Challenge(this),
-                new S_Taunt(this),
-                new S_Cover(this),
-                new S_Steadfast(this)
-        };
-        this.ult = new S_SupremeDefense(this);
-        randomizeSkills();
+        this.skills.addAll(List.of(new S_Stab(this), new S_Taunt(this)));
+        this.learnableSkillList.addAll(List.of(new S_Challenge(this), new S_SupremeDefense(this)));
+//        randomizeSkills();
     }
 }

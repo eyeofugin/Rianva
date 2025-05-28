@@ -24,10 +24,11 @@ public class S_BellowingRoar extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.ULT);
         this.targetType = TargetType.SELF;
-        this.possibleCastPositions = new int[]{0,1,2,3};
+        this.possibleCastPositions = new int[]{0,1,2};
         this.effects = List.of(new Threatening(2));
         this.healMultipliers = List.of(new Multiplier(Stat.LIFE, 0.75));
         this.manaCost = 12;
+        this.level = 5;
     }
     @Override
     public int getAIRating(Hero target) {

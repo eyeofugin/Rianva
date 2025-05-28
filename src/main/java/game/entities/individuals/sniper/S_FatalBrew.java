@@ -24,10 +24,8 @@ public class S_FatalBrew extends Skill {
         this.tags = List.of(SkillTag.ULT);
         this.targetType = TargetType.SINGLE;
         this.possibleCastPositions = new int[]{1,2};
-        this.possibleTargetPositions = new int[]{4,5};
+        this.possibleTargetPositions = new int[]{3,4};
     }
-
-
 
     @Override
     public int getAIRating(Hero target) {
@@ -62,7 +60,7 @@ public class S_FatalBrew extends Skill {
 
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "Remove buffs and positive stat changes";
+        return "Remove buffs and positive stat changes.";
     }
 
     @Override

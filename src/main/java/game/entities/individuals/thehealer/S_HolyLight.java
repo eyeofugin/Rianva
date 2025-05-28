@@ -27,7 +27,7 @@ public class S_HolyLight extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
         this.targetType = TargetType.ARENA;
-        this.possibleCastPositions = new int[]{0,1,2,3};
+        this.possibleCastPositions = new int[]{0,1,2};
         this.manaCost = 5;
     }
     @Override
@@ -50,10 +50,14 @@ public class S_HolyLight extends Skill {
         }
     }
 
+    @Override
+    public String getUpperDescriptionFor(Hero hero) {
+        return "Active: Summon the global Holy Light effect.";
+    }
 
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "Passive: +1 Mana per Round during Holy Light. Active: Summon Holy Light";
+        return "Passive: Gain +1"+Stat.MANA.getIconString()+" per Round during Holy Light.";
     }
 
 

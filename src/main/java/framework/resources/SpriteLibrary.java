@@ -1,10 +1,9 @@
 package framework.resources;
 
 import framework.Property;
-import game.objects.equipments.ArcaneCloak;
-import game.objects.equipments.SimpleBow;
-import game.objects.equipments.SimpleDagger;
+import game.skills.Stat;
 import game.skills.changeeffects.effects.*;
+import game.skills.changeeffects.effects.other.Exhausted;
 import game.skills.changeeffects.globals.Heat;
 import game.skills.changeeffects.statusinflictions.Bleeding;
 import game.skills.changeeffects.statusinflictions.Blinded;
@@ -42,10 +41,41 @@ public class SpriteLibrary {
         sprites.put("effects", sprite(16,16,16,16,"icons/gui/effects.png", 0));
         sprites.put("items", sprite(16,16,16,16,"icons/gui/items.png", 0));
         sprites.put("action", sprite(5,5,5,5,"icons/gui/action.png", 0));
+        sprites.put("loot", sprite(32,32,32,32,"icons/gui/loot.png", 0));
+        sprites.put("random", sprite(32,32,32,32,"icons/gui/random.png", 0));
+        sprites.put("encounter", sprite(32,32,32,32,"icons/gui/encounter.png", 0));
+        sprites.put("gold", sprite(32,32,32,32,"icons/gui/money.png", 0));
+        sprites.put("start", sprite(32,32,32,32,"icons/gui/start.png", 0));
+        sprites.put("boss", sprite(32,32,32,32,"icons/gui/boss.png", 0));
+        sprites.put("group", sprite(32,32,32,32,"icons/gui/group.png", 0));
+        sprites.put("relax", sprite(32,32,32,32,"icons/gui/relax.png", 0));
+        sprites.put("notseenyet", sprite(32,32,32,32,"icons/gui/notseenyet.png", 0));
+
 
 
         sprites.put(Burning.class.getName(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
                 "icons/effect/burning.png", 0));
+        sprites.put(Gifted.class.getName(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
+                "icons/effect/gifted.png", 0));
+        sprites.put(Stat.LIFE.name(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
+                "fonts/life_ext.png", 0));
+        sprites.put(Stat.ENDURANCE.name(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
+                "fonts/endurance.png", 0));
+        sprites.put(Stat.STAMINA.name(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
+                "fonts/stamina.png", 0));
+        sprites.put(Stat.POWER.name(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
+                "fonts/force.png", 0));
+        sprites.put(Stat.MAGIC.name(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
+                "fonts/magic.png", 0));
+        sprites.put(Stat.SPEED.name(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
+                "fonts/speed.png", 0));
+        sprites.put(Stat.EVASION.name(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
+                "fonts/evasion.png", 0));
+        sprites.put(Stat.ACCURACY.name(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
+                "fonts/accuracy.png", 0));
+        sprites.put(Stat.CRIT_CHANCE.name(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
+                "fonts/critchance.png", 0));
+
         sprites.put(Combo.class.getName(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
                 "icons/effect/combo.png", 0));
         sprites.put(Exalted.class.getName(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
@@ -64,8 +94,6 @@ public class SpriteLibrary {
                 "icons/effect/rooted.png", 0));
         sprites.put(Taunted.class.getName(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
                 "icons/effect/taunted.png", 0));
-        sprites.put(DarkSecrets.class.getName(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
-                "icons/effect/darksecrets.png", 0));
         sprites.put(Blight.class.getName(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
                 "icons/effect/blightsmall.png", 0));
         sprites.put(AxeSwingCounter.class.getName(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
@@ -78,6 +106,8 @@ public class SpriteLibrary {
                 "icons/effect/regenboost.png", 0));
         sprites.put(RegenStop.class.getName(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
                 "icons/effect/regenstop.png", 0));
+        sprites.put(Exhausted.class.getName(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
+                "icons/effect/exhausted.png", 0));
         sprites.put(RighteousHammerCounter.class.getName(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
                 "icons/effect/righteoushammercounter.png", 0));
         sprites.put(Scoped.class.getName(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
@@ -107,7 +137,7 @@ public class SpriteLibrary {
 
     public static int[] getSprite(String name) {
         if (SpriteLibrary.sprites.get(name) == null) {
-            System.out.println(name);
+            System.out.println("no sprite found for "+name);
             return new int[0];
         }
         return SpriteLibrary.sprites.get(name).clone();

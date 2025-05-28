@@ -11,8 +11,6 @@ import game.skills.TargetType;
 
 public class S_PocketDarkness extends Skill {
 
-    private boolean isUsedUp = false;
-
     public S_PocketDarkness(Equipment equipment) {
         super(null);
         this.equipment = equipment;
@@ -24,27 +22,18 @@ public class S_PocketDarkness extends Skill {
         super.setToInitial();
         this.targetType = TargetType.SINGLE;
         this.possibleCastPositions = new int[]{0,1,2};
-        this.possibleTargetPositions = new int[]{4,5,6};
-    }
-
-    @Override
-    public void addSubscriptions() {
-        Connector.addSubscription(Connector.START_OF_MATCH, new Connection(this, StartOfMatchPayload.class, "start"));
-    }
-    public void start(StartOfMatchPayload pl) {
-        this.isUsedUp = false;
+        this.possibleTargetPositions = new int[]{3,4};
     }
     @Override
     public void applySkillEffects(Hero target) {
         super.applySkillEffects(target);
-        target.addToStat(Stat.ACCURACY, -30);
-        this.equipment.loseTempStat();
-        this.isUsedUp = true;
+        target.addToStat(Stat.ACCURACY, -15);
+        this.equipment.unEquipFromHero();
     }
 
     @Override
     public boolean performCheck(Hero hero) {
-        return super.performCheck(hero) && this.equipment.isActive() && !this.isUsedUp;
+        return super.performCheck(hero) && this.equipment.isActive();
     }
 
     public int getAIRating(Hero target) {
@@ -53,7 +42,7 @@ public class S_PocketDarkness extends Skill {
 
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "Target -30 Accuracy.";
+        return "Target permanently -15" + Stat.ACCURACY.getIconString() + ".";
     }
 
     @Override

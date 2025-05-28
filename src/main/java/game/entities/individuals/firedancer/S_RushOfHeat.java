@@ -20,10 +20,11 @@ public class S_RushOfHeat extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
         this.targetType = TargetType.SELF;
-        this.possibleCastPositions = new int[]{0,1,2,3};
+        this.possibleCastPositions = new int[]{0,1,2};
         this.effects = List.of(new Burning(4));
         this.cdMax = 3;
         this.aiTags = List.of(AiSkillTag.FAITH_GAIN);
+        this.level = 2;
     }
 
 
@@ -35,7 +36,7 @@ public class S_RushOfHeat extends Skill {
 
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "Get 4 burn. +6"+Stat.FAITH.getIconString();
+        return "Gain +6"+Stat.FAITH.getIconString() + ".";
     }
 
     @Override

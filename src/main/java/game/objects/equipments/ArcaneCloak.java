@@ -26,7 +26,12 @@ public class ArcaneCloak extends Equipment {
     @Override
     public void turn() {
         if (this.active && this.hero.getSecondaryResource().equals(Stat.FAITH)) {
-            this.hero.addResource(Stat.CURRENT_FAITH, Stat.FAITH, 1, this.hero);
+            this.hero.addResource(Stat.CURRENT_FAITH, Stat.FAITH, 5, this.hero);
         }
+    }
+
+    @Override
+    public String getDescription() {
+        return "Until receiving damage, gain " + getTempStatBonusString()+ ". Gain +5" + Stat.FAITH.getIconString() + " per turn.";
     }
 }

@@ -22,8 +22,8 @@ public class S_Taunt extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
         this.targetType = TargetType.SINGLE;
-        this.possibleCastPositions = new int[]{2,3};
-        this.possibleTargetPositions = new int[]{4,5};
+        this.possibleCastPositions = new int[]{1,2};
+        this.possibleTargetPositions = new int[]{3,4};
         this.cdMax = 5;
         this.effects = List.of(new Taunted(2));
     }
@@ -31,13 +31,6 @@ public class S_Taunt extends Skill {
     @Override
     public int getAIRating(Hero target) {
         return 5;
-    }
-
-
-
-    @Override
-    public String getDescriptionFor(Hero hero) {
-        return "Taunts target";
     }
 
     @Override

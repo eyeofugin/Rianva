@@ -20,13 +20,15 @@ public class S_LightSpikes extends Skill {
     public void setToInitial() {
         super.setToInitial();
         this.targetType = TargetType.ALL_TARGETS;
-        this.tags = List.of(SkillTag.TACTICAL);
-        this.possibleTargetPositions = new int[]{4,5,6,7};
-        this.possibleCastPositions = new int[]{0,1,2,3};
+        this.tags = List.of(SkillTag.ULT);
+        this.possibleTargetPositions = new int[]{3,4,5};
+        this.possibleCastPositions = new int[]{0,1,2};
         this.dmg = 5;
-        this.dmgMultipliers = List.of(new Multiplier(Stat.MAGIC, 0.5));
-        this.cdMax = 2;
+        this.dmgMultipliers = List.of(new Multiplier(Stat.MAGIC, 0.3));
         this.damageMode = DamageMode.MAGICAL;
+        this.accuracy = 80;
+        this.faithRequirement = 100;
+        this.faithCost = 50;
     }
 
     @Override
@@ -42,7 +44,7 @@ public class S_LightSpikes extends Skill {
 
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "Heal for each " + Stat.HALO.getIconString() + " stack 10% of the damage dealt";
+        return "Heal for 10% of the damage dealt.";
     }
 
     @Override
@@ -51,10 +53,7 @@ public class S_LightSpikes extends Skill {
     }
     public void dmgTrigger(DmgTriggerPayload pl) {
         if (this.equals(pl.cast)) {
-            int halo = this.hero.getStat(Stat.CURRENT_HALO);
-            if (halo > 0) {
-                this.hero.heal(pl.cast.hero, pl.dmgDone*10*halo/100, this, false);
-            }
+            this.hero.heal(pl.cast.hero, (int)(pl.dmgDone*0.1), this, false);
         }
     }
 

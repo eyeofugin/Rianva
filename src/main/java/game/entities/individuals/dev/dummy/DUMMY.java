@@ -83,9 +83,7 @@ public class DUMMY extends Hero {
     }
 
     protected void initSkills() {
-        this.skills = new Skill[] {
-                new AllyHeal(this)
-        };
+        this.skills.add(new AllyHeal(this));
     }
     @Override
     public void update(int frame) {

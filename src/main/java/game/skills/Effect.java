@@ -22,9 +22,10 @@ import java.util.Random;
 public abstract class Effect {
 
     public enum ChangeEffectType {
-        STATUS_INFLICTION,
         BUFF,
-        DEBUFF;
+        DEBUFF,
+        STAT_CHANGE,
+        OTHER;
     }
 
     public static String ICON_STRING = "%%%";
@@ -38,7 +39,8 @@ public abstract class Effect {
     public String description;
     public boolean stackable;
     public ChangeEffectType type;
-    protected Map<Stat, Integer> statBonus = new HashMap<>();
+    public Stat stat;
+    public int statChange;
 
     public abstract Effect getNew();
     public void addSubscriptions() {
@@ -47,29 +49,24 @@ public abstract class Effect {
     public void turnLogic() {}
 
     public void addToHero(){
-        for (Map.Entry<Stat, Integer> mapEntry : statBonus.entrySet()) {
-            hero.addToStat(mapEntry.getKey(), mapEntry.getValue());
+        if (statChange != 0) {
+            hero.addToStat(stat, statChange);
         }
         addSubscriptions();
     }
     public void addStack(int stacks){
-        for (int i = 0; i < stacks; i++) {
-            for (Map.Entry<Stat, Integer> mapEntry : statBonus.entrySet()) {
-                hero.addToStat(mapEntry.getKey(), mapEntry.getValue());
-            }
-        }
         this.stacks+=stacks;
     }
     public void removeEffect() {
+        if (statChange != 0) {
+            hero.addToStat(stat, (-1) * statChange);
+        }
         for (int i = 0; i < stacks; i++) {
             removeStack();
         }
 
     }
     public void removeStack() {
-        for (Map.Entry<Stat, Integer> mapEntry : statBonus.entrySet()) {
-            hero.addToStat(mapEntry.getKey(), mapEntry.getValue() * -1);
-        }
         this.stacks--;
     }
 

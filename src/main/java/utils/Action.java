@@ -10,5 +10,14 @@ public class Action {
     public Hero[] targets;
     public int[] targetPositions;
 
+    public Action() {
 
+    }
+    public Action(int rating, Skill skill, Hero caster, Hero[] targets, int[] targetPositions) {
+        this.rating = rating;
+        this.skill = skill;
+        this.caster = caster;
+        this.targets = targets;
+        this.targetPositions = targetPositions;
+    }
 }

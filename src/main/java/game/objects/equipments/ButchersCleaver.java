@@ -18,24 +18,12 @@ public class ButchersCleaver extends Equipment {
         this.statBonus = this.loadBaseStatBonus();
     }
 
-    private void recalc() {
-        if (this.hero != null) {
-            this.remove(this.hero);
-            this.add(this.hero);
-        }
+
+    @Override
+    public String getDescription() {
+        return "Get 50% of your " + Stat.LIFE.getIconString() + " as " + Stat.POWER.getIconString() + ", but receive 50% more damage.";
     }
-    private void remove(Hero hero) {
-        if (hero != null) {
-            hero.addToStat(Stat.POWER, -1* this.calculatedExtraPower);
-        }
-    }
-    private void add(Hero hero) {
-        if (hero != null) {
-            this.lastLife = hero.getStat(Stat.LIFE);
-            this.calculatedExtraPower = hero.getStatChange(Stat.LIFE) / 2;
-            hero.addToStat(Stat.POWER, this.calculatedExtraPower);
-        }
-    }
+
     @Override
     public void addSubscriptions() {
         Connector.addSubscription(Connector.UPDATE, new Connection(this, UpdatePayload.class, "update"));
@@ -68,6 +56,24 @@ public class ButchersCleaver extends Equipment {
             if (health != this.lastLife) {
                 this.recalc();
             }
+        }
+    }
+    private void recalc() {
+        if (this.hero != null) {
+            this.remove(this.hero);
+            this.add(this.hero);
+        }
+    }
+    private void remove(Hero hero) {
+        if (hero != null) {
+            hero.addToStat(Stat.POWER, -1* this.calculatedExtraPower);
+        }
+    }
+    private void add(Hero hero) {
+        if (hero != null) {
+            this.lastLife = hero.getStat(Stat.LIFE);
+            this.calculatedExtraPower = hero.getStatChange(Stat.LIFE) / 2;
+            hero.addToStat(Stat.POWER, this.calculatedExtraPower);
         }
     }
 }

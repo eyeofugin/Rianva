@@ -23,7 +23,7 @@ public class ItemInfo extends GUIElement {
         fillWithGraphicsSize(0, yf, this.width, 8, itemNamePixels, false);
         yf += 10;
 
-        String statBonusString = this.equipment.getStatBonusString();
+        String statBonusString = this.equipment.getInfoStatBonus();
         if (!statBonusString.isEmpty()) {
             int[] statPixels = getTextLine(statBonusString, this.width, 8,
                     TextAlignment.LEFT, Color.VOID, Color.WHITE);

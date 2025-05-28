@@ -23,10 +23,8 @@ public class S_ChemShot extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.PRIMARY);
         this.targetType = TargetType.ANY;
-        this.possibleCastPositions = new int[]{0,1};
+        this.possibleCastPositions = new int[]{0,1,2};
     }
-
-
 
     @Override
     public int getAIRating(Hero target) {
@@ -45,7 +43,7 @@ public class S_ChemShot extends Skill {
 
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "ally: regen-boost for 1 turn. enemy: injure 1 turn";
+        return "If targeting an ally: Give "+RegenBoost.getStaticIconString()+"(1). Otherwise: Give " + Injured.getStaticIconString() + "(1).";
     }
 
     @Override

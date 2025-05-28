@@ -11,7 +11,7 @@ public class Connector {
 
     public static final String EXCESS_RESOURCE = "EXCESS_RESOURCE";
     public static String GLOBAL_EFFECT_CHANGE = "GLOBAL_EFFECT_CHANGE";
-    public static boolean active = false;
+    public static boolean active = true;
     public static String CAST_CHANGE = "CAST_CHANGE"; //Replacements like
     public static String TARGET_MODE = "TARGET_MODE"; //return the target viability of a skill's target
     public static String CAN_PERFORM = "CAN_PERFORM";
@@ -71,11 +71,11 @@ public class Connector {
                     Method method = connection.element.getClass().getMethod(connection.methodName, connection.payloadClass);
                     method.invoke(connection.element, payload);
                 } catch (NoSuchMethodException e) {
-                    System.out.println("Hä");
+                    System.out.println("Hä" + connection.methodName);
                 } catch (InvocationTargetException e) {
-                    System.out.println("Hä2");
+                    System.out.println("Hä2" + connection.methodName);
                 } catch (IllegalAccessException e) {
-                    System.out.println("Hä3");
+                    System.out.println("Hä3" + connection.methodName);
                 }
             }
         }

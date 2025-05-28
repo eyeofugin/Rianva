@@ -26,16 +26,21 @@ public class S_HoliestShield extends Skill {
     public void setToInitial() {
         super.setToInitial();
         this.tags = List.of(SkillTag.ULT);
-        this.faithCost = 6;
+        this.faithRequirement = 100;
         this.targetType = TargetType.SELF;
-        this.possibleCastPositions = new int[]{0,1,2,3};
+        this.possibleCastPositions = new int[]{0,1,2};
+        this.level = 5;
     }
 
 
+    @Override
+    public String getUpperDescriptionFor(Hero hero) {
+        return "Active: Permanently +" + (int)(0.2 * this.hero.getStat(Stat.CURRENT_LIFE)) + "(20%"+Stat.CURRENT_LIFE.getIconString()+")" + Stat.ENDURANCE.getIconString() + ".";
+    }
 
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "Passive: Get a 5% Life shield that regenerates completely at the start of your turn. Active: +20%(Current life) Endurance";
+        return "Passive: Start each round with "+(int)(0.05 * this.hero.getStat(Stat.LIFE))+"(5%"+Stat.LIFE.getReference()+")"+Stat.SHIELD+".";
     }
 
     @Override

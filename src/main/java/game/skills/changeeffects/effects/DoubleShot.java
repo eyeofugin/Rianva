@@ -3,7 +3,6 @@ package game.skills.changeeffects.effects;
 import framework.connector.Connection;
 import framework.connector.Connector;
 import framework.connector.payloads.CastChangePayload;
-import game.entities.individuals.rifle.S_Mobilize;
 import game.skills.Effect;
 import game.skills.Skill;
 import game.skills.SkillTag;

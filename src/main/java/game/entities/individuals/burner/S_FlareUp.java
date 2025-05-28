@@ -3,7 +3,6 @@ package game.entities.individuals.burner;
 import framework.connector.Connection;
 import framework.connector.Connector;
 import framework.connector.payloads.DmgChangesPayload;
-import framework.graphics.text.Color;
 import game.entities.Hero;
 import game.entities.Multiplier;
 import game.skills.*;
@@ -23,13 +22,14 @@ public class S_FlareUp extends Skill {
     public void setToInitial() {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
-        this.dmgMultipliers = List.of(new Multiplier(Stat.FAITH, 0.2));
+        this.dmgMultipliers = List.of(new Multiplier(Stat.CURRENT_FAITH, 0.1));
         this.targetType = TargetType.SINGLE;
         this.damageMode = DamageMode.MAGICAL;
-        this.possibleCastPositions = new int[]{0,1,2,3};
-        this.possibleTargetPositions = new int[]{4,5,6};
+        this.possibleCastPositions = new int[]{0,1,2};
+        this.possibleTargetPositions = new int[]{3,4};
         this.dmg = 3;
-        this.faithCost = 4;
+        this.faithRequirement = 40;
+        this.faithGain = 5;
     }
 
     @Override

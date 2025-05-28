@@ -28,8 +28,9 @@ public class S_Heat extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
         this.targetType = TargetType.ARENA;
-        this.possibleCastPositions = new int[]{0,1,2,3};
-        this.faithCost = 5;
+        this.possibleCastPositions = new int[]{0,1,2};
+        this.faithRequirement = 10;
+        this.level = 2;
     }
 
     @Override
@@ -49,7 +50,7 @@ public class S_Heat extends Skill {
 
     public void endOfRound(EndOfRoundPayload pl) {
         if (pl.arena.globalEffect instanceof Heat) {
-            this.hero.addResource(Stat.CURRENT_FAITH, Stat.FAITH, 2, this.hero);
+            this.hero.addResource(Stat.CURRENT_FAITH, Stat.FAITH, 5, this.hero);
         }
     }
     @Override
@@ -68,6 +69,6 @@ public class S_Heat extends Skill {
     }
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "Passive: +2"+Stat.FAITH.getIconString()+" per turn during Heat.";
+        return "Passive: +5"+Stat.FAITH.getIconString()+" per turn during Heat.";
     }
 }

@@ -18,7 +18,7 @@ public class Blinded extends Effect {
         this.name = "Blinded";
         this.stackable = false;
         this.description = "Single target skills have -1 range.";
-        this.type = ChangeEffectType.STATUS_INFLICTION;
+        this.type = ChangeEffectType.DEBUFF;
     }
     public static String getStaticIconString() {
         return "[" + ICON_STRING + "]";

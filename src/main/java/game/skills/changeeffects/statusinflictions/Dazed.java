@@ -16,7 +16,7 @@ public class Dazed extends Effect {
         this.name = "Dazed";
         this.stackable = false;
         this.description = "CD for skills is +1.";
-        this.type = ChangeEffectType.STATUS_INFLICTION;
+        this.type = ChangeEffectType.DEBUFF;
     }
 
     public static String getStaticIconString() {

@@ -1,0 +1,551 @@
+{
+  "3": [
+    {
+      "id": "301",
+      "name": "game.entities.individuals.cryobrawler.H_CryoBrawler",
+      "primary": "game.entities.individuals.cryobrawler.S_FrostBite",
+      "tactical": [
+        "game.entities.individuals.cryobrawler.S_ColdWinds",
+        "game.entities.individuals.cryobrawler.S_BlueLife"
+      ],
+      "ultimate" : "game.entities.individuals.cryobrawler.S_Avalanche",
+      "equipments": [
+        "game.objects.equipments.GraftedExoskeleton",
+        "game.objects.equipments.DefensiveAura",
+        "game.objects.equipments.JewelOfLife"
+      ]
+    },
+    {
+      "id": "302",
+      "name": "game.entities.individuals.cryobrawler.H_CryoBrawler",
+      "primary": "game.entities.individuals.cryobrawler.S_IceClaw",
+      "tactical": [
+        "game.entities.individuals.cryobrawler.S_FrostBreath",
+        "game.entities.individuals.cryobrawler.S_BlueLife"
+      ],
+      "ultimate" : "game.entities.individuals.cryobrawler.S_Avalanche",
+      "equipments": [
+        "game.objects.equipments.BlueOrb",
+        "game.objects.equipments.ArcaneCloak",
+        "game.objects.equipments.JewelOfLife"
+      ]
+    },
+    {
+      "id": "303",
+      "name": "game.entities.individuals.dragonbreather.H_DragonBreather",
+      "primary": "game.entities.individuals.dragonbreather.S_Chop",
+      "tactical": [
+        "game.entities.individuals.dragonbreather.S_DragonScales",
+        "game.entities.individuals.dragonbreather.S_DragonBreath"
+      ],
+      "ultimate" : "game.entities.individuals.dragonbreather.S_BellowingRoar",
+      "equipments": [
+        "game.objects.equipments.FlamingChestplate",
+        "game.objects.equipments.ButchersCleaver",
+        "game.objects.equipments.BastardSword"
+      ]
+    },
+    {
+      "id": "304",
+      "name": "game.entities.individuals.dragonbreather.H_DragonBreather",
+      "primary": "game.entities.individuals.dragonbreather.S_BlazingCleaver",
+      "tactical": [
+        "game.entities.individuals.dragonbreather.S_HeatOfTheDragon",
+        "game.entities.individuals.dragonbreather.S_InnerFire"
+      ],
+      "ultimate" : "game.entities.individuals.dragonbreather.S_BellowingRoar",
+      "equipments": [
+        "game.objects.equipments.FlamingChestplate",
+        "game.objects.equipments.FlamingSword",
+        "game.objects.equipments.GraftedExoskeleton"
+      ]
+    },
+    {
+      "id": "305",
+      "name": "game.entities.individuals.eldritchguy.H_EldritchGuy",
+      "primary": "game.entities.individuals.eldritchguy.S_GraspOfTheAbyss",
+      "tactical": [
+        "game.entities.individuals.eldritchguy.S_UnnaturalDefenses",
+        "game.entities.individuals.eldritchguy.S_HorrificGlare"
+      ],
+      "ultimate" : "game.entities.individuals.eldritchguy.S_UnleashEmptiness",
+      "equipments": [
+        "game.objects.equipments.CrownOfLife",
+        "game.objects.equipments.JewelOfLife",
+        "game.objects.equipments.BlueOrb"
+      ]
+    },
+    {
+      "id": "306",
+      "name": "game.entities.individuals.eldritchguy.H_EldritchGuy",
+      "primary": "game.entities.individuals.eldritchguy.S_VoidLeech",
+      "tactical": [
+        "game.entities.individuals.eldritchguy.S_VoidGraft",
+        "game.entities.individuals.eldritchguy.S_TentacleGrab"
+      ],
+      "ultimate" : "game.entities.individuals.eldritchguy.S_UnleashEmptiness",
+      "equipments": [
+        "game.objects.equipments.ArcaneCloak",
+        "game.objects.equipments.BlueOrb",
+        "game.objects.equipments.JewelOfLife"
+      ]
+    },
+    {
+      "id": "307",
+      "name": "game.entities.individuals.longsword.H_Longsword",
+      "primary": "game.entities.individuals.longsword.S_Stab",
+      "tactical": [
+        "game.entities.individuals.longsword.S_Taunt",
+        "game.entities.individuals.longsword.S_Steadfast"
+      ],
+      "ultimate" : "game.entities.individuals.longsword.S_SupremeDefense",
+      "equipments": [
+        "game.objects.equipments.DefensiveAura",
+        "game.objects.equipments.GraftedExoskeleton",
+        "game.objects.equipments.JewelOfLife"
+      ]
+    },
+    {
+      "id": "308",
+      "name": "game.entities.individuals.longsword.H_Longsword",
+      "primary": "game.entities.individuals.longsword.S_Swing",
+      "tactical": [
+        "game.entities.individuals.longsword.S_Challenge",
+        "game.entities.individuals.longsword.S_Cover"
+      ],
+      "ultimate" : "game.entities.individuals.longsword.S_SupremeDefense",
+      "equipments": [
+        "game.objects.equipments.DefensiveAura",
+        "game.objects.equipments.CrownOfLife",
+        "game.objects.equipments.JewelOfLife"
+      ]
+    },
+    {
+      "id": "309",
+      "name": "game.entities.individuals.paladin.H_Paladin",
+      "primary": "game.entities.individuals.paladin.S_ShatteringSwing",
+      "tactical": [
+        "game.entities.individuals.paladin.S_LightBlast",
+        "game.entities.individuals.paladin.S_LightPillar"
+      ],
+      "ultimate" : "game.entities.individuals.paladin.S_HoliestShield",
+      "equipments": [
+        "game.objects.equipments.ShiningArmor",
+        "game.objects.equipments.WingedBoots",
+        "game.objects.equipments.JewelOfLife"
+      ]
+    },
+    {
+      "id": "310",
+      "name": "game.entities.individuals.paladin.H_Paladin",
+      "primary": "game.entities.individuals.longsword.S_QuickPrayer",
+      "tactical": [
+        "game.entities.individuals.longsword.S_ShieldAssault",
+        "game.entities.individuals.longsword.S_FierceGlow"
+      ],
+      "ultimate" : "game.entities.individuals.longsword.S_HoliestShield",
+      "equipments": [
+        "game.objects.equipments.ShiningArmor",
+        "game.objects.equipments.GraftedExoskeleton",
+        "game.objects.equipments.JewelOfLife"
+      ]
+    }
+  ],
+  "2": [
+    {
+      "id": "201",
+      "name": "game.entities.individuals.battleaxe.H_BattleAxe",
+      "primary": "game.entities.individuals.battleaxe.S_CutDown",
+      "tactical": [
+        "game.entities.individuals.battleaxe.S_Headsmash",
+        "game.entities.individuals.battleaxe.S_Kick"
+      ],
+      "ultimate" : "game.entities.individuals.battleaxe.S_WideSwing",
+      "equipments": [
+        "game.objects.equipments.GraftedExoskeleton",
+        "game.objects.equipments.WingedBoots",
+        "game.objects.equipments.JewelOfLife"
+      ]
+    },
+    {
+      "id": "202",
+      "name": "game.entities.individuals.battleaxe.H_BattleAxe",
+      "primary": "game.entities.individuals.battleaxe.S_BloodCleave",
+      "tactical": [
+        "game.entities.individuals.battleaxe.S_Bloodlust",
+        "game.entities.individuals.battleaxe.S_BerserkerRage"
+      ],
+      "ultimate" : "game.entities.individuals.battleaxe.S_WideSwing",
+      "equipments": [
+        "game.objects.equipments.BastardSword",
+        "game.objects.equipments.ButchersCleaver",
+        "game.objects.equipments.JewelOfLife"
+      ]
+    },
+    {
+      "id": "203",
+      "name": "game.entities.individuals.angelguy.H_AngelGuy",
+      "primary": "game.entities.individuals.angelguy.S_DeepThrust",
+      "tactical": [
+        "game.entities.individuals.angelguy.S_Reengage",
+        "game.entities.individuals.angelguy.S_AngelicWings"
+      ],
+      "ultimate" : "game.entities.individuals.angelguy.S_Halo",
+      "equipments": [
+        "game.objects.equipments.WinterOrb",
+        "game.objects.equipments.ShiningArmor",
+        "game.objects.equipments.JewelOfLife"
+      ]
+    },
+    {
+      "id": "204",
+      "name": "game.entities.individuals.angelguy.H_AngelGuy",
+      "primary": "game.entities.individuals.angelguy.S_LightJavelin",
+      "tactical": [
+        "game.entities.individuals.angelguy.S_LightSpikes",
+        "game.entities.individuals.angelguy.S_HolyShield"
+      ],
+      "ultimate" : "game.entities.individuals.angelguy.S_Halo",
+      "equipments": [
+        "game.objects.equipments.ScepterOfTheGods",
+        "game.objects.equipments.ArcaneCloak",
+        "game.objects.equipments.Arkenwand"
+      ]
+    },
+    {
+      "id": "205",
+      "name": "game.entities.individuals.duelist.H_Duelist",
+      "primary": "game.entities.individuals.duelist.S_Slash",
+      "tactical": [
+        "game.entities.individuals.duelist.S_AllOut",
+        "game.entities.individuals.duelist.S_SwirlingBlades"
+      ],
+      "ultimate" : "game.entities.individuals.duelist.S_DuelistDance",
+      "equipments": [
+        "game.objects.equipments.BastardSword",
+        "game.objects.equipments.RedOrb",
+        "game.objects.equipments.PocketDarkness"
+      ]
+    },
+    {
+      "id": "206",
+      "name": "game.entities.individuals.duelist.H_Duelist",
+      "primary": "game.entities.individuals.duelist.S_Reposte",
+      "tactical": [
+        "game.entities.individuals.duelist.S_Mobilize",
+        "game.entities.individuals.duelist.S_GiveMeYourWorst"
+      ],
+      "ultimate" : "game.entities.individuals.duelist.S_DuelistDance",
+      "equipments": [
+        "game.objects.equipments.JewelOfLife",
+        "game.objects.equipments.ButchersCleaver",
+        "game.objects.equipments.BastardSword"
+      ]
+    },
+    {
+      "id": "207",
+      "name": "game.entities.individuals.firedancer.H_FireDancer",
+      "primary": "game.entities.individuals.firedancer.S_Slash",
+      "tactical": [
+        "game.entities.individuals.firedancer.S_SingingBlades",
+        "game.entities.individuals.firedancer.S_FlameDance"
+      ],
+      "ultimate" : "game.entities.individuals.firedancer.S_GiftOfTheFirstFlame",
+      "equipments": [
+        "game.objects.equipments.RedOrb",
+        "game.objects.equipments.FlamingSword",
+        "game.objects.equipments.DefensiveAura"
+      ]
+    },
+    {
+      "id": "208",
+      "name": "game.entities.individuals.firedancer.H_FireDancer",
+      "primary": "game.entities.individuals.firedancer.S_FlamingSwing",
+      "tactical": [
+        "game.entities.individuals.firedancer.S_RushOfHeat",
+        "game.entities.individuals.firedancer.S_FlameLasso"
+      ],
+      "ultimate" : "game.entities.individuals.firedancer.S_GiftOfTheFirstFlame",
+      "equipments": [
+        "game.objects.equipments.WingedBoots",
+        "game.objects.equipments.Arkenwand",
+        "game.objects.equipments.RedOrb"
+      ]
+    }
+  ],
+  "1": [
+    {
+      "id": "101",
+      "name": "game.entities.individuals.burner.H_Burner",
+      "primary": "game.entities.individuals.burner.S_Spark",
+      "tactical": [
+        "game.entities.individuals.burner.S_TwinFlames",
+        "game.entities.individuals.burner.S_FlareUp"
+      ],
+      "ultimate" : "game.entities.individuals.burner.S_SpreadingFlames",
+      "equipments": [
+        "game.objects.equipments.Arkenwand",
+        "game.objects.equipments.SnipersTunika",
+        "game.objects.equipments.ScepterOfTheGods"
+      ]
+    },
+    {
+      "id": "102",
+      "name": "game.entities.individuals.burner.H_Burner",
+      "primary": "game.entities.individuals.burner.S_Burn",
+      "tactical": [
+        "game.entities.individuals.burner.S_Heat",
+        "game.entities.individuals.burner.S_FlareUp"
+      ],
+      "ultimate" : "game.entities.individuals.burner.S_SpreadingFlames",
+      "equipments": [
+        "game.objects.equipments.PocketDarkness",
+        "game.objects.equipments.WinterOrb",
+        "game.objects.equipments.ScepterOfTheGods"
+      ]
+    },
+    {
+      "id": "103",
+      "name": "game.entities.individuals.dualpistol.H_DualPistol",
+      "primary": "game.entities.individuals.dualpistol.S_DoubleShot",
+      "tactical": [
+        "game.entities.individuals.dualpistol.S_Roll",
+        "game.entities.individuals.dualpistol.S_FocusedFire"
+      ],
+      "ultimate" : "game.entities.individuals.dualpistol.S_EagleEye",
+      "equipments": [
+        "game.objects.equipments.FlamingSword",
+        "game.objects.equipments.RedOrb",
+        "game.objects.equipments.SnipersTunika"
+      ]
+    },
+    {
+      "id": "104",
+      "name": "game.entities.individuals.dualpistol.H_DualPistol",
+      "primary": "game.entities.individuals.dualpistol.S_CarefulShot",
+      "tactical": [
+        "game.entities.individuals.dualpistol.S_Outmaneuver",
+        "game.entities.individuals.dualpistol.S_LuckyShot"
+      ],
+      "ultimate" : "game.entities.individuals.dualpistol.S_EagleEye",
+      "equipments": [
+        "game.objects.equipments.FlamingSword",
+        "game.objects.equipments.WingedBoots",
+        "game.objects.equipments.SnipersTunika"
+      ]
+    },
+    {
+      "id": "105",
+      "name": "game.entities.individuals.phoenixguy.H_Phoenixguy",
+      "primary": "game.entities.individuals.phoenixguy.S_Spark",
+      "tactical": [
+        "game.entities.individuals.phoenixguy.S_Fireblast",
+        "game.entities.individuals.phoenixguy.S_HonorTheFirstFlame"
+      ],
+      "ultimate" : "game.entities.individuals.phoenixguy.S_PhoenixFlames",
+      "equipments": [
+        "game.objects.equipments.WingedBoots",
+        "game.objects.equipments.ArcaneCloak",
+        "game.objects.equipments.ScepterOfTheGods"
+      ]
+    },
+    {
+      "id": "106",
+      "name": "game.entities.individuals.phoenixguy.H_Phoenixguy",
+      "primary": "game.entities.individuals.phoenixguy.S_Hotwings",
+      "tactical": [
+        "game.entities.individuals.phoenixguy.S_AshenHeat",
+        "game.entities.individuals.phoenixguy.S_Combustion"
+      ],
+      "ultimate" : "game.entities.individuals.phoenixguy.S_PhoenixFlames",
+      "equipments": [
+        "game.objects.equipments.Arkenwand",
+        "game.objects.equipments.ArcaneCloak",
+        "game.objects.equipments.ScepterOfTheGods"
+      ]
+    },
+    {
+      "id": "107",
+      "name": "game.entities.individuals.rifle.H_Rifle",
+      "primary": "game.entities.individuals.rifle.S_PiercingBolt",
+      "tactical": [
+        "game.entities.individuals.rifle.S_FieldRations",
+        "game.entities.individuals.rifle.S_Mobilize"
+      ],
+      "ultimate" : "game.entities.individuals.rifle.S_Barrage",
+      "equipments": [
+        "game.objects.equipments.FlamingSword",
+        "game.objects.equipments.SnipersTunika",
+        "game.objects.equipments.BastardSword"
+      ]
+    },
+    {
+      "id": "108",
+      "name": "game.entities.individuals.rifle.H_Rifle",
+      "primary": "game.entities.individuals.rifle.S_AnkleShot",
+      "tactical": [
+        "game.entities.individuals.rifle.S_UseTheScope",
+        "game.entities.individuals.rifle.S_DoubleShot"
+      ],
+      "ultimate" : "game.entities.individuals.rifle.S_Barrage",
+      "equipments": [
+        "game.objects.equipments.FlamingSword",
+        "game.objects.equipments.SnipersTunika",
+        "game.objects.equipments.WingedBoots"
+      ]
+    },
+    {
+      "id": "109",
+      "name": "game.entities.individuals.thewizard.H_TheWizard",
+      "primary": "game.entities.individuals.thewizard.S_HailMissile",
+      "tactical": [
+        "game.entities.individuals.thewizard.S_AetherWinds",
+        "game.entities.individuals.thewizard.S_Dispel"
+      ],
+      "ultimate" : "game.entities.individuals.thewizard.S_LightningStorm",
+      "equipments": [
+        "game.objects.equipments.ArcaneCloak",
+        "game.objects.equipments.Arkenwand",
+        "game.objects.equipments.WingedBoots"
+      ]
+    },
+    {
+      "id": "110",
+      "name": "game.entities.individuals.thewizard.H_TheWizard",
+      "primary": "game.entities.individuals.thewizard.S_LightningBolt",
+      "tactical": [
+        "game.entities.individuals.thewizard.S_AetherStep",
+        "game.entities.individuals.thewizard.S_Recharge"
+      ],
+      "ultimate" : "game.entities.individuals.thewizard.S_LightningStorm",
+      "equipments": [
+        "game.objects.equipments.BlueOrb",
+        "game.objects.equipments.Arkenwand",
+        "game.objects.equipments.ArcaneCloak"
+      ]
+    }
+
+  ],
+  "0": [
+    {
+      "id": "001",
+      "name": "game.entities.individuals.darkmage.H_DarkMage",
+      "primary": "game.entities.individuals.darkmage.S_Blight",
+      "tactical": [
+        "game.entities.individuals.darkmage.S_DarkSchemes",
+        "game.entities.individuals.darkmage.S_UnfairAdvantage"
+      ],
+      "ultimate" : "game.entities.individuals.darkmage.S_Deathpact",
+      "equipments": [
+        "game.objects.equipments.ArcaneCloak",
+        "game.objects.equipments.BlueOrb",
+        "game.objects.equipments.PocketDarkness"
+      ]
+    },
+    {
+      "id": "002",
+      "name": "game.entities.individuals.darkmage.H_DarkMage",
+      "primary": "game.entities.individuals.darkmage.S_GiftOfTheLeech",
+      "tactical": [
+        "game.entities.individuals.darkmage.S_LifeForceSharing",
+        "game.entities.individuals.darkmage.S_DarkSecrets"
+      ],
+      "ultimate" : "game.entities.individuals.darkmage.S_Deathpact",
+      "equipments": [
+        "game.objects.equipments.JewelOfLife",
+        "game.objects.equipments.WingedBoots",
+        "game.objects.equipments.PocketDarkness"
+      ]
+    },
+    {
+      "id": "003",
+      "name": "game.entities.individuals.divinemage.H_DivineMage",
+      "primary": "game.entities.individuals.divinemage.S_Prayer",
+      "tactical": [
+        "game.entities.individuals.divinemage.S_SummonTheLight",
+        "game.entities.individuals.divinemage.S_ShieldRay"
+      ],
+      "ultimate" : "game.entities.individuals.divinemage.S_HealingGleam",
+      "equipments": [
+        "game.objects.equipments.ScepterOfTheGods",
+        "game.objects.equipments.CrownOfLife",
+        "game.objects.equipments.ArcaneCloak"
+      ]
+    },
+    {
+      "id": "004",
+      "name": "game.entities.individuals.divinemage.H_DivineMage",
+      "primary": "game.entities.individuals.divinemage.S_Praise",
+      "tactical": [
+        "game.entities.individuals.divinemage.S_Invincibility",
+        "game.entities.individuals.divinemage.S_HolyWords"
+      ],
+      "ultimate" : "game.entities.individuals.divinemage.S_HealingGleam",
+      "equipments": [
+        "game.objects.equipments.ScepterOfTheGods",
+        "game.objects.equipments.WingedBoots",
+        "game.objects.equipments.CrownOfLife"
+      ]
+    },
+    {
+      "id": "005",
+      "name": "game.entities.individuals.sniper.H_Sniper",
+      "primary": "game.entities.individuals.sniper.S_ChemShot",
+      "tactical": [
+        "game.entities.individuals.sniper.S_GotYourBack",
+        "game.entities.individuals.sniper.S_HealingGrenade"
+      ],
+      "ultimate" : "game.entities.individuals.sniper.S_FatalBrew",
+      "equipments": [
+        "game.objects.equipments.PocketDarkness",
+        "game.objects.equipments.WingedBoots",
+        "game.objects.equipments.CrownOfLife"
+      ]
+    },
+    {
+      "id": "006",
+      "name": "game.entities.individuals.sniper.H_Sniper",
+      "primary": "game.entities.individuals.sniper.S_HardRound",
+      "tactical": [
+        "game.entities.individuals.sniper.S_BlindingShot",
+        "game.entities.individuals.sniper.S_SmokeGrenade"
+      ],
+      "ultimate" : "game.entities.individuals.sniper.S_FatalBrew",
+      "equipments": [
+        "game.objects.equipments.WinterOrb",
+        "game.objects.equipments.PocketDarkness",
+        "game.objects.equipments.CrownOfLife"
+      ]
+    },
+    {
+      "id": "007",
+      "name": "game.entities.individuals.thehealer.H_TheHealer",
+      "primary": "game.entities.individuals.thehealer.S_DivineRay",
+      "tactical": [
+        "game.entities.individuals.thehealer.S_HolyWords",
+        "game.entities.individuals.thehealer.S_HolyLight"
+      ],
+      "ultimate" : "game.entities.individuals.thehealer.S_ImbueWithLight",
+      "equipments": [
+        "game.objects.equipments.ArcaneCloak",
+        "game.objects.equipments.WingedBoots",
+        "game.objects.equipments.CrownOfLife"
+      ]
+    },
+    {
+      "id": "008",
+      "name": "game.entities.individuals.thehealer.H_TheHealer",
+      "primary": "game.entities.individuals.thehealer.S_LuxBomb",
+      "tactical": [
+        "game.entities.individuals.thehealer.S_BlindingLight",
+        "game.entities.individuals.thehealer.S_Cleanse"
+      ],
+      "ultimate" : "game.entities.individuals.thehealer.S_ImbueWithLight",
+      "equipments": [
+        "game.objects.equipments.ArcaneCloak",
+        "game.objects.equipments.BlueOrb",
+        "game.objects.equipments.WingedBoots"
+      ]
+    }
+  ]
+}

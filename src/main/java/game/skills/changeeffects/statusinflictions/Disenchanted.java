@@ -12,7 +12,7 @@ public class Disenchanted extends Effect {
         this.name = "Disenchanted";
         this.stackable = false;
         this.description = "Ignore equipment stats";
-        this.type = ChangeEffectType.STATUS_INFLICTION;
+        this.type = ChangeEffectType.DEBUFF;
     }
     public static String getStaticIconString() {
         return "[" + ICON_STRING + "]";

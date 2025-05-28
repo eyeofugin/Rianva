@@ -37,13 +37,12 @@ public class TeamBuildAbilitiesCard extends GUIElement {
 
     public void setHero(Hero hero) {
         this.hero = hero;
-        this.availableSkills.addAll(Arrays.stream(this.hero.getPrimary()).toList());
-        this.availableSkills.addAll(Arrays.stream(this.hero.getTactical()).toList());
-        this.availableSkills.add(this.hero.getUlt());
+        this.availableSkills.addAll(this.hero.getSkills());
+        this.availableSkills.addAll(this.hero.getLearnableSkillList());
     }
     public void finish() {
         this.chosenSkills.add(new S_Skip(this.hero));
-        this.hero.setSkills(this.chosenSkills.toArray(new Skill[0]));
+        this.hero.setSkills(this.chosenSkills);
     }
     @Override
     public void update(int frame) {

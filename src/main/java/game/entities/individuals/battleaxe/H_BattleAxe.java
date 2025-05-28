@@ -2,7 +2,9 @@ package game.entities.individuals.battleaxe;
 
 import game.entities.Animator;
 import game.entities.Hero;
-import game.skills.Skill;
+import game.entities.Role;
+
+import java.util.List;
 
 public class H_BattleAxe extends Hero {
 
@@ -14,6 +16,7 @@ public class H_BattleAxe extends Hero {
         this.initSkills();
         this.initStats();
         this.setLevel(1);
+        this.role = Role.FIGHTER;
         this.effectiveRange = 2;
     }
 
@@ -25,7 +28,7 @@ public class H_BattleAxe extends Hero {
 
         anim.setupAnimation(this.basePath + "/sprites/idle_w.png", "idle", new int[]{40,80});
         anim.setupAnimation(this.basePath + "/sprites/damaged_w.png", "damaged", new int[]{3,6,9,12});
-        anim.setupAnimation(this.basePath + "/sprites/action_w.png", "action_w", new int[]{15, 30, 45});
+        anim.setupAnimation(this.basePath + "/sprites/action_w.png", "action_w", new int[]{15, 60, 100});
 
         anim.setDefaultAnim("idle");
         anim.currentAnim = anim.getDefaultAnim();
@@ -34,17 +37,8 @@ public class H_BattleAxe extends Hero {
 
     @Override
     protected void initSkills() {
-        this.primary = new Skill[]{
-                new S_BloodCleave(this),
-                new S_CutDown(this)
-        };
-        this.tactical = new Skill[]{
-                new S_BerserkerRage(this),
-                new S_Headsmash(this),
-                new S_Kick(this),
-                new S_Bloodlust(this)
-        };
-        this.ult = new S_WideSwing(this);
-        randomizeSkills();
+        this.skills.addAll(List.of(new S_BloodCleave(this), new S_Bloodlust(this)));
+        this.learnableSkillList.addAll(List.of(new S_Kick(this), new S_WideSwing(this)));
+//        randomizeSkills();
     }
 }

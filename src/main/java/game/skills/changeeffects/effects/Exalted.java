@@ -3,11 +3,11 @@ package game.skills.changeeffects.effects;
 import framework.connector.Connection;
 import framework.connector.Connector;
 import framework.connector.payloads.CastChangePayload;
+import game.entities.individuals.phoenixguy.S_Fireblast;
+import game.entities.individuals.phoenixguy.stash.S_Combustion;
+import game.entities.individuals.phoenixguy.S_Hotwings;
 import game.skills.Effect;
 import game.skills.Skill;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class Exalted extends Effect {
 
@@ -17,7 +17,7 @@ public class Exalted extends Effect {
         this.iconString = ICON_STRING;
         this.name = "Exalted";
         this.stackable = false;
-        this.description = "All skills have +1 Range.";
+        this.description = "Extends the range of Hotwings and Fireblast.";
         this.type = ChangeEffectType.BUFF;
     }
     public static String getStaticIconString() {
@@ -36,15 +36,9 @@ public class Exalted extends Effect {
 
     public void castChange(CastChangePayload pl) {
         Skill skill = pl.skill;
-        if (skill != null && skill.hero != null && skill.hero.equals(this.hero)) {
+        if (skill != null && skill.hero != null && skill.hero.equals(this.hero) && (skill instanceof S_Hotwings || skill instanceof S_Fireblast)) {
 
-            if (Arrays.stream(skill.possibleCastPositions).anyMatch(i -> i == 1)) {
-                return;
-            }
-            int[] newCastPositions = Arrays.copyOf(skill.possibleCastPositions, skill.possibleCastPositions.length+1);
-            newCastPositions[newCastPositions.length-1] = 1;
-            Arrays.sort(newCastPositions);
-            skill.possibleCastPositions = newCastPositions;
+            skill.possibleCastPositions = new int[]{3,4,5};
         }
     }
 }

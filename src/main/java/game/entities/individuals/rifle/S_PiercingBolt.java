@@ -24,26 +24,12 @@ public class S_PiercingBolt extends Skill {
         this.tags = List.of(SkillTag.PRIMARY);
         this.targetType = TargetType.SINGLE;
         this.possibleCastPositions = new int[]{1,2};
-        this.possibleTargetPositions = new int[]{4,5};
+        this.possibleTargetPositions = new int[]{3,4};
         this.dmg = 10;
+        this.lethality = 50;
         this.dmgMultipliers = List.of(new Multiplier(Stat.POWER, 0.2));
         this.damageMode = DamageMode.PHYSICAL;
     }
-
-    @Override
-    public void applySkillEffects(Hero target) {
-        super.applySkillEffects(target);
-        target.addEffect(new Bleeding(1), this.hero);
-    }
-
-
-
-
-    @Override
-    public String getDescriptionFor(Hero hero) {
-        return "Bleeds";
-    }
-
 
     @Override
     public String getName() {

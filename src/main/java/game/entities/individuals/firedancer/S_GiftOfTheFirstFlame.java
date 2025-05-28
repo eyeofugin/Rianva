@@ -2,14 +2,11 @@ package game.entities.individuals.firedancer;
 
 import framework.connector.Connection;
 import framework.connector.Connector;
-import framework.connector.payloads.GlobalEffectChangePayload;
-import framework.connector.payloads.OnPerformPayload;
 import framework.connector.payloads.UpdatePayload;
 import game.entities.Hero;
 import game.skills.*;
 import game.skills.changeeffects.effects.Burning;
 import game.skills.changeeffects.effects.Gifted;
-import game.skills.changeeffects.globals.Heat;
 
 import java.util.Iterator;
 import java.util.List;
@@ -28,8 +25,10 @@ public class S_GiftOfTheFirstFlame extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.ULT);
         this.targetType = TargetType.SELF;
-        this.possibleCastPositions = new int[]{0,1,2,3};
-        this.faithCost = 7;
+        this.possibleCastPositions = new int[]{0,1,2};
+        this.effects = List.of(new Burning(2));
+        this.faithRequirement = 70;
+        this.level = 5;
     }
 
 
@@ -58,15 +57,19 @@ public class S_GiftOfTheFirstFlame extends Skill {
             this.hero.addEffect(new Gifted(), this.hero);
         }
     }
+
+    @Override
+    public String getUpperDescriptionFor(Hero hero) {
+        return "Active: Remove all debuffs other than " + Burning.getStaticIconString()+".";
+    }
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "Passive: As long as you have at least 5 burn stacks, primary skills count as 2 hits. Active: Get 2 Burn stacks, remove all other debuffs.";
+        return "Passive: As long as you have at least 5 "+Burning.getStaticIconString()+" stacks, primary skills hit twice.";
     }
 
     @Override
     public void applySkillEffects(Hero target) {
         super.applySkillEffects(target);
-        this.hero.addEffect(new Burning(2), this.hero);
         Iterator<Effect> iter = this.hero.getEffects().stream()
                 .filter(effect->effect.type.equals(Effect.ChangeEffectType.DEBUFF) && !(effect instanceof Burning))
                 .toList().iterator();

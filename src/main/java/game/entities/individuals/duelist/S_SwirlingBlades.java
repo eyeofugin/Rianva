@@ -27,8 +27,8 @@ public class S_SwirlingBlades extends Skill {
         this.aiTags = List.of(AiSkillTag.COMBO_ENABLED);
         this.dmgMultipliers = List.of(new Multiplier(Stat.POWER, 0.4));
         this.targetType = TargetType.SINGLE;
-        this.possibleCastPositions = new int[]{2,3};
-        this.possibleTargetPositions = new int[]{4,5};
+        this.possibleCastPositions = new int[]{1,2};
+        this.possibleTargetPositions = new int[]{3,4};
         this.dmg = 2;
         this.cdMax = 2;
         this.damageMode = DamageMode.PHYSICAL;
@@ -47,8 +47,8 @@ public class S_SwirlingBlades extends Skill {
 
 
     @Override
-    public String getDescriptionFor(Hero hero) {
-        return "Combo: Daze(2)";
+    public String getComboDescription(Hero hero) {
+        return "Gain " + Dazed.getStaticIconString() + "(2).";
     }
 
     @Override

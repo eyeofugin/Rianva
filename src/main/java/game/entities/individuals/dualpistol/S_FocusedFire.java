@@ -6,6 +6,7 @@ import framework.connector.payloads.DmgChangesPayload;
 import game.entities.Hero;
 import game.skills.Skill;
 import game.skills.SkillTag;
+import game.skills.Stat;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class S_FocusedFire extends Skill {
 
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "Deal double damage to targets with less than 50% health";
+        return "Deal double damage to targets with less than 50%" + Stat.LIFE.getReference()+ ".";
     }
 
     @Override

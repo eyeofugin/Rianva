@@ -28,7 +28,7 @@ public class S_HeatOfTheDragon extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
         this.targetType = TargetType.ARENA;
-        this.possibleCastPositions = new int[]{0,1,2,3};
+        this.possibleCastPositions = new int[]{0,1,2};
         this.manaCost = 6;
     }
 

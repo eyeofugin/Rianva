@@ -25,7 +25,6 @@ public class S_Bloodlust extends Skill {
         this.tags = List.of(SkillTag.PASSIVE, SkillTag.TACTICAL);
     }
 
-
     @Override
     public String getDescriptionFor(Hero hero) {
         return "Heal for 50% of life enemies lose to bleed";

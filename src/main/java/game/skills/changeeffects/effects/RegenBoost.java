@@ -13,7 +13,7 @@ public class RegenBoost extends Effect {
         this.iconString = ICON_STRING;
         this.name = "Regen Boost";
         this.stackable = false;
-        this.description = "Doubles life regen.";
+        this.description = "Doubles all received heal.";
         this.type = ChangeEffectType.BUFF;
     }
 
@@ -30,7 +30,7 @@ public class RegenBoost extends Effect {
         Connector.addSubscription(Connector.HEAL_CHANGES, new Connection(this, HealChangesPayload.class, "healChanges"));
     }
     public void healChanges(HealChangesPayload pl) {
-        if (this.hero.equals(pl.target) && pl.regen) {
+        if (this.hero.equals(pl.target)) {
             pl.heal *= 2;
         }
     }

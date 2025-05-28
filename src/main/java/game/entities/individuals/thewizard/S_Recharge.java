@@ -22,8 +22,10 @@ public class S_Recharge extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
         this.targetType = TargetType.SELF;
-        this.possibleCastPositions = new int[]{0,1,2,3};
+        this.possibleCastPositions = new int[]{0,1,2};
         this.manaCost = 0;
+        this.cdMax = 3;
+        this.level = 2;
     }
 
 
@@ -41,7 +43,7 @@ public class S_Recharge extends Skill {
 
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "Gain 40% Magic as mana";
+        return "Gain +" + (int)(this.hero.getStat(Stat.MAGIC) * 0.4) + "(40%" + Stat.MAGIC.getIconString() + ")" + Stat.MANA.getIconString() + ".";
     }
     @Override
     public void applySkillEffects(Hero target) {

@@ -22,16 +22,12 @@ public class S_WideSwing extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.ULT);
         this.targetType = TargetType.ALL_TARGETS;
-        this.possibleCastPositions = new int[]{2,3};
-        this.possibleTargetPositions = new int[]{4,5};
+        this.possibleCastPositions = new int[]{1,2};
+        this.possibleTargetPositions = new int[]{3,4};
+        this.effects = List.of(new Bleeding(1));
         this.damageMode = DamageMode.PHYSICAL;
         this.cdMax = 2;
-    }
-
-    @Override
-    public void applySkillEffects(Hero target) {
-        super.applySkillEffects(target);
-        target.addEffect(new Bleeding(1), this.hero);
+        this.level = 5;
     }
     @Override
     public int getDmg(Hero target) {

@@ -16,7 +16,7 @@ public class Rooted extends Effect {
         this.name = "Rooted";
         this.stackable = false;
         this.description = "Can't use movement skills.";
-        this.type = ChangeEffectType.STATUS_INFLICTION;
+        this.type = ChangeEffectType.DEBUFF;
     }
     public static String getStaticIconString() {
         return "[" + ICON_STRING + "]";

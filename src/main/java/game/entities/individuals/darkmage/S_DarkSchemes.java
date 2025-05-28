@@ -20,11 +20,12 @@ public class S_DarkSchemes extends Skill {
     @Override
     public void setToInitial() {
         super.setToInitial();
-        this.tags = List.of(SkillTag.TACTICAL);
+        this.tags = List.of(SkillTag.ULT);
         this.targetType = TargetType.SINGLE;
-        this.possibleCastPositions = new int[]{0,1,2,3};
-        this.possibleTargetPositions = new int[]{4,5,6,7};
+        this.possibleCastPositions = new int[]{0,1,2};
+        this.possibleTargetPositions = new int[]{3,4,5};
         this.manaCost = 10;
+        this.level = 5;
     }
 
 

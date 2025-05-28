@@ -24,6 +24,7 @@ public class S_BlueLife extends Skill {
     public void setToInitial() {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL, SkillTag.PASSIVE);
+        this.level = 2;
     }
 
     @Override

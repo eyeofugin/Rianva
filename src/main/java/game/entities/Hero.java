@@ -13,10 +13,10 @@ import framework.states.Arena;
 import game.objects.Equipment;
 import game.skills.*;
 import game.skills.changeeffects.effects.Immunity;
-import game.skills.changeeffects.effects.Invincible;
+import game.skills.changeeffects.effects.StatEffect;
+import game.skills.changeeffects.effects.other.Exhausted;
 import game.skills.changeeffects.statusinflictions.Dazed;
 import game.skills.changeeffects.statusinflictions.Injured;
-import game.skills.genericskills.S_Skip;
 import utils.FileWalker;
 import utils.MyMaths;
 
@@ -29,6 +29,9 @@ import java.util.Objects;
 
 public abstract class Hero extends GUIElement {
 
+    public static String DRAFT = "DRAFT";
+    public static String ARENA = "ARENA";
+    public static String BUILDER = "BUILDER";
     private static final String STAT_PATH = "/data/stats.json";
     public Arena arena;
     public Animator anim;
@@ -39,10 +42,8 @@ public abstract class Hero extends GUIElement {
     protected static int idCounter;
     protected int id;
     protected String name;
-    protected Skill[] skills;
-    protected Skill[] primary;
-    protected Skill[] tactical;
-    protected Skill ult;
+    protected List<Skill> skills = new ArrayList<>();
+    protected List<Skill> learnableSkillList = new ArrayList<>();
     protected List<Equipment> equipments = new ArrayList<>();
     protected String portraitName;
     public static int draftDimensionX = 64;
@@ -51,11 +52,13 @@ public abstract class Hero extends GUIElement {
 
     protected int level = 1;
     protected int draftChoice = 0;
-    protected Map<Integer, Map<Stat, Integer>> levelStats = new HashMap<>();
+    protected Map<Stat, Integer> baseStats = new HashMap<>();
     protected Map<Stat, Integer> stats = new HashMap<>();
     protected Map<Stat, Integer> statChanges = new HashMap<>();
     protected List<Effect> effects = new ArrayList<>();
+    protected boolean movedLast = false;
     protected Stat secondaryResource;
+    protected Role role = Role.NONE;
 
     private int position;
 
@@ -77,6 +80,9 @@ public abstract class Hero extends GUIElement {
     public void enterArena(int position, Arena arena) {
         this.position = position;
         this.arena = arena;
+        this.stats.put(Stat.CURRENT_LIFE, this.stats.get(Stat.LIFE));
+        this.stats.put(Stat.CURRENT_MANA, this.stats.get(Stat.MANA));
+        this.stats.put(Stat.CURRENT_FAITH, 0);
     }
 
     public void initBasePath(String name) {
@@ -87,12 +93,8 @@ public abstract class Hero extends GUIElement {
     protected abstract void initAnimator();
     protected abstract void initSkills();
     protected void initStats() {
-        for (Map.Entry<Integer, Map<Stat, Integer>> level : loadLevelStats().entrySet()) {
-            Map<Stat, Integer> levelStats = this.statBase();
-            levelStats.putAll(level.getValue());
-            this.levelStats.put(level.getKey(), levelStats);
-        }
-    };
+        this.baseStats = loadLevelStats();
+    }
 
     protected Map<Stat, Integer> statBase() {
         Map<Stat, Integer> base = new HashMap<>();
@@ -116,8 +118,8 @@ public abstract class Hero extends GUIElement {
         base.put(Stat.MANA, 0);
         base.put(Stat.CURRENT_MANA, 0);
 
-        base.put(Stat.MAX_ACTION, 1);
-        base.put(Stat.CURRENT_ACTION, 1);
+        base.put(Stat.MAX_ACTION, 3);
+        base.put(Stat.CURRENT_ACTION, 0);
 
         base.put(Stat.CRIT_CHANCE, 0);
         base.put(Stat.ACCURACY, 100);
@@ -127,18 +129,18 @@ public abstract class Hero extends GUIElement {
         return base;
     }
 
-    protected void randomizeSkills() {
-        this.skills = new Skill[5];
-        int primaryUpper = this.primary.length-1;
-        this.skills[0] = primary[MyMaths.getFromToIncl(0,primaryUpper, new ArrayList<>())];
-        int tacticalUpper = this.tactical.length-1;
-        int tac1 = MyMaths.getFromToIncl(0, tacticalUpper, new ArrayList<>());
-        int tac2 = MyMaths.getFromToIncl(0, tacticalUpper, List.of(tac1));
-        this.skills[1] = tactical[tac1];
-        this.skills[2] = tactical[tac2];
-        this.skills[3] = ult;
-        this.skills[4] = new S_Skip(this);
-    }
+//    protected void randomizeSkills() {
+//        this.skills = new Skill[5];
+//        int primaryUpper = this.primary.length-1;
+//        this.skills[0] = primary[MyMaths.getFromToIncl(0,primaryUpper, new ArrayList<>())];
+//        int tacticalUpper = this.tactical.length-1;
+//        int tac1 = MyMaths.getFromToIncl(0, tacticalUpper, new ArrayList<>());
+//        int tac2 = MyMaths.getFromToIncl(0, tacticalUpper, List.of(tac1));
+//        this.skills[1] = tactical[tac1];
+//        this.skills[2] = tactical[tac2];
+//        this.skills[3] = ult;
+//        this.skills[4] = new S_Skip(this);
+//    }
 
     public int getLastEffectivePosition() {
         return this.team.getFirstPosition() - (effectiveRange * this.team.fillUpDirection);
@@ -148,14 +150,17 @@ public abstract class Hero extends GUIElement {
     public void update(int frame) {
         this.anim.animate();
     }
-    @Override
-    public int[] render() {
+    public int[] render(String renderMode) {
         background(Color.VOID);
         renderImage();
-        yf = 65;
-        renderBars();
-        renderEffects();
-        renderDraftInfo();
+        if (renderMode.equals(ARENA)) {
+            yf = 65;
+            renderBars();
+            renderEffects();
+        } else if (renderMode.equals(DRAFT)) {
+            yf = 65;
+            renderDraftInfo();
+        }
         return pixels;
     }
 
@@ -168,7 +173,7 @@ public abstract class Hero extends GUIElement {
     }
 
     private int[] getImagePixels() {
-        boolean flipHorizontal = this.team == null || this.team.teamNumber == 2;
+        boolean flipHorizontal = this.team != null && this.team.teamNumber == 2;
         return flipHorizontal ? SpriteUtils.flipHorizontal(this.anim.image, 64) : this.anim.image;
     }
 
@@ -184,12 +189,6 @@ public abstract class Hero extends GUIElement {
         if (this.secondaryResource != null) {
             fillWithGraphicsSize(0, yf, 64, 3, getBar(64, 3, 0, getResourcePercentage(this.secondaryResource), getResourceColor(this.secondaryResource), Color.DARKRED), false);
             yf+=4;
-        }
-        int actionYF = 2;
-        for (int i = 0; i < this.getStat(Stat.CURRENT_ACTION); i++) {
-            int[] action = SpriteLibrary.getSprite("action");
-            fillWithGraphicsSize(2, actionYF, 5,5,action,false);
-            actionYF += 7;
         }
     }
     private int[] getShieldBar() {
@@ -210,7 +209,13 @@ public abstract class Hero extends GUIElement {
         int paddingX = 2;
         int paddingY = 5;
         for (Effect effect : this.effects) {
-            int[] sprite = SpriteLibrary.getSprite(effect.getClass().getName());
+            int[] sprite = new int[0];
+            if (effect instanceof StatEffect) {
+                Stat stat = effect.stat;
+                SpriteLibrary.getSprite(stat.name());
+            } else {
+                sprite = SpriteLibrary.getSprite(effect.getClass().getName());
+            }
 
             fillWithGraphicsSize(effectsX, yf, Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,
                     sprite, false, null, Color.VOID);
@@ -258,25 +263,36 @@ public abstract class Hero extends GUIElement {
             int[] draftChoiceNumberPixels = getTextLine(this.draftChoice+"", 10,10, Color.RED);
             fillWithGraphicsSize(this.width-10,0,10,10,draftChoiceNumberPixels, false);
         }
+
+        int roleYf = 2;
+        int[] role = getTextLine("["+this.role.iconKey+"]", 10,10,Color.WHITE);
+        fillWithGraphicsSize(2, roleYf, 10,10,role,false);
     }
 
 //StatMagic
 
-    public void addLevel() {
-        if (this.levelStats.get(this.level + 1) == null) {
-            Logger.logLn("Level to set too high.");
+    public void levelUp() {
+        if (level ==10) {
             return;
         }
-        this.level++;
-        this.setLevel(this.level);
+        int newLevel = this.level + 1;
+        this.setLevel(newLevel);
+        List<Skill> newSkills = this.learnableSkillList.stream().filter(s->s.getLevel() == newLevel).toList();
+        newSkills.forEach(s-> {
+            if (!this.skills.contains(s)) {
+                this.skills.add(s);
+            }
+        });
     }
     public void setLevel(int level) {
-        if (this.levelStats.get(level) == null) {
-            Logger.logLn("Level to set too high.");
-            return;
+        this.level = level;
+        for (Map.Entry<Stat, Integer> entry : this.baseStats.entrySet()) {
+            if (!entry.getKey().equals(Stat.FAITH)) {
+                this.stats.put(entry.getKey(), MyMaths.getLevelStat(entry.getValue(), level));
+            } else {
+                this.stats.put(entry.getKey(), entry.getValue());
+            }
         }
-        this.statChanges = new HashMap<>();
-        this.stats = this.levelStats.get(level);
     }
     public int getStat(Stat stat) {
         if (stat == null) {
@@ -386,20 +402,23 @@ public abstract class Hero extends GUIElement {
     public void startOfTurn() {
         StartOfTurnPayload startOfTurnPayload = new StartOfTurnPayload();
         Connector.fireTopic(this.id + Connector.START_OF_TURN, startOfTurnPayload);
-
-        setActions();
     }
     public void endOfTurn() {
         skillTurn();
-        changeStatTo(Stat.CURRENT_ACTION, this.stats.get(Stat.MAX_ACTION));
+        refreshAction();
         if (this.secondaryResource != null && this.secondaryResource.equals(Stat.MANA)) {
             addResource(Stat.CURRENT_MANA, Stat.MANA, this.getStat(Stat.MANA_REGAIN), this);
         }
     }
+    public void refreshAction() {
+        if (this.hasPermanentEffect(Exhausted.class) == 0 && (!this.movedLast || getStat(Stat.CURRENT_ACTION) == 0)) {
+            this.changeStatTo(Stat.CURRENT_ACTION, this.getStat(Stat.MAX_ACTION));
+        }
+    }
+
     public void endOfRound() {
         effectTurn();
         equipmentTurn();
-
         if (this.getStat(Stat.CURRENT_LIFE) < 1) {
             return;
         }
@@ -409,32 +428,22 @@ public abstract class Hero extends GUIElement {
         }
         heal(this, heal, null, true);
     }
-    private void setActions() {
-        ActionInflictionPayload actionInflictionPayload = new ActionInflictionPayload();
-        Connector.fireTopic(Connector.ACTION_INFLICTION, actionInflictionPayload);
-        this.addToStat(Stat.CURRENT_ACTION, actionInflictionPayload.getInfliction());
-        if (this.getStat(Stat.CURRENT_ACTION) < 0) {
-            this.changeStatTo(Stat.CURRENT_ACTION, 0);
-        }
-    }
+
 //Equipment Magic
     public void equip(Equipment equipment) {
         if (!this.equipments.contains(equipment)) {
             this.equipments.add(equipment);
         }
-        if (equipment.getSkill() != null && this.skills.length < 8 && this.skills.length > 1) {
+        if (equipment.getSkill() != null && this.skills.size() < 8 && this.skills.size() > 1) {
             equipment.getSkill().hero = this;
-            List<Skill> newSkills = new ArrayList<>(List.of(this.skills));
-            newSkills.add(newSkills.size()-1, equipment.getSkill());
-            this.skills = newSkills.toArray(new Skill[0]);
+            this.skills.add(equipment.getSkill());
+            System.out.println("equip " + equipment.getName() + " " + this.name);
         }
     }
     public void unequip(Equipment equipment) {
         this.equipments.remove(equipment);
         if (equipment.getSkill() != null) {
-            List<Skill> newSkills = new ArrayList<>(List.of(this.skills));
-            newSkills.remove(equipment.getSkill());
-            this.skills = newSkills.toArray(new Skill[0]);
+            this.skills.remove(equipment.getSkill());
         }
     }
     private void equipmentTurn() {
@@ -519,6 +528,7 @@ public abstract class Hero extends GUIElement {
                     .setCaster(caster);
             Connector.fireTopic(Connector.EFFECT_ADDED, effectAddedPayload);
         }
+        this.arena.logCard.addToLog(this.getName() + " received " + effect.getIconString() + "("+(effect.stackable?effect.stacks:effect.turns)+").");
     }
     private boolean getEffectFailure(Effect effect, Hero caster) {
         if (hasPermanentEffect(Immunity.class) > 0) {
@@ -580,20 +590,21 @@ public abstract class Hero extends GUIElement {
         }
         return false;
     }
-    public boolean canPerform(Skill s) {
+    public boolean canPerform(Skill s, int[] targetPositions) {
 
         if (!canPerformResourceCheck(s)) {
             return false;
         }
         CanPerformPayload canPerformPayload = new CanPerformPayload()
-                .setSkill(s);
+                .setSkill(s)
+                .setTargetPositions(targetPositions);
         Connector.fireTopic(Connector.CAN_PERFORM, canPerformPayload);
         return canPerformPayload.success;
     }
     private boolean canPerformResourceCheck(Skill s) {
         return this.stats.get(Stat.CURRENT_LIFE) > s.getLifeCost() &&
+                this.stats.get(Stat.CURRENT_FAITH) >= s.getFaithRequirement() &&
                 this.stats.get(Stat.CURRENT_ACTION) >= s.getActionCost() &&
-                this.stats.get(Stat.CURRENT_FAITH) >= s.getFaithCost() &&
                 this.stats.get(Stat.CURRENT_MANA) >= s.getManaCost() &&
                 s.getCdCurrent()<=0 && !s.isPassive() && isInPosition(s) &&
                 s.performCheck(this);
@@ -603,16 +614,18 @@ public abstract class Hero extends GUIElement {
     }
     public void payForSkill(Skill s) {
         addToStat(Stat.CURRENT_LIFE, -1*s.getLifeCost(this));
-        addToStat(Stat.CURRENT_ACTION, -1*s.getActionCost());
         addToStat(Stat.CURRENT_FAITH, -1*s.getFaithCost());
         addToStat(Stat.CURRENT_MANA, -1*s.getManaCost());
+        addToStat(Stat.CURRENT_ACTION, -1 * s.getActionCost());
+        if (getStat(Stat.CURRENT_ACTION) < 1) {
+            addEffect(new Exhausted(), this);
+        }
         Logger.logLn("Paid life:"+s.getLifeCost(this));
-        Logger.logLn("Paid action:"+s.getActionCost());
     }
 
     public void removeNegativeEffects() {
         List<Effect> toRemove = this.effects.stream().filter(e-> e.type.equals(Effect.ChangeEffectType.DEBUFF)
-                || e.type.equals(Effect.ChangeEffectType.STATUS_INFLICTION)).toList();
+                || (e.type.equals(Effect.ChangeEffectType.STAT_CHANGE) && e.statChange < 0)).toList();
         for (Effect effect : toRemove) {
             this.removeEffect(effect);
         }
@@ -645,7 +658,10 @@ public abstract class Hero extends GUIElement {
                 .setRegen(regen);
         Connector.fireTopic(Connector.HEAL_CHANGES, healChangesPayload);
         int resultHeal = healChangesPayload.heal;
-        addResource(Stat.CURRENT_LIFE, Stat.LIFE, resultHeal, caster);
+        if (resultHeal >0) {
+            this.arena.logCard.addToLog(this.getName() + " was healed by " + resultHeal + ".");
+            addResource(Stat.CURRENT_LIFE, Stat.LIFE, resultHeal, caster);
+        }
     }
 
     public void shield(int shield, Hero source) {
@@ -658,9 +674,6 @@ public abstract class Hero extends GUIElement {
     }
     public int trueDamage(Hero caster, int damage) {
         playAnimation("damaged", true);
-        if (this.hasPermanentEffect(Invincible.class) > 0) {
-            damage = Math.min(damage, this.getStat(Stat.CURRENT_LIFE)-1);
-        }
         addResource(Stat.CURRENT_LIFE, Stat.LIFE, -1*damage, caster);
         return damage;
     }
@@ -705,14 +718,12 @@ public abstract class Hero extends GUIElement {
                 Connector.fireTopic(Connector.SHIELD_BROKEN, pl);
             }
         }
-        if (this.hasPermanentEffect(Invincible.class) > 0) {
-            result = Math.min(result, this.getStat(Stat.CURRENT_LIFE)-1);
-        }
+        this.arena.logCard.addToLog(this.getName() + " was dealt " + result + " damage.");
         addResource(Stat.CURRENT_LIFE, Stat.LIFE, -1*result, caster);
         return result;
     }
     private Stat getDefenseStatFor(DamageMode dmgMode) {
-        if (Objects.requireNonNull(dmgMode) == DamageMode.PHYSICAL) {
+        if (dmgMode == DamageMode.PHYSICAL) {
             return Stat.STAMINA;
         }
         return Stat.ENDURANCE;
@@ -781,9 +792,9 @@ public abstract class Hero extends GUIElement {
 
 //Loading
 
-    protected Map<Integer, Map<Stat, Integer>> loadLevelStats() {
+    protected Map<Stat, Integer> loadLevelStats() {
 
-        Map<Integer, Map<Stat, Integer>> statJson = FileWalker.getStatJson(this.basePath + STAT_PATH);
+        Map<Stat, Integer> statJson = FileWalker.getStatJson(this.basePath + STAT_PATH);
         if (statJson != null) {
             return statJson;
         }
@@ -853,11 +864,15 @@ public abstract class Hero extends GUIElement {
         return this;
     }
 
-    public Skill[] getSkills() {
+    public List<Skill> getLearnableSkillList() {
+        return learnableSkillList;
+    }
+
+    public List<Skill> getSkills() {
         return skills;
     }
 
-    public Hero setSkills(Skill[] skills) {
+    public Hero setSkills(List<Skill> skills) {
         this.skills = skills;
         return this;
     }
@@ -898,6 +913,15 @@ public abstract class Hero extends GUIElement {
         return this;
     }
 
+    public boolean isMovedLast() {
+        return movedLast;
+    }
+
+    public Hero setMovedLast(boolean movedLast) {
+        this.movedLast = movedLast;
+        return this;
+    }
+
     public int getPosition() {
         return position;
     }
@@ -914,22 +938,15 @@ public abstract class Hero extends GUIElement {
         return this.team.teamNumber==2;
     }
 
-    public Skill[] getPrimary() {
-        return primary;
+    public List<Skill> getSpecificSkills(SkillTag tag) {
+        return this.skills.stream().filter(s->s.tags.contains(tag)).toList();
     }
 
-    public Skill[] getTactical() {
-        return tactical;
-    }
-
-    public Skill getUlt() {
-        return ult;
-    }
 //DEV
 
     public void devDMGTestSkill(int index, Hero target) {
-        if (this.skills.length > index) {
-            Skill skill = this.skills[index];
+        if (this.skills.size() > index) {
+            Skill skill = this.skills.get(index);
             System.out.print(skill.getName()+":");
             skill.setTargets(new Hero[]{target});
             skill.resolve();
@@ -938,5 +955,9 @@ public abstract class Hero extends GUIElement {
 
     public int getCasterPosition() {
         return this.isTeam2() ? 7 - this.position : this.position;
+    }
+
+    public Role getRole() {
+        return this.role;
     }
 }

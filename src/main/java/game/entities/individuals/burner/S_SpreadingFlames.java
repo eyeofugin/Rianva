@@ -3,6 +3,7 @@ package game.entities.individuals.burner;
 import game.entities.Hero;
 import game.skills.Skill;
 import game.skills.SkillTag;
+import game.skills.Stat;
 import game.skills.TargetType;
 import game.skills.changeeffects.effects.Burning;
 
@@ -22,16 +23,17 @@ public class S_SpreadingFlames extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.ULT);
         this.targetType = TargetType.ALL_TARGETS;
-        this.possibleCastPositions = new int[]{0,1,2,3};
-        this.possibleTargetPositions = new int[]{4,5,6,7};
-        this.faithCost = 6;
+        this.possibleCastPositions = new int[]{0,1,2};
+        this.possibleTargetPositions = new int[]{3,4,5};
+        this.faithRequirement = 75;
+        this.level = 5;
     }
 
 
 
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "For each "+Burning.getStaticIconString()+" stack among enemies, give another " +Burning.getStaticIconString()+" stack to a random enemy.";
+        return "For each "+Burning.getStaticIconString()+" stack among enemies, give another " +Burning.getStaticIconString()+" stack to a random enemy. Lose 30" + Stat.FAITH.getIconString() + ".";
     }
 
     @Override
@@ -50,6 +52,7 @@ public class S_SpreadingFlames extends Skill {
             Hero enemy = enemies.get(enemyIndex);
             enemy.addEffect(new Burning(1), this.hero);
         }
+        this.hero.addResource(Stat.CURRENT_FAITH, Stat.FAITH, -30, this.hero);
     }
 
     @Override

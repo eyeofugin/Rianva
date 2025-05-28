@@ -27,15 +27,10 @@ public class S_LightningStorm extends Skill {
         this.dmgMultipliers = List.of(new Multiplier(Stat.MAGIC, 0.5));
         this.targetType = TargetType.ALL_TARGETS;
         this.possibleCastPositions = new int[]{1,2};
-        this.possibleTargetPositions = new int[]{4,5,6,7};
+        this.possibleTargetPositions = new int[]{3,4,5};
         this.manaCost = 8;
         this.damageMode = DamageMode.MAGICAL;
-    }
-
-
-    @Override
-    public String getDescriptionFor(Hero hero) {
-        return "Deals heat damage to all enemies";
+        this.level = 5;
     }
 
     @Override

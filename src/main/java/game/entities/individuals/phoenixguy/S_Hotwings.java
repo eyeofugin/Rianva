@@ -22,30 +22,15 @@ public class S_Hotwings extends Skill {
         this.tags = List.of(SkillTag.PRIMARY);
         this.dmgMultipliers = List.of(new Multiplier(Stat.MAGIC, 0.5));
         this.targetType = TargetType.SINGLE;
-        this.possibleCastPositions = new int[]{2,3};
-        this.possibleTargetPositions = new int[]{4,5};
-        this.effects = List.of(new Burning(1));
+        this.possibleCastPositions = new int[]{1,2};
+        this.possibleTargetPositions = new int[]{3,4};
+        this.effects = List.of(new Burning(2));
         this.dmg = 4;
+        this.faithGain = 10;
         this.damageMode = DamageMode.MAGICAL;
-        this.aiTags = List.of(AiSkillTag.FAITH_GAIN);
     }
-
-    @Override
-    public void applySkillEffects(Hero target) {
-        super.applySkillEffects(target);
-        this.hero.addResource(Stat.CURRENT_FAITH, Stat.FAITH, 1, this.hero);
-    }
-
     @Override
     public String getName() {
         return "Hot Wings";
     }
-
-
-
-    @Override
-    public String getDescriptionFor(Hero hero) {
-        return "+1 Favor. Burns.";
-    }
-
 }

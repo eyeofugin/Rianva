@@ -3,13 +3,10 @@ package game.entities.individuals.dualpistol;
 import framework.connector.Connection;
 import framework.connector.Connector;
 import framework.connector.payloads.CriticalTriggerPayload;
-import framework.connector.payloads.GlobalEffectChangePayload;
 import game.entities.Hero;
-import game.entities.Multiplier;
 import game.skills.*;
 import game.skills.changeeffects.effects.Combo;
-import game.skills.changeeffects.effects.Lucky;
-import game.skills.changeeffects.globals.Heat;
+import game.skills.changeeffects.effects.StatEffect;
 
 import java.util.List;
 
@@ -27,9 +24,10 @@ public class S_EagleEye extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.ULT);
         this.targetType = TargetType.SELF;
-        this.possibleCastPositions = new int[]{0,1,2,3};
-        this.effects = List.of(new Lucky(3));
+        this.possibleCastPositions = new int[]{0,1,2};
+        this.effects = List.of(new StatEffect(3, Stat.CRIT_CHANCE, 100));
         this.cdMax = 5;
+        this.level = 5;
     }
 
     @Override
@@ -47,10 +45,9 @@ public class S_EagleEye extends Skill {
         }
     }
 
-
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "Gain Lucky. Whenever you crit, gain combo.";
+        return "Passive: Whenever you crit, gain " + Combo.getStaticIconString() + ".";
     }
     @Override
     public String getName() {

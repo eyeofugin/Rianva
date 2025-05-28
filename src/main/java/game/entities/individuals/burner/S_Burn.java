@@ -15,7 +15,6 @@ public class S_Burn extends Skill {
         this.iconPath ="entities/burner/icons/burn.png";
         addSubscriptions();
         setToInitial();
-
     }
     @Override
     public void setToInitial() {
@@ -23,21 +22,11 @@ public class S_Burn extends Skill {
         this.tags = List.of(SkillTag.PRIMARY);
         this.aiTags = List.of(AiSkillTag.FAITH_GAIN);
         this.targetType = TargetType.SINGLE;
-        this.effects = List.of(new Burning(4));
+        this.dmgMultipliers = List.of(new Multiplier(Stat.MAGIC, 0.2));
+        this.effects = List.of(new Burning(1));
         this.possibleCastPositions = new int[]{0,1,2};
-        this.possibleTargetPositions = new int[]{4,5};
-    }
-
-
-
-    @Override
-    public String getDescriptionFor(Hero hero) {
-        return "Get 2"+Stat.FAITH.getIconString()+".";
-    }
-    @Override
-    public void applySkillEffects(Hero target) {
-        super.applySkillEffects(target);
-        this.hero.addResource(Stat.CURRENT_FAITH, Stat.FAITH, 2, this.hero);
+        this.possibleTargetPositions = new int[]{3,4};
+        this.faithGain = 10;
     }
 
     @Override

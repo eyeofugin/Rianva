@@ -2,15 +2,10 @@ package game.entities.individuals.cryobrawler;
 
 import game.entities.Animator;
 import game.entities.Hero;
-import game.entities.individuals.eldritchguy.S_GraspOfTheAbyss;
-import game.entities.individuals.eldritchguy.S_HorrificGlare;
-import game.entities.individuals.eldritchguy.S_TentacleGrab;
-import game.entities.individuals.eldritchguy.S_UnleashEmptiness;
-import game.entities.individuals.eldritchguy.S_UnnaturalDefenses;
-import game.entities.individuals.eldritchguy.S_VoidGraft;
-import game.entities.individuals.eldritchguy.S_VoidLeech;
-import game.skills.Skill;
+import game.entities.Role;
 import game.skills.Stat;
+
+import java.util.List;
 
 public class H_CryoBrawler extends Hero {
 
@@ -22,6 +17,7 @@ public class H_CryoBrawler extends Hero {
         initSkills();
         this.initStats();
         setLevel(1);
+        this.role = Role.TANK;
         this.effectiveRange = 2;
     }
 
@@ -33,7 +29,7 @@ public class H_CryoBrawler extends Hero {
 
         anim.setupAnimation(this.basePath + "/sprites/idle_w.png", "idle", new int[]{40,80});
         anim.setupAnimation(this.basePath + "/sprites/damaged_w.png", "damaged", new int[]{3,6,9,12});
-        anim.setupAnimation(this.basePath + "/sprites/action_w.png", "action_w", new int[]{15, 30, 45});
+        anim.setupAnimation(this.basePath + "/sprites/action_w.png", "action_w", new int[]{15, 60, 100});
 
         anim.setDefaultAnim("idle");
         anim.currentAnim = anim.getDefaultAnim();
@@ -42,14 +38,8 @@ public class H_CryoBrawler extends Hero {
 
     @Override
     protected void initSkills() {
-        this.primary = new Skill[]{
-                new S_FrostBite(this), new S_IceClaw(this)
-        };
-        this.tactical = new Skill[]{
-                new S_BlueLife(this), new S_ColdWinds(this),
-                new S_FrostBreath(this), new S_FrozenShield(this)
-        };
-        this.ult = new S_Avalanche(this);
-        randomizeSkills();
+        this.skills.addAll(List.of(new S_IceClaw(this), new S_FrostBreath(this)));
+        this.learnableSkillList.addAll(List.of(new S_BlueLife(this), new S_Avalanche(this)));
+//        randomizeSkills();
     }
 }

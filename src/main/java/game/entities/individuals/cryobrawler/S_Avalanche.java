@@ -25,12 +25,13 @@ public class S_Avalanche extends Skill {
         this.tags = List.of(SkillTag.ULT);
         this.dmgMultipliers = List.of(new Multiplier(Stat.MAGIC, 0.2));
         this.targetType = TargetType.ALL_TARGETS;
-        this.possibleCastPositions = new int[]{2,3};
-        this.possibleTargetPositions = new int[]{4,5,6,7};
+        this.possibleCastPositions = new int[]{1,2};
+        this.possibleTargetPositions = new int[]{3,4,5};
         this.dmg = 10;
         this.effects = List.of(new Frost(1));
         this.damageMode = DamageMode.MAGICAL;
-        this.manaCost = 6;
+        this.manaCost = 20;
+        this.level = 5;
     }
 
     @Override

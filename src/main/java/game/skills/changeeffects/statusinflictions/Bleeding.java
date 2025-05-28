@@ -12,7 +12,7 @@ public class Bleeding extends Effect {
         this.name = "Bleeding";
         this.stackable = false;
         this.description = "Loses 15% health each turn.";
-        this.type = ChangeEffectType.STATUS_INFLICTION;
+        this.type = ChangeEffectType.DEBUFF;
     }
     public static String getStaticIconString() {
         return "[" + ICON_STRING + "]";

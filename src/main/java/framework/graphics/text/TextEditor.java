@@ -1,8 +1,10 @@
 package framework.graphics.text;
 
 import framework.Property;
+import game.entities.Role;
 import game.skills.Stat;
 import game.skills.changeeffects.effects.*;
+import game.skills.changeeffects.effects.other.Exhausted;
 import game.skills.changeeffects.statusinflictions.*;
 
 import java.util.ArrayList;
@@ -174,6 +176,7 @@ public class TextEditor {
         symbols.put("%", Symbol.percentagex8);
         symbols.put(" ", Symbol.spacex8);
         symbols.put("~", Symbol.infinitex8);
+        symbols.put("!", Symbol.exclamationMarkx8);
         symbols.put(Stat.CURRENT_MANA.getIconKey(), Symbol.mana);
         symbols.put(Stat.MANA.getIconKey(), Symbol.mana);
         symbols.put(Stat.MANA_REGAIN.getIconKey(), Symbol.manaregain);
@@ -187,7 +190,7 @@ public class TextEditor {
         symbols.put(Stat.CURRENT_LIFE.getIconKey(), Symbol.life);
         symbols.put(Stat.LIFE_REGAIN.getIconKey(), Symbol.liferegain);
         symbols.put(Stat.MAGIC.getIconKey(), Symbol.magic);
-        symbols.put(Stat.POWER.getIconKey(), Symbol.finesse);
+        symbols.put(Stat.POWER.getIconKey(), Symbol.force);
         symbols.put(Stat.STAMINA.getIconKey(), Symbol.stamina);
         symbols.put(Stat.ENDURANCE.getIconKey(), Symbol.endurance);
         symbols.put(Stat.SPEED.getIconKey(), Symbol.speed);
@@ -203,15 +206,14 @@ public class TextEditor {
         symbols.put(Burning.ICON_STRING, Symbol.burning);
         symbols.put(Combo.ICON_STRING, Symbol.combo);
         symbols.put(Cover.ICON_STRING, Symbol.cover);
-        symbols.put(DarkSecrets.ICON_STRING, Symbol.darksecrets);
         symbols.put(DoubleShot.ICON_STRING, Symbol.doubleshot);
         symbols.put(Exalted.ICON_STRING, Symbol.exalted);
         symbols.put(Frost.ICON_STRING, Symbol.frost);
         symbols.put(Gifted.ICON_STRING, Symbol.gifted);
+        symbols.put(Exhausted.ICON_STRING, Symbol.exhausted);
         symbols.put(Immunity.ICON_STRING, Symbol.immunity);
         symbols.put(Invincible.ICON_STRING, Symbol.invincible);
         symbols.put(LifeSteal.ICON_STRING, Symbol.lifesteal);
-        symbols.put(Lucky.ICON_STRING, Symbol.lucky);
         symbols.put(RegenBoost.ICON_STRING, Symbol.regenboost);
         symbols.put(RegenStop.ICON_STRING, Symbol.regenstop);
         symbols.put(RighteousHammerCounter.ICON_STRING, Symbol.righteoushammer);
@@ -234,6 +236,11 @@ public class TextEditor {
         symbols.put("OTA", Symbol.otherTargetAll);
         symbols.put("EMT", Symbol.emptyTarget);
         symbols.put("BRL", new LineBreak());
+        symbols.put("???", Symbol.missingx8);
+        symbols.put(Role.TANK.iconKey, Symbol.tank);
+        symbols.put(Role.FIGHTER.iconKey, Symbol.fighter);
+        symbols.put(Role.DPS.iconKey, Symbol.dps);
+        symbols.put(Role.SUPPORT.iconKey, Symbol.support);
 
         return symbols;
     }
@@ -328,7 +335,6 @@ public class TextEditor {
         symbols.put(Stat.CRIT_CHANCE.getIconKey(), Symbol.critchance.pixels);
         symbols.put(Stat.EVASION.getIconKey(), Symbol.evasion.pixels);
         symbols.put(Stat.LETHALITY.getIconKey(), Symbol.lethality.pixels);
-
         return symbols;
     }
 

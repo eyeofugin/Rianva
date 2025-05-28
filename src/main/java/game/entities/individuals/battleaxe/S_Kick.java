@@ -22,11 +22,13 @@ public class S_Kick extends Skill {
         this.tags = List.of(SkillTag.TACTICAL);
         this.dmgMultipliers = List.of(new Multiplier(Stat.POWER, 0.1));
         this.targetType = TargetType.SINGLE;
-        this.possibleCastPositions = new int[]{3};
-        this.possibleTargetPositions = new int[]{4,5};
+        this.possibleCastPositions = new int[]{2};
+        this.possibleTargetPositions = new int[]{3,4};
         this.dmg = 3;
         this.cdMax = 4;
         this.damageMode = DamageMode.PHYSICAL;
+        this.priority = -1;
+        this.level = 2;
     }
 
     @Override
@@ -48,7 +50,7 @@ public class S_Kick extends Skill {
     @Override
     public void applySkillEffects(Hero target) {
         super.applySkillEffects(target);
-        this.hero.arena.move(target, 1, target.isTeam2()?1:-1);
+        this.hero.arena.moveTo(target, target.getPosition() + (target.isTeam2()?1:-1));
         target.changeStatTo(Stat.SHIELD, 0);
     }
     @Override

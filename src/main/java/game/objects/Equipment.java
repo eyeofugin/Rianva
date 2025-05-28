@@ -20,6 +20,7 @@ public class Equipment {
     protected Map<Stat, Integer> statBonus = new HashMap<>();
     protected Map<Stat, Integer> tempStatBonus = new HashMap<>();
     protected boolean loseTempStat = false;
+    protected boolean consumed = false;
     protected Hero hero;
     protected Hero oldHero;
     protected boolean active;
@@ -27,6 +28,9 @@ public class Equipment {
     protected String name;
     protected List<Stat> adaptiveStats;
 
+    public Equipment() {
+        this.packageName = "";
+    }
     public Equipment(String packageName, String name) {
         this.packageName = packageName;
         this.name = name;
@@ -140,12 +144,21 @@ public class Equipment {
     public String getDescription() { return " "; }
     public Skill getSkill() { return skill; }
     public boolean isActive() { return active; }
-    public String getStatBonusString() {
-        if (statBonus == null || statBonus.isEmpty()) {
+    public String getInfoStatBonus() {
+        return getBaseStatBonusString();
+    }
+    public String getBaseStatBonusString() {
+        return getStatBonusString(this.statBonus);
+    }
+    public String getTempStatBonusString() {
+        return getStatBonusString(this.tempStatBonus);
+    }
+    public String getStatBonusString(Map<Stat, Integer> statMap) {
+        if (statMap == null || statMap.isEmpty()) {
             return "";
         }
         StringBuilder builder = new StringBuilder();
-        for (Map.Entry<Stat, Integer> entry : statBonus.entrySet()) {
+        for (Map.Entry<Stat, Integer> entry : statMap.entrySet()) {
             builder.append(entry.getKey().getColorKey());
             if (entry.getValue()>0) {
                 builder.append(Color.MEDIUMGREEN.getCodeString());
@@ -153,10 +166,11 @@ public class Equipment {
             } else {
                 builder.append(Color.DARKRED.getCodeString());
             }
-            builder.append(entry.getValue()).append(" ");
+            builder.append(entry.getValue());
             builder.append(entry.getKey().getReference());
             builder.append(" ");
         }
+        builder.append(Color.WHITE.getCodeString());
         return builder.toString();
     }
 
@@ -165,4 +179,10 @@ public class Equipment {
                 "equipments/" + this.packageName + "/sprite.png", 0);
     }
 
+    public void consume() {
+        this.consumed = true;
+    }
+    public boolean isConsumed() {
+        return consumed;
+    }
 }

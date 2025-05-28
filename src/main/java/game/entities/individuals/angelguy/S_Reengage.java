@@ -21,11 +21,13 @@ public class S_Reengage extends Skill {
         this.tags = List.of(SkillTag.TACTICAL);
         this.dmgMultipliers = List.of(new Multiplier(Stat.POWER, 0.1), new Multiplier(Stat.ENDURANCE, 0.1));
         this.targetType = TargetType.SINGLE;
-        this.possibleTargetPositions = new int[]{3};
-        this.possibleCastPositions = new int[]{1,2};
+        this.possibleTargetPositions = new int[]{2};
+        this.possibleCastPositions = new int[]{0,1};
         this.dmg = 4;
         this.damageMode = DamageMode.PHYSICAL;
-        this.cdMax = 4;
+        this.faithRequirement = 55;
+        this.priority = 1;
+        this.level = 2;
     }
 
     @Override
@@ -42,6 +44,7 @@ public class S_Reengage extends Skill {
                 enemy.damage(this.hero,dmg,this.damageMode, 0,this);
             }
         }
+        applySkillEffects(target);
     }
     @Override
     public String getDescriptionFor(Hero hero) {

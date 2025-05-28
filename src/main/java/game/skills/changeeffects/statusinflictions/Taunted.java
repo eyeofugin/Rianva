@@ -16,7 +16,7 @@ public class Taunted extends Effect {
         this.name = "Taunted";
         this.stackable = false;
         this.description = "Can only use skills that do dmg.";
-        this.type = ChangeEffectType.STATUS_INFLICTION;
+        this.type = ChangeEffectType.DEBUFF;
 
     }
     public static String getStaticIconString() {

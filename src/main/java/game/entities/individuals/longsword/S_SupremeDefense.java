@@ -25,16 +25,19 @@ public class S_SupremeDefense extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.ULT);
         this.targetType = TargetType.SELF;
-        this.possibleCastPositions = new int[]{0,1,2,3};
+        this.possibleCastPositions = new int[]{0,1,2};
         this.cdMax = 6;
+        this.level = 5;
     }
 
-
-
+    @Override
+    public String getUpperDescriptionFor(Hero hero) {
+        return "Active: Gain +5" + Stat.ENDURANCE.getIconString() + " and +5" + Stat.STAMINA.getIconString() + ".";
+    }
 
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "Passive: Reduces dmg that is less than 10% of max life to 0. Active: Double Endurance and Stamina for 3 Turns.";
+        return "Passive: Reduces damage that is less than 10%"+Stat.LIFE.getReference()+" to 0.";
     }
 
     @Override
@@ -49,11 +52,12 @@ public class S_SupremeDefense extends Skill {
             }
         }
     }
+
     @Override
     public void applySkillEffects(Hero target) {
         super.applySkillEffects(target);
-        target.addToStat(Stat.ENDURANCE, target.getStat(Stat.ENDURANCE));
-        target.addToStat(Stat.STAMINA, target.getStat(Stat.STAMINA));
+        target.addToStat(Stat.ENDURANCE, 5);
+        target.addToStat(Stat.STAMINA, 5);
     }
     @Override
     public String getName() {

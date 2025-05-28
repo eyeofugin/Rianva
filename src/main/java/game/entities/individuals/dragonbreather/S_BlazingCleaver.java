@@ -26,8 +26,8 @@ public class S_BlazingCleaver extends Skill {
         this.tags = List.of(SkillTag.PRIMARY);
         this.dmgMultipliers = List.of(new Multiplier(Stat.POWER, 0.1), new Multiplier(Stat.MAGIC, 0.3));
         this.targetType = TargetType.SINGLE;
-        this.possibleCastPositions = new int[]{2,3};
-        this.possibleTargetPositions = new int[]{4,5};
+        this.possibleCastPositions = new int[]{1,2};
+        this.possibleTargetPositions = new int[]{3,4};
         this.effects = List.of(new Burning(1));
         this.dmg = 14;
         this.damageMode = DamageMode.PHYSICAL;

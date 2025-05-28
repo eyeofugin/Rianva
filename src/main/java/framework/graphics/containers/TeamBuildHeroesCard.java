@@ -93,7 +93,7 @@ public class TeamBuildHeroesCard extends GUIElement {
         for (int i = 0; i < this.team.heroes.length; i++) {
             Hero hero = this.team.heroes[i];
             Color borderColor = i == this.selectedPos ? Color.GREEN : i == this.activeHeroPointer ? Color.WHITE : Color.VOID;
-            fillWithGraphicsSize(x, y, hero.getWidth(), hero.getHeight(), hero.render(), true, borderColor, Color.RED);
+            fillWithGraphicsSize(x, y, hero.getWidth(), hero.getHeight(), hero.render(Hero.BUILDER), true, borderColor, Color.RED);
             x += hero.getWidth();
         }
     }

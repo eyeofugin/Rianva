@@ -26,16 +26,9 @@ public class S_DivineRay extends Skill {
         this.possibleTargetPositions = new int[]{1,2,3};
     }
 
-
     @Override
     public int getAIRating(Hero target) {
         return target.getMissingLifePercentage() / 25;
-    }
-
-
-    @Override
-    public String getDescriptionFor(Hero hero) {
-        return "Small heal";
     }
 
 

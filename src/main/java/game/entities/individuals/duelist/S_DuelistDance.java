@@ -17,8 +17,8 @@ import java.util.List;
 
 public class S_DuelistDance extends Skill {
 
-    private boolean active = false;
-    private boolean used = false;
+//    private boolean active = false;
+//    private boolean used = false;
     public S_DuelistDance(Hero hero) {
         super(hero);
         this.iconPath = "entities/duelist/icons/duelistdance.png";
@@ -30,37 +30,23 @@ public class S_DuelistDance extends Skill {
     public void setToInitial() {
         super.setToInitial();
         this.tags = List.of(SkillTag.ULT, SkillTag.PASSIVE);
-        this.active = false;
-        this.used = false;
+        this.level = 5;
     }
     @Override
     public void addSubscriptions() {
-        Connector.addSubscription(Connector.START_OF_TURN, new Connection(this, StartOfTurnPayload.class, "startOfTurn"));
-        Connector.addSubscription(Connector.ON_PERFORM, new Connection(this, OnPerformPayload.class, "onPerform"));
         Connector.addSubscription(Connector.CAST_CHANGE, new Connection(this, CastChangePayload.class, "castChange"));
     }
 
     public void castChange(CastChangePayload pl) {
-        if (this.active && pl.skill.hero.equals(this.hero) && pl.skill.getActionCost() > 0) {
-            pl.skill.setActionCost(0);
-            this.used = true;
+        if (pl.skill.hero.equals(this.hero)) {
+            pl.skill.priority++;
         }
     }
-
-    public void onPerform(OnPerformPayload pl) {
-        if (this.active && pl.skill.hero.equals(this.hero) && this.used) {
-            this.active = false;
-        }
-    }
-    public void startOfTurn(StartOfTurnPayload pl) {
-        this.active = true;
-    }
-
 
 
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "The first action each turn is free.";
+        return "Your skills have +1 Priority.";
     }
 
     @Override

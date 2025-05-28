@@ -23,8 +23,8 @@ public class S_SmokeGrenade extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
         this.targetType = TargetType.ALL_TARGETS;
-        this.possibleCastPositions = new int[]{0,1,2,3};
-        this.possibleTargetPositions = new int[]{0,1,2,3};
+        this.possibleCastPositions = new int[]{0,1,2};
+        this.possibleTargetPositions = new int[]{0,1,2};
         this.cdMax = 4;
     }
 
@@ -46,7 +46,12 @@ public class S_SmokeGrenade extends Skill {
 
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "Get Smokescreen for 1 turn. if combo: 2 turns";
+        return "Give " +Cover.getStaticIconString()+"(1).";
+    }
+
+    @Override
+    public String getComboDescription(Hero hero) {
+        return "Give " + Cover.getStaticIconString() + "(2) instead.";
     }
 
 

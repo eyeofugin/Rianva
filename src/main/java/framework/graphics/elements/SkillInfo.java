@@ -52,6 +52,7 @@ public class SkillInfo extends GUIElement {
 
         tempY += ELEMENT_HEIGHT + 5;
         //effect blocks
+        printDescriptionBlock(skill.getFaithGainString());
         printDescriptionBlock(skill.getEffectString());
         printDescriptionBlock(skill.getCasterEffectString());
         printDescriptionBlock(this.skill.getUpperDescriptionFor(this.skill.hero));

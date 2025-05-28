@@ -47,7 +47,7 @@ public class PvpDraft extends GUIElement {
                 exclusionList.add(hero.getClass());
             }
         }
-        List<Class<? extends Hero>> availableHeroes = DraftBuilder.getAllHeroes();
+        List<Class<? extends Hero>> availableHeroes = DraftBuilder.getAllList();
         availableHeroes.removeIf(exclusionList::contains);
         choices = new Hero[this.maxX*this.maxY];
         removed = new boolean[this.maxX*this.maxY];

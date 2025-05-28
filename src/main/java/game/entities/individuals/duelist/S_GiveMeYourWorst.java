@@ -22,17 +22,11 @@ public class S_GiveMeYourWorst extends Skill {
         this.tags = List.of(SkillTag.TACTICAL);
         this.targetType = TargetType.SINGLE;
         this.possibleCastPositions = new int[]{1,2};
-        this.possibleTargetPositions = new int[]{4,5};
+        this.possibleTargetPositions = new int[]{3,4};
         this.cdMax = 3;
         this.effects = List.of(new Taunted(2));
+        this.level = 2;
     }
-
-
-    @Override
-    public String getDescriptionFor(Hero hero) {
-        return "Taunt(2)";
-    }
-
 
     @Override
     public String getName() {

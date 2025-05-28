@@ -8,6 +8,7 @@ import game.skills.changeeffects.effects.Combo;
 import game.skills.changeeffects.statusinflictions.Injured;
 import utils.MyMaths;
 
+import java.nio.BufferUnderflowException;
 import java.util.List;
 
 public class S_LightningBolt extends Skill {
@@ -25,11 +26,10 @@ public class S_LightningBolt extends Skill {
         this.tags = List.of(SkillTag.PRIMARY);
         this.dmgMultipliers = List.of(new Multiplier(Stat.MAGIC, 0.7));
         this.targetType = TargetType.SINGLE;
-        this.possibleCastPositions = new int[]{1,2,3};
-        this.possibleTargetPositions = new int[]{4,5};
+        this.possibleCastPositions = new int[]{1,2};
+        this.possibleTargetPositions = new int[]{3,4};
         this.damageMode = DamageMode.MAGICAL;
     }
-
 
     @Override
     public void applySkillEffects(Hero target) {
@@ -40,7 +40,7 @@ public class S_LightningBolt extends Skill {
     }
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "Can burn";
+        return "50% chance to give " + Burning.getStaticIconString() + "(1).";
     }
 
 

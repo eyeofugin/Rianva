@@ -1,6 +1,12 @@
 package game.skills.changeeffects.effects;
 
+import framework.connector.Connection;
+import framework.connector.Connector;
+import framework.connector.payloads.CanPerformPayload;
 import game.skills.Effect;
+import game.skills.TargetType;
+
+import java.util.Arrays;
 
 public class Threatening extends Effect {
 
@@ -23,5 +29,16 @@ public class Threatening extends Effect {
 
     @Override
     public void addSubscriptions() {
+        Connector.addSubscription(Connector.CAN_PERFORM, new Connection(this, CanPerformPayload.class, "canPerform"));
     }
+
+    public void canPerform(CanPerformPayload pl) {
+        if (pl.skill.hero.isTeam2() != this.hero.isTeam2()
+                && pl.skill.getTargetType().equals(TargetType.SINGLE)
+                && pl.targetPositions[0] != this.hero.getPosition()
+                && pl.success) {
+            pl.success = Arrays.stream(pl.skill.possibleTargetPositions).noneMatch(i->i == this.hero.getPosition());
+        }
+    }
+
 }

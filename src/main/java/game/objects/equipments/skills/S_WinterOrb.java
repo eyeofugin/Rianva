@@ -18,8 +18,8 @@ public class S_WinterOrb extends Skill {
     public void setToInitial() {
         super.setToInitial();
         this.targetType = TargetType.ALL_TARGETS;
-        this.possibleCastPositions = new int[]{0,1,2,3};
-        this.possibleTargetPositions = new int[]{0,1,2,3};
+        this.possibleCastPositions = new int[]{0,1,2};
+        this.possibleTargetPositions = new int[]{0,1,2};
         this.cdMax = 5;
     }
 

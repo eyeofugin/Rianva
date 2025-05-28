@@ -5,7 +5,6 @@ import game.entities.Multiplier;
 import game.skills.*;
 import game.skills.changeeffects.statusinflictions.Disenchanted;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class S_LightPillar extends Skill {
@@ -25,10 +24,11 @@ public class S_LightPillar extends Skill {
         this.effects = List.of(new Disenchanted(1));
         this.targetType = TargetType.SINGLE;
         this.possibleCastPositions = new int[]{0,1,2};
-        this.possibleTargetPositions = new int[]{5,6,7};
+        this.possibleTargetPositions = new int[]{3,4,5};
         this.dmg = 2;
-        this.faithCost = 2;
+        this.faithRequirement = 40;
         this.damageMode = DamageMode.MAGICAL;
+        this.level = 2;
     }
 
 
@@ -36,11 +36,6 @@ public class S_LightPillar extends Skill {
     public int getAIRating(Hero target) {
         return 3;
     }
-    @Override
-    public String getDescriptionFor(Hero hero) {
-        return "Disenchants.";
-    }
-
     @Override
     public String getName() {
         return "Light Pillar";

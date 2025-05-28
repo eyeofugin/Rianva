@@ -68,9 +68,4 @@ public class HUD extends GUIElement {
     public void activateTeamDraftOV() {
         this.draftOV.activate();
     }
-    public void disableTeamDraftOV() {
-        this.draftOV.deactivate();
-    }
-    public void activateTeamPvpDraftOV() { this.pvpDraftOV.activate(); }
-    public void disableTeamPcpDraftOV() { this.pvpDraftOV.deactivate(); }
 }

@@ -6,9 +6,9 @@ public enum TargetType {
     ALL,
     ALL_TARGETS,
 
-    ONE_RDM,
-    TWO_RDM,
-    THREE_RDM,
+//    ONE_RDM,
+//    TWO_RDM,
+//    THREE_RDM,
     ARENA,
     ANY, SELF
 }
