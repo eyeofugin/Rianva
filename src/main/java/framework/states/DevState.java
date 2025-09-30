@@ -9,28 +9,10 @@ import framework.graphics.text.Color;
 import game.entities.DraftBuilder;
 import game.entities.Hero;
 import game.entities.HeroTeam;
-import game.entities.individuals.angelguy.H_AngelGuy;
-import game.entities.individuals.battleaxe.H_BattleAxe;
-import game.entities.individuals.burner.H_Burner;
-import game.entities.individuals.darkmage.H_DarkMage;
-import game.entities.individuals.dev.dummy.DUMMY;
-import game.entities.individuals.divinemage.H_DivineMage;
-import game.entities.individuals.dragonbreather.H_DragonBreather;
-import game.entities.individuals.dualpistol.H_DualPistol;
-import game.entities.individuals.duelist.H_Duelist;
-import game.entities.individuals.firedancer.H_FireDancer;
-import game.entities.individuals.longsword.H_Longsword;
-import game.entities.individuals.paladin.H_Paladin;
-import game.entities.individuals.phoenixguy.H_Phoenixguy;
-import game.entities.individuals.rifle.H_Rifle;
-import game.entities.individuals.sniper.H_Sniper;
-import game.entities.individuals.thehealer.H_TheHealer;
-import game.entities.individuals.thewizard.H_TheWizard;
 import game.skills.Skill;
 import game.skills.Stat;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class DevState extends GUIElement {
@@ -50,6 +32,7 @@ public class DevState extends GUIElement {
 
     public DevState(Engine engine) {
         super(Engine.X, Engine.Y);
+        this.id = StateManager.DEV;
         this.engine = engine;
         setUpHeroList();
     }

@@ -4,7 +4,6 @@ import framework.graphics.GUIElement;
 import framework.graphics.text.Color;
 import framework.graphics.text.TextAlignment;
 import game.skills.Skill;
-import game.skills.changeeffects.effects.Combo;
 
 public class SkillInfo extends GUIElement {
     private static final int FULL_WIDTH = 200;
@@ -35,22 +34,27 @@ public class SkillInfo extends GUIElement {
                 TextAlignment.RIGHT, Color.VOID, Color.WHITE);
         fillWithGraphicsSize(THREE_FIFTH, tempY,TWO_FIFTH, ELEMENT_HEIGHT, targetStringPixels, false);
 
-        tempY += ELEMENT_HEIGHT + 5;
         //second row
         int multipliers = skill.getDmgMultipliers().size() + skill.getHealMultipliers().size() + skill.getShieldMultipliers().size();
         int leftWidth = multipliers > 2? FOUR_FIFTH : THREE_FIFTH;
         int rightWidth = leftWidth == FOUR_FIFTH ? FIFTH : TWO_FIFTH;
-        String dmgOrHealString = skill.getDmgOrHealString();
-        int[] dmgOrHealPixels = getTextLine(dmgOrHealString, leftWidth, ELEMENT_HEIGHT,
-                TextAlignment.LEFT, Color.VOID, Color.WHITE);
-        fillWithGraphicsSize(0, tempY, leftWidth, ELEMENT_HEIGHT, dmgOrHealPixels, false);
+
+        tempY += ELEMENT_HEIGHT + 5;
 
         String costString = skill.getCostString();
         int[] costPixels = getTextLine(costString, rightWidth, ELEMENT_HEIGHT,
                 TextAlignment.RIGHT, Color.VOID, Color.WHITE);
         fillWithGraphicsSize(leftWidth, tempY, rightWidth, ELEMENT_HEIGHT, costPixels, false);
 
-        tempY += ELEMENT_HEIGHT + 5;
+        boolean hasDhs = false;
+        hasDhs = printDhsLine(skill.getDmgStringGUI(), leftWidth);
+        hasDhs = printDhsLine(skill.getHealStringGUI(), leftWidth) || hasDhs;
+        hasDhs = printDhsLine(skill.getShieldStringGUI(), leftWidth) || hasDhs;
+
+        if (!hasDhs) {
+            tempY += ELEMENT_HEIGHT + 5;
+        }
+
         //effect blocks
         printDescriptionBlock(skill.getFaithGainString());
         printDescriptionBlock(skill.getEffectString());
@@ -58,13 +62,19 @@ public class SkillInfo extends GUIElement {
         printDescriptionBlock(this.skill.getUpperDescriptionFor(this.skill.hero));
         printDescriptionBlock(this.skill.getDescriptionFor(this.skill.hero));
 
-        String comboDescription = this.skill.getComboDescription(this.skill.hero);
-        if (!comboDescription.isEmpty()) {
-            printDescriptionBlock(Combo.getStaticIconString() + ": " + comboDescription);
-        }
         return pixels;
     }
 
+    private boolean printDhsLine(String line, int width) {
+        if (line.isEmpty()) {
+            return false;
+        }
+        int[] descriptionPixels = getTextLine(line, width, ELEMENT_HEIGHT,
+                TextAlignment.LEFT, Color.VOID, Color.WHITE);
+        fillWithGraphicsSize(0, tempY, width, ELEMENT_HEIGHT, descriptionPixels, false);
+        tempY += ELEMENT_HEIGHT + 5;
+        return true;
+    }
     private void printDescriptionBlock(String block) {
         if (block.isEmpty()) {
             return;

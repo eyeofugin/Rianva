@@ -10,6 +10,7 @@ import java.util.Map;
 public class Connector {
 
     public static final String EXCESS_RESOURCE = "EXCESS_RESOURCE";
+    public static final String STAT_CHANGE =  "STAT_CHANGE";
     public static String GLOBAL_EFFECT_CHANGE = "GLOBAL_EFFECT_CHANGE";
     public static boolean active = true;
     public static String CAST_CHANGE = "CAST_CHANGE"; //Replacements like
@@ -53,11 +54,14 @@ public class Connector {
         }
     }
     public static void removeSubscriptions(Object obj) {
+        if (obj == null) {
+            subscriptions = new HashMap<>();
+        }
         for (Map.Entry<String, ArrayList<Connection>> topicSubscription : subscriptions.entrySet()) {
-            topicSubscription.getValue().removeIf(connection -> connection.element == null || connection.equals(obj));
+            topicSubscription.getValue().removeIf(connection -> connection.element == null || (connection.equals(obj) && !connection.persistant));
         }
     }
-    public static void cleanUpSubscriptions(Object obj) {
+    public static void cleanUpSubscriptions() {
         for (Map.Entry<String, ArrayList<Connection>> topicSubscription : subscriptions.entrySet()) {
             topicSubscription.getValue().removeIf(connection -> connection.element == null);
         }

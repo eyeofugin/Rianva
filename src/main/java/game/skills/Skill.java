@@ -12,8 +12,6 @@ import game.entities.Hero;
 import game.entities.Multiplier;
 import game.objects.Equipment;
 import game.skills.changeeffects.effects.Protected;
-import game.skills.changeeffects.effects.Scoped;
-import game.skills.changeeffects.statusinflictions.Rooted;
 import utils.MyMaths;
 
 import java.util.*;
@@ -55,14 +53,17 @@ public abstract class Skill {
     protected int actionCost = 1;
     protected int accuracy = 100;
     protected int critChance = 0;
-    public int dmg = 0;
-    public int heal = 0;
-    public int shield = 0;
+    protected int dmg = 0;
+    protected int heal = 0;
+    protected int shield = 0;
     protected int cdMax = 0;
     protected int cdCurrent = 0;
     protected boolean canMiss = true;
     protected int countAsHits = 1;
     protected int lethality = 0;
+    protected int move = 0;
+    protected boolean moveTo = false;
+
     public int priority = 0; // 0 = normal, 1 = fast move, 2 = fastest move, 5 = shield moves
 
     public int[] possibleTargetPositions = new int[0];
@@ -73,12 +74,7 @@ public abstract class Skill {
     public int getAIArenaRating(Arena arena) {return 0;}
 
     protected int getRollRating(Hero target) {
-        if (this.hero.hasPermanentEffect(Rooted.class) > 0 ||
-                this.hero.hasPermanentEffect(Scoped.class) > 0 ||
-                target.hasPermanentEffect(Rooted.class) > 0 ||
-                target.hasPermanentEffect(Scoped.class) > 0) {
-            return -5;
-        }
+
         int lastEffectivePosition = this.hero.getLastEffectivePosition();
         int targetLifeAdvantage = target.getStat(Stat.CURRENT_LIFE) - this.hero.getStat(Stat.CURRENT_LIFE);
 
@@ -130,6 +126,7 @@ public abstract class Skill {
         this.countAsHits = 1;
         this.priority = 0;
         this.lethality = 0;
+        this.move = 0;
         this.level = 1;
         if (SpriteLibrary.hasSprite(this.getName())) {
             this.iconPixels = SpriteLibrary.getSprite(this.getName());
@@ -162,9 +159,10 @@ public abstract class Skill {
         return "";
     };
     public void addSubscriptions() {
-
     }
-
+    public void removeSubscriptions() {
+        Connector.removeSubscriptions(this);
+    }
     //SKILL LOGIC
     public void baseDamageChanges(Hero target, Hero caster){
         if (this.dmg > 0 || !this.dmgMultipliers.isEmpty()) {
@@ -210,6 +208,7 @@ public abstract class Skill {
         } else {
             oncePerActivationEffect();
             for (Hero arenaTarget : targets) {
+
                 if (this.targetType.equals(TargetType.SELF) || this.targetType.equals(TargetType.SINGLE_OTHER)) {
                     this.individualResolve(arenaTarget);
                 } else {
@@ -226,6 +225,9 @@ public abstract class Skill {
                         continue;
                     }
                     this.individualResolve(arenaTarget);
+                }
+                if (this.moveTo) {
+                    this.hero.arena.moveTo(this.hero, arenaTarget.getPosition());
                 }
             }
         }
@@ -284,6 +286,9 @@ public abstract class Skill {
         if (this.faithGain > 0) {
             this.hero.addResource(Stat.CURRENT_FAITH, Stat.FAITH, this.faithGain, this.hero);
         }
+        if (this.move != 0) {
+            this.hero.arena.moveTo(target, target.getPosition() + (target.isTeam2()?this.move:-1*this.move));
+        }
         target.addAllEffects(this.getEffects(), this.hero);
         target.addResources(this.targetResources, this.hero);
 
@@ -315,14 +320,14 @@ public abstract class Skill {
         List<Integer> targetList = new ArrayList<>();
 
         for (int pos : this.possibleTargetPositions) {
-            int targetPos = this.hero.isTeam2() ? Arena.lastEnemyPos - pos : pos;
+            int targetPos = convertTargetPos(pos);
             if (this.targetType.equals(TargetType.SINGLE_OTHER) && this.hero.getPosition() == targetPos) {
                 continue;
             }
             targetList.add(targetPos);
         }
-        if (targetType.equals(TargetType.SINGLE) && targetList.stream().anyMatch(i -> i > 3)) {
-            targetList.addAll(List.of(0,1,2,3));
+        if (targetType.equals(TargetType.SINGLE) && targetList.stream().anyMatch(i -> i > 2)) {
+            targetList.addAll(List.of(0,1,2));
         }
         Collections.sort(targetList);
         int[] targets = new int[targetList.size()];
@@ -332,7 +337,19 @@ public abstract class Skill {
 
         return targets;
     }
+    public int[] getConvertedTargetPos() {
+        return convertTargetPos(this.possibleTargetPositions);
+    }
+    public int convertTargetPos(int pos) {
+        return this.hero.isTeam2() ? Arena.lastEnemyPos - pos : pos;
+    }
 
+    public int[] convertTargetPos(int[] pos) {
+        for (int i = 0; i < pos.length; i++) {
+            pos[i] = convertTargetPos(pos[i]);
+        }
+        return pos;
+    }
     public int getLifeCost(Hero caster) {
         return lifeCost;
     }
@@ -446,7 +463,7 @@ public abstract class Skill {
     }
 
     public int getDmg(Hero target) {
-        return dmg;
+        return MyMaths.getLevelStat(dmg, this.hero.getLevel());
     }
     public int getDmgWithMulti(Hero target) {
         return getDmg(target) + getDmgMultiBonus();
@@ -462,7 +479,9 @@ public abstract class Skill {
         int multiplierBonus = getHealMultiBonus();
         return baseHeal + multiplierBonus;
     }
-    public int getHeal(Hero target) {return this.heal;}
+    public int getHeal(Hero target) {
+        return MyMaths.getLevelStat(heal, this.hero.getLevel());
+    }
 
     public void setPower(int power) {
         this.dmg = power;
@@ -510,7 +529,7 @@ public abstract class Skill {
     }
 
     public int getShield(Hero target) {
-        return shield;
+        return MyMaths.getLevelStat(shield, this.hero.getLevel());
     }
 
     public int getLevel() {
@@ -543,6 +562,8 @@ public abstract class Skill {
             builder.append("Arena");
         } else if (targetType.equals(TargetType.ALL)) {
             builder.append("All");
+        } else if (targetType.equals(TargetType.ANY)) {
+            builder.append("Any");
 //        } else if (targetType.equals(TargetType.ONE_RDM)){
 //            builder.append("1 Rdm");
 //        } else if (targetType.equals(TargetType.TWO_RDM)) {
@@ -678,28 +699,34 @@ public abstract class Skill {
         return resultBuilder.toString();
     }
 
-    public String getDmgOrHealString() {
+    public String getDmgStringGUI() {
         StringBuilder builder = new StringBuilder();
         if (this.getDmg(null) != 0 || !this.dmgMultipliers.isEmpty()) {
             builder.append(this.damageMode.getColor().getCodeString());
             builder.append("DMG: ");
             builder.append(Color.WHITE.getCodeString());
             builder.append(getDmgString());
-
-        } else if ((this.getHeal(null) != 0 || !this.healMultipliers.isEmpty())
-                || (this.getShield(null) != 0 || !this.shieldMultipliers.isEmpty())){
+        }
+        return builder.toString();
+    }
+    public String getHealStringGUI() {
+        StringBuilder builder = new StringBuilder();
+        if ((this.getHeal(null) != 0 || !this.healMultipliers.isEmpty())){
             if (this.getHeal(null) != 0 || !this.healMultipliers.isEmpty()){
                 builder.append("HEAL: ");
                 builder.append(Color.WHITE.getCodeString());
                 builder.append(getHealString());
             }
-
+        }
+        return builder.toString();
+    }
+    public String getShieldStringGUI() {
+        StringBuilder builder = new StringBuilder();
+        if ((this.getShield(null) != 0 || !this.shieldMultipliers.isEmpty())){
             if (this.getShield(null) != 0 || !this.shieldMultipliers.isEmpty()) {
                 builder.append("SHIELD: ");
                 builder.append(getShieldString());
             }
-        } else {
-            builder.append("---");
         }
         return builder.toString();
     }
@@ -717,7 +744,9 @@ public abstract class Skill {
         }
         if (this.getFaithRequirement() != 0) {
             costString.append(Color.LIGHTYELLOW.getCodeString()).append(this.getFaithRequirement()).append("{000}");
-            costString.append(Color.DARKYELLOW.getCodeString()).append(this.getFaithCost()).append("{000}");
+            if (this.getFaithCost() > 0) {
+                costString.append(Color.RED.getCodeString()).append(this.getFaithCost()).append("{000}");
+            }
             costString.append(Stat.CURRENT_FAITH.getIconString());
         }
         if (this.getLifeCost() != 0) {
@@ -766,8 +795,13 @@ public abstract class Skill {
             Effect effect = iterator.next();
             int value = effect.stackable  ? effect.stacks : effect.turns;
             if (effect.stat != null) {
-                effectString.append(effect.statChange > 0? Color.GREEN.getCodeString(): Color.RED.getCodeString());
-                effectString.append(effect.statChange);
+                if (effect.statChange != 0) {
+                    effectString.append(effect.statChange > 0? Color.GREEN.getCodeString(): Color.RED.getCodeString());
+                    effectString.append(effect.statChange);
+                } else if (effect.statChangePercentage != 0) {
+                    effectString.append(effect.statChangePercentage > 0? Color.GREEN.getCodeString(): Color.RED.getCodeString());
+                    effectString.append(effect.statChangePercentage*100).append("%");
+                }
                 effectString.append(Color.WHITE.getCodeString());
                 effectString.append(effect.getIconString()).append("(").append(value == -1 ? "~" : value).append(")");
             } else {
@@ -807,5 +841,24 @@ public abstract class Skill {
 
     public void setTargets(Hero[] entitiesAt) {
         this.targets = List.of(entitiesAt);
+    }
+
+    public int getSort() {
+        if (this.tags.contains(SkillTag.PRIMARY)) {
+            return 1;
+        }
+        if (this.tags.contains(SkillTag.TACTICAL)) {
+            return 2;
+        }
+        if (this.tags.contains(SkillTag.ULT)) {
+            return 3;
+        }
+        if (this.equipment != null) {
+            return 4;
+        }
+        return 5;
+    }
+    public void reset() {
+        this.cdCurrent = 0;
     }
 }

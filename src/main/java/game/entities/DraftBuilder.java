@@ -1,24 +1,27 @@
 package game.entities;
 
-import game.entities.individuals.angelguy.H_AngelGuy;
-import game.entities.individuals.battleaxe.H_BattleAxe;
-import game.entities.individuals.burner.H_Burner;
-import game.entities.individuals.cryobrawler.H_CryoBrawler;
-import game.entities.individuals.darkmage.H_DarkMage;
-import game.entities.individuals.dev.dummy.DUMMY;
-import game.entities.individuals.divinemage.H_DivineMage;
-import game.entities.individuals.dragonbreather.H_DragonBreather;
-import game.entities.individuals.dualpistol.H_DualPistol;
-import game.entities.individuals.duelist.H_Duelist;
-import game.entities.individuals.eldritchguy.H_EldritchGuy;
-import game.entities.individuals.firedancer.H_FireDancer;
-import game.entities.individuals.longsword.H_Longsword;
-import game.entities.individuals.paladin.H_Paladin;
-import game.entities.individuals.phoenixguy.H_Phoenixguy;
-import game.entities.individuals.rifle.H_Rifle;
-import game.entities.individuals.sniper.H_Sniper;
-import game.entities.individuals.thehealer.H_TheHealer;
-import game.entities.individuals.thewizard.H_TheWizard;
+import game.entities.goons.axedude.AxeDude;
+import game.entities.goons.bowdude.BowDude;
+import game.entities.goons.sworddude.SwordDude;
+import game.entities.heroes.angelguy.H_AngelGuy;
+import game.entities.heroes.battleaxe.H_BattleAxe;
+import game.entities.heroes.burner.H_Burner;
+import game.entities.heroes.cryobrawler.H_CryoBrawler;
+import game.entities.heroes.darkmage.H_DarkMage;
+import game.entities.heroes.dev.dummy.DUMMY;
+import game.entities.heroes.divinemage.H_DivineMage;
+import game.entities.heroes.dragonbreather.H_DragonBreather;
+import game.entities.heroes.dualpistol.H_DualPistol;
+import game.entities.heroes.duelist.H_Duelist;
+import game.entities.heroes.eldritchguy.H_EldritchGuy;
+import game.entities.heroes.firedancer.H_FireDancer;
+import game.entities.heroes.longsword.H_Longsword;
+import game.entities.heroes.paladin.H_Paladin;
+import game.entities.heroes.phoenixguy.H_Phoenixguy;
+import game.entities.heroes.rifle.H_Rifle;
+import game.entities.heroes.sniper.H_Sniper;
+import game.entities.heroes.thehealer.H_TheHealer;
+import game.entities.heroes.thewizard.H_TheWizard;
 import game.objects.Equipment;
 import game.objects.equipments.*;
 import game.skills.Skill;
@@ -26,13 +29,11 @@ import game.skills.genericskills.S_Skip;
 import utils.FileWalker;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class DraftBuilder {
 
+    private static final Map<Integer, List<Integer>> dungeonEncounterLevelDistribution = initMap();
     public static List<Class<? extends Hero>> all = List.of(
             H_AngelGuy.class,
             H_BattleAxe.class,
@@ -76,6 +77,21 @@ public class DraftBuilder {
             H_EldritchGuy.class,
             H_Paladin.class);
 
+    private static Map<Integer, List<Integer>> initMap() {
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        List<Integer> level1 = List.of(70, 30,  0,  0,  0);
+        List<Integer> level2 = List.of(20, 50, 30,  0,  0);
+        List<Integer> level3 = List.of( 0, 20, 50, 30,  0);
+        List<Integer> level4 = List.of( 0,  0, 20, 50, 30);
+        List<Integer> level5 = List.of( 0,  0,  0, 20, 80);
+        map.put(1, level1);
+        map.put(2, level2);
+        map.put(3, level3);
+        map.put(4, level4);
+        map.put(5, level5);
+        return map;
+    }
+
     public static List<Class<? extends Hero>> getPos0List() {
         return new ArrayList<>(pos0List);
     }
@@ -97,7 +113,7 @@ public class DraftBuilder {
                 Arkenwand.class,
                 BastardSword.class,
                 BlueOrb.class,
-                ButchersCleaver.class,
+//                ButchersCleaver.class,
                 CrownOfLife.class,
                 DefensiveAura.class,
                 FlamingChestplate.class,
@@ -109,7 +125,7 @@ public class DraftBuilder {
                 ScepterOfTheGods.class,
                 ShiningArmor.class,
                 SnipersTunika.class,
-                WingedBoots.class,
+//                WingedBoots.class,
                 WinterOrb.class));
     }
     public static Hero[] getTestTeam(int index) {
@@ -162,7 +178,9 @@ public class DraftBuilder {
     }
     public static Hero getFromClass(Class<? extends Hero> heroClass) {
         try {
-            return heroClass.getDeclaredConstructor(new Class[0]).newInstance();
+            Hero hero = heroClass.getDeclaredConstructor(new Class[0]).newInstance();
+            hero.resetResources();
+            return hero;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -210,6 +228,14 @@ public class DraftBuilder {
         draftOptions.add(getRdmFlexHero(drafted));drafted.add(draftOptions.get(draftOptions.size()-1));
         draftOptions.add(getRdmFlexHero(drafted));drafted.add(draftOptions.get(draftOptions.size()-1));
         draftOptions.add(getRdmFlexHero(drafted));drafted.add(draftOptions.get(draftOptions.size()-1));
+        return draftOptions;
+    }
+
+    public static List<Hero> getAllHeroes() {
+        List<Hero> draftOptions = new ArrayList<>();
+        for (Class<? extends Hero> clazz : getAllList()) {
+            draftOptions.add(getFromClass(clazz));
+        }
         return draftOptions;
     }
 
@@ -297,15 +323,13 @@ public class DraftBuilder {
     }
 
     public static Hero[] getDummyTeam() {
-        return new Hero[]{new DUMMY(1), new DUMMY(2), new DUMMY(3), new DUMMY(4)};
+        return new Hero[]{new DUMMY(1), new DUMMY(2), new DUMMY(3)};
     }
-    public static Hero[] getDungeonEncounterTeam() {
-        Hero[] heroes = new Hero[4];
-        List<Hero> drafted = new ArrayList<>();
-        heroes[0] = getRdmPos0Hero(drafted);drafted.add(heroes[0]);
-        heroes[1] = getRdmPos1Hero(drafted);drafted.add(heroes[1]);
-        heroes[2] = getRdmPos2Hero(drafted);drafted.add(heroes[2]);
-        heroes[3] = getRdmPos3Hero(drafted);drafted.add(heroes[3]);
+    public static Hero[] getDungeonEncounterTeam(int level) {
+        Hero[] heroes = new Hero[3];
+        heroes[0] = new BowDude();
+        heroes[1] = new SwordDude();
+        heroes[2] = new AxeDude();
         return heroes;
     }
 }

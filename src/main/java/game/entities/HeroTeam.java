@@ -31,8 +31,12 @@ public class HeroTeam {
         Arrays.stream(this.heroes).filter(Objects::nonNull).forEach(e -> e.update(frame));
     }
 
+    private int getPos(int i) {
+        return this.teamNumber==2 ? 5 - i: i;
+    }
+
     private int getEnemyOffset() {
-        return this.teamNumber==2 ? this.heroes.length: 0;
+        return this.teamNumber == 2 ? this.heroes.length : 0;
     }
 
     public List<Hero> removeTheDead() {
@@ -45,10 +49,10 @@ public class HeroTeam {
                         .setDead(this.heroes[i]);
                 Connector.fireTopic(Connector.DEATH_TRIGGER, pl);
                 this.heroes[i] = null;
-                for (int j = i - fillUpDirection; j >= 0 && j < this.heroes.length; j-=fillUpDirection) {
+                for (int j = i - 1; j >= 0 && j < this.heroes.length; j--) {
                     if (this.heroes[j] != null) {
-                        this.heroes[j+fillUpDirection] = this.heroes[j];
-                        this.heroes[j+fillUpDirection].setPosition(getEnemyOffset() + j+fillUpDirection);
+                        this.heroes[j+1] = this.heroes[j];
+                        this.heroes[j+1].setPosition(getPos(j+1));
                         this.heroes[j] = null;
                     }
                 }

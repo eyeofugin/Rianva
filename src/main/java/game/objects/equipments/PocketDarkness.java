@@ -3,7 +3,6 @@ package game.objects.equipments;
 import game.objects.Equipment;
 import game.objects.equipments.skills.S_PocketDarkness;
 import game.skills.Stat;
-import game.skills.changeeffects.effects.RegenBoost;
 
 public class PocketDarkness extends Equipment {
     public PocketDarkness() {

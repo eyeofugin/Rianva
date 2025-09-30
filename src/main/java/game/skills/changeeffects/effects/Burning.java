@@ -1,6 +1,7 @@
 package game.skills.changeeffects.effects;
 
 import game.skills.Effect;
+import game.skills.Stat;
 
 public class Burning extends Effect {
 
@@ -10,7 +11,7 @@ public class Burning extends Effect {
         this.iconString = ICON_STRING;
         this.stackable = true;
         this.stacks = stacks;
-        this.description = "Loses 1 health per stack each turn.";
+        this.description = "Loses 5% health per stack each turn. (1 at least)";
         this.type = ChangeEffectType.DEBUFF;
     }
     public static String getStaticIconString() {
@@ -19,7 +20,9 @@ public class Burning extends Effect {
 
     @Override
     public void turnLogic() {
-        this.hero.effectDamage(this.stacks, this);
+        int dmg = this.hero.getStat(Stat.LIFE) * this.stacks / 20;
+        dmg = Math.max(1, dmg);
+        this.hero.effectDamage(dmg, this);
     }
 
     @Override

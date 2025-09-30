@@ -23,6 +23,7 @@ public class Dungeon extends GUIElement {
 
     public Dungeon(Engine engine) {
         super(Engine.X, Engine.Y);
+        this.id = StateManager.DUNGEON;
         this.engine = engine;
 
         this.buildRoom();
@@ -55,7 +56,7 @@ public class Dungeon extends GUIElement {
                     } else if (roomType < 4) {
                         rooms[x][y] = DungeonRoom.getRandomRoom();
                     } else if (roomType < 7){
-                        rooms[x][y] = DungeonRoom.getEncounterRoom();
+                        rooms[x][y] = DungeonRoom.getEncounterRoom(engine.memory.dungeonLevel);
                     } else {
                         rooms[x][y] = DungeonRoom.getEmptyRoom();
                     }
@@ -119,6 +120,7 @@ public class Dungeon extends GUIElement {
     }
     private void effect() {
         DungeonRoom room = this.rooms[this.teamX][this.teamY];
+        room.activated = true;
         if (room.getLoot() != null) {
             this.engine.memory.dungeonLoot = room.getLoot();
             this.startLoot = true;

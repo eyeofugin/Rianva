@@ -5,7 +5,7 @@ import game.entities.Role;
 import game.skills.Stat;
 import game.skills.changeeffects.effects.*;
 import game.skills.changeeffects.effects.other.Exhausted;
-import game.skills.changeeffects.statusinflictions.*;
+import game.skills.changeeffects.effects.other.Steadfast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -200,34 +200,22 @@ public class TextEditor {
         symbols.put(Stat.LETHALITY.getIconKey(), Symbol.lethality);
         symbols.put(Stat.ACCURACY.getIconKey(), Symbol.accuracy);
 
-        symbols.put(AxeSwingCounter.ICON_STRING, Symbol.axeswingcounter);
-        symbols.put(BlastingCounter.ICON_STRING, Symbol.blastingcounter);
-        symbols.put(Blight.ICON_STRING, Symbol.blight);
         symbols.put(Burning.ICON_STRING, Symbol.burning);
-        symbols.put(Combo.ICON_STRING, Symbol.combo);
-        symbols.put(Cover.ICON_STRING, Symbol.cover);
         symbols.put(DoubleShot.ICON_STRING, Symbol.doubleshot);
         symbols.put(Exalted.ICON_STRING, Symbol.exalted);
         symbols.put(Frost.ICON_STRING, Symbol.frost);
-        symbols.put(Gifted.ICON_STRING, Symbol.gifted);
         symbols.put(Exhausted.ICON_STRING, Symbol.exhausted);
         symbols.put(Immunity.ICON_STRING, Symbol.immunity);
-        symbols.put(Invincible.ICON_STRING, Symbol.invincible);
         symbols.put(LifeSteal.ICON_STRING, Symbol.lifesteal);
-        symbols.put(RegenBoost.ICON_STRING, Symbol.regenboost);
-        symbols.put(RegenStop.ICON_STRING, Symbol.regenstop);
-        symbols.put(RighteousHammerCounter.ICON_STRING, Symbol.righteoushammer);
         symbols.put(Scoped.ICON_STRING, Symbol.scoped);
         symbols.put(Steadfast.ICON_STRING, Symbol.steadfast);
-        symbols.put(SwiftStrikeCounter.ICON_STRING, Symbol.swiftstrikecounter);
         symbols.put(Threatening.ICON_STRING, Symbol.threatening);
         symbols.put(Bleeding.ICON_STRING, Symbol.bleeding);
-        symbols.put(Blinded.ICON_STRING, Symbol.blinded);
         symbols.put(Dazed.ICON_STRING, Symbol.dazed);
         symbols.put(Disenchanted.ICON_STRING, Symbol.disenchanted);
         symbols.put(Injured.ICON_STRING, Symbol.injured);
-        symbols.put(Rooted.ICON_STRING, Symbol.rooted);
         symbols.put(Taunted.ICON_STRING, Symbol.taunted);
+        symbols.put(Protected.ICON_STRING, Symbol._protected);
         symbols.put("FTT", Symbol.friendTarget);
         symbols.put("ETT", Symbol.enemyTarget);
         symbols.put("OTT", Symbol.otherTarget);
@@ -764,7 +752,7 @@ public class TextEditor {
         }
         Symbol original = symbolMap.get(specialSymbolCode.toString());
         if (original == null) {
-            System.out.println(specialSymbolCode);
+            System.out.println("special character not found: "+ specialSymbolCode);
             return null;
         }
         return original.copy();

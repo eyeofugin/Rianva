@@ -3,6 +3,9 @@ package game.skills.changeeffects.effects;
 import framework.connector.Connection;
 import framework.connector.Connector;
 import framework.connector.payloads.CastChangePayload;
+import framework.states.Arena;
+import game.entities.heroes.rifle.S_Barrage;
+import game.entities.heroes.rifle.S_PiercingBolt;
 import game.skills.Effect;
 import game.skills.Skill;
 
@@ -16,7 +19,7 @@ public class Scoped extends Effect {
         this.iconString = ICON_STRING;
         this.name = "Scoped";
         this.stackable = false;
-        this.description = "All skills have +1 Range.";
+        this.description = "All skills can hit the last position.";
         this.type = ChangeEffectType.BUFF;
     }
     public static String getStaticIconString() {
@@ -34,15 +37,8 @@ public class Scoped extends Effect {
 
     public void castChange(CastChangePayload pl) {
         Skill skill = pl.skill;
-        if (skill != null && skill.hero != null && skill.hero.equals(this.hero)) {
-
-            if (Arrays.stream(skill.possibleCastPositions).anyMatch(i -> i == 1)) {
-                return;
-            }
-            int[] newCastPositions = Arrays.copyOf(skill.possibleCastPositions, skill.possibleCastPositions.length+1);
-            newCastPositions[newCastPositions.length-1] = 1;
-            Arrays.sort(newCastPositions);
-            skill.possibleCastPositions = newCastPositions;
+        if (skill != null && skill.hero != null && skill.hero.equals(this.hero) && (skill instanceof S_Barrage || skill instanceof S_PiercingBolt)) {
+            skill.possibleCastPositions = new int[]{3,4,5};
         }
     }
 }

@@ -6,7 +6,6 @@ import framework.connector.payloads.EffectDmgChangesPayload;
 import framework.connector.payloads.EndOfRoundPayload;
 import game.skills.GlobalEffect;
 import game.skills.Stat;
-import game.skills.changeeffects.effects.Burning;
 
 public class AetherWinds extends GlobalEffect {
 

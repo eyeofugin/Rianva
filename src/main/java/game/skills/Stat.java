@@ -34,11 +34,11 @@ public enum Stat {
     HALO("Max", "HAL", "{007}"),
     CURRENT_HALO("Halo", "CHA", "{007}"),
 
-    SHIELD("Shield", "SHI", "{008}"),
+    SHIELD("Shield", "SHI", "{008}");
 
 
-    MAX_ACTION("Max", "ACT", "{001}"),
-    CURRENT_ACTION("Action", "CAC", "{001}");
+//    MAX_ACTION("Max", "ACT", "{001}"),
+//    CURRENT_ACTION("Action", "CAC", "{001}");
 
 
     private final String translationString;

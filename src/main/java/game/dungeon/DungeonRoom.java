@@ -57,11 +57,12 @@ public class DungeonRoom {
     public static DungeonRoom getEmptyRoom() {
         return new DungeonRoom();
     }
-    public static DungeonRoom getEncounterRoom() {
-        return new DungeonRoom(new HeroTeam(-1, DraftBuilder.getDummyTeam(), 2));
+    public static DungeonRoom getEncounterRoom(int level) {
+//        return new DungeonRoom(new HeroTeam(-1, DraftBuilder.getDummyTeam(), 2));
+        return new DungeonRoom(new HeroTeam(-1, DraftBuilder.getDungeonEncounterTeam(level), 2));
     }
     public static DungeonRoom getBossRoom() {
-        return new DungeonRoom(new HeroTeam(-1,DraftBuilder.getDungeonEncounterTeam(), 2), true);
+        return new DungeonRoom(new HeroTeam(-1,DraftBuilder.getDungeonEncounterTeam(1), 2), true);
     }
     public static DungeonRoom getLootRoom() {
         return new DungeonRoom(new Equipment("",""));

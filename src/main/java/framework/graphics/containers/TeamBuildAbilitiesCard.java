@@ -23,7 +23,6 @@ public class TeamBuildAbilitiesCard extends GUIElement {
     private Hero hero;
     private int abilityPointer = 0;
     private final List<Skill> availableSkills = new ArrayList<>();
-    private final List<Skill> chosenSkills = new ArrayList<>();
     private int primaryChosen = 0;
     private int tacticalChosen = 0;
     private int ultimateChosen = 0;
@@ -41,8 +40,7 @@ public class TeamBuildAbilitiesCard extends GUIElement {
         this.availableSkills.addAll(this.hero.getLearnableSkillList());
     }
     public void finish() {
-        this.chosenSkills.add(new S_Skip(this.hero));
-        this.hero.setSkills(this.chosenSkills);
+        this.hero.setSkills(this.availableSkills);
     }
     @Override
     public void update(int frame) {
@@ -57,52 +55,52 @@ public class TeamBuildAbilitiesCard extends GUIElement {
                     this.abilityPointer++;
                 }
             }
-            if (engine.keyB._enterPressed) {
-                chooseAbility();
-            }
-            if (engine.keyB._backPressed) {
-                removeAbility();
-            }
+//            if (engine.keyB._enterPressed) {
+//                chooseAbility();
+//            }
+//            if (engine.keyB._backPressed) {
+//                removeAbility();
+//            }
         }
     }
 
-    private void chooseAbility() {
-        Skill skill = this.availableSkills.get(this.abilityPointer);
-        if (this.chosenSkills.contains(skill)) {
-            removeAbility();
-            return;
-        }
-        if (skill.tags.contains(SkillTag.PRIMARY)) {
-            if (this.primaryChosen == 0) {
-                this.primaryChosen++;
-                this.chosenSkills.add(skill);
-            }
-        } else if (skill.tags.contains(SkillTag.TACTICAL)) {
-            if (this.tacticalChosen < 2) {
-                this.tacticalChosen++;
-                this.chosenSkills.add(skill);
-            }
-        } else if (skill.tags.contains(SkillTag.ULT)) {
-            if (this.ultimateChosen == 0) {
-                this.ultimateChosen++;
-                this.chosenSkills.add(skill);
-            }
-        }
-    }
+//    private void chooseAbility() {
+//        Skill skill = this.availableSkills.get(this.abilityPointer);
+//        if (this.chosenSkills.contains(skill)) {
+//            removeAbility();
+//            return;
+//        }
+//        if (skill.tags.contains(SkillTag.PRIMARY)) {
+//            if (this.primaryChosen == 0) {
+//                this.primaryChosen++;
+//                this.chosenSkills.add(skill);
+//            }
+//        } else if (skill.tags.contains(SkillTag.TACTICAL)) {
+//            if (this.tacticalChosen < 2) {
+//                this.tacticalChosen++;
+//                this.chosenSkills.add(skill);
+//            }
+//        } else if (skill.tags.contains(SkillTag.ULT)) {
+//            if (this.ultimateChosen == 0) {
+//                this.ultimateChosen++;
+//                this.chosenSkills.add(skill);
+//            }
+//        }
+//    }
 
-    private void removeAbility() {
-        Skill skill = this.availableSkills.get(this.abilityPointer);
-        if (this.chosenSkills.contains(skill)) {
-            this.chosenSkills.remove(skill);
-            if (skill.tags.contains(SkillTag.PRIMARY)) {
-                this.primaryChosen--;
-            } else if (skill.tags.contains(SkillTag.TACTICAL)) {
-                this.tacticalChosen--;
-            } else if (skill.tags.contains(SkillTag.ULT)) {
-                this.ultimateChosen--;
-            }
-        }
-    }
+//    private void removeAbility() {
+//        Skill skill = this.availableSkills.get(this.abilityPointer);
+//        if (this.chosenSkills.contains(skill)) {
+//            this.chosenSkills.remove(skill);
+//            if (skill.tags.contains(SkillTag.PRIMARY)) {
+//                this.primaryChosen--;
+//            } else if (skill.tags.contains(SkillTag.TACTICAL)) {
+//                this.tacticalChosen--;
+//            } else if (skill.tags.contains(SkillTag.ULT)) {
+//                this.ultimateChosen--;
+//            }
+//        }
+//    }
 
     public int[] render(boolean full) {
         background(Color.VOID);
@@ -130,15 +128,15 @@ public class TeamBuildAbilitiesCard extends GUIElement {
     }
 
     private Color getBorderColorFor(Skill skill, int i) {
-        if (this.chosenSkills.contains(skill)) {
-            return Color.GREEN;
-        } else
-        if (isFullFor(skill)) {
-            return Color.RED;
-        } else
-        if (!this.active) {
-            return Color.VOID;
-        } else
+//        if (this.chosenSkills.contains(skill)) {
+//            return Color.GREEN;
+//        } else
+//        if (isFullFor(skill)) {
+//            return Color.RED;
+//        } else
+//        if (!this.active) {
+//            return Color.VOID;
+//        } else
         if (i == this.abilityPointer) {
             return Color.WHITE;
         }

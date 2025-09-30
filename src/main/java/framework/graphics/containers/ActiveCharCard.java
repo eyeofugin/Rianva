@@ -163,6 +163,8 @@ public class ActiveCharCard extends GUIElement {
         this.children.remove(name);
         this.children.remove(healthBar);
         this.children.remove(health);
+        this.children.remove(resource);
+        this.children.remove(resourceBar);
 
         this.activeHero = e;
         name = new TextField();
@@ -206,9 +208,6 @@ public class ActiveCharCard extends GUIElement {
 
             this.children.add(resourceBar);
             this.children.add(resource);
-        } else {
-            this.children.remove(resourceBar);
-            this.children.remove(resource);
         }
 
         if (this.activeHero.getStat(Stat.SHIELD) > 0) {

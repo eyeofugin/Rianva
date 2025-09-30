@@ -16,9 +16,8 @@ public class MyMaths {
     }
 
     public static int getLevelStat(int baseStat, int level) {
-        double multiplier = 0.12 * (level*level);
-        int addition = (int) Math.round(multiplier*baseStat);
-        return baseStat + addition;
+        double multiplier = 0.08 * (level*level) + 1;
+        return (int) Math.round(multiplier*baseStat);
     }
 
     public static int getPcProbability(int turn, int tier) {

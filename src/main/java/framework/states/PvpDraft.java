@@ -23,13 +23,14 @@ public class PvpDraft extends GUIElement {
     private int pointerX, pointerY = 0;
     private Hero[] choices;
     private boolean[] removed;
-    private int[] numberOfChoices = new int[]{1,2,2,2,1};
+    private int[] numberOfChoices = new int[]{1,2,2,1};
     private int currentChoice = 0;
     private int choiceRound = 0;
     public boolean finished = false;
 
     public PvpDraft(Engine engine) {
         super(Engine.X, Engine.Y);
+        this.id = StateManager.PVP_DRAFT;
         this.engine = engine;
         this.hud = new HUD(engine);
         this.hud.setPvpDraft(this);
@@ -56,7 +57,9 @@ public class PvpDraft extends GUIElement {
             for (int x = 0; x < this.maxX; x++) {
                 if (index < availableHeroes.size() && availableHeroes.get(index) != null) {
                     try {
-                        this.choices[x + y * this.maxX] = availableHeroes.get(index).getConstructor().newInstance();
+                        Hero hero = availableHeroes.get(index).getConstructor().newInstance();
+                        hero.setLevel(5);
+                        this.choices[x + y * this.maxX] = hero;
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }

@@ -40,11 +40,11 @@ public class TeamBuildHeroesCard extends GUIElement {
     public void update(int frame) {
         if (this.active) {
             if (engine.keyB._leftPressed) {
-                this.activeHeroPointer = this.activeHeroPointer > 0 ? this.activeHeroPointer-1: 3;
+                this.activeHeroPointer = this.activeHeroPointer > 0 ? this.activeHeroPointer-1: 2;
                 setSelectedHero();
             }
             if (engine.keyB._rightPressed) {
-                this.activeHeroPointer = this.activeHeroPointer < 3 ? this.activeHeroPointer+1: 0;
+                this.activeHeroPointer = this.activeHeroPointer < 2 ? this.activeHeroPointer+1: 0;
                 setSelectedHero();
             }
             if (engine.keyB._enterPressed) {

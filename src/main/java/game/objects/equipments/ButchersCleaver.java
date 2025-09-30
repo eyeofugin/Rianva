@@ -4,6 +4,7 @@ import framework.connector.Connection;
 import framework.connector.Connector;
 import framework.connector.payloads.DmgChangesPayload;
 import framework.connector.payloads.EquipmentChangePayload;
+import framework.connector.payloads.StatChangePayload;
 import framework.connector.payloads.UpdatePayload;
 import game.entities.Hero;
 import game.objects.Equipment;
@@ -27,12 +28,19 @@ public class ButchersCleaver extends Equipment {
     @Override
     public void addSubscriptions() {
         Connector.addSubscription(Connector.UPDATE, new Connection(this, UpdatePayload.class, "update"));
-        Connector.addSubscription(Connector.EQUIPMENT_CHANGE_TRIGGER, new Connection(this, EquipmentChangePayload.class, "equipChange"));
+        Connector.addSubscription(Connector.EQUIPMENT_CHANGE_TRIGGER, new Connection(this, EquipmentChangePayload.class, "equipChange", true));
+        Connector.addSubscription(Connector.STAT_CHANGE, new Connection(this, StatChangePayload.class, "statChange", true));
         Connector.addSubscription(Connector.DMG_CHANGES, new Connection(this, DmgChangesPayload.class, "dmgChanges"));
     }
     public void dmgChanges(DmgChangesPayload pl) {
         if (pl.target != null && pl.target.equals(this.hero) && this.active) {
             pl.dmg = (int)(pl.dmg * 1.5);
+        }
+    }
+
+    public void statChange(StatChangePayload pl) {
+        if (this.active && this.hero.equals(pl.hero) && pl.stat.equals(Stat.LIFE)) {
+            this.recalc();
         }
     }
     public void equipChange(EquipmentChangePayload pl) {
@@ -45,8 +53,6 @@ public class ButchersCleaver extends Equipment {
                 } else {
                     this.remove(hero);
                 }
-            } else if (pl.target.equals(this.hero)) {
-                this.recalc();
             }
         }
     }
@@ -75,5 +81,11 @@ public class ButchersCleaver extends Equipment {
             this.calculatedExtraPower = hero.getStatChange(Stat.LIFE) / 2;
             hero.addToStat(Stat.POWER, this.calculatedExtraPower);
         }
+    }
+
+    @Override
+    public void reset() {
+        super.reset();
+        update(null);
     }
 }

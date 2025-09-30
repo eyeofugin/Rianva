@@ -33,13 +33,12 @@ public class S_BlueOrb extends Skill {
         this.targetType = TargetType.SINGLE_OTHER;
         this.possibleCastPositions = new int[]{0,1,2};
         this.possibleTargetPositions = new int[]{0,1,2};
+        this.moveTo = true;
     }
 
     @Override
     public void applySkillEffects(Hero target) {
         super.applySkillEffects(target);
-        int targetPosition = target.getPosition();
-        this.hero.arena.moveTo(this.hero, targetPosition);
         for (Hero enemy : this.hero.getEnemies()) {
             enemy.addEffect(new Frost(1), this.hero);
         }
@@ -51,6 +50,11 @@ public class S_BlueOrb extends Skill {
         return super.performCheck(hero) && this.equipment.isActive() && !this.isUsedUp;
     }
 
+    @Override
+    public void reset() {
+        super.reset();
+        this.isUsedUp = false;
+    }
     public int getAIRating(Hero target) {
         return getRollRating(target);
     }

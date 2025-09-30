@@ -1,22 +1,17 @@
 package game.skills;
 
 import framework.Property;
-import framework.connector.Connector;
 import framework.graphics.GUIElement;
 import framework.graphics.text.Color;
 import game.entities.Hero;
 import game.skills.changeeffects.effects.Burning;
-import game.skills.changeeffects.effects.Gifted;
-import game.skills.changeeffects.statusinflictions.Bleeding;
-import game.skills.changeeffects.statusinflictions.Blinded;
-import game.skills.changeeffects.statusinflictions.Dazed;
-import game.skills.changeeffects.statusinflictions.Disenchanted;
-import game.skills.changeeffects.statusinflictions.Injured;
-import game.skills.changeeffects.statusinflictions.Taunted;
+import game.skills.changeeffects.effects.Bleeding;
+import game.skills.changeeffects.effects.Dazed;
+import game.skills.changeeffects.effects.Disenchanted;
+import game.skills.changeeffects.effects.Injured;
+import game.skills.changeeffects.effects.Taunted;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 public abstract class Effect {
@@ -41,6 +36,7 @@ public abstract class Effect {
     public ChangeEffectType type;
     public Stat stat;
     public int statChange;
+    public double statChangePercentage;
 
     public abstract Effect getNew();
     public void addSubscriptions() {
@@ -51,6 +47,8 @@ public abstract class Effect {
     public void addToHero(){
         if (statChange != 0) {
             hero.addToStat(stat, statChange);
+        } else if (statChangePercentage > 0) {
+            hero.addToStat(stat, (int)(hero.getStat(stat) * statChangePercentage));
         }
         addSubscriptions();
     }
@@ -123,7 +121,7 @@ public abstract class Effect {
     }
 
     public static Effect getRdmDebuff() {
-        List<Effect> effectList = List.of(new Burning(1), new Injured(1), new Bleeding(1), new Blinded(1), new Dazed(1), new Disenchanted(1), new Taunted(1));
+        List<Effect> effectList = List.of(new Burning(1), new Injured(1), new Bleeding(1), new Dazed(1), new Disenchanted(1), new Taunted(1));
         Random r = new Random();
         return effectList.get(r.nextInt(effectList.size()));
     }

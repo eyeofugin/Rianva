@@ -15,7 +15,7 @@ public class S_CrownOfLife extends Skill {
     public S_CrownOfLife(Equipment equipment) {
         super(null);
         this.equipment = equipment;
-        this.iconPath = "icons/skills/crownoflife.png";
+        this.iconPath = "equipments/crownoflife/sprite.png";
         setToInitial();
     }
 

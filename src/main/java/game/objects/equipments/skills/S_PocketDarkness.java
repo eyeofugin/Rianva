@@ -8,6 +8,9 @@ import game.objects.Equipment;
 import game.skills.Skill;
 import game.skills.Stat;
 import game.skills.TargetType;
+import game.skills.changeeffects.effects.StatEffect;
+
+import java.util.List;
 
 public class S_PocketDarkness extends Skill {
 
@@ -23,11 +26,11 @@ public class S_PocketDarkness extends Skill {
         this.targetType = TargetType.SINGLE;
         this.possibleCastPositions = new int[]{0,1,2};
         this.possibleTargetPositions = new int[]{3,4};
+        this.effects = List.of(new StatEffect(5, Stat.ACCURACY, -30));
     }
     @Override
     public void applySkillEffects(Hero target) {
         super.applySkillEffects(target);
-        target.addToStat(Stat.ACCURACY, -15);
         this.equipment.unEquipFromHero();
     }
 
@@ -38,11 +41,6 @@ public class S_PocketDarkness extends Skill {
 
     public int getAIRating(Hero target) {
         return 2;
-    }
-
-    @Override
-    public String getDescriptionFor(Hero hero) {
-        return "Target permanently -15" + Stat.ACCURACY.getIconString() + ".";
     }
 
     @Override

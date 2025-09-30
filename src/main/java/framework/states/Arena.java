@@ -21,13 +21,9 @@ import game.entities.Hero;
 import game.entities.HeroTeam;
 import game.skills.GlobalEffect;
 import game.skills.Skill;
-import game.skills.Stat;
 import game.skills.TargetType;
-
-import game.skills.changeeffects.effects.other.Exhausted;
-import game.skills.changeeffects.effects.Scoped;
 import game.skills.changeeffects.globals.Heat;
-import game.skills.changeeffects.statusinflictions.Rooted;
+import game.skills.changeeffects.effects.Stunned;
 import utils.Action;
 import utils.ActionQueue;
 import utils.MyMaths;
@@ -85,6 +81,7 @@ public class Arena extends GUIElement {
 
     public Arena(Engine e, boolean pvp) {
         super(Engine.X, Engine.Y);
+        this.id = StateManager.ARENA;
         this.engine = e;
         this.round = this.engine.memory.pvpRound;
         this.hud = new HUD(e);
@@ -102,13 +99,8 @@ public class Arena extends GUIElement {
         this.teams.forEach(team-> {
             for (int i = 0; i < team.heroes.length; i++) {
                 Hero hero = team.heroes[i];
-                hero.setPosition(team.teamNumber==2?MyMaths.getMirrorPos(i):i);
-                hero.arena = this;
                 hero.team = team;
-                hero.getEquipments().forEach(item -> item.equipToHero(hero));
-                hero.changeStatTo(Stat.CURRENT_LIFE, hero.getStat(Stat.LIFE));
-                hero.changeStatTo(Stat.CURRENT_MANA, hero.getStat(Stat.MANA));
-                hero.changeStatTo(Stat.CURRENT_FAITH, 0);
+                hero.enterArena(team.teamNumber==2?MyMaths.getMirrorPos(i):i, this);
             }
         });
         this.aiController.setTeam(this.teams.get(1));
@@ -137,6 +129,9 @@ public class Arena extends GUIElement {
         }
 
         if (engine.keyB._enterPressed) {
+            if (this.activeHero.isMoved()) {
+                return;
+            }
             switchToArenaHUD();
         }
     }
@@ -155,17 +150,22 @@ public class Arena extends GUIElement {
         }
         if (engine.keyB._enterPressed) {
             addAction();
-            aiTurn();
-            //pvp logic
-//                if (this.activeTeam.teamNumber == 1) {
-//                    switchTeam(2);
-//                    this.status = Status.HERO_CHOICE;
-//                } else {
-//                    this.status = Status.WAIT_ON_TURN;
-//                }
+            nextAction();
         }
     }
 
+    private void nextAction() {
+        if (this.pvp) {
+                if (this.activeTeam.teamNumber == 1) {
+                    switchTeam(2);
+                    this.status = Status.HERO_CHOICE;
+                } else {
+                    this.status = Status.WAIT_ON_TURN;
+                }
+        } else {
+            aiTurn();
+        }
+    }
     private void updateWaitOnAnimation() {
         int amntRunning = 0;
         for (Hero e : this.teams.stream().flatMap(ht->ht.getHeroesAsList().stream()).toList()) {
@@ -215,7 +215,11 @@ public class Arena extends GUIElement {
             this.targetMatrix = this.activeSkill.setupTargetMatrix();
             this.targetPointer = this.targetMatrix[this.targetMatrix.length-1];
             this.matrixPointer = this.targetMatrix.length-1;
-        } else {
+        } else if (this.activeSkill.getTargetType().equals(TargetType.ANY)) {
+            this.targetMatrix = new int[] {0,1,2,3,4,5};
+            this.targetPointer = this.targetMatrix[this.targetMatrix.length-1];
+            this.matrixPointer = this.targetMatrix.length-1;
+        }else {
             this.targetPointers = new int[]{};
             switch (this.activeSkill.getTargetType()) {
                 case SELF:
@@ -224,8 +228,13 @@ public class Arena extends GUIElement {
                 case ALL:
                     this.targetPointers = allPos;
                     break;
+                case ALL_TARGETS:
+                    this.targetPointers = activeSkill.getConvertedTargetPos();
+                    break;
+
             }
             this.addAction();
+            nextAction();
         }
     }
     private void changeActiveHero(int pos) {
@@ -281,8 +290,7 @@ public class Arena extends GUIElement {
         action.caster = this.activeHero;
         this.actionQueue.addAction(action);
         this.heroesChosen.add(this.activeHero);
-        this.activeHero.getAllies().forEach(h->h.setMovedLast(false));
-        this.activeHero.setMovedLast(true);
+        this.activeHero.setMoved(true);
 
         this.targetPointer = -1;
         this.targetMatrix = new int[0];
@@ -303,15 +311,13 @@ public class Arena extends GUIElement {
             if (action != null) {
                 this.activeHero = action.caster;
                 this.activeSkill = action.skill;
-                if (this.activeHero.hasPermanentEffect(Exhausted.class) > 0) {
+                if (this.activeHero.hasPermanentEffect(Stunned.class) > 0) {
                     this.actionQueue.remove(action);
-                    this.activeHero.removePermanentEffectOfClass(Exhausted.class);
-                    this.activeHero.changeStatTo(Stat.CURRENT_ACTION, this.activeHero.getStat(Stat.MAX_ACTION));
-                    this.activeHero.endOfTurn();
+                    this.activeHero.removePermanentEffectOfClass(Stunned.class);
+                    this.activeHero.setMoved(true);
                     this.activeSkill = null;
                     this.nextAction = null;
-                }
-                if (this.activeHero.canPerform(this.activeSkill, action.targetPositions)) {
+                } else if (this.activeHero.canPerform(this.activeSkill, action.targetPositions)) {
                     this.activeSkill.setTargets(getEntitiesAt(action.targetPositions));
                     this.performSkill();
                 } else {
@@ -327,10 +333,11 @@ public class Arena extends GUIElement {
         this.removeTheDead();
         this.checkEndOfMatch();
 //        this.logCard.openLog("End of round: ");
-        for (Hero hero: getAllLivingEntities()) {
-            hero.endOfRound();
+        for (HeroTeam team : this.teams) {
+            if (team.getHeroesAsList().stream().allMatch(Hero::isMoved)) {
+                team.getHeroesAsList().forEach(hero -> hero.setMoved(false));
+            }
         }
-
         this.heroesChosen = new ArrayList<>();
         EndOfRoundPayload endOfTurnPayload = new EndOfRoundPayload()
                 .setArena(this);
@@ -369,11 +376,7 @@ public class Arena extends GUIElement {
         Connector.fireTopic(Connector.GLOBAL_EFFECT_CHANGE, globalEffectChangePayload);
     }
 
-    public void stun(Hero target) {
-        this.queue.didTurn(target);
-    }
     public void moveTo(Hero e, int targetPos) {
-        int indexOffset = e.isTeam2() ? numberPositions:0;
 
         if ((e.isTeam2() && (targetPos < firstEnemyPos || targetPos > lastEnemyPos)) ||
                 (!e.isTeam2() && (targetPos <firstFriendPos || targetPos > lastFriendPos))) {
@@ -385,17 +388,15 @@ public class Arena extends GUIElement {
         }
         HeroTeam group = e.isTeam2() ? this.teams.get(1) : this.teams.get(0);
         int oldPosition = e.getPosition();
-        Hero switchWith = group.heroes[targetPos-indexOffset];
-
-        if (switchWith.hasPermanentEffect(Rooted.class) > 0 ||
-                switchWith.hasPermanentEffect(Scoped.class) > 0) {
-            return;
-        }
+        int oldCastPos = e.getCasterPosition();
+        int targetCastPos = e.isTeam2() ? Arena.lastEnemyPos - targetPos : targetPos;
+        Hero switchWith = group.heroes[targetCastPos];
 
         switchWith.setPosition(oldPosition);
         e.setPosition(targetPos);
-        group.heroes[targetPos-indexOffset] = e;
-        group.heroes[oldPosition-indexOffset] = switchWith;
+
+        group.heroes[targetCastPos] = e;
+        group.heroes[oldCastPos] = switchWith;
 
     }
     private void removeTheDead() {

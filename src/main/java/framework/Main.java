@@ -1,14 +1,11 @@
 package framework;
 
-
-import utils.MyMaths;
-
 import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
 
-        MyMaths.simulateDmg();
+//        MyMaths.simulateDmg();
         Loader.load();
         JFrame window = new JFrame();
         window.setBounds(0, 0, 0, 0);

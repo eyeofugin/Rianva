@@ -16,6 +16,16 @@ public class StatEffect extends Effect {
         this.description = "Gain " + statChange + " " + this.stat.name() + ".";
         this.type = ChangeEffectType.STAT_CHANGE;
     }
+    public StatEffect(int turns, Stat stat, double statChange) {
+        this.turns = turns;
+        this.iconString = stat.getIconKey();
+        this.stat = stat;
+        this.statChangePercentage = statChange;
+        this.name = this.stat.name();
+        this.stackable = false;
+        this.description = "Gain " + statChange + " " + this.stat.name() + ".";
+        this.type = ChangeEffectType.STAT_CHANGE;
+    }
 
     @Override
     public Effect getNew() {

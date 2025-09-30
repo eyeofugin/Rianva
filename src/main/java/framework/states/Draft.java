@@ -27,6 +27,7 @@ public class Draft extends GUIElement {
 
     public Draft(Engine engine) {
         super(Engine.X, Engine.Y);
+        this.id = StateManager.DRAFT;
         this.engine = engine;
         this.hud = new HUD(engine);
         this.hud.setDraft(this);
@@ -41,7 +42,8 @@ public class Draft extends GUIElement {
     }
 
     private void initDungeonDraft() {
-        List<Hero> list = DraftBuilder.getDungeonDraft();
+        List<Hero> list = DraftBuilder.getAllHeroes();
+
         for (int i = 0; i < this.draftChoices.length; i++) {
             this.draftChoices[i] = list.get(i);
         }
@@ -163,11 +165,13 @@ public class Draft extends GUIElement {
     private void renderDraft() {
         int x = 20;
         int y = 20;
-        for (int i = 0; i < draftChoices.length; i++) {
-            Hero hero = this.draftChoices[i];
-            fillWithGraphicsSize(x, y, hero.getWidth(), hero.getHeight(), hero.render(Hero.DRAFT), this.draftPointer == i);
-            x += hero.getWidth()+10;
-        }
+        Hero hero = this.draftChoices[draftPointer];
+        fillWithGraphicsSize(x, y, hero.getWidth(), hero.getHeight(), hero.render(Hero.DRAFT), false);
+//        for (int i = 0; i < draftChoices.length; i++) {
+//            Hero hero = this.draftChoices[i];
+//            fillWithGraphicsSize(x, y, hero.getWidth(), hero.getHeight(), hero.render(Hero.DRAFT), this.draftPointer == i);
+//            x += hero.getWidth()+10;
+//        }
     }
     private void renderHUD() {
         fillWithGraphicsSize(0,0,640,360,hud.render(),null);

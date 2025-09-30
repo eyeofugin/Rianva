@@ -21,12 +21,14 @@ public class Equipment {
     protected Map<Stat, Integer> tempStatBonus = new HashMap<>();
     protected boolean loseTempStat = false;
     protected boolean consumed = false;
+    protected boolean equipped = false;
     protected Hero hero;
     protected Hero oldHero;
     protected boolean active;
     protected Skill skill;
     protected String name;
     protected List<Stat> adaptiveStats;
+
 
     public Equipment() {
         this.packageName = "";
@@ -43,18 +45,13 @@ public class Equipment {
 
     public void turn() {}
     public void equipToHero(Hero hero) {
+        if (this.hero != null && this.equipped) {
+            return;
+        }
         this.hero = hero;
         this.hero.equip(this);
-        this.active = true;
-        addSubscriptions();
-        statChange(this.statBonus, 1);
-        if (this.loseTempStat) return;
-        statChange(this.tempStatBonus, 1);
-        EquipmentChangePayload pl = new EquipmentChangePayload()
-                .setEquipment(this)
-                .setTarget(this.hero)
-                .setMode(EquipmentChangePayload.EquipmentChangeMode.EQUIP);
-        Connector.fireTopic(Connector.EQUIPMENT_CHANGE_TRIGGER, pl);
+        this.activateEquipment();
+        this.equipped = true;
     }
 
     public void unEquipFromHero() {
@@ -62,7 +59,6 @@ public class Equipment {
         statChange(this.statBonus, -1);
         removeSubscriptions();
         this.oldHero = this.hero;
-        this.hero = null;
         if (this.loseTempStat) return;
         statChange(this.tempStatBonus, -1);
         EquipmentChangePayload pl = new EquipmentChangePayload()
@@ -70,6 +66,8 @@ public class Equipment {
                 .setTarget(this.oldHero)
                 .setMode(EquipmentChangePayload.EquipmentChangeMode.UNEQUIP);
         Connector.fireTopic(Connector.EQUIPMENT_CHANGE_TRIGGER, pl);
+        this.hero = null;
+        this.equipped = false;
     }
 
     private void statChange(Map<Stat, Integer> map, int sign) {
@@ -184,5 +182,9 @@ public class Equipment {
     }
     public boolean isConsumed() {
         return consumed;
+    }
+
+    public void reset() {
+        this.activateEquipment();
     }
 }

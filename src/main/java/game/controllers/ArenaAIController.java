@@ -8,12 +8,9 @@ import game.skills.AiSkillTag;
 import game.skills.Skill;
 import game.skills.Stat;
 import game.skills.TargetType;
-import game.skills.changeeffects.effects.Combo;
 import utils.Action;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+
+import java.util.*;
 
 public class ArenaAIController {
 
@@ -33,13 +30,23 @@ public class ArenaAIController {
 
     public void chooseActions() {
         evaluateSkills();
-        this.arena.actionQueue.addAction(getBestActionFor(this.aiTeam.getHeroesAsList().get(0)));
+        Hero bot = this.aiTeam.getHeroesAsList().stream().filter(h->!h.isMoved()).findFirst().orElse(null);
+        if (bot != null) {
+            bot.setMoved(true);
+            Action action = getBestActionFor(bot);
+            if (action != null) {
+                this.arena.actionQueue.addAction(getBestActionFor(bot));
+            }
+        }
 //        this.aiTeam.getHeroesAsList().forEach(hero -> this.arena.actionQueue.addAction(getBestActionFor(hero)));
     }
 
     private Action getBestActionFor(Hero hero) {
         this.turnOptions.sort((o1, o2) -> Integer.compare(o2.rating, o1.rating));
         List<Action> options = this.turnOptions.stream().filter(a->a.caster.equals(hero)).toList();
+        if (options.isEmpty()) {
+            return null;
+        }
         return options.get(0);
     }
 
@@ -76,7 +83,6 @@ public class ArenaAIController {
         rating += getHealRating(s,targets);
         rating += getCustomAIRating(s, targets);
         rating += getShieldRating(s, targets);
-        rating += getComboRating(s);
         rating += getFaithGainRating(s);
         return rating;
     }
@@ -157,13 +163,6 @@ public class ArenaAIController {
             return 2;
         }
         return 1;
-    }
-
-    private int getComboRating(Skill s) {
-        if (s.aiTags.contains(AiSkillTag.COMBO_ENABLED) && s.hero.hasPermanentEffect(Combo.class) > 0) {
-            return 1;
-        }
-        return 0;
     }
 
     private int getFaithGainRating(Skill s) {

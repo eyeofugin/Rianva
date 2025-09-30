@@ -17,7 +17,7 @@ public class S_Skip extends Skill {
 
     @Override
     public int getAIRating(Hero target) {
-        return -1;
+        return -2;
     }
     @Override
     public void resolve() {
@@ -28,6 +28,10 @@ public class S_Skip extends Skill {
         return "Skips the turn";
     }
 
+    @Override
+    public int getSort() {
+        return 7;
+    }
     @Override
     public String getName() {
         return "Skip";

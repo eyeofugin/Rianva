@@ -4,9 +4,13 @@ import framework.Engine;
 import framework.Property;
 import framework.graphics.GUIElement;
 import framework.graphics.text.Color;
+import framework.graphics.text.Symbol;
+import framework.graphics.text.TextEditor;
 import framework.resources.SpriteLibrary;
 import game.entities.Hero;
 import game.skills.Effect;
+import game.skills.changeeffects.effects.StatEffect;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -90,8 +94,14 @@ public class EffectField extends GUIElement {
             if (active) {
                 GUIElement.addBorder(EFFECT_SIZE,EFFECT_SIZE, pixels, Color.WHITE);
             }
+            int[] effectSprite;
+            if (effect instanceof StatEffect) {
+                effectSprite = this.editor.getSymbol(effect.stat.getIconKey()).pixels;
+            } else {
+                effectSprite = SpriteLibrary.getSprite(effect.getClass().getName());
+            }
             GUIElement.staticFillSize(1, 1, Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,
-                    EFFECT_SIZE, pixels,  SpriteLibrary.getSprite(effect.getClass().getName()));
+                    EFFECT_SIZE, pixels, effectSprite);
 
             GUIElement effectElement = new GUIElement();
             effectElement.setSize(EFFECT_SIZE,EFFECT_SIZE);

@@ -1,33 +1,40 @@
 package framework.states;
 
 import framework.Engine;
+import framework.connector.Connector;
 import framework.graphics.GUIElement;
 import game.entities.DraftBuilder;
 import game.entities.Hero;
 import game.entities.HeroTeam;
-import game.entities.individuals.angelguy.H_AngelGuy;
-import game.entities.individuals.battleaxe.H_BattleAxe;
-import game.entities.individuals.burner.H_Burner;
-import game.entities.individuals.dualpistol.H_DualPistol;
-import game.entities.individuals.eldritchguy.H_EldritchGuy;
-import game.entities.individuals.firedancer.H_FireDancer;
-import game.entities.individuals.rifle.H_Rifle;
-import game.entities.individuals.thehealer.H_TheHealer;
-import game.skills.Skill;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 public class StateManager {
 
+    public static final int ARENA = 1;
+    public static final int DRAFT = 2;
+    public static final int DUNGEON = 3;
+    public static final int DEV = 4;
+    public static final int TEAM_BUILDER = 5;
+    public static final int PVP_DRAFT = 6;
     public Engine engine;
-    private GUIElement activeScene;
-    private List<GUIElement> sceneMemory = new ArrayList<>();
+    private int activeSceneId = 0;
+    private Arena arena;
+    private Draft draft;
+    private Dungeon dungeon;
+    private DevState devState;
+    private PvpDraft pvpDraft;
+    private TeamBuilder teamBuilder;
+    private List<GUIElement> scenes = new ArrayList<>();
 
     public StateManager(Engine e) {
         this.engine = e;
 //        dungeonDraft();
-            dev();
+//            dev();
+        pvpDraft();
     }
 
     private void pvpDraft() {
@@ -37,18 +44,20 @@ public class StateManager {
         this.engine.memory = new Memory(GameMode.PVP);
         this.engine.memory.teams = new HeroTeam[]{left, right};
 
-        PvpDraft draft = new PvpDraft(this.engine);
-        draft.setActive(true);
-        this.activeScene = draft;
+        this.pvpDraft = new PvpDraft(this.engine);
+        pvpDraft.setActive(true);
+        this.activeSceneId = PVP_DRAFT;
+        this.scenes.add(pvpDraft);
     }
     private void dungeonDraft() {
         HeroTeam dungeonTeam = new HeroTeam(1, new Hero[0], 1);
         this.engine.memory = new Memory(GameMode.DUNGEON);
         this.engine.memory.dungeonTeam = dungeonTeam;
 
-        Draft draft = new Draft(this.engine);
+        this.draft = new Draft(this.engine);
         draft.setActive(true);
-        this.activeScene = draft;
+        this.activeSceneId = DRAFT;
+        this.scenes.add(draft);
 
     }
     private void draft() {
@@ -58,77 +67,105 @@ public class StateManager {
         this.engine.memory = new Memory(GameMode.PVP);
         this.engine.memory.teams = new HeroTeam[]{left, right};
 
-        Draft draft = new Draft(this.engine);
+        this.draft = new Draft(this.engine);
         draft.setActive(true);
-        this.activeScene = draft;
+        this.activeSceneId = DRAFT;
+        this.scenes.add(draft);
     }
 
     private void dev() {
-        DevState devState = new DevState(this.engine);
+        this.devState = new DevState(this.engine);
         devState.setActive(true);
-        this.activeScene = devState;
+        this.activeSceneId = DEV;
+        this.scenes.add(devState);
     }
 
     public void joinDungeon() {
-        this.activeScene = new Dungeon(this.engine);
-        this.activeScene.setActive(true);
+        this.dungeon = new Dungeon(this.engine);
+        this.dungeon.setActive(true);
+        this.activeSceneId = DUNGEON;
+        this.scenes.add(dungeon);
+    }
+    public void returnToDungeon() {
+        this.activeSceneId = DUNGEON;
+        this.arena = null;
+        this.engine.memory.dungeonTeam.getHeroesAsList().forEach(Hero::leaveArena);
+        Connector.cleanUpSubscriptions();
     }
 
     public void joinArena(Memory memory) {
-        Arena arena = new Arena(this.engine, false);
-        if (this.engine.memory.mode.equals(GameMode.DUNGEON)) {
-            arena.setTeams(this.engine.memory.dungeonTeam, this.engine.memory.dungeonEnemies);
-        } else if (this.engine.memory.mode.equals(GameMode.PVP)) {
+        this.arena = new Arena(this.engine, false);
+        if (memory.mode.equals(GameMode.DUNGEON)) {
+            arena.setTeams(memory.dungeonTeam, memory.dungeonEnemies);
+        } else if (memory.mode.equals(GameMode.PVP)) {
             arena.round = memory.pvpRound;
+            arena.pvp = true;
             arena.setTeams(memory.teams[0], memory.teams[1]);
         }
-        this.activeScene = arena;
+        this.activeSceneId = ARENA;
+        this.scenes.add(arena);
     }
 
     public void joinTeamBuilding() {
-        this.activeScene = new TeamBuilder(this.engine);
-    }
-
-    private void checkEndOfDraft() {
-        if (this.activeScene instanceof Draft) {
-            if (((Draft) this.activeScene).finished) {
-                if (this.engine.memory.mode.equals(GameMode.DUNGEON)) {
-                    joinDungeon();
-                } else if (this.engine.memory.mode.equals(GameMode.PVP)) {
-                    joinArena(this.engine.memory);
-                }
-            }
-        }
-        if (this.activeScene instanceof PvpDraft) {
-            if (((PvpDraft) this.activeScene).finished) {
-                joinTeamBuilding();
-            }
-        }
-        if (this.activeScene instanceof TeamBuilder) {
-            if (((TeamBuilder) this.activeScene).finished) {
-                joinArena(this.engine.memory);
-            }
-        }
-        if (this.activeScene instanceof Arena) {
-            if (((Arena) this.activeScene).finished) {
-//                joinDraft(this.engine.memory);
-            }
-        }
-        if (this.activeScene instanceof Dungeon) {
-            if (((Dungeon) this.activeScene).startEncounter) {
-                joinArena(this.engine.memory);
-            } else if (((Dungeon) this.activeScene).startLoot) {
-                joinTeamBuilding();
-            }
-        }
+        this.teamBuilder = new TeamBuilder(this.engine);
+        this.activeSceneId = TEAM_BUILDER;
+        this.scenes.add(teamBuilder);
     }
 
     public int[] render(){
-
-        return this.activeScene.render();
+        Optional<GUIElement> activeScene = this.scenes.stream()
+                .filter(gui->gui.id ==  this.activeSceneId)
+                .findAny();
+        if (activeScene.isPresent()) {
+            return activeScene.get().render();
+        }
+        return new int[0];
     }
     public void update(int frame) {
-        this.activeScene.update(frame);
-        checkEndOfDraft();
+        Optional<GUIElement> activeScene = this.scenes.stream()
+                .filter(gui->gui.id ==  this.activeSceneId)
+                .findAny();
+        activeScene.ifPresent(guiElement -> guiElement.update(frame));
+        switch (this.activeSceneId) {
+            case ARENA -> {
+                if (this.arena.finished) {
+                    this.arena = null;
+                    this.scenes.removeIf(Objects::isNull);
+                    returnToDungeon();
+                }
+            }
+            case DRAFT -> {
+                if (this.draft.finished) {
+                    if (this.engine.memory.mode.equals(GameMode.DUNGEON)) {
+                        joinDungeon();
+                    } else if (this.engine.memory.mode.equals(GameMode.PVP)) {
+                        joinArena(this.engine.memory);
+                    }
+                }
+            }
+            case PVP_DRAFT -> {
+                if (this.pvpDraft.finished) {
+                    this.pvpDraft = null;
+                    this.scenes.removeIf(Objects::isNull);
+                    joinTeamBuilding();
+                }
+            }
+            case TEAM_BUILDER -> {
+                if (this.teamBuilder.finished) {
+                    this.teamBuilder = null;
+                    this.scenes.removeIf(Objects::isNull);
+                    joinArena(this.engine.memory);
+                }
+            }
+            case DUNGEON -> {
+                if (this.dungeon.startEncounter) {
+                    this.dungeon.startEncounter = false;
+                    joinArena(this.engine.memory);
+                } else if (this.dungeon.startLoot) {
+                    this.dungeon.startLoot = false;
+                    joinTeamBuilding();
+                }
+            }
+        }
     }
 }

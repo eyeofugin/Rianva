@@ -7,7 +7,6 @@ import framework.graphics.text.Color;
 import game.objects.Equipment;
 import game.skills.DamageMode;
 import game.skills.changeeffects.effects.Burning;
-import jdk.jfr.Percentage;
 
 public class FlamingSword extends Equipment {
     public FlamingSword() {

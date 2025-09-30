@@ -5,7 +5,6 @@ import framework.connector.Connector;
 import framework.connector.payloads.ShieldChangesPayload;
 import game.objects.Equipment;
 import game.skills.Stat;
-import game.skills.changeeffects.effects.Burning;
 
 public class ShiningArmor extends Equipment {
 

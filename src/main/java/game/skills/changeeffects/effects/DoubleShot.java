@@ -12,7 +12,7 @@ public class DoubleShot extends Effect {
     public DoubleShot(int turns) {
         this.turns = turns;
         this.iconString = ICON_STRING;
-        this.name = "Double Shot";
+        this.name = "Double Hit";
         this.stackable = false;
         this.description = "Primary Skills count as 2 hits.";
         this.type = ChangeEffectType.BUFF;

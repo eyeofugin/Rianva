@@ -5,12 +5,10 @@ import framework.Property;
 import framework.graphics.text.*;
 
 import javax.sound.sampled.Line;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class GUIElement {
+    public int id;
     public String name;
     protected int width, height;
     protected Color background = Color.VOID;
@@ -78,6 +76,7 @@ public class GUIElement {
         }
     }
     protected void renderChildren() {
+        this.children.removeIf(Objects::isNull);
         for (GUIElement child : children) {
             if (child != null) {
                 int[] childP = child.render();
