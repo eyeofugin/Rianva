@@ -23,7 +23,7 @@ public class PvpDraft extends GUIElement {
     private int pointerX, pointerY = 0;
     private Hero[] choices;
     private boolean[] removed;
-    private int[] numberOfChoices = new int[]{1,2,2,1};
+    private int[] numberOfChoices = new int[]{1,2,2,2,1};
     private int currentChoice = 0;
     private int choiceRound = 0;
     public boolean finished = false;

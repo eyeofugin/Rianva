@@ -2,7 +2,10 @@ package game.entities.heroes.paladin.stash;
 
 import game.entities.Hero;
 import game.entities.Multiplier;
-import game.skills.*;
+import game.skills.*; 
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
 
 import java.util.List;
 
@@ -21,11 +24,7 @@ public class S_LightBlast extends Skill {
         this.tags = List.of(SkillTag.TACTICAL);
         this.dmgMultipliers = List.of(new Multiplier(Stat.MAGIC, 0.4));
         this.targetType = TargetType.SINGLE;
-        this.possibleCastPositions = new int[]{2};
-        this.possibleTargetPositions = new int[]{3};
-        this.dmg = 2;
-        this.faithRequirement = 40;
-        this.damageMode = DamageMode.MAGICAL;
+        this.dmg = 2;  
         this.move = 1;
     }
 

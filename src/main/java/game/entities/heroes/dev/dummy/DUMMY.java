@@ -2,7 +2,7 @@ package game.entities.heroes.dev.dummy;
 
 import game.entities.Animator;
 import game.entities.Hero;
-import game.skills.Stat;
+import game.skills.logic.Stat;
 import game.skills.genericskills.AllyHeal;
 
 public class DUMMY extends Hero {
@@ -26,15 +26,13 @@ public class DUMMY extends Hero {
         this.stats.put(Stat.CURRENT_MANA, 40);
         this.stats.put(Stat.MANA_REGAIN, 2);
 
-        this.stats.put(Stat.FAITH, 40);
-        this.stats.put(Stat.CURRENT_FAITH, 40);
 
 
         //
         this.stats.put(Stat.MAGIC, 10);
-        this.stats.put(Stat.POWER, 10);
-        this.stats.put(Stat.STAMINA, 0);
-        this.stats.put(Stat.ENDURANCE, 0);
+        this.stats.put(Stat.ATTACK, 10);
+        this.stats.put(Stat.DEFENSE, 0);
+        this.stats.put(Stat.DEFENSE, 0);
         this.stats.put(Stat.ACCURACY, 100);
         this.stats.put(Stat.EVASION, 0);
         this.stats.put(Stat.SPEED, 1);

@@ -3,7 +3,7 @@ package game.entities.heroes.phoenixguy;
 import game.entities.Animator;
 import game.entities.Hero;
 import game.entities.Role;
-import game.skills.Stat;
+import game.skills.logic.Stat;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ public class H_Phoenixguy extends Hero {
     public H_Phoenixguy() {
         super("F.E.Nyx");
         this.initBasePath("phoenixguy");
-        this.secondaryResource = Stat.FAITH;
+        this.secondaryResource = Stat.MANA;
         initAnimator();
         initSkills();
         this.initStats();

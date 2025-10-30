@@ -7,7 +7,7 @@ import framework.graphics.text.Color;
 import framework.resources.SpriteLibrary;
 import game.entities.Hero;
 import game.skills.Skill;
-import game.skills.Stat;
+import game.skills.logic.Stat;
 import utils.FileWalker;
 
 import java.util.HashMap;
@@ -74,7 +74,7 @@ public class Equipment {
         for (Map.Entry<Stat, Integer> statBonus : map.entrySet()) {
             if (this.adaptiveStats != null && !this.adaptiveStats.isEmpty()) {
                 if (this.adaptiveStats.contains(statBonus.getKey())) {
-                    this.hero.addToStat(statBonus.getKey(), statBonus.getValue() * this.hero.arena.round * sign);
+                    this.hero.addToStat(statBonus.getKey(), statBonus.getValue() * sign);
                 }
             } else {
                 this.hero.addToStat(statBonus.getKey(), statBonus.getValue() * sign);
@@ -84,9 +84,6 @@ public class Equipment {
             }
             if (statBonus.getKey().equals(Stat.MANA) && this.hero.getStat(Stat.CURRENT_MANA) > this.hero.getStat(Stat.LIFE)) {
                 this.hero.changeStatTo(Stat.CURRENT_MANA, this.hero.getStat(Stat.MANA));
-            }
-            if (statBonus.getKey().equals(Stat.FAITH) && this.hero.getStat(Stat.CURRENT_FAITH) > this.hero.getStat(Stat.LIFE)) {
-                this.hero.changeStatTo(Stat.CURRENT_FAITH, this.hero.getStat(Stat.FAITH));
             }
         }
     }

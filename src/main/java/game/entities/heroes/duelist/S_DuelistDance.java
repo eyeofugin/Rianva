@@ -5,6 +5,8 @@ import framework.connector.Connector;
 import framework.connector.payloads.CastChangePayload;
 import game.entities.Hero;
 import game.skills.*;
+import game.skills.logic.SkillTag;
+
 import java.util.List;
 
 public class S_DuelistDance extends Skill {
@@ -29,7 +31,6 @@ public class S_DuelistDance extends Skill {
 
     public void castChange(CastChangePayload pl) {
         if (pl.skill.hero.equals(this.hero)) {
-            pl.skill.priority++;
         }
     }
 

@@ -3,7 +3,8 @@ package game.entities.heroes.dualpistol.stash;
 import game.entities.Hero;
 import game.entities.Multiplier;
 import game.skills.*;
-import game.skills.changeeffects.effects.Bleeding;
+import game.skills.changeeffects.effects.status.Bleeding;
+import game.skills.logic.*;
 
 import java.util.List;
 
@@ -22,11 +23,8 @@ public class S_CarefulShot extends Skill {
         this.tags = List.of(SkillTag.PRIMARY);
         this.aiTags = List.of(AiSkillTag.COMBO_ENABLED);
         this.targetType = TargetType.SINGLE;
-        this.possibleCastPositions = new int[]{0,1,2};
-        this.possibleTargetPositions = new int[]{6,7};
         this.dmg = 6;
-        this.dmgMultipliers = List.of(new Multiplier(Stat.POWER, 0.4));
-        this.damageMode = DamageMode.PHYSICAL;
+        this.dmgMultipliers = List.of(new Multiplier(Stat.ATTACK, 0.4));  
         this.critChance = 20;
     }
 

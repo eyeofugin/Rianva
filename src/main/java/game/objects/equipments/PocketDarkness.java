@@ -2,7 +2,7 @@ package game.objects.equipments;
 
 import game.objects.Equipment;
 import game.objects.equipments.skills.S_PocketDarkness;
-import game.skills.Stat;
+import game.skills.logic.Stat;
 
 public class PocketDarkness extends Equipment {
     public PocketDarkness() {

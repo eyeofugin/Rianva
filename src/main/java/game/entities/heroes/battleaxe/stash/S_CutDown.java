@@ -5,7 +5,11 @@ import framework.connector.Connector;
 import framework.connector.payloads.DmgChangesPayload;
 import game.entities.Hero;
 import game.entities.Multiplier;
-import game.skills.*;
+import game.skills.*; 
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
+
 import java.util.List;
 
 public class S_CutDown extends Skill {
@@ -21,12 +25,9 @@ public class S_CutDown extends Skill {
     public void setToInitial() {
         super.setToInitial();
         this.tags = List.of(SkillTag.PRIMARY);
-        this.dmgMultipliers = List.of(new Multiplier(Stat.POWER, 0.2));
+        this.dmgMultipliers = List.of(new Multiplier(Stat.ATTACK, 0.2));
         this.targetType = TargetType.SINGLE;
-        this.possibleCastPositions = new int[]{1,2};
-        this.possibleTargetPositions = new int[]{3,4};
-        this.dmg = 9;
-        this.damageMode = DamageMode.PHYSICAL;
+        this.dmg = 9;  
     }
 
     @Override

@@ -3,7 +3,10 @@ package game.entities.heroes.battleaxe;
 import framework.graphics.text.Color;
 import game.entities.Hero;
 import game.skills.*;
-import game.skills.changeeffects.effects.Bleeding;
+import game.skills.changeeffects.effects.status.Bleeding; 
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
 
 import java.util.List;
 
@@ -21,12 +24,8 @@ public class S_WideSwing extends Skill {
     public void setToInitial() {
         super.setToInitial();
         this.tags = List.of(SkillTag.ULT);
-        this.targetType = TargetType.ALL_TARGETS;
-        this.possibleCastPositions = new int[]{1,2};
-        this.possibleTargetPositions = new int[]{3,4};
-        this.effects = List.of(new Bleeding(1));
-        this.damageMode = DamageMode.PHYSICAL;
-        this.cdMax = 2;
+        this.targetType = TargetType.ALL_ENEMY;
+        this.effects = List.of(new Bleeding(1));  
         this.level = 5;
     }
     @Override
@@ -34,10 +33,10 @@ public class S_WideSwing extends Skill {
         return (this.hero.getStat(Stat.LIFE) - this.hero.getStat(Stat.CURRENT_LIFE)) / 3;
     }
 
-    @Override
-    public boolean performCheck(Hero hero) {
-        return super.performCheck(hero) && hero.getCurrentLifePercentage() < 40;
-    }
+//    @Override
+//    public boolean performCheck(Hero hero) {
+//        return super.performCheck(hero) && hero.getCurrentLifePercentage() < 40;
+//    }
 
     @Override
     public int getAIRating(Hero target) {

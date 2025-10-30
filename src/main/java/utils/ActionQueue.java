@@ -1,7 +1,5 @@
 package utils;
 
-import game.skills.Stat;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,18 +14,18 @@ public class ActionQueue {
         this.actionList.add(action);
     }
 
-    public Action getNextAction() {;
-        updateActions();
-        actionList.sort((o1, o2) -> {
-            int priorityCompare = Integer.compare(o2.skill.priority, o1.skill.priority);
-            if (priorityCompare != 0) {
-                return priorityCompare;
-            } else {
-                return Integer.compare(o2.caster.getStat(Stat.SPEED), o1.caster.getStat(Stat.SPEED));
-            }
-        });
-        return actionList.get(0);
-    }
+//    public Action getNextAction() {;
+//        updateActions();
+//        actionList.sort((o1, o2) -> {
+//            int priorityCompare = Integer.compare(o2.skill.priority, o1.skill.priority);
+//            if (priorityCompare != 0) {
+//                return priorityCompare;
+//            } else {
+//                return Integer.compare(o2.caster.getStat(Stat.SPEED), o1.caster.getStat(Stat.SPEED));
+//            }
+//        });
+//        return actionList.get(0);
+//    }
 
     public boolean hasAction() {
         return !this.actionList.isEmpty();

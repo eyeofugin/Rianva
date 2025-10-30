@@ -3,7 +3,10 @@ package game.entities.heroes.eldritchguy;
 import framework.graphics.text.Color;
 import game.entities.Hero;
 import game.entities.Multiplier;
-import game.skills.*;
+import game.skills.*; 
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
 
 import java.util.List;
 
@@ -20,12 +23,8 @@ public class S_TentacleGrab extends Skill {
     public void setToInitial() {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
-        this.targetType = TargetType.SINGLE;
-        this.possibleCastPositions = new int[]{2};
-        this.possibleTargetPositions = new int[]{4,5};
-        this.damageMode = DamageMode.PHYSICAL;
+        this.targetType = TargetType.SINGLE;  
         this.dmgMultipliers = List.of(new Multiplier(Stat.MAGIC, 0.3));
-        this.manaCost = 6;
         this.level = 2;
         this.move = -1;
     }
@@ -52,7 +51,7 @@ public class S_TentacleGrab extends Skill {
 
     @Override
     public String getDmgStringGUI() {
-        return DamageMode.PHYSICAL.getColor().getCodeString()+"DMG"+ Color.WHITE.getCodeString()+": 10% of target's "+ Stat.LIFE.getReference() + ".";
+        return "";//return DamageMode.PHYSICAL.getColor().getCodeString()+"DMG"+ Color.WHITE.getCodeString()+": 10% of target's "+ Stat.LIFE.getReference() + ".";
     }
 
     @Override

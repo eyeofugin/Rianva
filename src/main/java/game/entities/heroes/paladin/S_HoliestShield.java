@@ -6,9 +6,9 @@ import framework.connector.payloads.StartOfMatchPayload;
 import framework.connector.payloads.StartOfTurnPayload;
 import game.entities.Hero;
 import game.skills.Skill;
-import game.skills.SkillTag;
-import game.skills.Stat;
-import game.skills.TargetType;
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
 
 import java.util.List;
 
@@ -27,7 +27,6 @@ public class S_HoliestShield extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.ULT, SkillTag.PASSIVE);
         this.targetType = TargetType.SELF;
-        this.possibleCastPositions = new int[]{0,1,2};
         this.level = 5;
     }
 

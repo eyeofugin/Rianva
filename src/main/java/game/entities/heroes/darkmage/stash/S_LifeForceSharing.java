@@ -3,9 +3,9 @@ package game.entities.heroes.darkmage.stash;
 import game.entities.Hero;
 import game.entities.Multiplier;
 import game.skills.Skill;
-import game.skills.SkillTag;
-import game.skills.Stat;
-import game.skills.TargetType;
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
 
 import java.util.List;
 
@@ -24,8 +24,6 @@ public class S_LifeForceSharing extends Skill {
         this.tags = List.of(SkillTag.TACTICAL);
         this.healMultipliers = List.of(new Multiplier(Stat.MAGIC, 0.5));
         this.targetType = TargetType.SINGLE_OTHER;
-        this.possibleCastPositions = new int[]{0,1,2};
-        this.possibleTargetPositions = new int[]{0,1,2};
         this.lifeCost = 4;
     }
 

@@ -2,7 +2,10 @@ package game.entities.heroes.thewizard;
 
 import game.entities.Hero;
 import game.entities.Multiplier;
-import game.skills.*;
+import game.skills.*; 
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
 
 import java.util.List;
 
@@ -20,11 +23,7 @@ public class S_LightningStorm extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.ULT);
         this.dmgMultipliers = List.of(new Multiplier(Stat.MAGIC, 0.45));
-        this.targetType = TargetType.ALL_TARGETS;
-        this.possibleCastPositions = new int[]{1,2};
-        this.possibleTargetPositions = new int[]{3,4,5};
-        this.manaCost = 8;
-        this.damageMode = DamageMode.MAGICAL;
+        this.targetType = TargetType.ALL_ENEMY;  
         this.level = 5;
     }
 

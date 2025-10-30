@@ -2,9 +2,9 @@ package game.entities.heroes.sniper.stash;
 
 import game.entities.Hero;
 import game.skills.Skill;
-import game.skills.SkillTag;
-import game.skills.Stat;
-import game.skills.TargetType;
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
 
 import java.util.List;
 
@@ -21,10 +21,7 @@ public class S_HealingGrenade extends Skill {
     public void setToInitial() {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
-        this.targetType = TargetType.ALL_TARGETS;
-        this.possibleCastPositions = new int[]{0,1,2};
-        this.possibleTargetPositions = new int[]{0,1,2};
-        this.cdMax = 3;
+        this.targetType = TargetType.ALL_ENEMY;
     }
 
     @Override

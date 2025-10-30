@@ -2,9 +2,9 @@ package game.entities.heroes.dragonbreather.stash;
 
 import game.entities.Hero;
 import game.skills.Skill;
-import game.skills.SkillTag;
-import game.skills.Stat;
-import game.skills.TargetType;
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
 import game.skills.changeeffects.globals.Heat;
 
 import java.util.List;
@@ -23,8 +23,6 @@ public class S_InnerFire extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
         this.targetType = TargetType.SELF;
-        this.possibleCastPositions = new int[]{0,1,2};
-        this.manaCost = 8;
     }
 
 
@@ -38,18 +36,18 @@ public class S_InnerFire extends Skill {
 
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "+6"+Stat.POWER.getIconString()+", +6"+Stat.MAGIC.getIconString()+" during Heat. +4"+Stat.ENDURANCE.getIconString()+", +4"+Stat.STAMINA.getIconString()+ " otherwise.";
+        return "+6"+Stat.ATTACK.getIconString()+", +6"+Stat.MAGIC.getIconString()+" during Heat. +4"+Stat.DEFENSE.getIconString()+", +4"+Stat.DEFENSE.getIconString()+ " otherwise.";
     }
 
     @Override
     public void applySkillEffects(Hero target) {
         super.applySkillEffects(target);
         if (this.hero.arena.globalEffect instanceof Heat) {
-            this.hero.addToStat(Stat.POWER, 6);
+            this.hero.addToStat(Stat.ATTACK, 6);
             this.hero.addToStat(Stat.MAGIC, 6);
         } else {
-            this.hero.addToStat(Stat.ENDURANCE, 4);
-            this.hero.addToStat(Stat.STAMINA, 4);
+            this.hero.addToStat(Stat.DEFENSE, 4);
+            this.hero.addToStat(Stat.DEFENSE, 4);
         }
     }
 

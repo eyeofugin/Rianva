@@ -3,6 +3,9 @@ package game.entities.goons.axedude;
 import game.entities.Hero;
 import game.entities.Multiplier;
 import game.skills.*;
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
 
 import java.util.List;
 
@@ -19,10 +22,7 @@ public class S_Chop extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.PRIMARY);
         this.targetType = TargetType.SINGLE;
-        this.possibleTargetPositions = new int[]{3};
-        this.possibleCastPositions = new int[]{1,2};
-        this.damageMode = DamageMode.PHYSICAL;
-        this.dmgMultipliers = List.of(new Multiplier(Stat.POWER, 1.0));
+        this.dmgMultipliers = List.of(new Multiplier(Stat.ATTACK, 1.0));
     }
 
     @Override

@@ -6,7 +6,10 @@ import framework.connector.payloads.DmgChangesPayload;
 import game.entities.Hero;
 import game.entities.Multiplier;
 import game.skills.*;
-import game.skills.changeeffects.effects.Burning;
+import game.skills.changeeffects.effects.other.Burning; 
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
 
 import java.util.List;
 
@@ -25,12 +28,8 @@ public class S_Combustion extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
         this.targetType = TargetType.SINGLE;
-        this.possibleCastPositions = new int[]{1,2};
-        this.possibleTargetPositions = new int[]{3,4};
-        this.dmgMultipliers = List.of(new Multiplier(Stat.FAITH, 0.2));
-        this.dmg = 1;
-        this.damageMode = DamageMode.MAGICAL;
-        this.faithRequirement = 60;
+        this.dmgMultipliers = List.of(new Multiplier(Stat.MANA, 0.2));
+        this.dmg = 1;  
     }
 
     @Override

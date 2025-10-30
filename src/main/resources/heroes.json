@@ -1,0 +1,22 @@
+{
+  "Burner": {
+    "name": "Burner",
+    "path": "entities/heroes/burner",
+    "learnedSkills": [
+      "Burn"
+    ],
+    "learnableSkills": [
+      "Burn",
+      "Ally Heal"
+    ],
+    "role": "FIGHTER",
+    "baseStats":{
+      "MAGIC" : 8,
+      "ATTACK" : 1,
+      "SPEED" : 12,
+      "DEFENSE" : 2,
+      "LIFE" : 7,
+      "MANA": 8
+    }
+  }
+}

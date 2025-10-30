@@ -2,10 +2,9 @@ package framework.graphics.text;
 
 import framework.Property;
 import game.entities.Role;
-import game.skills.Stat;
-import game.skills.changeeffects.effects.*;
-import game.skills.changeeffects.effects.other.Exhausted;
-import game.skills.changeeffects.effects.other.Steadfast;
+import game.skills.logic.Stat;
+import game.skills.changeeffects.effects.other.*;
+import game.skills.changeeffects.effects.status.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -182,17 +181,12 @@ public class TextEditor {
         symbols.put(Stat.MANA_REGAIN.getIconKey(), Symbol.manaregain);
         symbols.put(TURN_KEY, Symbol.turn);
         symbols.put(TURN_CD_KEY, Symbol.turnCD);
-        symbols.put(Stat.CURRENT_FAITH.getIconKey(), Symbol.faith);
-        symbols.put(Stat.FAITH.getIconKey(), Symbol.faith);
-        symbols.put(Stat.CURRENT_HALO.getIconKey(), Symbol.halo);
-        symbols.put(Stat.HALO.getIconKey(), Symbol.halo);
         symbols.put(Stat.LIFE.getIconKey(), Symbol.life);
         symbols.put(Stat.CURRENT_LIFE.getIconKey(), Symbol.life);
         symbols.put(Stat.LIFE_REGAIN.getIconKey(), Symbol.liferegain);
         symbols.put(Stat.MAGIC.getIconKey(), Symbol.magic);
-        symbols.put(Stat.POWER.getIconKey(), Symbol.force);
-        symbols.put(Stat.STAMINA.getIconKey(), Symbol.stamina);
-        symbols.put(Stat.ENDURANCE.getIconKey(), Symbol.endurance);
+        symbols.put(Stat.ATTACK.getIconKey(), Symbol.force);
+        symbols.put(Stat.DEFENSE.getIconKey(), Symbol.stamina);
         symbols.put(Stat.SPEED.getIconKey(), Symbol.speed);
         symbols.put(Stat.SHIELD.getIconKey(), Symbol.shield);
         symbols.put(Stat.CRIT_CHANCE.getIconKey(), Symbol.critchance);
@@ -202,13 +196,9 @@ public class TextEditor {
 
         symbols.put(Burning.ICON_STRING, Symbol.burning);
         symbols.put(DoubleShot.ICON_STRING, Symbol.doubleshot);
-        symbols.put(Exalted.ICON_STRING, Symbol.exalted);
         symbols.put(Frost.ICON_STRING, Symbol.frost);
-        symbols.put(Exhausted.ICON_STRING, Symbol.exhausted);
         symbols.put(Immunity.ICON_STRING, Symbol.immunity);
         symbols.put(LifeSteal.ICON_STRING, Symbol.lifesteal);
-        symbols.put(Scoped.ICON_STRING, Symbol.scoped);
-        symbols.put(Steadfast.ICON_STRING, Symbol.steadfast);
         symbols.put(Threatening.ICON_STRING, Symbol.threatening);
         symbols.put(Bleeding.ICON_STRING, Symbol.bleeding);
         symbols.put(Dazed.ICON_STRING, Symbol.dazed);
@@ -312,12 +302,10 @@ public class TextEditor {
         symbols.put(Stat.MANA.getIconKey(), Symbol.mana.pixels);
         symbols.put(TURN_KEY, Symbol.turn.pixels);
         symbols.put(TURN_CD_KEY, Symbol.turnCD.pixels);
-        symbols.put(Stat.FAITH.getIconKey(), Symbol.faith.pixels);
         symbols.put(Stat.LIFE.getIconKey(), Symbol.life.pixels);
         symbols.put(Stat.MAGIC.getIconKey(), Symbol.magic.pixels);
-        symbols.put(Stat.POWER.getIconKey(), Symbol.finesse.pixels);
-        symbols.put(Stat.STAMINA.getIconKey(), Symbol.stamina.pixels);
-        symbols.put(Stat.ENDURANCE.getIconKey(), Symbol.endurance.pixels);
+        symbols.put(Stat.ATTACK.getIconKey(), Symbol.finesse.pixels);
+        symbols.put(Stat.DEFENSE.getIconKey(), Symbol.stamina.pixels);
         symbols.put(Stat.SPEED.getIconKey(), Symbol.speed.pixels);
         symbols.put(Stat.SHIELD.getIconKey(), Symbol.shield.pixels);
         symbols.put(Stat.CRIT_CHANCE.getIconKey(), Symbol.critchance.pixels);

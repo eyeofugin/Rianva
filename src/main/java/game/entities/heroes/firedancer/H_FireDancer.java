@@ -3,7 +3,7 @@ package game.entities.heroes.firedancer;
 import game.entities.Animator;
 import game.entities.Hero;
 import game.entities.Role;
-import game.skills.Stat;
+import game.skills.logic.Stat;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ public class H_FireDancer extends Hero {
     public H_FireDancer() {
         super("Lara Lava");
         this.initBasePath("firedancer");
-        this.secondaryResource = Stat.FAITH;
+        this.secondaryResource = Stat.MANA;
         initAnimator();
         initSkills();
         this.initStats();

@@ -3,6 +3,9 @@ package game.entities.heroes.rifle.stash;
 import game.entities.Hero;
 import game.entities.Multiplier;
 import game.skills.*;
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
 
 import java.util.List;
 
@@ -20,9 +23,6 @@ public class S_FieldRations extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
         this.targetType = TargetType.SINGLE;
-        this.possibleCastPositions = new int[]{0,1,2};
-        this.possibleTargetPositions = new int[]{0,1,2};
-        this.cdMax = 3;
         this.healMultipliers = List.of(new Multiplier(Stat.LIFE, 0.5));
     }
     @Override

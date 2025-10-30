@@ -4,9 +4,10 @@ import framework.graphics.text.Color;
 import game.entities.Hero;
 import game.entities.Multiplier;
 import game.skills.*;
-import game.skills.changeeffects.effects.Burning;
-import game.skills.changeeffects.effects.Bleeding;
-import utils.MyMaths;
+import game.skills.changeeffects.effects.status.Bleeding;
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
 
 import java.util.List;
 
@@ -23,20 +24,7 @@ public class S_DeepThrust extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.PRIMARY);
         this.targetType = TargetType.SINGLE;
-        this.possibleTargetPositions = new int[]{3};
-        this.possibleCastPositions = new int[]{1,2};
-        this.damageMode = DamageMode.PHYSICAL;
-        this.dmgMultipliers = List.of(new Multiplier(Stat.POWER, 1));
-        this.faithRequirement = 0;
-        this.faithGain = 25;
-    }
-    @Override
-    public void applySkillEffects(Hero target) {
-        super.applySkillEffects(target);
-        int success = this.hero.getStat(Stat.MAGIC) + 30;
-        if (MyMaths.success(success)) {
-            target.addEffect(new Bleeding(1), this.hero);
-        }
+        this.dmgMultipliers = List.of(new Multiplier(Stat.ATTACK, 1));
     }
 
     @Override

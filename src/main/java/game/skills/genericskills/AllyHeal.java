@@ -3,7 +3,7 @@ package game.skills.genericskills;
 import game.entities.Hero;
 import game.entities.heroes.dev.dummy.DUMMY;
 import game.skills.Skill;
-import game.skills.TargetType;
+import game.skills.logic.TargetType;
 
 public class AllyHeal extends Skill {
 
@@ -18,7 +18,6 @@ public class AllyHeal extends Skill {
     public void setToInitial() {
         super.setToInitial();
         this.targetType = TargetType.SELF;
-        this.possibleCastPositions = new int[]{0,1,2};
         this.heal = 3;
     }
 

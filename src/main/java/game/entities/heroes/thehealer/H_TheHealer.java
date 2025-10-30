@@ -3,7 +3,7 @@ package game.entities.heroes.thehealer;
 import game.entities.Animator;
 import game.entities.Hero;
 import game.entities.Role;
-import game.skills.Stat;
+import game.skills.logic.Stat;
 
 import java.util.List;
 

@@ -1,19 +1,17 @@
 package game.objects.equipments.skills;
 
-import game.entities.Hero;
 import game.entities.Multiplier;
 import game.objects.Equipment;
-import game.skills.Effect;
 import game.skills.Skill;
-import game.skills.Stat;
-import game.skills.TargetType;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
 
 import java.util.List;
 
 public class S_CrownOfLife extends Skill {
 
     public S_CrownOfLife(Equipment equipment) {
-        super(null);
+        super();
         this.equipment = equipment;
         this.iconPath = "equipments/crownoflife/sprite.png";
         setToInitial();
@@ -22,16 +20,8 @@ public class S_CrownOfLife extends Skill {
     @Override
     public void setToInitial() {
         super.setToInitial();
-        this.targetType = TargetType.ALL_TARGETS;
-        this.possibleCastPositions = new int[]{0,1,2};
-        this.possibleTargetPositions = new int[]{0,1,2};
+        this.targetType = TargetType.ALL_ENEMY;
         this.healMultipliers = List.of(new Multiplier(Stat.MAGIC, 0.2));
-        this.cdMax = 3;
-    }
-
-    @Override
-    public boolean performCheck(Hero hero) {
-        return super.performCheck(hero) && this.equipment.isActive();
     }
 
     @Override

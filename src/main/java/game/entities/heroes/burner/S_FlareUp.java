@@ -6,7 +6,10 @@ import framework.connector.payloads.DmgChangesPayload;
 import game.entities.Hero;
 import game.entities.Multiplier;
 import game.skills.*;
-import game.skills.changeeffects.effects.Burning;
+import game.skills.changeeffects.effects.other.Burning; 
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
 
 import java.util.List;
 
@@ -23,12 +26,7 @@ public class S_FlareUp extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
         this.dmgMultipliers = List.of(new Multiplier(Stat.MAGIC, 0.5));
-        this.targetType = TargetType.SINGLE;
-        this.damageMode = DamageMode.MAGICAL;
-        this.possibleCastPositions = new int[]{0,1,2};
-        this.possibleTargetPositions = new int[]{3,4};
-        this.faithRequirement = 40;
-        this.faithGain = 10;
+        this.targetType = TargetType.SINGLE;  
     }
 
     @Override

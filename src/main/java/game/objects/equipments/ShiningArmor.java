@@ -4,7 +4,7 @@ import framework.connector.Connection;
 import framework.connector.Connector;
 import framework.connector.payloads.ShieldChangesPayload;
 import game.objects.Equipment;
-import game.skills.Stat;
+import game.skills.logic.Stat;
 
 public class ShiningArmor extends Equipment {
 
@@ -15,7 +15,7 @@ public class ShiningArmor extends Equipment {
 
     @Override
     public String getDescription() {
-        return "Get 5" + Stat.FAITH.getIconString() + " at the end of each turn. All received " + Stat.SHIELD.getIconString() + " is doubled.";
+        return "";//return "Get 5" + Stat.FAITH.getIconString() + " at the end of each turn. All received " + Stat.SHIELD.getIconString() + " is doubled.";
     }
 
 
@@ -31,8 +31,8 @@ public class ShiningArmor extends Equipment {
     }
     @Override
     public void turn() {
-        if (this.active && this.hero.getSecondaryResource().equals(Stat.FAITH)) {
-            this.hero.addResource(Stat.CURRENT_FAITH, Stat.FAITH, 5, this.hero);
-        }
+//        if (this.active && this.hero.getSecondaryResource().equals(Stat.FAITH)) {
+//            this.hero.addResource(Stat.CURRENT_FAITH, Stat.FAITH, 5, this.hero);
+//        }
     }
 }

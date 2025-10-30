@@ -2,11 +2,12 @@ package game.entities.heroes.dualpistol;
 
 import framework.connector.Connection;
 import framework.connector.Connector;
-import framework.connector.payloads.CriticalTriggerPayload;
 import framework.connector.payloads.StartOfMatchPayload;
 import game.entities.Hero;
 import game.skills.*;
-import game.skills.changeeffects.effects.StatEffect;
+import game.skills.changeeffects.effects.other.StatEffect;
+import game.skills.logic.SkillTag;
+import game.skills.logic.TargetType;
 
 import java.util.List;
 
@@ -25,9 +26,7 @@ public class S_EagleEye extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.ULT);
         this.targetType = TargetType.SELF;
-        this.possibleCastPositions = new int[]{0,1,2};
-        this.effects = List.of(new StatEffect(3, Stat.CRIT_CHANCE, 100));
-        this.cdMax = 5;
+        this.effects = List.of(StatEffect.lucky.getNew());
         this.level = 5;
     }
 
@@ -47,7 +46,7 @@ public class S_EagleEye extends Skill {
 //    public void critTrigger(CriticalTriggerPayload pl) {
 //        if (pl.cast.hero.equals(this.hero)) {
 //            if (addition < 10) {
-//                this.hero.addToStat(Stat.POWER, 1);
+//                this.hero.addToStat(Stat.ATTACK, 1);
 //                addition++;
 //            }
 //        }
@@ -55,7 +54,7 @@ public class S_EagleEye extends Skill {
 
 //    @Override
 //    public String getDescriptionFor(Hero hero) {
-//        return "Passive: Whenever you crit, gain +1" + Stat.POWER.getIconString() + " (10 max).";
+//        return "Passive: Whenever you crit, gain +1" + Stat.ATTACK.getIconString() + " (10 max).";
 //    }
     @Override
     public String getName() {

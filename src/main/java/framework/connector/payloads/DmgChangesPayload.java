@@ -1,8 +1,7 @@
 package framework.connector.payloads;
 
 import framework.connector.ConnectionPayload;
-import game.entities.Hero;
-import game.skills.DamageMode;
+import game.entities.Hero; 
 import game.skills.Skill;
 
 public class DmgChangesPayload  extends ConnectionPayload {
@@ -10,7 +9,6 @@ public class DmgChangesPayload  extends ConnectionPayload {
     public Hero target;
     public Skill skill;
     public int dmg;
-    public DamageMode dmgMode;
     public boolean simulate;
 
     public DmgChangesPayload setSimulate(boolean simulate) {
@@ -38,8 +36,4 @@ public class DmgChangesPayload  extends ConnectionPayload {
         return this;
     }
 
-    public DmgChangesPayload setDmgMode(DamageMode mode){
-        this.dmgMode = mode;
-        return this;
-    }
 }

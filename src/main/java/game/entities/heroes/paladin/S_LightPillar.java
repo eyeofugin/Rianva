@@ -3,7 +3,10 @@ package game.entities.heroes.paladin;
 import game.entities.Hero;
 import game.entities.Multiplier;
 import game.skills.*;
-import game.skills.changeeffects.effects.Disenchanted;
+import game.skills.changeeffects.effects.other.Disenchanted; 
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
 
 import java.util.List;
 
@@ -20,13 +23,9 @@ public class S_LightPillar extends Skill {
     public void setToInitial() {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
-        this.dmgMultipliers = List.of(new Multiplier(Stat.CURRENT_FAITH, 0.05));
+        this.dmgMultipliers = List.of(new Multiplier(Stat.CURRENT_MANA, 0.05));
         this.effects = List.of(new Disenchanted(1));
-        this.targetType = TargetType.SINGLE;
-        this.possibleCastPositions = new int[]{0,1,2};
-        this.possibleTargetPositions = new int[]{3,4,5};
-        this.faithRequirement = 40;
-        this.damageMode = DamageMode.MAGICAL;
+        this.targetType = TargetType.SINGLE;  
         this.level = 2;
     }
 

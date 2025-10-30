@@ -41,10 +41,10 @@ public class SkillInfo extends GUIElement {
 
         tempY += ELEMENT_HEIGHT + 5;
 
-        String costString = skill.getCostString();
-        int[] costPixels = getTextLine(costString, rightWidth, ELEMENT_HEIGHT,
-                TextAlignment.RIGHT, Color.VOID, Color.WHITE);
-        fillWithGraphicsSize(leftWidth, tempY, rightWidth, ELEMENT_HEIGHT, costPixels, false);
+//        String costString = skill.getCostString();
+//        int[] costPixels = getTextLine(costString, rightWidth, ELEMENT_HEIGHT,
+//                TextAlignment.RIGHT, Color.VOID, Color.WHITE);
+//        fillWithGraphicsSize(leftWidth, tempY, rightWidth, ELEMENT_HEIGHT, costPixels, false);
 
         boolean hasDhs = false;
         hasDhs = printDhsLine(skill.getDmgStringGUI(), leftWidth);
@@ -56,7 +56,7 @@ public class SkillInfo extends GUIElement {
         }
 
         //effect blocks
-        printDescriptionBlock(skill.getFaithGainString());
+//        printDescriptionBlock(skill.getFaithGainString());
         printDescriptionBlock(skill.getEffectString());
         printDescriptionBlock(skill.getCasterEffectString());
         printDescriptionBlock(this.skill.getUpperDescriptionFor(this.skill.hero));

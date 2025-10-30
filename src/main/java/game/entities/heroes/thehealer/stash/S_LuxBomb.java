@@ -2,7 +2,10 @@ package game.entities.heroes.thehealer.stash;
 
 import game.entities.Hero;
 import game.entities.Multiplier;
-import game.skills.*;
+import game.skills.*; 
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
 
 import java.util.List;
 
@@ -22,10 +25,7 @@ public class S_LuxBomb extends Skill {
         this.targetType = TargetType.SINGLE;
         this.dmg = 1;
         this.dmgMultipliers = List.of(new Multiplier(Stat.MAGIC, 0.1),
-                new Multiplier(Stat.MANA, 0.3));
-        this.damageMode = DamageMode.MAGICAL;
-        this.possibleCastPositions = new int[]{0,1,2};
-        this.possibleTargetPositions = new int[]{3};
+                new Multiplier(Stat.MANA, 0.3));  
     }
 
     @Override

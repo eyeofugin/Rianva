@@ -6,7 +6,10 @@ import framework.connector.payloads.DmgChangesPayload;
 import game.entities.Hero;
 import game.entities.Multiplier;
 import game.skills.*;
-import game.skills.changeeffects.effects.Burning;
+import game.skills.changeeffects.effects.other.Burning; 
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
 
 import java.util.List;
 
@@ -23,13 +26,9 @@ public class S_Fireblast extends Skill {
     public void setToInitial() {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
-        this.dmgMultipliers = List.of(new Multiplier(Stat.CURRENT_FAITH, 0.5));
+        this.dmgMultipliers = List.of(new Multiplier(Stat.CURRENT_MANA, 0.5));
         this.targetType = TargetType.SINGLE;
-        this.effects = List.of(new Burning(2));
-        this.possibleCastPositions = new int[]{1,2};
-        this.possibleTargetPositions = new int[]{3,4};
-        this.damageMode = DamageMode.MAGICAL;
-        this.faithRequirement = 40;
+        this.effects = List.of(new Burning(2));  
     }
 
     @Override

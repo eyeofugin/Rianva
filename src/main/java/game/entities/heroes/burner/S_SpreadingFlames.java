@@ -2,10 +2,10 @@ package game.entities.heroes.burner;
 
 import game.entities.Hero;
 import game.skills.Skill;
-import game.skills.SkillTag;
-import game.skills.Stat;
-import game.skills.TargetType;
-import game.skills.changeeffects.effects.Burning;
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
+import game.skills.changeeffects.effects.other.Burning;
 
 import java.util.List;
 import java.util.Random;
@@ -22,11 +22,7 @@ public class S_SpreadingFlames extends Skill {
     public void setToInitial() {
         super.setToInitial();
         this.tags = List.of(SkillTag.ULT);
-        this.targetType = TargetType.ALL_TARGETS;
-        this.possibleCastPositions = new int[]{0,1,2};
-        this.possibleTargetPositions = new int[]{3,4,5};
-        this.faithRequirement = 80;
-        this.faithCost = 20;
+        this.targetType = TargetType.ALL_ENEMY;
         this.level = 5;
     }
 
@@ -53,7 +49,7 @@ public class S_SpreadingFlames extends Skill {
             Hero enemy = enemies.get(enemyIndex);
             enemy.addEffect(new Burning(1), this.hero);
         }
-        this.hero.addResource(Stat.CURRENT_FAITH, Stat.FAITH, -30, this.hero);
+//        this.hero.addResource(Stat.CURRENT_FAITH, Stat.FAITH, -30, this.hero);
     }
 
     @Override

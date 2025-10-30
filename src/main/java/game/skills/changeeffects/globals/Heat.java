@@ -3,8 +3,8 @@ package game.skills.changeeffects.globals;
 import framework.connector.Connection;
 import framework.connector.Connector;
 import framework.connector.payloads.EffectDmgChangesPayload;
-import game.skills.GlobalEffect;
-import game.skills.changeeffects.effects.Burning;
+import game.skills.logic.GlobalEffect;
+import game.skills.changeeffects.effects.other.Burning;
 
 public class Heat extends GlobalEffect {
 

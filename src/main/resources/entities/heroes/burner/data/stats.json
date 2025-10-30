@@ -1,10 +1,8 @@
 {
   "MAGIC" : 8,
-  "POWER" : 1,
+  "ATTACK" : 1,
   "SPEED" : 12,
-  "STAMINA" : 2,
-  "ENDURANCE" : 4,
+  "DEFENSE" : 2,
   "LIFE" : 7,
-
-  "FAITH" : 100
+  "MANA": 8
 }

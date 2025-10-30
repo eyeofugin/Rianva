@@ -1,7 +1,7 @@
 package game.objects.equipments;
 
 import game.objects.Equipment;
-import game.skills.Stat;
+import game.skills.logic.Stat;
 
 public class ScepterOfTheGods extends Equipment {
 
@@ -12,13 +12,13 @@ public class ScepterOfTheGods extends Equipment {
 
     @Override
     public String getDescription() {
-        return "Get 10" + Stat.FAITH.getIconString() + " at the end of each turn.";
+        return"";//return "Get 10" + Stat.FAITH.getIconString() + " at the end of each turn.";
     }
 
     @Override
     public void turn() {
-        if (this.active && this.hero.getSecondaryResource().equals(Stat.FAITH)) {
-            this.hero.addResource(Stat.CURRENT_FAITH, Stat.FAITH, 10, this.hero);
-        }
+//        if (this.active && this.hero.getSecondaryResource().equals(Stat.FAITH)) {
+//            this.hero.addResource(Stat.CURRENT_FAITH, Stat.FAITH, 10, this.hero);
+//        }
     }
 }

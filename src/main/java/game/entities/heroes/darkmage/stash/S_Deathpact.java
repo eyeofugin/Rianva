@@ -5,8 +5,8 @@ import framework.connector.Connector;
 import framework.connector.payloads.DeathTriggerPayload;
 import game.entities.Hero;
 import game.skills.Skill;
-import game.skills.SkillTag;
-import game.skills.Stat;
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
 
 import java.util.HashMap;
 import java.util.List;
@@ -52,11 +52,11 @@ public class S_Deathpact extends Skill {
             Hero target = this.hero.arena.getAtPosition(targetPosition);
             Map<Stat, Integer> statChanges = new HashMap<>();
             statChanges.put(Stat.LIFE, 5);
-            statChanges.put(Stat.POWER, 5);
+            statChanges.put(Stat.ATTACK, 5);
             statChanges.put(Stat.MAGIC, 5);
             statChanges.put(Stat.SPEED, 10);
-            statChanges.put(Stat.STAMINA, 10);
-            statChanges.put(Stat.ENDURANCE, 10);
+            statChanges.put(Stat.DEFENSE, 10);
+            statChanges.put(Stat.DEFENSE, 10);
             statChanges.put(Stat.EVASION, 10);
             statChanges.put(Stat.ACCURACY, 10);
             statChanges.put(Stat.CRIT_CHANCE, 10);

@@ -2,9 +2,9 @@ package game.entities.heroes.darkmage;
 
 import game.entities.Hero;
 import game.skills.Skill;
-import game.skills.SkillTag;
-import game.skills.TargetType;
-import game.skills.changeeffects.effects.LifeSteal;
+import game.skills.logic.SkillTag;
+import game.skills.logic.TargetType;
+import game.skills.changeeffects.effects.other.LifeSteal;
 
 import java.util.List;
 
@@ -23,8 +23,6 @@ public class S_GiftOfTheLeech extends Skill {
         this.tags = List.of(SkillTag.PRIMARY);
         this.targetType = TargetType.SINGLE;
         this.effects = List.of(new LifeSteal(2));
-        this.possibleCastPositions = new int[]{0,1,2};
-        this.possibleTargetPositions = new int[]{0,1,2};
     }
 
 

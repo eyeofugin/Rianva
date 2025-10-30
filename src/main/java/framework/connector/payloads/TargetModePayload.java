@@ -3,7 +3,7 @@ package framework.connector.payloads;
 import framework.connector.ConnectionPayload;
 import game.entities.Hero;
 import game.skills.Skill;
-import game.skills.TargetMode;
+import game.skills.logic.TargetMode;
 
 public class TargetModePayload extends ConnectionPayload {
     public Hero target;

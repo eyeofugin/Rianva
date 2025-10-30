@@ -2,9 +2,9 @@ package game.entities.heroes.duelist.stash;
 
 import game.entities.Hero;
 import game.skills.Skill;
-import game.skills.SkillTag;
-import game.skills.Stat;
-import game.skills.TargetType;
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
 
 import java.util.List;
 
@@ -22,15 +22,13 @@ public class S_AllOut extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
         this.targetType = TargetType.SELF;
-        this.possibleCastPositions = new int[]{0,1,2};
-        this.cdMax = 5;
     }
 
     @Override
     public void applySkillEffects(Hero target) {
         super.applySkillEffects(target);
-        this.hero.addToStat(Stat.ENDURANCE, -3);
-        this.hero.addToStat(Stat.POWER, 5);
+        this.hero.addToStat(Stat.DEFENSE, -3);
+        this.hero.addToStat(Stat.ATTACK, 5);
         this.hero.addToStat(Stat.SPEED, this.hero.getStat(Stat.SPEED)/5);
     }
 
@@ -46,7 +44,7 @@ public class S_AllOut extends Skill {
 
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "Get +5"+Stat.POWER.getIconString()+", +20%"+Stat.SPEED.getIconString()+" and -3"+Stat.ENDURANCE.getIconString() +".";
+        return "Get +5"+Stat.ATTACK.getIconString()+", +20%"+Stat.SPEED.getIconString()+" and -3"+Stat.DEFENSE.getIconString() +".";
     }
 
     @Override

@@ -1,11 +1,11 @@
 package game.entities.heroes.dualpistol;
 
 import game.entities.Hero;
-import game.skills.AiSkillTag;
+import game.skills.logic.AiSkillTag;
 import game.skills.Skill;
-import game.skills.SkillTag;
-import game.skills.TargetType;
-import game.skills.changeeffects.effects.Dazed;
+import game.skills.logic.SkillTag;
+import game.skills.logic.TargetType;
+import game.skills.changeeffects.effects.status.Dazed;
 
 import java.util.List;
 
@@ -24,10 +24,7 @@ public class S_Outmaneuver extends Skill {
         this.tags = List.of(SkillTag.TACTICAL);
         this.aiTags = List.of(AiSkillTag.COMBO_ENABLED);
         this.targetType = TargetType.SINGLE;
-        this.possibleCastPositions = new int[]{0,1,2};
-        this.possibleTargetPositions = new int[]{4,5};
         this.effects = List.of(new Dazed(1));
-        this.cdMax = 5;
         this.level = 2;
         this.move = -1;
     }

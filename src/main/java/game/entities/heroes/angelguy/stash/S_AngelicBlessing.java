@@ -2,6 +2,9 @@ package game.entities.heroes.angelguy.stash;
 
 import game.entities.Hero;
 import game.skills.*;
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
 
 import java.util.List;
 
@@ -18,26 +21,21 @@ public class S_AngelicBlessing extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
         this.targetType = TargetType.SINGLE_OTHER;
-        this.possibleTargetPositions = new int[]{0,1,2};
-        this.possibleCastPositions = new int[]{0,1,2};
     }
 
     @Override
     public void applySkillEffects(Hero target) {
         super.applySkillEffects(target);
-        int amount = this.hero.getStat(Stat.CURRENT_FAITH) / 2;
-        this.hero.addResource(Stat.CURRENT_FAITH, Stat.FAITH, (-1) * amount, this.hero);
-        target.addResource(Stat.CURRENT_FAITH, Stat.FAITH, amount, this.hero);
     }
 
-    @Override
-    public int getFaithRequirement() {
-        return this.hero.getStat(Stat.CURRENT_FAITH) / 2;
-    }
+//    @Override
+//    public int getFaithRequirement() {
+//        return this.hero.getStat(Stat.CURRENT_FAITH) / 2;
+//    }
 
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "Spend " + Stat.FAITH.getIconString() + " to give target ally the same amount of " + Stat.MANA.getIconString() + "/" + Stat.FAITH.getIconString() + ".";
+        return "Spend to give target ally the same amount of .";
     }
 
     @Override

@@ -3,10 +3,13 @@ package game.entities.heroes.angelguy;
 import framework.connector.Connection;
 import framework.connector.Connector;
 import framework.connector.payloads.DmgTriggerPayload;
-import framework.connector.payloads.EndOfRoundPayload;
 import game.entities.Hero;
 import game.entities.Multiplier;
-import game.skills.*;
+import game.skills.*; 
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
+
 import java.util.List;
 
 public class S_LightSpikes extends Skill {
@@ -21,15 +24,10 @@ public class S_LightSpikes extends Skill {
     @Override
     public void setToInitial() {
         super.setToInitial();
-        this.targetType = TargetType.ALL_TARGETS;
+        this.targetType = TargetType.ALL_ENEMY;
         this.tags = List.of(SkillTag.ULT);
-        this.possibleTargetPositions = new int[]{3,4,5};
-        this.possibleCastPositions = new int[]{0,1,2};
-        this.dmgMultipliers = List.of(new Multiplier(Stat.MAGIC, 1.3));
-        this.damageMode = DamageMode.MAGICAL;
+        this.dmgMultipliers = List.of(new Multiplier(Stat.MAGIC, 1.3));  
         this.accuracy = 80;
-        this.faithRequirement = 100;
-        this.faithCost = 50;
     }
 
     @Override
@@ -50,9 +48,9 @@ public class S_LightSpikes extends Skill {
 
     @Override
     public void turn() {
-        if (cdCurrent > 0) {
-            cdCurrent--;
-        }
+//        if (cdCurrent > 0) {
+//            cdCurrent--;
+//        }
         if (this.tempDmg > 0) {
             this.hero.heal(this.hero, (int)(this.tempDmg*0.3), this, false);
             this.tempDmg = 0;

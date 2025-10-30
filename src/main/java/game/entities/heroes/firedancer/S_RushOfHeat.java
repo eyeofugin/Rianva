@@ -2,7 +2,10 @@ package game.entities.heroes.firedancer;
 
 import game.entities.Hero;
 import game.skills.*;
-import game.skills.changeeffects.effects.Burning;
+import game.skills.changeeffects.effects.other.Burning;
+import game.skills.logic.AiSkillTag;
+import game.skills.logic.SkillTag;
+import game.skills.logic.TargetType;
 
 import java.util.List;
 
@@ -20,11 +23,8 @@ public class S_RushOfHeat extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
         this.targetType = TargetType.SELF;
-        this.possibleCastPositions = new int[]{0,1,2};
         this.casterEffects = List.of(new Burning(3));
-        this.cdMax = 3;
         this.aiTags = List.of(AiSkillTag.FAITH_GAIN);
-        this.faithGain = 60;
         this.level = 2;
     }
 

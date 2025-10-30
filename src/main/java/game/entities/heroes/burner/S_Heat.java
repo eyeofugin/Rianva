@@ -6,10 +6,10 @@ import framework.connector.payloads.EndOfRoundPayload;
 import framework.states.Arena;
 import game.entities.Hero;
 import game.skills.Skill;
-import game.skills.SkillTag;
-import game.skills.Stat;
-import game.skills.TargetType;
-import game.skills.changeeffects.effects.Burning;
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
+import game.skills.changeeffects.effects.other.Burning;
 import game.skills.changeeffects.globals.Heat;
 
 import java.util.List;
@@ -28,8 +28,6 @@ public class S_Heat extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
         this.targetType = TargetType.ARENA;
-        this.possibleCastPositions = new int[]{0,1,2};
-        this.faithRequirement = 25;
         this.level = 2;
     }
 
@@ -50,7 +48,7 @@ public class S_Heat extends Skill {
 
     public void endOfRound(EndOfRoundPayload pl) {
         if (pl.arena.globalEffect instanceof Heat) {
-            this.hero.addResource(Stat.CURRENT_FAITH, Stat.FAITH, 5, this.hero);
+//            this.hero.addResource(Stat.CURRENT_FAITH, Stat.FAITH, 5, this.hero);
         }
     }
     @Override
@@ -69,6 +67,6 @@ public class S_Heat extends Skill {
     }
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "Passive: +5"+Stat.FAITH.getIconString()+" per turn during Heat.";
+        return "";//return "Passive: +5"+Stat.FAITH.getIconString()+" per turn during Heat.";
     }
 }

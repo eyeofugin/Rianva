@@ -3,7 +3,7 @@ package framework.graphics.elements;
 import framework.graphics.GUIElement;
 import framework.graphics.text.Color;
 import game.entities.Hero;
-import game.skills.Stat;
+import game.skills.logic.Stat;
 
 public class Bar extends GUIElement {
 

@@ -3,8 +3,9 @@ package game.entities.heroes.battleaxe.stash;
 import game.entities.Hero;
 import game.entities.Multiplier;
 import game.skills.*;
-import game.skills.changeeffects.effects.Bleeding;
-import game.skills.changeeffects.effects.Dazed;
+import game.skills.changeeffects.effects.status.Bleeding;
+import game.skills.changeeffects.effects.status.Dazed;
+import game.skills.logic.*;
 
 import java.util.List;
 
@@ -22,13 +23,9 @@ public class S_Headsmash extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
         this.aiTags = List.of(AiSkillTag.COMBO_ENABLED);
-        this.dmgMultipliers = List.of(new Multiplier(Stat.STAMINA, 0.3));
+        this.dmgMultipliers = List.of(new Multiplier(Stat.DEFENSE, 0.3));
         this.targetType = TargetType.SINGLE;
-        this.possibleCastPositions = new int[]{2};
-        this.possibleTargetPositions = new int[]{3};
-        this.dmg = 1;
-        this.cdMax = 2;
-        this.damageMode = DamageMode.PHYSICAL;
+        this.dmg = 1;  
         this.effects = List.of(new Dazed(3), new Bleeding(1));
     }
     @Override

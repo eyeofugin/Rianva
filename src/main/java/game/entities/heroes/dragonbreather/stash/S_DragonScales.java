@@ -4,9 +4,9 @@ import framework.connector.Connection;
 import framework.connector.Connector;
 import framework.connector.payloads.EndOfRoundPayload;
 import game.entities.Hero;
-import game.skills.Effect;
+import game.skills.logic.Effect;
 import game.skills.Skill;
-import game.skills.SkillTag;
+import game.skills.logic.SkillTag;
 
 import java.util.List;
 import java.util.Random;

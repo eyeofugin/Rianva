@@ -5,8 +5,11 @@ import framework.connector.Connector;
 import framework.connector.payloads.UpdatePayload;
 import game.entities.Hero;
 import game.skills.*;
-import game.skills.changeeffects.effects.Burning;
-import game.skills.changeeffects.effects.DoubleShot;
+import game.skills.changeeffects.effects.other.Burning;
+import game.skills.changeeffects.effects.other.DoubleShot;
+import game.skills.logic.Effect;
+import game.skills.logic.SkillTag;
+import game.skills.logic.TargetType;
 
 import java.util.Iterator;
 import java.util.List;
@@ -25,10 +28,7 @@ public class S_GiftOfTheFirstFlame extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.ULT);
         this.targetType = TargetType.SELF;
-        this.possibleCastPositions = new int[]{0,1,2};
         this.casterEffects = List.of(new Burning(1));
-        this.faithRequirement = 75;
-        this.faithCost = 20;
         this.level = 5;
     }
 

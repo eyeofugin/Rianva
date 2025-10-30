@@ -25,6 +25,9 @@ public class LogCard extends GUIElement {
         if (!this.currentLog.isEmpty()) {
             this.logs.add(this.currentLog);
             this.currentLog = "";
+            if (this.logs.size() > 5) {
+                this.logs.remove(0);
+            }
         }
     }
 

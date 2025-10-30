@@ -3,7 +3,9 @@ package game.entities.heroes.duelist;
 import game.entities.Hero;
 import game.entities.Multiplier;
 import game.skills.*;
-import game.skills.changeeffects.effects.Dazed;
+import game.skills.changeeffects.effects.status.Dazed;
+import game.skills.logic.*;
+
 import java.util.List;
 
 public class S_SwirlingBlades extends Skill {
@@ -20,13 +22,9 @@ public class S_SwirlingBlades extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
         this.aiTags = List.of(AiSkillTag.COMBO_ENABLED);
-        this.dmgMultipliers = List.of(new Multiplier(Stat.POWER, 0.25), new Multiplier(Stat.SPEED, 0.2));
+        this.dmgMultipliers = List.of(new Multiplier(Stat.ATTACK, 0.25), new Multiplier(Stat.SPEED, 0.2));
         this.targetType = TargetType.SINGLE;
-        this.effects = List.of(new Dazed(2));
-        this.possibleCastPositions = new int[]{1,2};
-        this.possibleTargetPositions = new int[]{3,4};
-        this.cdMax = 2;
-        this.damageMode = DamageMode.PHYSICAL;
+        this.effects = List.of(new Dazed(2));  
         this.countAsHits = 3;
     }
 

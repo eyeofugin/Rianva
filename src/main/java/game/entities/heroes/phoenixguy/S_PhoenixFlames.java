@@ -2,10 +2,9 @@ package game.entities.heroes.phoenixguy;
 
 import game.entities.Hero;
 import game.skills.Skill;
-import game.skills.SkillTag;
-import game.skills.TargetType;
-import game.skills.changeeffects.effects.Burning;
-import game.skills.changeeffects.effects.Exalted;
+import game.skills.logic.SkillTag;
+import game.skills.logic.TargetType;
+import game.skills.changeeffects.effects.other.Burning;
 
 import java.util.List;
 
@@ -22,10 +21,6 @@ public class S_PhoenixFlames extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.ULT);
         this.targetType = TargetType.SELF;
-        this.possibleCastPositions = new int[]{0,1,2};
-        this.effects = List.of(new Exalted(3));
-        this.faithRequirement = 100;
-        this.faithCost = 50;
         this.level = 5;
     }
 

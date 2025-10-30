@@ -5,8 +5,8 @@ import framework.connector.Connector;
 import framework.connector.payloads.DmgTriggerPayload;
 import framework.connector.payloads.HealChangesPayload;
 import game.objects.Equipment;
-import game.skills.Stat;
-import game.skills.changeeffects.effects.Protected;
+import game.skills.logic.Stat;
+import game.skills.changeeffects.effects.other.Protected;
 
 public class JewelOfLife extends Equipment {
 

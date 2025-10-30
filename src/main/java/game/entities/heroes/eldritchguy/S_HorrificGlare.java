@@ -2,8 +2,10 @@ package game.entities.heroes.eldritchguy;
 
 import game.entities.Hero;
 import game.skills.*;
-import game.skills.changeeffects.effects.StatEffect;
-import game.skills.changeeffects.effects.Dazed;
+import game.skills.changeeffects.effects.other.StatEffect;
+import game.skills.changeeffects.effects.status.Dazed;
+import game.skills.logic.SkillTag;
+import game.skills.logic.TargetType;
 
 import java.util.List;
 
@@ -21,10 +23,7 @@ public class S_HorrificGlare extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
         this.targetType = TargetType.SINGLE;
-        this.possibleCastPositions = new int[]{1,2};
-        this.possibleTargetPositions = new int[]{3,4};
-        this.effects = List.of(new Dazed(1), new StatEffect(1, Stat.ENDURANCE, -1.0));
-        this.manaCost = 3;
+        this.effects = List.of(new Dazed(1), StatEffect.frail.getNew());
     }
 
     @Override

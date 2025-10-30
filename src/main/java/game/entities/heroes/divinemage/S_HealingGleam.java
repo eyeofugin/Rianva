@@ -3,6 +3,10 @@ package game.entities.heroes.divinemage;
 import game.entities.Hero;
 import game.entities.Multiplier;
 import game.skills.*;
+import game.skills.logic.Effect;
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
 
 import java.util.List;
 
@@ -19,12 +23,8 @@ public class S_HealingGleam extends Skill {
     public void setToInitial() {
         super.setToInitial();
         this.tags = List.of(SkillTag.ULT);
-        this.targetType = TargetType.ALL_TARGETS;
+        this.targetType = TargetType.ALL_ENEMY;
         this.healMultipliers = List.of(new Multiplier(Stat.MAGIC, 0.45));
-        this.possibleCastPositions = new int[]{0,1};
-        this.possibleTargetPositions = new int[]{2,3};
-        this.faithRequirement = 90;
-        this.faithCost = 40;
         this.level = 5;
     }
 

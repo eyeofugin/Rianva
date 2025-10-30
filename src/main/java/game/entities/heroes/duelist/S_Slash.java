@@ -3,7 +3,10 @@ package game.entities.heroes.duelist;
 import game.entities.Hero;
 import game.entities.Multiplier;
 import game.skills.*;
-import game.skills.changeeffects.effects.Injured;
+import game.skills.changeeffects.effects.status.Injured; 
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
 
 import java.util.List;
 
@@ -20,11 +23,8 @@ public class S_Slash extends Skill {
     public void setToInitial() {
         super.setToInitial();
         this.tags = List.of(SkillTag.PRIMARY);
-        this.dmgMultipliers = List.of(new Multiplier(Stat.POWER, 0.2), new Multiplier(Stat.SPEED, 0.15));
-        this.targetType = TargetType.SINGLE;
-        this.possibleCastPositions = new int[]{1,2};
-        this.possibleTargetPositions = new int[]{3};
-        this.damageMode = DamageMode.PHYSICAL;
+        this.dmgMultipliers = List.of(new Multiplier(Stat.ATTACK, 0.2), new Multiplier(Stat.SPEED, 0.15));
+        this.targetType = TargetType.SINGLE;  
         this.effects = List.of(new Injured(2));
     }
 

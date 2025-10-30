@@ -6,9 +6,9 @@ import framework.connector.payloads.CastChangePayload;
 import game.entities.Hero;
 import game.entities.heroes.rifle.stash.S_AnkleShot;
 import game.skills.Skill;
-import game.skills.SkillTag;
-import game.skills.TargetType;
-import game.skills.changeeffects.effects.Scoped;
+import game.skills.logic.SkillTag;
+import game.skills.logic.TargetType;
+import game.skills.changeeffects.effects.other.StatEffect;
 
 import java.util.List;
 
@@ -27,9 +27,7 @@ public class S_UseTheScope extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
         this.targetType = TargetType.SELF;
-        this.possibleCastPositions = new int[]{0,1,2};
-        this.effects = List.of(new Scoped(2));
-        this.cdMax = 2;
+        this.effects = List.of(StatEffect.focused.getNew());
     }
 
     @Override
@@ -42,9 +40,9 @@ public class S_UseTheScope extends Skill {
     }
 
     public void castChange(CastChangePayload castChangePayload) {
-        if (cdCurrent > 0) {
-            return;
-        }
+//        if (cdCurrent > 0) {
+//            return;
+//        }
         Skill skill = castChangePayload.skill;
         if (skill != null && skill.hero.equals(this.hero) && (skill instanceof S_PiercingBolt || skill instanceof S_AnkleShot)) {
             skill.setAccuracy(skill.getAccuracy() + 20);

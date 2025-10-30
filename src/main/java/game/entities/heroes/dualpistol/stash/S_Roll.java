@@ -2,6 +2,10 @@ package game.entities.heroes.dualpistol.stash;
 
 import game.entities.Hero;
 import game.skills.*;
+import game.skills.logic.AiSkillTag;
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
 
 import java.util.List;
 
@@ -20,9 +24,6 @@ public class S_Roll extends Skill {
         this.tags = List.of(SkillTag.TACTICAL);
         this.aiTags = List.of(AiSkillTag.COMBO_ENABLED);
         this.targetType = TargetType.SINGLE_OTHER;
-        this.possibleCastPositions = new int[]{0,1,2};
-        this.possibleTargetPositions = new int[]{0,1,2};
-        this.cdMax = 3;
     }
 
 

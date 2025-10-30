@@ -2,9 +2,9 @@ package game.entities.heroes.divinemage;
 
 import game.entities.Hero;
 import game.skills.Skill;
-import game.skills.SkillTag;
-import game.skills.TargetType;
-import game.skills.changeeffects.effects.Protected;
+import game.skills.logic.SkillTag;
+import game.skills.logic.TargetType;
+import game.skills.changeeffects.effects.other.Protected;
 
 import java.util.List;
 
@@ -22,12 +22,8 @@ public class S_Invincibility extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
         this.targetType = TargetType.SINGLE;
-        this.faithRequirement = 40;
         this.effects = List.of(new Protected(1));
-        this.possibleCastPositions = new int[]{0,1,2};
-        this.possibleTargetPositions = new int[]{0,1,2};
         this.level = 2;
-        this.priority = 5;
     }
 
     @Override

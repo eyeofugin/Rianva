@@ -5,10 +5,10 @@ import framework.connector.Connector;
 import framework.connector.payloads.DmgChangesPayload;
 import game.entities.Hero;
 import game.skills.Skill;
-import game.skills.SkillTag;
-import game.skills.Stat;
-import game.skills.TargetType;
-import game.skills.changeeffects.effects.StatEffect;
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
+import game.skills.changeeffects.effects.other.StatEffect;
 
 import java.util.List;
 
@@ -26,15 +26,13 @@ public class S_SupremeDefense extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.ULT);
         this.targetType = TargetType.SELF;
-        this.possibleCastPositions = new int[]{0,1,2};
-        this.casterEffects = List.of(new StatEffect(-1, Stat.ENDURANCE, 0.2));
-        this.cdMax = 6;
+        this.casterEffects = List.of(StatEffect.robust.getNew());
         this.level = 5;
     }
 
 //    @Override
 //    public String getUpperDescriptionFor(Hero hero) {
-//        return "Active: Gain permanently +5" + Stat.ENDURANCE.getIconString() + ".";
+//        return "Active: Gain permanently +5" + Stat.DEFENSE.getIconString() + ".";
 //    }
 
     @Override

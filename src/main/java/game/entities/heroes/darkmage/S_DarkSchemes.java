@@ -2,6 +2,9 @@ package game.entities.heroes.darkmage;
 
 import game.entities.Hero;
 import game.skills.*;
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
 
 import java.util.List;
 import java.util.Map;
@@ -20,9 +23,6 @@ public class S_DarkSchemes extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.ULT);
         this.targetType = TargetType.SINGLE;
-        this.possibleCastPositions = new int[]{0,1,2};
-        this.possibleTargetPositions = new int[]{3,4,5};
-        this.manaCost = 10;
         this.level = 5;
     }
 

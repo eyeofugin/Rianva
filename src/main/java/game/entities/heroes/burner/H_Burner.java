@@ -3,7 +3,7 @@ package game.entities.heroes.burner;
 import game.entities.Animator;
 import game.entities.Hero;
 import game.entities.Role;
-import game.skills.Stat;
+import game.skills.logic.Stat;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public class H_Burner extends Hero {
     public H_Burner() {
         super(NAME);
         this.initBasePath("burner");
-        this.secondaryResource = Stat.FAITH;
+        this.secondaryResource = Stat.MANA;
         this.initAnimator();
         this.initSkills();
         this.initStats();

@@ -2,6 +2,8 @@ package game.entities.heroes.angelguy.stash;
 
 import game.entities.Hero;
 import game.skills.*;
+import game.skills.logic.SkillTag;
+import game.skills.logic.TargetType;
 
 import java.util.List;
 
@@ -18,10 +20,6 @@ public class S_Reengage extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
         this.targetType = TargetType.SINGLE;
-        this.possibleTargetPositions = new int[]{2};
-        this.possibleCastPositions = new int[]{0,1};
-        this.faithRequirement = 55;
-        this.priority = 1;
         this.level = 2;
         this.moveTo = true;
     }

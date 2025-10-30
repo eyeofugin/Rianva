@@ -4,8 +4,10 @@ import framework.graphics.text.Color;
 import game.entities.Hero;
 import game.entities.Multiplier;
 import game.skills.*;
-import game.skills.changeeffects.effects.Bleeding;
-import game.skills.changeeffects.effects.Burning;
+import game.skills.changeeffects.effects.other.Burning; 
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
 import utils.MyMaths;
 
 import java.util.List;
@@ -23,11 +25,7 @@ public class S_Hotwings extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.PRIMARY);
         this.dmgMultipliers = List.of(new Multiplier(Stat.MAGIC, 0.35));
-        this.targetType = TargetType.SINGLE;
-        this.possibleCastPositions = new int[]{1,2};
-        this.possibleTargetPositions = new int[]{3,4};
-        this.faithGain = 25;
-        this.damageMode = DamageMode.MAGICAL;
+        this.targetType = TargetType.SINGLE;  
     }
     @Override
     public void applySkillEffects(Hero target) {

@@ -11,29 +11,30 @@ import framework.resources.SpriteLibrary;
 import framework.resources.SpriteUtils;
 import framework.states.Arena;
 import game.objects.Equipment;
-import game.objects.equipments.WingedBoots;
 import game.objects.equipments.skills.S_WingedBoots;
 import game.skills.*;
-import game.skills.changeeffects.effects.Immunity;
-import game.skills.changeeffects.effects.StatEffect;
-import game.skills.changeeffects.effects.Dazed;
-import game.skills.changeeffects.effects.Injured;
-import game.skills.changeeffects.effects.Stunned;
+import game.skills.changeeffects.effects.other.Immunity;
+import game.skills.changeeffects.effects.other.StatEffect;
+import game.skills.changeeffects.effects.status.Injured;
 import game.skills.genericskills.S_Skip;
+import game.skills.logic.*;
 import utils.FileWalker;
 import utils.MyMaths;
 
 import java.util.*;
 
-public abstract class Hero extends GUIElement {
+public class Hero extends GUIElement {
 
     public static String DRAFT = "DRAFT";
     public static String ARENA = "ARENA";
     public static String BUILDER = "BUILDER";
+
     private static final String STAT_PATH = "/data/stats.json";
+
     public Arena arena;
     public Animator anim;
     public HeroTeam team;
+    public HeroTeam enemyTeam;
     protected Map<String, int[][]> sprites = new HashMap<>();
     public String basePath = "";
 
@@ -58,7 +59,7 @@ public abstract class Hero extends GUIElement {
     protected List<Effect> effects = new ArrayList<>();
 //    protected boolean movedLast = false;
     protected boolean moved = false;
-    protected Stat secondaryResource = null;
+    protected Stat secondaryResource = Stat.MANA;
     protected Role role = Role.NONE;
 
     private int position;
@@ -68,6 +69,16 @@ public abstract class Hero extends GUIElement {
     public int effectiveRange = 0;
 
     public static Hero getForDraft(){return null;};
+
+    public Hero(HeroDTO dto) {
+        this.basePath = dto.path;
+        this.name = dto.name;
+        this.role = dto.role;
+        this.baseStats = dto.baseStats;
+        this.initAnimator(dto);
+        this.initSkills(dto);
+        this.setLevel(1);
+    }
 
     protected Hero(String name) {
         this.id = idCounter++;
@@ -91,7 +102,6 @@ public abstract class Hero extends GUIElement {
     public void resetResources() {
         this.stats.put(Stat.CURRENT_LIFE, this.stats.get(Stat.LIFE));
         this.stats.put(Stat.CURRENT_MANA, this.stats.get(Stat.MANA));
-        this.stats.put(Stat.CURRENT_FAITH, 0);
     }
     public void leaveArena() {
         this.effects.forEach(Effect::removeEffect);
@@ -107,8 +117,30 @@ public abstract class Hero extends GUIElement {
         this.basePath = base + name;
     }
 
-    protected abstract void initAnimator();
-    protected abstract void initSkills();
+    protected void initAnimator(){};
+    protected void initSkills(){};
+
+    private void initAnimator(HeroDTO dto) {
+        String idleAnim = dto.idleAnim != null? dto.idleAnim : "idle_w.png";
+        String damagedAnim = dto.damagedAnim != null? dto.damagedAnim: "damaged_w.png";
+        String actionAnim = dto.actionAnim != null? dto.actionAnim: "action_w.png";
+        this.anim = new Animator();
+        anim.width = 64;
+        anim.height = 64;
+        anim.setupAnimation(this.basePath + "/sprites/" + idleAnim, "idle", new int[]{40,80});
+        anim.setupAnimation(this.basePath + "/sprites/" + damagedAnim, "damaged", new int[]{40,80});
+        anim.setupAnimation(this.basePath + "/sprites/" + actionAnim, "action", new int[]{15, 30, 45});
+
+        anim.setDefaultAnim("idle");
+        anim.currentAnim = anim.getDefaultAnim();
+        anim.onLoop = true;
+    }
+
+    private void initSkills(HeroDTO dto) {
+        this.skills.addAll(new ArrayList<>(dto.learnedSkills.stream().map(SkillLibrary::getSkill).toList()));
+        this.learnableSkillList.addAll(new ArrayList<>(dto.learnableSkills.stream().map(SkillLibrary::getSkill).toList()));
+    }
+
     protected void initStats() {
         this.baseStats = loadLevelStats();
     }
@@ -116,21 +148,14 @@ public abstract class Hero extends GUIElement {
     protected Map<Stat, Integer> statBase() {
         Map<Stat, Integer> base = new HashMap<>();
         base.put(Stat.MAGIC, 0);
-        base.put(Stat.POWER, 0);
-        base.put(Stat.STAMINA, 0);
-        base.put(Stat.ENDURANCE, 0);
+        base.put(Stat.ATTACK, 0);
+        base.put(Stat.DEFENSE, 0);
         base.put(Stat.SPEED, 0);
 
         //ResourceStats
         base.put(Stat.LIFE, 0);
         base.put(Stat.CURRENT_LIFE, 0);
         base.put(Stat.LIFE_REGAIN, 0);
-
-        base.put(Stat.FAITH, 0);
-        base.put(Stat.CURRENT_FAITH, 0);
-
-        base.put(Stat.HALO, 0);
-        base.put(Stat.CURRENT_HALO, 0);
 
         base.put(Stat.MANA, 0);
         base.put(Stat.CURRENT_MANA, 0);
@@ -313,11 +338,7 @@ public abstract class Hero extends GUIElement {
     public void setLevel(int level) {
         this.level = level;
         for (Map.Entry<Stat, Integer> entry : this.baseStats.entrySet()) {
-            if (!entry.getKey().equals(Stat.FAITH)) {
-                this.stats.put(entry.getKey(), MyMaths.getLevelStat(entry.getValue(), level));
-            } else {
-                this.stats.put(entry.getKey(), entry.getValue());
-            }
+            this.stats.put(entry.getKey(), entry.getValue());
         }
     }
     public int getStat(Stat stat) {
@@ -332,9 +353,12 @@ public abstract class Hero extends GUIElement {
     }
 
     public void changeStatTo(Stat stat, int value) {
+        int val = Math.max(value, 0);
         int oldValue = this.stats.get(stat);
-        this.stats.put(stat, value);
-        StatChangePayload pl = new StatChangePayload().setStat(stat).setOldValue(oldValue).setNewValue(value);
+        this.stats.put(stat, val);
+        int change = val - oldValue;
+        this.statChanges.put(stat, change + this.statChanges.getOrDefault(stat, 0));
+        StatChangePayload pl = new StatChangePayload().setStat(stat).setOldValue(oldValue).setNewValue(val);
         Connector.fireTopic(Connector.STAT_CHANGE, pl);
     }
 
@@ -345,7 +369,7 @@ public abstract class Hero extends GUIElement {
         this.statChanges.put(stat, change + this.statChanges.getOrDefault(stat, 0));
         this.stats.put(stat, val);
 
-        StatChangePayload pl = new StatChangePayload().setStat(stat).setOldValue(oldValue).setNewValue(value);
+        StatChangePayload pl = new StatChangePayload().setStat(stat).setOldValue(oldValue).setNewValue(val);
         Connector.fireTopic(Connector.STAT_CHANGE, pl);
     }
 
@@ -396,7 +420,7 @@ public abstract class Hero extends GUIElement {
     }
 
     public void addResource(Resource resource, Hero source) {
-        this.addResource(resource.getResource(), resource.getMaxResource(), resource.getAmount(), source);
+        this.addResource(resource.resource, resource.maxResource, resource.amount, source);
     }
 
     public int getSkillAccuracy(Skill skill) {
@@ -412,7 +436,6 @@ public abstract class Hero extends GUIElement {
         return switch (resource) {
             case LIFE -> ((double) this.getStat(Stat.CURRENT_LIFE)) / this.getStat(Stat.LIFE);
             case MANA -> ((double) this.getStat(Stat.CURRENT_MANA)) / this.getStat(Stat.MANA);
-            case FAITH -> ((double) this.getStat(Stat.CURRENT_FAITH)) / this.getStat(Stat.FAITH);
 //            case MAX_ACTION -> ((double) this.getStat(Stat.CURRENT_ACTION)) / this.getStat(Stat.MAX_ACTION);
             default -> 0.0;
         };
@@ -423,7 +446,9 @@ public abstract class Hero extends GUIElement {
     public int getMissingLifePercentage() {
         return (100 - getCurrentLifePercentage());
     }
-
+    public int getCurrentManaPercentage() {
+        return this.stats.get(Stat.CURRENT_MANA) * 100 / this.stats.get(Stat.MANA);
+    }
 
 //TurnMagic
     public void prepareCast() {
@@ -528,21 +553,25 @@ public abstract class Hero extends GUIElement {
         if (getEffectFailure(effect, caster)) {
             return;
         }
-        if (effect instanceof Dazed && this.hasPermanentEffect(Dazed.class) > 0) {
-            this.removePermanentEffectOfClass(Dazed.class);
-            this.addEffect(new Stunned(), caster);
-        }
         boolean added = false;
         boolean newlyAdded = false;
-        for (Effect effectHave : effects) {
-            if (effectHave.getClass().equals(effect.getClass())) {
-                if (effect.stackable) {
-                    added = true;
-                    newlyAdded = true;
-                    effectHave.addStack(effect.stacks);
-                } else {
-                    effectHave.turns = effect.turns;
-                    added = true;
+        if (effect instanceof StatEffect statEffect) {
+            boolean negates = this.effects.stream().anyMatch(e->e.name.equals(statEffect.negates));
+            if (negates) {
+                this.removeEffectByName(statEffect.negates);
+                added = true;
+            }
+        } else {
+            for (Effect effectHave : effects) {
+                if (effectHave.getClass().equals(effect.getClass())) {
+                    if (effect.stackable) {
+                        added = true;
+                        newlyAdded = true;
+                        effectHave.addStack(effect.stacks);
+                    } else {
+                        effectHave.turns = effect.turns;
+                        added = true;
+                    }
                 }
             }
         }
@@ -572,7 +601,15 @@ public abstract class Hero extends GUIElement {
         Connector.fireTopic(Connector.EFFECT_FAILURE, payload);
         return payload.isFailure();
     }
-
+    public int hasPermanentEffect(String effectName) {
+        int amount = 0;
+        for (Effect currentEffect : effects) {
+            if (currentEffect.name.equals(effectName)) {
+                amount+=currentEffect.stacks;
+            }
+        }
+        return amount;
+    }
     public <T extends Effect> int hasPermanentEffect(Class<T> clazz) {
         int amount = 0;
         for (Effect currentEffect : effects) {
@@ -586,6 +623,15 @@ public abstract class Hero extends GUIElement {
         if (this.hasPermanentEffect(clazz) > 0) {
             this.getPermanentEffect(clazz).stacks--;
             this.cleanUpEffect();
+        }
+    }
+    public void removeEffectByName(String name) {
+        Logger.logLn(this.name + ".removePermanentEffect:" +name);
+        List<Effect> toRemove = this.effects.stream()
+                .filter(e->e.name.equals(name))
+                .toList();
+        for (Effect effect : toRemove) {
+            removeEffect(effect);
         }
     }
     public <T extends Effect> void removePermanentEffectOfClass(Class<T> clazz) {
@@ -638,30 +684,16 @@ public abstract class Hero extends GUIElement {
             return false;
         }
         return this.stats.get(Stat.CURRENT_LIFE) > s.getLifeCost() &&
-                this.stats.get(Stat.CURRENT_FAITH) >= s.getFaithRequirement() &&
-//                (this.stats.get(Stat.CURRENT_ACTION) >= s.getActionCost() ||
-//                        this.hasPermanentEffect(Exhausted.class) > 0) &&
-                this.stats.get(Stat.CURRENT_MANA) >= s.getManaCost() &&
-                s.getCdCurrent()<=0 && !s.isPassive() && isInPosition(s) &&
-                s.performCheck(this);
-    }
-    private boolean isInPosition(Skill s) {
-        return Arrays.stream(s.possibleCastPositions).anyMatch(i -> i == getSkillPos());
+                this.stats.get(Stat.CURRENT_MANA) > s.getManaCost() && !s.isPassive();
     }
     public void payForSkill(Skill s) {
         addToStat(Stat.CURRENT_LIFE, -1*s.getLifeCost(this));
-        addToStat(Stat.CURRENT_FAITH, -1*s.getFaithCost());
         addToStat(Stat.CURRENT_MANA, -1*s.getManaCost());
-//        addToStat(Stat.CURRENT_ACTION, -1 * s.getActionCost());
-//        if (getStat(Stat.CURRENT_ACTION) < 1) {
-//            addEffect(new Exhausted(), this);
-//        }
         Logger.logLn("Paid life:"+s.getLifeCost(this));
     }
 
     public void removeNegativeEffects() {
-        List<Effect> toRemove = this.effects.stream().filter(e-> e.type.equals(Effect.ChangeEffectType.DEBUFF)
-                || (e.type.equals(Effect.ChangeEffectType.STAT_CHANGE) && e.statChange < 0)).toList();
+        List<Effect> toRemove = this.effects.stream().filter(e-> e.type.equals(Effect.ChangeEffectType.DEBUFF)).toList();
         for (Effect effect : toRemove) {
             this.removeEffect(effect);
         }
@@ -713,16 +745,15 @@ public abstract class Hero extends GUIElement {
         addResource(Stat.CURRENT_LIFE, Stat.LIFE, -1*damage, caster);
         return damage;
     }
-    public int damage(Hero caster, int damage, DamageMode dmgMode, int lethality, Skill skill) {
+    public int damage(Hero caster, int damage,  int lethality, Skill skill) {
 
-        int def = getStat(getDefenseStatFor(dmgMode));
+        int def = getStat(Stat.DEFENSE);
         int result = MyMaths.getDamage(damage, def, lethality);
         DmgChangesPayload dmgChangesPayload = new DmgChangesPayload()
                 .setCaster(caster)
                 .setTarget(this)
                 .setSkill(skill)
                 .setDmg(result)
-                .setDmgMode(dmgMode)
                 .setSimulate(false);
         Connector.fireTopic(Connector.DMG_CHANGES, dmgChangesPayload);
         System.out.println("dmg:"+result);
@@ -758,21 +789,15 @@ public abstract class Hero extends GUIElement {
         addResource(Stat.CURRENT_LIFE, Stat.LIFE, -1*result, caster);
         return result;
     }
-    private Stat getDefenseStatFor(DamageMode dmgMode) {
-        if (dmgMode == DamageMode.PHYSICAL) {
-            return Stat.STAMINA;
-        }
-        return Stat.ENDURANCE;
-    }
-    public int simulateDamageInPercentages(Hero caster, int damage, DamageMode dmgMode, int lethality, Skill skill) {
-        int def = getStat(getDefenseStatFor(dmgMode));
+
+    public int simulateDamageInPercentages(Hero caster, int damage, int lethality, Skill skill) {
+        int def = getStat(Stat.DEFENSE);
         int result = MyMaths.getDamage(damage, def, lethality);
         DmgChangesPayload dmgChangesPayload = new DmgChangesPayload()
                 .setCaster(caster)
                 .setTarget(this)
                 .setSkill(skill)
                 .setDmg(result)
-                .setDmgMode(dmgMode)
                 .setSimulate(true);
         Connector.fireTopic(Connector.DMG_CHANGES, dmgChangesPayload);
         return result * 100 / this.stats.get(Stat.LIFE);
@@ -811,7 +836,6 @@ public abstract class Hero extends GUIElement {
         return switch (resource) {
             case LIFE -> getHealthString();
             case MANA -> getManaString();
-            case FAITH -> getFaithString();
             default -> "";
         };
     }
@@ -840,10 +864,6 @@ public abstract class Hero extends GUIElement {
 
 //GetterSetter
 
-    private String getFaithString() {
-        return this.stats.get(Stat.CURRENT_FAITH) + "/" + this.stats.get(Stat.FAITH);
-    }
-
     private String getManaString() {
         return this.stats.get(Stat.CURRENT_MANA) + "(+" + this.stats.get(Stat.MANA_REGAIN) + ")/" + this.stats.get(Stat.MANA);
     }
@@ -859,7 +879,6 @@ public abstract class Hero extends GUIElement {
         return switch (stat) {
             case LIFE -> Color.GREEN;
             case MANA -> Color.BLUE;
-            case FAITH -> Color.DARKYELLOW;
             default -> Color.WHITE;
         };
     }

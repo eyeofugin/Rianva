@@ -1,10 +1,9 @@
 package game.entities.heroes.thehealer.stash;
 import game.entities.Hero;
 import game.skills.Skill;
-import game.skills.SkillTag;
-import game.skills.Stat;
-import game.skills.TargetType;
-import game.skills.changeeffects.effects.StatEffect;
+import game.skills.logic.SkillTag;
+import game.skills.logic.TargetType;
+import game.skills.changeeffects.effects.other.StatEffect;
 
 import java.util.List;
 
@@ -22,10 +21,7 @@ public class S_BlindingLight extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
         this.targetType = TargetType.SINGLE;
-        this.possibleCastPositions = new int[]{0,1,2};
-        this.possibleTargetPositions = new int[]{3,4};
-        this.manaCost = 5;
-        this.effects = List.of(new StatEffect(2, Stat.ACCURACY, -30));
+        this.effects = List.of(StatEffect.blinded.getNew());
     }
 
     @Override

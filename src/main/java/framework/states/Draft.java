@@ -20,7 +20,7 @@ public class Draft extends GUIElement {
     private final HUD hud;
 
     private Hero[] draftChoices = new Hero[8];
-    public Hero[] draftResult = new Hero[3];
+    public Hero[] draftResult = new Hero[4];
     private int draftPointer = 0;
     private int skillPointer = 0;
     public boolean finished = false;

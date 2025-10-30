@@ -2,7 +2,10 @@ package game.entities.heroes.phoenixguy.stash;
 
 import game.entities.Hero;
 import game.entities.Multiplier;
-import game.skills.*;
+import game.skills.*; 
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
 
 import java.util.List;
 
@@ -18,13 +21,9 @@ public class S_Spark extends Skill {
     public void setToInitial() {
         super.setToInitial();
         this.tags = List.of(SkillTag.PRIMARY);
-        this.dmgMultipliers = List.of(new Multiplier(Stat.FAITH, 0.1));
+        this.dmgMultipliers = List.of(new Multiplier(Stat.MANA, 0.1));
         this.targetType = TargetType.SINGLE;
-        this.possibleCastPositions = new int[]{1,2};
-        this.possibleTargetPositions = new int[]{3,4};
-        this.dmg = 5;
-        this.faithGain = 20;
-        this.damageMode = DamageMode.MAGICAL;
+        this.dmg = 5;  
     }
 
     @Override

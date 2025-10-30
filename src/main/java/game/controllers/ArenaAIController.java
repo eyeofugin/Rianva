@@ -4,10 +4,11 @@ import framework.Logger;
 import framework.states.Arena;
 import game.entities.Hero;
 import game.entities.HeroTeam;
-import game.skills.AiSkillTag;
+import game.skills.logic.AiSkillTag;
 import game.skills.Skill;
-import game.skills.Stat;
-import game.skills.TargetType;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
+import game.skills.genericskills.S_Skip;
 import utils.Action;
 
 import java.util.*;
@@ -16,7 +17,7 @@ public class ArenaAIController {
 
     public Arena arena;
     public AIMemory memory;
-    private final List<Action> turnOptions = new ArrayList<>();
+    private List<Action> turnOptions = new ArrayList<>();
     private HeroTeam aiTeam;
 
     public ArenaAIController(Arena arena) {
@@ -24,21 +25,42 @@ public class ArenaAIController {
         this.memory = new AIMemory();
     }
 
-    public void setTeam(HeroTeam team) {
-        this.aiTeam = team;
-    }
 
-    public void chooseActions() {
+    public void turn() {
+        this.turnOptions = new ArrayList<>();
+        Logger.aiLogln("-------------------------------------------------------------");
         evaluateSkills();
-        Hero bot = this.aiTeam.getHeroesAsList().stream().filter(h->!h.isMoved()).findFirst().orElse(null);
-        if (bot != null) {
-            bot.setMoved(true);
-            Action action = getBestActionFor(bot);
-            if (action != null) {
-                this.arena.actionQueue.addAction(getBestActionFor(bot));
+        Action bestAction = null;
+        int bestRating = -999;
+        Logger.aiLogln("Rated Actions");
+        for (Action action : this.turnOptions) {
+            Logger.aiLogln(action.skill.getName() + "/" + action.rating);
+            if (action.rating > bestRating && action.targets != null && action.targets.length > 0) {
+                bestAction = action;
+                bestRating = action.rating;
             }
         }
-//        this.aiTeam.getHeroesAsList().forEach(hero -> this.arena.actionQueue.addAction(getBestActionFor(hero)));
+        if (bestAction == null) {
+            Logger.aiLogln("no moves?");
+            for (Skill skill : this.arena.activeHero.getSkills()) {
+                if (skill instanceof S_Skip) {
+                    this.arena.activeSkill = skill;
+                    this.arena.activeSkill.perform();
+                    this.arena.nextAction = "resolveSkill";
+                    this.arena.status = Arena.Status.WAIT_ON_ANIMATION;
+                }
+            }
+        } else {
+            Skill s = bestAction.skill;
+            Logger.aiLog("AI will perform " + s.getName() + "/" + bestAction.rating + " at position " + bestAction.targets[0].getPosition());
+            this.arena.activeSkill = s;
+            this.arena.activeSkill.setTargets(bestAction.targets);
+
+            this.arena.activeSkill.perform();
+            this.arena.activeTargets = bestAction.targets;
+            this.arena.nextAction = "resolveSkill";
+            this.arena.status = Arena.Status.WAIT_ON_ANIMATION;
+        }
     }
 
     private Action getBestActionFor(Hero hero) {
@@ -83,20 +105,16 @@ public class ArenaAIController {
         rating += getHealRating(s,targets);
         rating += getCustomAIRating(s, targets);
         rating += getShieldRating(s, targets);
-        rating += getFaithGainRating(s);
         return rating;
     }
     private int getDamageRating(Skill cast, Hero[] targets) {
-        if (cast.getDamageMode() == null) {
-            return 0;
-        }
         int weightedPercentages = 0;
         int lethality = 0; // this.arena.activeHero.getStat(Stat.LETHALITY, cast);
         for (Hero e : targets) {
             int estimatedDamage = cast.getDmgWithMulti(e);
 //            Logger.aiLog(" target:"+e.getName());
 
-            int dmgPercentage = e.simulateDamageInPercentages(this.arena.activeHero, estimatedDamage, cast.getDamageMode(), lethality, cast);
+            int dmgPercentage = e.simulateDamageInPercentages(this.arena.activeHero, estimatedDamage, lethality, cast);
             if (dmgPercentage >= e.getCurrentLifePercentage()) {
 //                Logger.aiLog(" low life bonus!");
                 dmgPercentage *= 5;
@@ -165,13 +183,7 @@ public class ArenaAIController {
         return 1;
     }
 
-    private int getFaithGainRating(Skill s) {
-        if (s.aiTags.contains(AiSkillTag.FAITH_GAIN)) {
-            double missingFaith = 1.0 - s.hero.getResourcePercentage(Stat.CURRENT_FAITH);
-            return (int)(missingFaith / 0.3);
-        }
-        return 0;
-    }
+
 
 //---------------------------------Targeting---------------------------
 
@@ -183,7 +195,6 @@ public class ArenaAIController {
             case SINGLE_OTHER -> setSingleTargetGroups(s, targetMatrix, result, false);
             case SELF -> result.add(new int[]{s.hero.getPosition()});
             case ALL -> setAllTargetGroups(result);
-            case ALL_TARGETS -> result.add(s.possibleTargetPositions);
         }
         return result;
     }

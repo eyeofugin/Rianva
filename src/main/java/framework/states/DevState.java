@@ -1,6 +1,9 @@
 package framework.states;
 
 import framework.Engine;
+import framework.connector.ConnectionPayload;
+import framework.connector.Connector;
+import framework.connector.payloads.BaseDmgChangesPayload;
 import framework.graphics.GUIElement;
 import framework.graphics.elements.SkillElement;
 import framework.graphics.elements.SkillInfo;
@@ -8,9 +11,13 @@ import framework.graphics.elements.StatField;
 import framework.graphics.text.Color;
 import game.entities.DraftBuilder;
 import game.entities.Hero;
+import game.entities.HeroLibrary;
 import game.entities.HeroTeam;
+import game.skills.EffectLibrary;
 import game.skills.Skill;
-import game.skills.Stat;
+import game.skills.SkillLibrary;
+import game.skills.logic.Stat;
+import utils.FileWalker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +41,15 @@ public class DevState extends GUIElement {
         super(Engine.X, Engine.Y);
         this.id = StateManager.DEV;
         this.engine = engine;
-        setUpHeroList();
+        HeroLibrary.init();
+        SkillLibrary.init();
+        EffectLibrary.init();
+        Hero hero1 = HeroLibrary.getHero("Burner");
+        hero1.getSkills().forEach(Skill::addSubscriptions);
+        Connector.fireTopic(Connector.BASE_DMG_CHANGES, new BaseDmgChangesPayload());
+
+        FileWalker.getHeroes("test.json");
+//        setUpHeroList();
     }
     private void setUpAiEvalTest() {
         for (int i = 0; i < 5; i ++) {
@@ -42,7 +57,7 @@ public class DevState extends GUIElement {
 
             Arena arena = new Arena(this.engine, false);
             arena.setTeams(DraftBuilder.getRandomTeam(1,1), new HeroTeam(-1, DraftBuilder.getTestTeam(i), 2));
-            arena.aiController.chooseActions();
+//            arena.aiController.chooseActions();
         }
     }
     private void setUpHeroList() {
@@ -86,8 +101,8 @@ public class DevState extends GUIElement {
         this.skillList = new ArrayList<>();
         this.skillList.addAll(hero.getSkills());
         this.skillList.addAll(hero.getLearnableSkillList());
-        Stat[] lArray = new Stat[]{Stat.LIFE, Stat.LIFE_REGAIN, Stat.MANA, Stat.MANA_REGAIN, Stat.FAITH, Stat.HALO, Stat.SHIELD};
-        Stat[] rArray = new Stat[]{Stat.MAGIC, Stat.POWER, Stat.STAMINA, Stat.ENDURANCE, Stat.SPEED, Stat.ACCURACY, Stat.EVASION, Stat.CRIT_CHANCE, Stat.LETHALITY};
+        Stat[] lArray = new Stat[]{Stat.LIFE, Stat.LIFE_REGAIN, Stat.MANA, Stat.MANA_REGAIN, Stat.SHIELD};
+        Stat[] rArray = new Stat[]{Stat.MAGIC, Stat.ATTACK, Stat.DEFENSE ,Stat.SPEED, Stat.ACCURACY, Stat.EVASION, Stat.CRIT_CHANCE, Stat.LETHALITY};
         this.stats = new StatField(this.hero, lArray, rArray);
     }
 

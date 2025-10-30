@@ -2,9 +2,9 @@ package game.entities.heroes.longsword;
 
 import game.entities.Hero;
 import game.skills.Skill;
-import game.skills.SkillTag;
-import game.skills.TargetType;
-import game.skills.changeeffects.effects.Threatening;
+import game.skills.logic.SkillTag;
+import game.skills.logic.TargetType;
+import game.skills.changeeffects.effects.other.Threatening;
 
 import java.util.List;
 
@@ -21,9 +21,6 @@ public class S_Challenge extends Skill {
     public void setToInitial() {
         super.setToInitial();
         this.targetType = TargetType.SINGLE;
-        this.possibleCastPositions = new int[]{0,1};
-        this.possibleTargetPositions = new int[]{2};
-        this.cdMax = 3;
         this.casterEffects = List.of(new Threatening(1));
         this.tags = List.of(SkillTag.TACTICAL);
         this.level = 2;

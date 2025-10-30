@@ -4,11 +4,10 @@ import framework.connector.Connection;
 import framework.connector.Connector;
 import framework.connector.payloads.DmgTriggerPayload;
 import framework.graphics.text.Color;
-import game.entities.Hero;
-import game.skills.DamageMode;
+import game.entities.Hero; 
 import game.skills.Skill;
-import game.skills.SkillTag;
-import game.skills.Stat;
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
 
 import java.util.List;
 
@@ -33,7 +32,7 @@ public class S_UnnaturalDefenses extends Skill {
 
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "Permanently +2"+Stat.ENDURANCE.getIconString()+" when receiving "+ DamageMode.MAGICAL.getColor().getCodeString() +"damage"+ Color.WHITE.getCodeString()+".";
+        return "";//return "Permanently +2"+Stat.DEFENSE.getIconString()+" when receiving "+ DamageMode.MAGICAL.getColor().getCodeString() +"damage"+ Color.WHITE.getCodeString()+".";
     }
 
     @Override
@@ -43,7 +42,7 @@ public class S_UnnaturalDefenses extends Skill {
 
     public void dmgTrigger(DmgTriggerPayload pl) {
         if (this.hero.equals(pl.target)) {
-            this.hero.addToStat(Stat.ENDURANCE, 2);
+            this.hero.addToStat(Stat.DEFENSE, 2);
         }
     }
 

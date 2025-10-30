@@ -2,7 +2,10 @@ package game.entities.heroes.angelguy.stash;
 
 import game.entities.Hero;
 import game.skills.*;
-import game.skills.changeeffects.effects.Protected;
+import game.skills.changeeffects.effects.other.Protected;
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
 
 import java.util.List;
 
@@ -20,19 +23,16 @@ public class S_Halo extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.ULT);
         this.targetType = TargetType.SINGLE;
-        this.possibleTargetPositions = new int[]{0,1,2};
-        this.possibleCastPositions = new int[]{0,1,2};
-        this.priority = 5;
         this.level = 5;
     }
 
     @Override
     public void resolve() {
-        int invincible = this.hero.getStat(Stat.CURRENT_FAITH) / 25;
-        this.hero.changeStatTo(Stat.CURRENT_FAITH, 0);
-        for (Hero target : targets) {
-            target.addEffect(new Protected(invincible), this.hero);
-        }
+//        int invincible = this.hero.getStat(Stat.CURRENT_FAITH) / 25;
+//        this.hero.changeStatTo(Stat.CURRENT_FAITH, 0);
+//        for (Hero target : targets) {
+//            target.addEffect(new Protected(invincible), this.hero);
+//        }
     }
 
     @Override

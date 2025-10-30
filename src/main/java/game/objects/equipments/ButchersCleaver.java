@@ -8,7 +8,7 @@ import framework.connector.payloads.StatChangePayload;
 import framework.connector.payloads.UpdatePayload;
 import game.entities.Hero;
 import game.objects.Equipment;
-import game.skills.Stat;
+import game.skills.logic.Stat;
 
 public class ButchersCleaver extends Equipment {
     private int calculatedExtraPower = 0;
@@ -22,7 +22,7 @@ public class ButchersCleaver extends Equipment {
 
     @Override
     public String getDescription() {
-        return "Get 50% of your " + Stat.LIFE.getIconString() + " as " + Stat.POWER.getIconString() + ", but receive 50% more damage.";
+        return "Get 50% of your " + Stat.LIFE.getIconString() + " as " + Stat.ATTACK.getIconString() + ", but receive 50% more damage.";
     }
 
     @Override
@@ -72,14 +72,14 @@ public class ButchersCleaver extends Equipment {
     }
     private void remove(Hero hero) {
         if (hero != null) {
-            hero.addToStat(Stat.POWER, -1* this.calculatedExtraPower);
+            hero.addToStat(Stat.ATTACK, -1* this.calculatedExtraPower);
         }
     }
     private void add(Hero hero) {
         if (hero != null) {
             this.lastLife = hero.getStat(Stat.LIFE);
             this.calculatedExtraPower = hero.getStatChange(Stat.LIFE) / 2;
-            hero.addToStat(Stat.POWER, this.calculatedExtraPower);
+            hero.addToStat(Stat.ATTACK, this.calculatedExtraPower);
         }
     }
 

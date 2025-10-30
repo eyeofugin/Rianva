@@ -3,7 +3,10 @@ package game.entities.heroes.thewizard;
 import game.entities.Hero;
 import game.entities.Multiplier;
 import game.skills.*;
-import game.skills.changeeffects.effects.Burning;
+import game.skills.changeeffects.effects.other.Burning; 
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
 import utils.MyMaths;
 import java.util.List;
 
@@ -21,10 +24,7 @@ public class S_LightningBolt extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.PRIMARY);
         this.dmgMultipliers = List.of(new Multiplier(Stat.MAGIC, 0.35));
-        this.targetType = TargetType.SINGLE;
-        this.possibleCastPositions = new int[]{1,2};
-        this.possibleTargetPositions = new int[]{3,4};
-        this.damageMode = DamageMode.MAGICAL;
+        this.targetType = TargetType.SINGLE;  
     }
 
     @Override

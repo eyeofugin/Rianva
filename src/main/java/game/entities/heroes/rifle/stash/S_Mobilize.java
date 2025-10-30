@@ -2,6 +2,9 @@ package game.entities.heroes.rifle.stash;
 
 import game.entities.Hero;
 import game.skills.*;
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
 
 import java.util.List;
 
@@ -19,9 +22,6 @@ public class S_Mobilize extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
         this.targetType = TargetType.SINGLE_OTHER;
-        this.possibleCastPositions = new int[]{0,1,2};
-        this.possibleTargetPositions = new int[]{0,1,2};
-        this.cdMax = 2;
     }
 
 

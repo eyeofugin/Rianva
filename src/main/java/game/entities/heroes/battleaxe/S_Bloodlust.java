@@ -5,8 +5,8 @@ import framework.connector.Connector;
 import framework.connector.payloads.DmgTriggerPayload;
 import game.entities.Hero;
 import game.skills.Skill;
-import game.skills.SkillTag;
-import game.skills.changeeffects.effects.Bleeding;
+import game.skills.logic.SkillTag;
+import game.skills.changeeffects.effects.status.Bleeding;
 
 import java.util.List;
 

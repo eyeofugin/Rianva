@@ -13,7 +13,7 @@ public class GUIElement {
     protected int width, height;
     protected Color background = Color.VOID;
     protected int[] pixels;
-    protected int x, y; //location in parent
+    public int x, y; //location in parent
     protected TextEditor editor = new TextEditor(TextEditor.baseConf);
     protected List<GUIElement> children = new ArrayList<>();
 

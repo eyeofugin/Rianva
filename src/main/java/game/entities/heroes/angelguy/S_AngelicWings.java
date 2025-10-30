@@ -3,8 +3,10 @@ package game.entities.heroes.angelguy;
 import game.entities.Hero;
 import game.entities.Multiplier;
 import game.skills.*;
-import game.skills.changeeffects.effects.Protected;
-import game.skills.changeeffects.effects.StatEffect;
+import game.skills.changeeffects.effects.other.Protected;
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
 
 import java.util.List;
 
@@ -21,13 +23,8 @@ public class S_AngelicWings extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
         this.targetType = TargetType.SINGLE_OTHER;
-        this.possibleTargetPositions = new int[]{0,1,2};
-        this.possibleCastPositions = new int[]{0,1,2};
         this.effects = List.of(new Protected(1));
-        this.healMultipliers = List.of(new Multiplier(Stat.ENDURANCE, 0.3), new Multiplier(Stat.MAGIC, 0.4));
-        this.faithRequirement = 20;
-        this.faithGain = 5;
-        this.priority = 5;
+        this.healMultipliers = List.of(new Multiplier(Stat.DEFENSE, 0.3), new Multiplier(Stat.MAGIC, 0.4));
     }
 
     @Override

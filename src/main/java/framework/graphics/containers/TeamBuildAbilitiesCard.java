@@ -7,11 +7,9 @@ import framework.graphics.elements.SkillInfo;
 import framework.graphics.text.Color;
 import game.entities.Hero;
 import game.skills.Skill;
-import game.skills.SkillTag;
-import game.skills.genericskills.S_Skip;
+import game.skills.logic.SkillTag;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class TeamBuildAbilitiesCard extends GUIElement {

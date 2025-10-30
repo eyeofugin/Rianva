@@ -3,7 +3,7 @@ package game.objects.equipments;
 import framework.graphics.text.TextEditor;
 import game.objects.Equipment;
 import game.objects.equipments.skills.S_WinterOrb;
-import game.skills.Stat;
+import game.skills.logic.Stat;
 
 public class WinterOrb extends Equipment {
     public WinterOrb() {

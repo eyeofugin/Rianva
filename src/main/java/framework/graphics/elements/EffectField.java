@@ -4,12 +4,10 @@ import framework.Engine;
 import framework.Property;
 import framework.graphics.GUIElement;
 import framework.graphics.text.Color;
-import framework.graphics.text.Symbol;
-import framework.graphics.text.TextEditor;
 import framework.resources.SpriteLibrary;
 import game.entities.Hero;
-import game.skills.Effect;
-import game.skills.changeeffects.effects.StatEffect;
+import game.skills.logic.Effect;
+import game.skills.changeeffects.effects.other.StatEffect;
 
 import java.util.Arrays;
 import java.util.List;

@@ -3,7 +3,10 @@ package game.entities.heroes.paladin;
 import game.entities.Hero;
 import game.entities.Multiplier;
 import game.skills.*;
-import game.skills.changeeffects.effects.Dazed;
+import game.skills.changeeffects.effects.status.Dazed; 
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
 import utils.MyMaths;
 
 import java.util.List;
@@ -21,12 +24,8 @@ public class S_ShatteringSwing extends Skill {
     public void setToInitial() {
         super.setToInitial();
         this.tags = List.of(SkillTag.PRIMARY);
-        this.dmgMultipliers = List.of(new Multiplier(Stat.POWER, 0.5));
-        this.targetType = TargetType.SINGLE;
-        this.possibleCastPositions = new int[]{1,2};
-        this.possibleTargetPositions = new int[]{3};
-        this.faithGain = 20;
-        this.damageMode = DamageMode.PHYSICAL;
+        this.dmgMultipliers = List.of(new Multiplier(Stat.ATTACK, 0.5));
+        this.targetType = TargetType.SINGLE;  
     }
 
 
@@ -34,14 +33,14 @@ public class S_ShatteringSwing extends Skill {
     @Override
     public void applySkillEffects(Hero target) {
         super.applySkillEffects(target);
-        if (MyMaths.success(this.hero.getStat(Stat.CURRENT_FAITH))) {
-            target.addEffect(new Dazed(1), this.hero);
-        }
+//        if (MyMaths.success(this.hero.getStat(Stat.CURRENT_FAITH))) {
+//            target.addEffect(new Dazed(1), this.hero);
+//        }
     }
 
     @Override
     public String getDescriptionFor(Hero hero) {
-        return this.hero.getStat(Stat.CURRENT_FAITH)+"(100%"+Stat.FAITH.getIconString()+")% chance to give " + Dazed.getStaticIconString() + "(1).";
+        return "";//return this.hero.getStat(Stat.CURRENT_FAITH)+"(100%"+Stat.FAITH.getIconString()+")% chance to give " + Dazed.getStaticIconString() + "(1).";
     }
 
 

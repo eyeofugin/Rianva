@@ -1,7 +1,7 @@
 package game.objects.equipments.skills;
 import game.entities.Hero;
 import game.skills.Skill;
-import game.skills.TargetType;
+import game.skills.logic.TargetType;
 
 public class S_WingedBoots extends Skill {
 
@@ -15,9 +15,6 @@ public class S_WingedBoots extends Skill {
     public void setToInitial() {
         super.setToInitial();
         this.targetType = TargetType.SINGLE_OTHER;
-        this.possibleCastPositions = new int[]{0,1,2};
-        this.possibleTargetPositions = new int[]{0,1,2};
-        this.cdMax = 5;
         this.moveTo = true;
     }
     @Override

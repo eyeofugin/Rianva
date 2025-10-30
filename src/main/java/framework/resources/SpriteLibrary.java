@@ -1,10 +1,9 @@
 package framework.resources;
 
 import framework.Property;
-import game.skills.Stat;
-import game.skills.changeeffects.effects.*;
-import game.skills.changeeffects.effects.other.Exhausted;
-import game.skills.changeeffects.effects.other.Steadfast;
+import game.skills.logic.Stat;
+import game.skills.changeeffects.effects.other.*;
+import game.skills.changeeffects.effects.status.*;
 import game.skills.changeeffects.globals.Heat;
 import game.skills.genericskills.S_Skip;
 
@@ -51,11 +50,9 @@ public class SpriteLibrary {
                 "icons/effect/burning.png", 0));
         sprites.put(Stat.LIFE.name(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
                 "fonts/life_ext.png", 0));
-        sprites.put(Stat.ENDURANCE.name(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
+        sprites.put(Stat.DEFENSE.name(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
                 "fonts/endurance.png", 0));
-        sprites.put(Stat.STAMINA.name(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
-                "fonts/stamina.png", 0));
-        sprites.put(Stat.POWER.name(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
+        sprites.put(Stat.ATTACK.name(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
                 "fonts/force.png", 0));
         sprites.put(Stat.MAGIC.name(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
                 "fonts/magic.png", 0));
@@ -69,8 +66,6 @@ public class SpriteLibrary {
                 "fonts/critchance.png", 0));
         sprites.put(Stat.LETHALITY.name(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
                 "fonts/lethality.png", 0));
-        sprites.put(Exalted.class.getName(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
-                "icons/effect/exalted.png", 0));
         sprites.put(Bleeding.class.getName(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
                 "icons/effect/bleeding.png", 0));
         sprites.put(Dazed.class.getName(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
@@ -83,16 +78,10 @@ public class SpriteLibrary {
                 "icons/effect/taunted.png", 0));
         sprites.put(Immunity.class.getName(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
                 "icons/effect/immunity.png", 0));
-        sprites.put(Exhausted.class.getName(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
-                "icons/effect/exhausted.png", 0));
         sprites.put(LifeSteal.class.getName(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
                 "icons/effect/lifesteal.png", 0));
         sprites.put(Protected.class.getName(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
                 "icons/effect/invincible.png", 0));
-        sprites.put(Scoped.class.getName(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
-                "icons/effect/scoped.png", 0));
-        sprites.put(Steadfast.class.getName(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
-                "icons/effect/steadfast.png", 0));
         sprites.put(Stunned.class.getName(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
                 "icons/effect/exhausted.png", 0));
         sprites.put(Frost.class.getName(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,

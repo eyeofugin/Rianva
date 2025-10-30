@@ -4,7 +4,7 @@ import framework.connector.Connection;
 import framework.connector.Connector;
 import framework.connector.payloads.DmgTriggerPayload;
 import game.objects.Equipment;
-import game.skills.Stat;
+import game.skills.logic.Stat;
 
 public class ArcaneCloak extends Equipment {
 
@@ -25,13 +25,13 @@ public class ArcaneCloak extends Equipment {
 
     @Override
     public void turn() {
-        if (this.active && this.hero.getSecondaryResource().equals(Stat.FAITH)) {
-            this.hero.addResource(Stat.CURRENT_FAITH, Stat.FAITH, 5, this.hero);
-        }
+//        if (this.active && this.hero.getSecondaryResource().equals(Stat.FAITH)) {
+//            this.hero.addResource(Stat.CURRENT_FAITH, Stat.FAITH, 5, this.hero);
+//        }
     }
 
     @Override
     public String getDescription() {
-        return "Until receiving damage, gain " + getTempStatBonusString()+ ". Gain +5" + Stat.FAITH.getIconString() + " per turn.";
+        return "";//return "Until receiving damage, gain " + getTempStatBonusString()+ ". Gain +5" + Stat.FAITH.getIconString() + " per turn.";
     }
 }

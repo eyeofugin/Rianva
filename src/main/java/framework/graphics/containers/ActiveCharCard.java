@@ -10,12 +10,11 @@ import framework.graphics.elements.StatField;
 import framework.graphics.elements.TextField;
 import framework.graphics.text.Color;
 import framework.graphics.text.TextAlignment;
-import framework.graphics.text.TextEditor;
 import framework.resources.SpriteLibrary;
 import framework.states.Arena;
 import framework.states.Draft;
 import game.entities.Hero;
-import game.skills.Stat;
+import game.skills.logic.Stat;
 
 import java.util.List;
 

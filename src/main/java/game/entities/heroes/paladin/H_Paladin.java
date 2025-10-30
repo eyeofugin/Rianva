@@ -3,7 +3,7 @@ package game.entities.heroes.paladin;
 import game.entities.Animator;
 import game.entities.Hero;
 import game.entities.Role;
-import game.skills.Stat;
+import game.skills.logic.Stat;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ public class H_Paladin extends Hero {
     public H_Paladin() {
         super("Balladin");
         this.initBasePath("paladin");
-        this.secondaryResource = Stat.FAITH;
+        this.secondaryResource = Stat.MANA;
         initAnimator();
         initSkills();
         this.initStats();

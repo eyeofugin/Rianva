@@ -3,7 +3,8 @@ package game.entities.heroes.thewizard.stash;
 import game.entities.Hero;
 import game.entities.Multiplier;
 import game.skills.*;
-import game.skills.changeeffects.effects.Injured;
+import game.skills.changeeffects.effects.status.Injured;
+import game.skills.logic.*;
 
 import java.util.List;
 
@@ -22,10 +23,7 @@ public class S_HailMissile extends Skill {
         this.tags = List.of(SkillTag.PRIMARY);
         this.dmgMultipliers = List.of(new Multiplier(Stat.MAGIC, 0.5));
         this.targetType = TargetType.SINGLE;
-        this.possibleCastPositions = new int[]{0,1,2};
-        this.possibleTargetPositions = new int[]{3,4};
-        this.dmg = 4;
-        this.damageMode = DamageMode.MAGICAL;
+        this.dmg = 4;  
         this.aiTags = List.of(AiSkillTag.COMBO_ENABLED);
         this.effects = List.of(new Injured(1));
         this.canMiss = false;

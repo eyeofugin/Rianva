@@ -3,9 +3,9 @@ package game.entities.heroes.divinemage.stash;
 import game.entities.Hero;
 import game.entities.Multiplier;
 import game.skills.Skill;
-import game.skills.SkillTag;
-import game.skills.Stat;
-import game.skills.TargetType;
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
 
 import java.util.List;
 
@@ -22,11 +22,8 @@ public class S_ShieldRay extends Skill {
     public void setToInitial() {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
-        this.targetType = TargetType.ALL_TARGETS;
-        this.possibleCastPositions = new int[]{0,1};
-        this.possibleTargetPositions = new int[]{2,3};
-        this.shieldMultipliers = List.of(new Multiplier(Stat.CURRENT_FAITH, 0.5));
-        this.faithRequirement = 30;
+        this.targetType = TargetType.ALL_ENEMY;
+        this.shieldMultipliers = List.of(new Multiplier(Stat.CURRENT_MANA, 0.5));
     }
 
     @Override

@@ -35,7 +35,6 @@ public class Connector {
     public static String SHIELD_CHANGES = "SHIELD_CHANGES";
     public static String EQUIPMENT_CHANGE_TRIGGER = "EQUIPMENT_CHANGE_TRIGGER";
     public static String MANA_REGAIN = "MANA_REGAIN";
-    public static String PREPARE_UPDATE = "PREPARE_UPDATE";
     public static String UPDATE = "UPDATE";
     public static String START_OF_TURN = "START_OF_TURN";
     public static String END_OF_ROUND = "END_OF_TURN";

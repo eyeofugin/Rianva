@@ -33,8 +33,8 @@ public class StateManager {
     public StateManager(Engine e) {
         this.engine = e;
 //        dungeonDraft();
-//            dev();
-        pvpDraft();
+            dev();
+//        pvpDraft();
     }
 
     private void pvpDraft() {
@@ -98,7 +98,6 @@ public class StateManager {
         if (memory.mode.equals(GameMode.DUNGEON)) {
             arena.setTeams(memory.dungeonTeam, memory.dungeonEnemies);
         } else if (memory.mode.equals(GameMode.PVP)) {
-            arena.round = memory.pvpRound;
             arena.pvp = true;
             arena.setTeams(memory.teams[0], memory.teams[1]);
         }

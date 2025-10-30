@@ -2,9 +2,9 @@ package game.entities.heroes.firedancer.stash;
 
 import game.entities.Hero;
 import game.skills.Skill;
-import game.skills.SkillTag;
-import game.skills.TargetType;
-import game.skills.changeeffects.effects.Burning;
+import game.skills.logic.SkillTag;
+import game.skills.logic.TargetType;
+import game.skills.changeeffects.effects.other.Burning;
 
 import java.util.List;
 
@@ -22,8 +22,6 @@ public class S_FlameDance extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
         this.targetType = TargetType.SINGLE_OTHER;
-        this.possibleCastPositions = new int[]{0,1,2};
-        this.possibleTargetPositions = new int[]{0,1,2};
         this.casterEffects = List.of(new Burning(3));
     }
 

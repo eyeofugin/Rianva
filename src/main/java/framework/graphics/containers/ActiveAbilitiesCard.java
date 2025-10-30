@@ -65,7 +65,7 @@ public class ActiveAbilitiesCard extends GUIElement {
             }
             if (engine.keyB._backPressed) {
                 this.active = false;
-                this.arena.switchToHeroChoice();
+//                this.arena.switchToHeroChoice();
             }
         }
     }

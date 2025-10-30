@@ -2,7 +2,10 @@ package game.entities.heroes.battleaxe;
 
 import game.entities.Hero;
 import game.entities.Multiplier;
-import game.skills.*;
+import game.skills.*; 
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
 
 import java.util.List;
 
@@ -20,13 +23,8 @@ public class S_Kick extends Skill {
     public void setToInitial() {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
-        this.dmgMultipliers = List.of(new Multiplier(Stat.POWER, 0.25));
-        this.targetType = TargetType.SINGLE;
-        this.possibleCastPositions = new int[]{2};
-        this.possibleTargetPositions = new int[]{3,4};
-        this.cdMax = 4;
-        this.damageMode = DamageMode.PHYSICAL;
-        this.priority = -1;
+        this.dmgMultipliers = List.of(new Multiplier(Stat.ATTACK, 0.25));
+        this.targetType = TargetType.SINGLE;  
         this.level = 2;
         this.move = 1;
     }

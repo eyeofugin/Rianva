@@ -3,8 +3,7 @@ package game.entities.heroes.cryobrawler;
 import game.entities.Animator;
 import game.entities.Hero;
 import game.entities.Role;
-import game.entities.heroes.cryobrawler.stash.S_FrostBreath;
-import game.skills.Stat;
+import game.skills.logic.Stat;
 
 import java.util.List;
 

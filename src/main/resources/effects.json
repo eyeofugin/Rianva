@@ -1,0 +1,9 @@
+{
+  "Burning": {
+    "name": "Burning",
+    "iconString": "",
+    "description": "Description",
+    "stackable": true,
+    "type": "STATUS"
+  }
+}

@@ -3,7 +3,7 @@ package framework.connector.payloads;
 import framework.connector.ConnectionPayload;
 import game.entities.Hero;
 import game.skills.Skill;
-import game.skills.Stat;
+import game.skills.logic.Stat;
 
 public class GetStatPayload extends ConnectionPayload {
     public Stat stat;

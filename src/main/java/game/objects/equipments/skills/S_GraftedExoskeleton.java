@@ -2,14 +2,14 @@ package game.objects.equipments.skills;
 
 import game.entities.Hero;
 import game.objects.Equipment;
-import game.skills.Effect;
+import game.skills.logic.Effect;
 import game.skills.Skill;
-import game.skills.TargetType;
+import game.skills.logic.TargetType;
 
 public class S_GraftedExoskeleton extends Skill {
 
     public S_GraftedExoskeleton(Equipment equipment) {
-        super(null);
+        super();
         this.equipment = equipment;
         this.iconPath = "icons/skills/graftedexoskeleton.png";
         setToInitial();
@@ -19,8 +19,6 @@ public class S_GraftedExoskeleton extends Skill {
     public void setToInitial() {
         super.setToInitial();
         this.targetType = TargetType.SELF;
-        this.possibleCastPositions = new int[]{0,1,2};
-        this.cdMax = 5;
     }
 
     @Override
@@ -29,10 +27,10 @@ public class S_GraftedExoskeleton extends Skill {
         target.removeNegativeEffects();
     }
 
-    @Override
-    public boolean performCheck(Hero hero) {
-        return super.performCheck(hero) && this.equipment.isActive();
-    }
+//    @Override
+//    public boolean performCheck(Hero hero) {
+//        return super.performCheck(hero) && this.equipment.isActive();
+//    }
 
     @Override
     public int getAIRating(Hero target) {

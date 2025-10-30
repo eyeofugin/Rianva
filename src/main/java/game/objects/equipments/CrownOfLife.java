@@ -4,7 +4,7 @@ import framework.graphics.text.Color;
 import framework.graphics.text.TextEditor;
 import game.objects.Equipment;
 import game.objects.equipments.skills.S_CrownOfLife;
-import game.skills.Stat;
+import game.skills.logic.Stat;
 
 public class CrownOfLife extends Equipment {
 

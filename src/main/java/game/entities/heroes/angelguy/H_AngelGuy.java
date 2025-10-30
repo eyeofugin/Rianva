@@ -3,8 +3,7 @@ package game.entities.heroes.angelguy;
 import game.entities.Animator;
 import game.entities.Hero;
 import game.entities.Role;
-import game.entities.heroes.angelguy.stash.S_Reengage;
-import game.skills.Stat;
+import game.skills.logic.Stat;
 
 import java.util.List;
 
@@ -15,7 +14,7 @@ public class H_AngelGuy extends Hero {
     public H_AngelGuy() {
         super(NAME);
         this.initBasePath("angelguy");
-        this.secondaryResource = Stat.FAITH;
+        this.secondaryResource = Stat.MANA;
         this.initAnimator();
         this.initSkills();
         this.initStats();

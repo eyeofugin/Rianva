@@ -3,7 +3,10 @@ package game.entities.heroes.dragonbreather;
 import game.entities.Hero;
 import game.entities.Multiplier;
 import game.skills.*;
-import game.skills.changeeffects.effects.Burning;
+import game.skills.changeeffects.effects.other.Burning; 
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
 
 import java.util.List;
 
@@ -22,11 +25,7 @@ public class S_DragonBreath extends Skill {
         this.tags = List.of(SkillTag.TACTICAL);
         this.dmgMultipliers = List.of(new Multiplier(Stat.MAGIC, 0.5));
         this.effects = List.of(new Burning(2));
-        this.targetType = TargetType.ALL_TARGETS;
-        this.possibleCastPositions = new int[]{2};
-        this.possibleTargetPositions = new int[]{3,4};
-        this.damageMode = DamageMode.MAGICAL;
-        this.manaCost = 6;
+        this.targetType = TargetType.ALL_ENEMY;  
         this.level = 2;
     }
 

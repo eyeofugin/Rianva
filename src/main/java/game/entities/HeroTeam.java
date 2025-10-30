@@ -2,7 +2,8 @@ package game.entities;
 
 import framework.connector.Connector;
 import framework.connector.payloads.DeathTriggerPayload;
-import game.skills.Stat;
+import game.skills.logic.Effect;
+import game.skills.logic.Stat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -88,5 +89,14 @@ public class HeroTeam {
     }
     public int getLastPosition() {
         return fillUpDirection > 0 ? 0: this.heroes.length + getEnemyOffset() - 1;
+    }
+
+    public int amountEffects(String effect) {
+        int amnt = 0;
+        for (Hero hero : getHeroesAsList()) {
+            amnt += hero.hasPermanentEffect(effect);
+        }
+        return amnt;
+
     }
 }

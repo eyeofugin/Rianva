@@ -4,7 +4,7 @@ import framework.connector.Connection;
 import framework.connector.Connector;
 import framework.connector.payloads.*;
 import game.objects.Equipment;
-import game.skills.changeeffects.effects.Burning;
+import game.skills.changeeffects.effects.other.Burning;
 
 public class RedOrb extends Equipment {
 

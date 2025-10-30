@@ -5,9 +5,9 @@ import framework.connector.Connector;
 import framework.connector.payloads.DmgTriggerPayload;
 import game.entities.Hero;
 import game.skills.Skill;
-import game.skills.SkillTag;
-import game.skills.Stat;
-import game.skills.changeeffects.effects.Burning;
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.changeeffects.effects.other.Burning;
 
 import java.util.List;
 
@@ -29,7 +29,7 @@ public class S_HonorTheFirstFlame extends Skill {
 
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "Whenever an opponent is dealt damage by "+Burning.getStaticIconString()+", get twice that much " + Stat.FAITH.getIconString() + ".";
+        return "";//return "Whenever an opponent is dealt damage by "+Burning.getStaticIconString()+", get twice that much " + Stat.MANA.getIconString() + ".";
     }
 
     @Override
@@ -45,7 +45,7 @@ public class S_HonorTheFirstFlame extends Skill {
     public void dmgTrigger(DmgTriggerPayload pl) {
         if (pl.target != null && pl.effect != null && pl.effect.getClass().equals(Burning.class)) {
             if (pl.target.isTeam2() != this.hero.isTeam2()) {
-                this.hero.addResource(Stat.CURRENT_FAITH, Stat.FAITH, 2*pl.dmgDone, this.hero);
+//                this.hero.addResource(Stat.CURRENT_FAITH, Stat.FAITH, 2*pl.dmgDone, this.hero);
             }
         }
     }

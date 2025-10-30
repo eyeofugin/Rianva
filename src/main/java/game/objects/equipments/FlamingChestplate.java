@@ -4,9 +4,8 @@ import framework.connector.Connection;
 import framework.connector.Connector;
 import framework.connector.payloads.DmgTriggerPayload;
 import framework.graphics.text.Color;
-import game.objects.Equipment;
-import game.skills.DamageMode;
-import game.skills.changeeffects.effects.Burning;
+import game.objects.Equipment; 
+import game.skills.changeeffects.effects.other.Burning;
 
 public class FlamingChestplate extends Equipment {
 
@@ -17,7 +16,7 @@ public class FlamingChestplate extends Equipment {
 
     @Override
     public String getDescription() {
-        return "When receiving " + DamageMode.PHYSICAL.getColor().getCodeString() + "damage" + Color.WHITE.getCodeString()+  ", the attacker gets " + Burning.getStaticIconString() + "(3).";
+        return "";//return "When receiving " + DamageMode.PHYSICAL.getColor().getCodeString() + "damage" + Color.WHITE.getCodeString()+  ", the attacker gets " + Burning.getStaticIconString() + "(3).";
     }
     @Override
     public void addSubscriptions() {
@@ -25,10 +24,10 @@ public class FlamingChestplate extends Equipment {
     }
 
     public void dmgTrigger(DmgTriggerPayload pl) {
-        if (this.active && pl.target != null && pl.target.equals(this.hero)) {
-            if (pl.damageMode != null && pl.damageMode.equals(DamageMode.PHYSICAL) && pl.cast != null) {
-                pl.cast.hero.addEffect(new Burning(3), this.hero);
-            }
-        }
+//        if (this.active && pl.target != null && pl.target.equals(this.hero)) {
+//            if (pl.damageMode != null && pl.damageMode.equals(DamageMode.PHYSICAL) && pl.cast != null) {
+//                pl.cast.hero.addEffect(new Burning(3), this.hero);
+//            }
+//        }
     }
 }

@@ -3,6 +3,7 @@ package game.entities.heroes.dualpistol.stash;
 import game.entities.Hero;
 import game.entities.Multiplier;
 import game.skills.*;
+import game.skills.logic.*;
 
 import java.util.List;
 
@@ -21,12 +22,8 @@ public class S_LuckyShot extends Skill {
         this.tags = List.of(SkillTag.TACTICAL);
         this.aiTags = List.of(AiSkillTag.COMBO_ENABLED);
         this.targetType = TargetType.SINGLE;
-        this.possibleCastPositions = new int[]{0,1,2};
-        this.possibleTargetPositions = new int[]{3,4,5};
         this.dmg = 3;
-        this.dmgMultipliers = List.of(new Multiplier(Stat.POWER, 0.05));
-        this.cdMax = 2;
-        this.damageMode = DamageMode.PHYSICAL;
+        this.dmgMultipliers = List.of(new Multiplier(Stat.ATTACK, 0.05));  
         this.critChance = 50;
     }
 

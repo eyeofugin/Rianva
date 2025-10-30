@@ -3,6 +3,9 @@ package game.entities.heroes.thehealer;
 import game.entities.Hero;
 import game.entities.Multiplier;
 import game.skills.*;
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
 
 import java.util.List;
 
@@ -21,8 +24,6 @@ public class S_DivineRay extends Skill {
         this.tags = List.of(SkillTag.PRIMARY);
         this.targetType = TargetType.SINGLE;
         this.healMultipliers = List.of(new Multiplier(Stat.MANA, 0.3));
-        this.possibleCastPositions = new int[]{0,1,2};
-        this.possibleTargetPositions = new int[]{1,2,3};
     }
 
     @Override

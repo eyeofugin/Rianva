@@ -2,7 +2,10 @@ package game.entities.heroes.firedancer;
 
 import game.entities.Hero;
 import game.entities.Multiplier;
-import game.skills.*;
+import game.skills.*; 
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
 
 import java.util.List;
 
@@ -20,11 +23,7 @@ public class S_FlameLasso extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
         this.dmgMultipliers = List.of(new Multiplier(Stat.MAGIC, 0.5));
-        this.targetType = TargetType.SINGLE;
-        this.possibleCastPositions = new int[]{1};
-        this.possibleTargetPositions = new int[]{4,5};
-        this.damageMode = DamageMode.MAGICAL;
-        this.faithRequirement = 40;
+        this.targetType = TargetType.SINGLE;  
         this.move = -1;
     }
 

@@ -6,9 +6,9 @@ import framework.connector.payloads.CastChangePayload;
 import framework.graphics.text.TextEditor;
 import game.entities.Hero;
 import game.skills.Skill;
-import game.skills.SkillTag;
-import game.skills.TargetType;
-import game.skills.changeeffects.effects.DoubleShot;
+import game.skills.logic.SkillTag;
+import game.skills.logic.TargetType;
+import game.skills.changeeffects.effects.other.DoubleShot;
 
 import java.util.List;
 
@@ -27,9 +27,7 @@ public class S_DoubleShot extends Skill {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
         this.targetType = TargetType.SELF;
-        this.possibleCastPositions = new int[]{0,1,2};
         this.effects = List.of(new DoubleShot(3));
-        this.cdMax = 2;
         this.level = 2;
     }
 
@@ -43,13 +41,13 @@ public class S_DoubleShot extends Skill {
     }
 
     public void castChange(CastChangePayload castChangePayload) {
-        if (cdCurrent > 0) {
-            return;
-        }
-        Skill skill = castChangePayload.skill;
-        if (skill != null && skill.hero.equals(this.hero) && skill instanceof S_Barrage) {
-            skill.setCdMax(skill.getCdMax() -1);
-        }
+//        if (cdCurrent > 0) {
+//            return;
+//        }
+//        Skill skill = castChangePayload.skill;
+//        if (skill != null && skill.hero.equals(this.hero) && skill instanceof S_Barrage) {
+//            skill.setCdMax(skill.getCdMax() -1);
+//        }
     }
 
 

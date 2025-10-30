@@ -4,12 +4,12 @@ import framework.graphics.GUIElement;
 import framework.graphics.text.Color;
 import framework.graphics.text.TextAlignment;
 import game.entities.Hero;
-import game.skills.Stat;
+import game.skills.logic.Stat;
 
 public class StatField extends GUIElement {
     private final Hero hero;
-    private Stat[] leftStatArray = new Stat[]{Stat.MAGIC, Stat.POWER, Stat.SPEED, Stat.EVASION, Stat.ACCURACY, Stat.CRIT_CHANCE, Stat.LETHALITY};
-    private Stat[] rightStatArray = new Stat[]{Stat.STAMINA, Stat.ENDURANCE};
+    private Stat[] leftStatArray = new Stat[]{Stat.MAGIC, Stat.ATTACK, Stat.SPEED, Stat.EVASION, Stat.ACCURACY, Stat.CRIT_CHANCE, Stat.LETHALITY};
+    private Stat[] rightStatArray = new Stat[]{Stat.DEFENSE};
 
     public StatField(Hero hero) {
         this.hero = hero;

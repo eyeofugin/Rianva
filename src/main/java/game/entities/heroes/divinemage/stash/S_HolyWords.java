@@ -3,6 +3,9 @@ package game.entities.heroes.divinemage.stash;
 import game.entities.Hero;
 import game.entities.Multiplier;
 import game.skills.*;
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
+import game.skills.logic.TargetType;
 
 import java.util.List;
 
@@ -22,9 +25,6 @@ public class S_HolyWords extends Skill {
         this.targetType = TargetType.SINGLE_OTHER;
         this.heal = 2;
         this.healMultipliers = List.of(new Multiplier(Stat.MAGIC, 0.5));
-        this.faithRequirement = 15;
-        this.possibleCastPositions = new int[]{0,1,2};
-        this.possibleTargetPositions = new int[]{0,1,2};
     }
 
     @Override

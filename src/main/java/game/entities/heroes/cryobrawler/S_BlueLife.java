@@ -5,8 +5,8 @@ import framework.connector.Connector;
 import framework.connector.payloads.OnPerformPayload;
 import game.entities.Hero;
 import game.skills.Skill;
-import game.skills.SkillTag;
-import game.skills.Stat;
+import game.skills.logic.SkillTag;
+import game.skills.logic.Stat;
 
 import java.util.List;
 
@@ -38,9 +38,9 @@ public class S_BlueLife extends Skill {
     }
 
     public void onPerform(OnPerformPayload pl) {
-        if (this.hero.equals(pl.skill.hero) && pl.skill.getManaCost() > 0) {
-            this.hero.addResource(Stat.CURRENT_LIFE, Stat.LIFE, pl.skill.getManaCost() / 2, this.hero);
-        }
+//        if (this.hero.equals(pl.skill.hero) && pl.skill.getManaCost() > 0) {
+//            this.hero.addResource(Stat.CURRENT_LIFE, Stat.LIFE, pl.skill.getManaCost() / 2, this.hero);
+//        }
     }
 
     @Override

@@ -4,7 +4,6 @@ import framework.connector.Connection;
 import framework.connector.Connector;
 import framework.connector.payloads.DmgChangesPayload;
 import game.objects.Equipment;
-import game.skills.Stat;
 
 public class SnipersTunika extends Equipment {
 
