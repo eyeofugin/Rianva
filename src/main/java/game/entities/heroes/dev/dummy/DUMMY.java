@@ -31,8 +31,8 @@ public class DUMMY extends Hero {
         //
         this.stats.put(Stat.MAGIC, 10);
         this.stats.put(Stat.ATTACK, 10);
-        this.stats.put(Stat.DEFENSE, 0);
-        this.stats.put(Stat.DEFENSE, 0);
+        this.stats.put(Stat.STAMINA, 0);
+        this.stats.put(Stat.STAMINA, 0);
         this.stats.put(Stat.ACCURACY, 100);
         this.stats.put(Stat.EVASION, 0);
         this.stats.put(Stat.SPEED, 1);

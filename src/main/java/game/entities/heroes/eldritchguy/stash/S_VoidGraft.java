@@ -22,7 +22,7 @@ public class S_VoidGraft extends Skill {
     public void setToInitial() {
         super.setToInitial();
         this.tags = List.of(SkillTag.TACTICAL);
-        this.healMultipliers = List.of(new Multiplier(Stat.DEFENSE, 0.8));
+        this.healMultipliers = List.of(new Multiplier(Stat.STAMINA, 0.8));
         this.targetType = TargetType.SELF;
     }
 

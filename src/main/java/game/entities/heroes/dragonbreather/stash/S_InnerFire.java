@@ -36,7 +36,7 @@ public class S_InnerFire extends Skill {
 
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "+6"+Stat.ATTACK.getIconString()+", +6"+Stat.MAGIC.getIconString()+" during Heat. +4"+Stat.DEFENSE.getIconString()+", +4"+Stat.DEFENSE.getIconString()+ " otherwise.";
+        return "+6"+Stat.ATTACK.getIconString()+", +6"+Stat.MAGIC.getIconString()+" during Heat. +4"+Stat.STAMINA.getIconString()+", +4"+Stat.STAMINA.getIconString()+ " otherwise.";
     }
 
     @Override
@@ -46,8 +46,8 @@ public class S_InnerFire extends Skill {
             this.hero.addToStat(Stat.ATTACK, 6);
             this.hero.addToStat(Stat.MAGIC, 6);
         } else {
-            this.hero.addToStat(Stat.DEFENSE, 4);
-            this.hero.addToStat(Stat.DEFENSE, 4);
+            this.hero.addToStat(Stat.STAMINA, 4);
+            this.hero.addToStat(Stat.STAMINA, 4);
         }
     }
 

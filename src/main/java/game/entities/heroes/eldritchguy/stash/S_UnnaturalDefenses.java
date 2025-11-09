@@ -32,7 +32,7 @@ public class S_UnnaturalDefenses extends Skill {
 
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "";//return "Permanently +2"+Stat.DEFENSE.getIconString()+" when receiving "+ DamageMode.MAGICAL.getColor().getCodeString() +"damage"+ Color.WHITE.getCodeString()+".";
+        return "";//return "Permanently +2"+Stat.STAMINA.getIconString()+" when receiving "+ DamageMode.MAGICAL.getColor().getCodeString() +"damage"+ Color.WHITE.getCodeString()+".";
     }
 
     @Override
@@ -42,7 +42,7 @@ public class S_UnnaturalDefenses extends Skill {
 
     public void dmgTrigger(DmgTriggerPayload pl) {
         if (this.hero.equals(pl.target)) {
-            this.hero.addToStat(Stat.DEFENSE, 2);
+            this.hero.addToStat(Stat.STAMINA, 2);
         }
     }
 

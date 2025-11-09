@@ -32,7 +32,7 @@ public class S_SupremeDefense extends Skill {
 
 //    @Override
 //    public String getUpperDescriptionFor(Hero hero) {
-//        return "Active: Gain permanently +5" + Stat.DEFENSE.getIconString() + ".";
+//        return "Active: Gain permanently +5" + Stat.STAMINA.getIconString() + ".";
 //    }
 
     @Override

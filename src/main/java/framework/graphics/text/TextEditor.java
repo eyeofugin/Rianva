@@ -186,7 +186,7 @@ public class TextEditor {
         symbols.put(Stat.LIFE_REGAIN.getIconKey(), Symbol.liferegain);
         symbols.put(Stat.MAGIC.getIconKey(), Symbol.magic);
         symbols.put(Stat.ATTACK.getIconKey(), Symbol.force);
-        symbols.put(Stat.DEFENSE.getIconKey(), Symbol.stamina);
+        symbols.put(Stat.STAMINA.getIconKey(), Symbol.stamina);
         symbols.put(Stat.SPEED.getIconKey(), Symbol.speed);
         symbols.put(Stat.SHIELD.getIconKey(), Symbol.shield);
         symbols.put(Stat.CRIT_CHANCE.getIconKey(), Symbol.critchance);
@@ -305,7 +305,7 @@ public class TextEditor {
         symbols.put(Stat.LIFE.getIconKey(), Symbol.life.pixels);
         symbols.put(Stat.MAGIC.getIconKey(), Symbol.magic.pixels);
         symbols.put(Stat.ATTACK.getIconKey(), Symbol.finesse.pixels);
-        symbols.put(Stat.DEFENSE.getIconKey(), Symbol.stamina.pixels);
+        symbols.put(Stat.STAMINA.getIconKey(), Symbol.stamina.pixels);
         symbols.put(Stat.SPEED.getIconKey(), Symbol.speed.pixels);
         symbols.put(Stat.SHIELD.getIconKey(), Symbol.shield.pixels);
         symbols.put(Stat.CRIT_CHANCE.getIconKey(), Symbol.critchance.pixels);

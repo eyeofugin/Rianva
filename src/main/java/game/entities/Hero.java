@@ -149,7 +149,7 @@ public class Hero extends GUIElement {
         Map<Stat, Integer> base = new HashMap<>();
         base.put(Stat.MAGIC, 0);
         base.put(Stat.ATTACK, 0);
-        base.put(Stat.DEFENSE, 0);
+        base.put(Stat.STAMINA, 0);
         base.put(Stat.SPEED, 0);
 
         //ResourceStats
@@ -319,17 +319,17 @@ public class Hero extends GUIElement {
 
 //StatMagic
 
-    public void levelUp() {
-        int newLevel = this.level + 1;
-        this.setLevel(newLevel);
-        List<Skill> newSkills = this.learnableSkillList.stream().filter(s->s.getLevel() == newLevel).toList();
-        newSkills.forEach(s-> {
-            if (!this.skills.contains(s)) {
-                this.skills.add(s);
-                sortSkills();
-            }
-        });
-    }
+//    public void levelUp() {
+//        int newLevel = this.level + 1;
+//        this.setLevel(newLevel);
+//        List<Skill> newSkills = this.learnableSkillList.stream().filter(s->s.getLevel() == newLevel).toList();
+//        newSkills.forEach(s-> {
+//            if (!this.skills.contains(s)) {
+//                this.skills.add(s);
+//                sortSkills();
+//            }
+//        });
+//    }
 
     private void sortSkills() {
         this.skills.sort(Comparator.comparingInt(Skill::getSort));
@@ -747,7 +747,7 @@ public class Hero extends GUIElement {
     }
     public int damage(Hero caster, int damage,  int lethality, Skill skill) {
 
-        int def = getStat(Stat.DEFENSE);
+        int def = getStat(Stat.STAMINA);
         int result = MyMaths.getDamage(damage, def, lethality);
         DmgChangesPayload dmgChangesPayload = new DmgChangesPayload()
                 .setCaster(caster)
@@ -791,7 +791,7 @@ public class Hero extends GUIElement {
     }
 
     public int simulateDamageInPercentages(Hero caster, int damage, int lethality, Skill skill) {
-        int def = getStat(Stat.DEFENSE);
+        int def = getStat(Stat.STAMINA);
         int result = MyMaths.getDamage(damage, def, lethality);
         DmgChangesPayload dmgChangesPayload = new DmgChangesPayload()
                 .setCaster(caster)

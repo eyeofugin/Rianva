@@ -24,7 +24,7 @@ public class S_AngelicWings extends Skill {
         this.tags = List.of(SkillTag.TACTICAL);
         this.targetType = TargetType.SINGLE_OTHER;
         this.effects = List.of(new Protected(1));
-        this.healMultipliers = List.of(new Multiplier(Stat.DEFENSE, 0.3), new Multiplier(Stat.MAGIC, 0.4));
+        this.healMultipliers = List.of(new Multiplier(Stat.STAMINA, 0.3), new Multiplier(Stat.MAGIC, 0.4));
     }
 
     @Override

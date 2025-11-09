@@ -55,8 +55,8 @@ public class S_Deathpact extends Skill {
             statChanges.put(Stat.ATTACK, 5);
             statChanges.put(Stat.MAGIC, 5);
             statChanges.put(Stat.SPEED, 10);
-            statChanges.put(Stat.DEFENSE, 10);
-            statChanges.put(Stat.DEFENSE, 10);
+            statChanges.put(Stat.STAMINA, 10);
+            statChanges.put(Stat.STAMINA, 10);
             statChanges.put(Stat.EVASION, 10);
             statChanges.put(Stat.ACCURACY, 10);
             statChanges.put(Stat.CRIT_CHANCE, 10);

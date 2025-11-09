@@ -34,7 +34,7 @@ public class S_Steadfast extends Skill {
 
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "+2"+Stat.DEFENSE.getIconString()+" when receiving damage (+10 max.).";
+        return "+2"+Stat.STAMINA.getIconString()+" when receiving damage (+10 max.).";
     }
 
     @Override
@@ -44,7 +44,7 @@ public class S_Steadfast extends Skill {
 
     public void dmgTrigger(DmgTriggerPayload pl) {
         if (this.hero.equals(pl.target) && this.stacks < 10) {
-            this.hero.addToStat(Stat.DEFENSE, 2);
+            this.hero.addToStat(Stat.STAMINA, 2);
             stacks++;
         }
     }

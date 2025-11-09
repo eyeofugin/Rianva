@@ -35,7 +35,6 @@ public class Skill {
     public List<SkillTag> tags = new ArrayList<>();
     public List<AiSkillTag> aiTags = new ArrayList<>();
 
-    protected int level = 1;
     protected TargetType targetType = TargetType.SINGLE;
     protected DamageType damageType = null;
     protected double lifeSteal = 0.0;
@@ -49,20 +48,20 @@ public class Skill {
 
     protected List<Hero> targets = new ArrayList<>();
 
+    protected int accuracy = 100;
+    protected boolean canMiss = true;
+    protected int countAsHits = 1;
+    protected int move = 0;
+    protected boolean moveTo = false;
 
+    //level scalables
     protected int manaCost = 0;
     protected int lifeCost = 0;
-    protected int accuracy = 100;
     protected int critChance = 0;
     protected int dmg = 0;
     protected int heal = 0;
     protected int shield = 0;
-    protected boolean canMiss = true;
-    protected int countAsHits = 1;
     protected int lethality = 0;
-    protected int move = 0;
-    protected boolean moveTo = false;
-
     public SkillScripts scripts;
 
     public Map<ConnectionType, String> triggerMap;
@@ -100,7 +99,6 @@ public class Skill {
         this.animationName = dto.animationName != null? dto.animationName : "action_w";
         this.tags = dto.tags;
         this.aiTags = dto.aiTags;
-        this.level = dto.level;
         this.targetType = dto.targetType;
         this.damageType = dto.damageType;
         this.lifeSteal = dto.lifeSteal;
@@ -118,6 +116,7 @@ public class Skill {
         this.canMiss = dto.canMiss;
         this.countAsHits = dto.countAsHits;
         this.lethality = dto.lethality;
+
         this.move = dto.move;
         this.moveTo = dto.moveTo;
         this.triggerMap = dto.triggerMap;
@@ -135,6 +134,7 @@ public class Skill {
         saveState = new Skill();
         Skill.writeInitialsFromTo(this, saveState);
     }
+
 
     private void initEffects(SkillDTO dto) {
         if (dto.effects != null) {
@@ -177,7 +177,6 @@ public class Skill {
         this.countAsHits = 1;
         this.lethality = 0;
         this.move = 0;
-        this.level = 1;
         if (SpriteLibrary.hasSprite(this.getName())) {
             this.iconPixels = SpriteLibrary.getSprite(this.getName());
         } else {
@@ -523,11 +522,6 @@ public class Skill {
     public int getShield(Hero target) {
         return MyMaths.getLevelStat(shield, this.hero.getLevel());
     }
-
-    public int getLevel() {
-        return level;
-    }
-
     public String getTargetString() {
         StringBuilder builder = new StringBuilder();
         if (this.isPassive()) {

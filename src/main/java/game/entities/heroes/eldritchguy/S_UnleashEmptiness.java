@@ -32,11 +32,11 @@ public class S_UnleashEmptiness extends Skill {
     public void applySkillEffects(Hero target) {
         super.applySkillEffects(target);
         this.hero.removeNegativeEffects();
-        this.hero.addToStat(Stat.MAGIC, this.hero.getStat(Stat.DEFENSE) / 2);
+        this.hero.addToStat(Stat.MAGIC, this.hero.getStat(Stat.STAMINA) / 2);
     }
     @Override
     public String getDescriptionFor(Hero hero) {
-        return "Remove all debuffs. Permanently +X"+Stat.MAGIC.getIconString()+" where X is 50% of your"+Stat.DEFENSE.getIconString()+".";
+        return "Remove all debuffs. Permanently +X"+Stat.MAGIC.getIconString()+" where X is 50% of your"+Stat.STAMINA.getIconString()+".";
     }
 
 

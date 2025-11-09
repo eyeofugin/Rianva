@@ -28,12 +28,12 @@ public class S_Blight extends Skill {
 
     @Override
     public int getDmg(Hero target) {
-        return target.getStat(Stat.DEFENSE) / 2;
+        return target.getStat(Stat.STAMINA) / 2;
     }
 
 //    @Override
 //    public String getDmgStringGUI() {
-//        return DamageMode.MAGICAL.getColor().getCodeString()+"DMG + "+ Color.WHITE.getCodeString()+": 50% of target's " + Stat.DEFENSE.getIconString() + ".";
+//        return DamageMode.MAGICAL.getColor().getCodeString()+"DMG + "+ Color.WHITE.getCodeString()+": 50% of target's " + Stat.STAMINA.getIconString() + ".";
 //    }
 
     @Override

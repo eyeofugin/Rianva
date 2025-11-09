@@ -9,7 +9,7 @@ import game.skills.logic.Stat;
 public class StatField extends GUIElement {
     private final Hero hero;
     private Stat[] leftStatArray = new Stat[]{Stat.MAGIC, Stat.ATTACK, Stat.SPEED, Stat.EVASION, Stat.ACCURACY, Stat.CRIT_CHANCE, Stat.LETHALITY};
-    private Stat[] rightStatArray = new Stat[]{Stat.DEFENSE};
+    private Stat[] rightStatArray = new Stat[]{Stat.STAMINA};
 
     public StatField(Hero hero) {
         this.hero = hero;

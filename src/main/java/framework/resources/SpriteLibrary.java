@@ -50,7 +50,7 @@ public class SpriteLibrary {
                 "icons/effect/burning.png", 0));
         sprites.put(Stat.LIFE.name(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
                 "fonts/life_ext.png", 0));
-        sprites.put(Stat.DEFENSE.name(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
+        sprites.put(Stat.STAMINA.name(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
                 "fonts/endurance.png", 0));
         sprites.put(Stat.ATTACK.name(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
                 "fonts/force.png", 0));

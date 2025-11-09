@@ -16,7 +16,7 @@ public class Blight extends Effect {
         this.stackable = false;
         this.description = "Whenever you receive Damage, get 5% max health damage. -25% Defense.";
         this.type = ChangeEffectType.STATUS;
-        this.stat = Stat.DEFENSE;
+        this.stat = Stat.STAMINA;
         this.statChangePercentage = 0.75;
     }
 

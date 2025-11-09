@@ -10,14 +10,15 @@ public enum Stat {
 
     MAGIC("Magic","MAG", "{013}"),
     ATTACK("Attack", "ATK", "{014}"),
-    DEFENSE("Defense", "DEF", "{016}"),
+    STAMINA("Stamina", "STA", "{016}"),
+    ENDURANCE("Endurance", "END", "{017}"),
     SPEED("Speed", "SPE", "{018}"),
 
-    ACCURACY("Accuracy", "ACC", "{001}"),
-    EVASION("Evasion", "EVA", "{001}"),
     CRIT_CHANCE("Crit Chance", "CRI", "{001}"),
     LETHALITY("Lethality", "LET", "{001}"),
 
+    ACCURACY("Accuracy", "ACC", "{001}"),
+    EVASION("Evasion", "EVA", "{001}"),
 
     LIFE("Max", "LIF", "{009}"),
     LIFE_REGAIN("Regain", "LRE", "{009}"),
@@ -39,7 +40,7 @@ public enum Stat {
     private final String colorKey;
 
     public static List<Stat> nonResourceStats = List.of(Stat.MAGIC,
-            Stat.ATTACK, Stat.DEFENSE, Stat.EVASION, Stat.CRIT_CHANCE,
+            Stat.ATTACK, Stat.STAMINA, Stat.ENDURANCE, Stat.EVASION, Stat.CRIT_CHANCE,
             Stat.ACCURACY, Stat.LETHALITY, Stat.SPEED);
     public static List<Stat> maxStats = List.of(LIFE, MANA);
 
@@ -67,7 +68,7 @@ public enum Stat {
 
     public static Stat getRdmStat() {
 
-        Stat[] stdStats = new Stat[]{MAGIC, ATTACK, DEFENSE, ACCURACY, EVASION, SPEED};
+        Stat[] stdStats = new Stat[]{MAGIC, ATTACK, STAMINA, ENDURANCE, ACCURACY, EVASION, SPEED};
         Random random = new Random();
         int rndInt = random.nextInt(7);
         return stdStats[rndInt];

@@ -102,7 +102,7 @@ public class DevState extends GUIElement {
         this.skillList.addAll(hero.getSkills());
         this.skillList.addAll(hero.getLearnableSkillList());
         Stat[] lArray = new Stat[]{Stat.LIFE, Stat.LIFE_REGAIN, Stat.MANA, Stat.MANA_REGAIN, Stat.SHIELD};
-        Stat[] rArray = new Stat[]{Stat.MAGIC, Stat.ATTACK, Stat.DEFENSE ,Stat.SPEED, Stat.ACCURACY, Stat.EVASION, Stat.CRIT_CHANCE, Stat.LETHALITY};
+        Stat[] rArray = new Stat[]{Stat.MAGIC, Stat.ATTACK, Stat.STAMINA ,Stat.SPEED, Stat.ACCURACY, Stat.EVASION, Stat.CRIT_CHANCE, Stat.LETHALITY};
         this.stats = new StatField(this.hero, lArray, rArray);
     }
 

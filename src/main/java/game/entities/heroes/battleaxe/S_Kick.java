@@ -25,7 +25,6 @@ public class S_Kick extends Skill {
         this.tags = List.of(SkillTag.TACTICAL);
         this.dmgMultipliers = List.of(new Multiplier(Stat.ATTACK, 0.25));
         this.targetType = TargetType.SINGLE;  
-        this.level = 2;
         this.move = 1;
     }
 

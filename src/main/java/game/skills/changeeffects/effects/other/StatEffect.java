@@ -13,8 +13,11 @@ public class StatEffect extends Effect {
     public static StatEffect strong = new StatEffect(Stat.ATTACK, true, "Strong", "Weak");
     public static StatEffect weak = new StatEffect(Stat.ATTACK, true, "Weak", "Strong");
 
-    public static StatEffect robust = new StatEffect(Stat.DEFENSE, true, "Robust", "Frail");
-    public static StatEffect frail = new StatEffect(Stat.DEFENSE, true, "Frail", "Robust");
+    public static StatEffect resilient = new StatEffect(Stat.ENDURANCE, true, "Resilient", "Tired");
+    public static StatEffect tired = new StatEffect(Stat.ENDURANCE, true, "Tired", "resilient");
+
+    public static StatEffect robust = new StatEffect(Stat.STAMINA, true, "Robust", "Frail");
+    public static StatEffect frail = new StatEffect(Stat.STAMINA, true, "Frail", "Robust");
 
     public static StatEffect fast = new StatEffect(Stat.SPEED, true, "Fast", "Slow");
     public static StatEffect slow = new StatEffect(Stat.SPEED, true, "Slow", "Fast");
