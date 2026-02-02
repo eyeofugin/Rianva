@@ -1,27 +1,27 @@
 package game.entities;
 
-import game.entities.goons.axedude.AxeDude;
-import game.entities.goons.bowdude.BowDude;
-import game.entities.goons.sworddude.SwordDude;
-import game.entities.heroes.angelguy.H_AngelGuy;
-import game.entities.heroes.battleaxe.H_BattleAxe;
-import game.entities.heroes.burner.H_Burner;
-import game.entities.heroes.cryobrawler.H_CryoBrawler;
-import game.entities.heroes.darkmage.H_DarkMage;
-import game.entities.heroes.dev.dummy.DUMMY;
-import game.entities.heroes.divinemage.H_DivineMage;
-import game.entities.heroes.dragonbreather.H_DragonBreather;
-import game.entities.heroes.dualpistol.H_DualPistol;
-import game.entities.heroes.duelist.H_Duelist;
-import game.entities.heroes.eldritchguy.H_EldritchGuy;
-import game.entities.heroes.firedancer.H_FireDancer;
-import game.entities.heroes.longsword.H_Longsword;
-import game.entities.heroes.paladin.H_Paladin;
-import game.entities.heroes.phoenixguy.H_Phoenixguy;
-import game.entities.heroes.rifle.H_Rifle;
-import game.entities.heroes.sniper.H_Sniper;
-import game.entities.heroes.thehealer.H_TheHealer;
-import game.entities.heroes.thewizard.H_TheWizard;
+//import game.entities.goons.axedude.AxeDude;
+//import game.entities.goons.bowdude.BowDude;
+//import game.entities.goons.sworddude.SwordDude;
+//import game.entities.heroes.angelguy.H_AngelGuy;
+//import game.entities.heroes.battleaxe.H_BattleAxe;
+//import game.entities.heroes.burner.H_Burner;
+//import game.entities.heroes.cryobrawler.H_CryoBrawler;
+//import game.entities.heroes.darkmage.H_DarkMage;
+//import game.entities.heroes.dev.dummy.DUMMY;
+//import game.entities.heroes.divinemage.H_DivineMage;
+//import game.entities.heroes.dragonbreather.H_DragonBreather;
+//import game.entities.heroes.dualpistol.H_DualPistol;
+//import game.entities.heroes.duelist.H_Duelist;
+//import game.entities.heroes.eldritchguy.H_EldritchGuy;
+//import game.entities.heroes.firedancer.H_FireDancer;
+//import game.entities.heroes.longsword.H_Longsword;
+//import game.entities.heroes.paladin.H_Paladin;
+//import game.entities.heroes.phoenixguy.H_Phoenixguy;
+//import game.entities.heroes.rifle.H_Rifle;
+//import game.entities.heroes.sniper.H_Sniper;
+//import game.entities.heroes.thehealer.H_TheHealer;
+//import game.entities.heroes.thewizard.H_TheWizard;
 import game.objects.Equipment;
 import game.objects.equipments.*;
 import game.skills.Skill;
@@ -35,47 +35,51 @@ public class DraftBuilder {
 
     private static final Map<Integer, List<Integer>> dungeonEncounterLevelDistribution = initMap();
     public static List<Class<? extends Hero>> all = List.of(
-            H_AngelGuy.class,
-            H_BattleAxe.class,
-            H_Burner.class,
-            H_CryoBrawler.class,
-            H_DarkMage.class,
-            H_DivineMage.class,
-            H_DragonBreather.class,
-            H_DualPistol.class,
-            H_Duelist.class,
-            H_EldritchGuy.class,
-            H_FireDancer.class,
-            H_Longsword.class,
-            H_Paladin.class,
-            H_Phoenixguy.class,
-            H_Rifle.class,
-            H_Sniper.class,
-            H_TheHealer.class,
-            H_TheWizard.class
+//            H_AngelGuy.class,
+//            H_BattleAxe.class,
+//            H_Burner.class,
+//            H_CryoBrawler.class,
+//            H_DarkMage.class,
+//            H_DivineMage.class,
+//            H_DragonBreather.class,
+//            H_DualPistol.class,
+//            H_Duelist.class,
+//            H_EldritchGuy.class,
+//            H_FireDancer.class,
+//            H_Longsword.class,
+//            H_Paladin.class,
+//            H_Phoenixguy.class,
+//            H_Rifle.class,
+//            H_Sniper.class,
+//            H_TheHealer.class,
+//            H_TheWizard.class
     );
     public static List<Class<? extends Hero>> pos0List = List.of(
-            H_Burner.class,
-            H_DarkMage.class,
-            H_DivineMage.class,
-            H_Sniper.class,
-            H_TheHealer.class);
+//            H_Burner.class,
+//            H_DarkMage.class,
+//            H_DivineMage.class,
+//            H_Sniper.class,
+//            H_TheHealer.class
+    );
     public static List<Class<? extends Hero>> pos1List = List.of(
-            H_TheWizard.class,
-            H_Rifle.class,
-            H_DualPistol.class);
+//            H_TheWizard.class,
+//            H_Rifle.class,
+//            H_DualPistol.class
+    );
     public static List<Class<? extends Hero>> pos2List = List.of(
-            H_AngelGuy.class,
-            H_Duelist.class,
-            H_FireDancer.class,
-            H_Phoenixguy.class,
-            H_Longsword.class);
+//            H_AngelGuy.class,
+//            H_Duelist.class,
+//            H_FireDancer.class,
+//            H_Phoenixguy.class,
+//            H_Longsword.class
+    );
     public static List<Class<? extends Hero>> pos3List = List.of(
-            H_BattleAxe.class,
-            H_CryoBrawler.class,
-            H_DragonBreather.class,
-            H_EldritchGuy.class,
-            H_Paladin.class);
+//            H_BattleAxe.class,
+//            H_CryoBrawler.class,
+//            H_DragonBreather.class,
+//            H_EldritchGuy.class,
+//            H_Paladin.class
+    );
 
     private static Map<Integer, List<Integer>> initMap() {
         Map<Integer, List<Integer>> map = new HashMap<>();
@@ -105,28 +109,29 @@ public class DraftBuilder {
         return new ArrayList<>(pos3List);
     }
     public static List<Class<? extends Hero>> getAllList() {
-        return new ArrayList<>(all);
+        return new ArrayList<>();
     }
     public static List<Class<? extends Equipment>> getAllItems() {
         return new ArrayList<>(List.of(
-                ArcaneCloak.class,
-                Arkenwand.class,
-                BastardSword.class,
-                BlueOrb.class,
-//                ButchersCleaver.class,
-                CrownOfLife.class,
-                DefensiveAura.class,
-                FlamingChestplate.class,
-                FlamingSword.class,
-                GraftedExoskeleton.class,
-                JewelOfLife.class,
-                PocketDarkness.class,
-                RedOrb.class,
-                ScepterOfTheGods.class,
-                ShiningArmor.class,
-                SnipersTunika.class,
-//                WingedBoots.class,
-                WinterOrb.class));
+//                ArcaneCloak.class,
+//                Arkenwand.class,
+//                BastardSword.class,
+//                BlueOrb.class,
+////                ButchersCleaver.class,
+//                CrownOfLife.class,
+//                DefensiveAura.class,
+//                FlamingChestplate.class,
+//                FlamingSword.class,
+//                GraftedExoskeleton.class,
+//                JewelOfLife.class,
+//                PocketDarkness.class,
+//                RedOrb.class,
+//                ScepterOfTheGods.class,
+//                ShiningArmor.class,
+//                SnipersTunika.class,
+////                WingedBoots.class,
+//                WinterOrb.class
+        ));
     }
     public static Hero[] getTestTeam(int index) {
         Hero[] heroes = new Hero[4];
@@ -138,25 +143,25 @@ public class DraftBuilder {
     }
     public static Hero getPos0Hero(int index) {
         if (index > pos0List.size()-1) {
-            return new H_TheHealer();
+            return null;//return new H_TheHealer();
         }
         return getFromClass(pos0List.get(index));
     }
     public static Hero getPos1Hero(int index) {
         if (index > pos1List.size()-1) {
-            return new H_DualPistol();
+            return null;//return new H_DualPistol();
         }
         return getFromClass(pos1List.get(index));
     }
     public static Hero getPos2Hero(int index) {
         if (index > pos2List.size()-1) {
-            return new H_Duelist();
+            return null;//return new H_Duelist();
         }
         return getFromClass(pos2List.get(index));
     }
     public static Hero getPos3Hero(int index) {
         if (index > pos3List.size()-1) {
-            return new H_CryoBrawler();
+            return null;//return new H_CryoBrawler();
         }
         return getFromClass(pos3List.get(index));
     }
@@ -323,13 +328,14 @@ public class DraftBuilder {
     }
 
     public static Hero[] getDummyTeam() {
-        return new Hero[]{new DUMMY(1), new DUMMY(2), new DUMMY(3)};
+//        return new Hero[]{new DUMMY(1), new DUMMY(2), new DUMMY(3)};
+        return null;
     }
     public static Hero[] getDungeonEncounterTeam(int level) {
         Hero[] heroes = new Hero[3];
-        heroes[0] = new BowDude();
-        heroes[1] = new SwordDude();
-        heroes[2] = new AxeDude();
+//        heroes[0] = new BowDude();
+//        heroes[1] = new SwordDude();
+//        heroes[2] = new AxeDude();
         return heroes;
     }
 }

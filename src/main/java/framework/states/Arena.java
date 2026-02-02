@@ -186,7 +186,7 @@ public class Arena extends GUIElement {
             this.targetPointer = this.targetMatrix[this.targetMatrix.length-1];
             this.matrixPointer = this.targetMatrix.length-1;
 
-        }else {
+        } else {
             this.targetPointers = new int[]{};
             switch (this.activeSkill.getTargetType()) {
                 case SELF:
@@ -195,12 +195,8 @@ public class Arena extends GUIElement {
                 case ALL:
                     this.targetPointers = allPos;
                     break;
-                case ALL_ALLY:
-                    this.targetPointers = this.activeHero.getAllies().stream().mapToInt(Hero::getPosition).toArray();
-                    break;
-                case ALL_ENEMY:
-                    this.targetPointers = this.activeHero.getEnemies().stream().mapToInt(Hero::getPosition).toArray();
-                    break;
+                case ALL_TARGETS:
+                    this.targetPointers = activeSkill.getConvertedTargetPos();
                 case ALL_OTHER_ALLY:
                     this.targetPointers = this.activeHero.getAllies().stream()
                             .mapToInt(Hero::getPosition).filter(i->this.activeHero.getPosition()!=i).toArray();

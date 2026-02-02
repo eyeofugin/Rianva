@@ -1,6 +1,7 @@
 package framework.resources;
 
 import framework.Property;
+import framework.graphics.text.Color;
 import game.skills.logic.Stat;
 import game.skills.changeeffects.effects.other.*;
 import game.skills.changeeffects.effects.status.*;
@@ -11,6 +12,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URI;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -130,6 +132,9 @@ public class SpriteLibrary {
     }
     public static int[][] setupSprites(int amntFrames, int w, int h, String path, boolean flip) {
         int[][] sprite = new int[amntFrames][w*h];
+        for (int i = 0; i < amntFrames; i++) {
+            Arrays.fill(sprite[i], Color.BUFF_GREEN.VALUE);
+        }
         try {
             URI uri = SpriteLibrary.class.getClassLoader().getResource(path).toURI();
             BufferedImage sheet = ImageIO.read(new File(uri));

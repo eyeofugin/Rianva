@@ -9,16 +9,16 @@ import game.skills.logic.Stat;
 public class StatField extends GUIElement {
     private final Hero hero;
     private Stat[] leftStatArray = new Stat[]{Stat.MAGIC, Stat.ATTACK, Stat.SPEED, Stat.EVASION, Stat.ACCURACY, Stat.CRIT_CHANCE, Stat.LETHALITY};
-    private Stat[] rightStatArray = new Stat[]{Stat.STAMINA};
+    private Stat[] rightStatArray = new Stat[]{Stat.STAMINA,Stat.ENDURANCE, Stat.NORMAL_RESIST, Stat.HEAT_RESIST, Stat.COLD_RESIST, Stat.DARK_RESIST, Stat.LIGHT_RESIST, Stat.MIND_RESIST, Stat.TOX_RESIST, Stat.SHOCK_RESIST};
 
     public StatField(Hero hero) {
         this.hero = hero;
-        this.setSize(98, 100);
+        this.setSize(200, 150);
     }
 
     public StatField(Hero hero, Stat[] lArray, Stat[] rArray) {
         this.hero = hero;
-        this.setSize(98, 100);
+        this.setSize(200, 150);
         this.leftStatArray = lArray;
         this.rightStatArray = rArray;
     }
@@ -37,7 +37,7 @@ public class StatField extends GUIElement {
             int totalValue = hero.getStat(stat);
             int statChange = hero.getStatChange(stat);
             int baseValue = totalValue - statChange;
-            if (baseValue != 100 && (statChange != 0 || baseValue != 0)) {
+//            if (baseValue != 100 && (statChange != 0 || baseValue != 0)) {
                 String baseStatString = stat.getReference() + ":" + baseValue;
                 String statChangeString = "";
                 if (statChange != 0) {
@@ -51,7 +51,7 @@ public class StatField extends GUIElement {
                 fillWithGraphicsSize(x,yf,this.width / 2 - 5, 8, baseStatStringPixels, false);
 
                 yf += 9;
-            }
+//            }
 
         }
     }

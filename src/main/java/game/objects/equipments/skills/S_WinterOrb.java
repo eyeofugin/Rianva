@@ -17,7 +17,7 @@ public class S_WinterOrb extends Skill {
     @Override
     public void setToInitial() {
         super.setToInitial();
-        this.targetType = TargetType.ALL_ENEMY;
+        this.targetType = TargetType.ALL_TARGETS;
     }
 
     @Override

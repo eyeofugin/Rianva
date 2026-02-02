@@ -35,9 +35,12 @@ public class SkillDTO {
     public int lethality;
 
     public int accuracy;
-    public boolean canMiss;
+    public boolean cannotMiss;
     public int countAsHits;
     public int move;
     public boolean moveTo;
     public Map<ConnectionType, String> triggerMap;
+
+    public int[] possibleTargetPositions;
+    public int[] possibleCastPositions;
 }

@@ -44,12 +44,12 @@ public class DevState extends GUIElement {
         HeroLibrary.init();
         SkillLibrary.init();
         EffectLibrary.init();
-        Hero hero1 = HeroLibrary.getHero("Burner");
-        hero1.getSkills().forEach(Skill::addSubscriptions);
-        Connector.fireTopic(Connector.BASE_DMG_CHANGES, new BaseDmgChangesPayload());
+//        Hero hero1 = HeroLibrary.getHero("Burner");
+//        hero1.getSkills().forEach(Skill::addSubscriptions);
+//        Connector.fireTopic(Connector.BASE_DMG_CHANGES, new BaseDmgChangesPayload());
 
-        FileWalker.getHeroes("test.json");
-//        setUpHeroList();
+//        FileWalker.getHeroes("test.json");
+        setUpHeroList();
     }
     private void setUpAiEvalTest() {
         for (int i = 0; i < 5; i ++) {
@@ -61,13 +61,7 @@ public class DevState extends GUIElement {
         }
     }
     private void setUpHeroList() {
-        DraftBuilder.getAllList().forEach(clazz -> {
-            try {
-                this.heroList.add(clazz.getConstructor().newInstance());
-            } catch (Exception e) {
-
-            }
-        });
+        this.heroList.addAll(HeroLibrary.getAll());
         this.setHero(x);
         this.activeMode = LIST_MODE;
     }
@@ -100,10 +94,10 @@ public class DevState extends GUIElement {
         this.hero = this.heroList.get(index);
         this.skillList = new ArrayList<>();
         this.skillList.addAll(hero.getSkills());
-        this.skillList.addAll(hero.getLearnableSkillList());
+//        this.skillList.addAll(hero.getLearnableSkillList());
         Stat[] lArray = new Stat[]{Stat.LIFE, Stat.LIFE_REGAIN, Stat.MANA, Stat.MANA_REGAIN, Stat.SHIELD};
         Stat[] rArray = new Stat[]{Stat.MAGIC, Stat.ATTACK, Stat.STAMINA ,Stat.SPEED, Stat.ACCURACY, Stat.EVASION, Stat.CRIT_CHANCE, Stat.LETHALITY};
-        this.stats = new StatField(this.hero, lArray, rArray);
+        this.stats = new StatField(this.hero);
     }
 
     @Override
@@ -122,7 +116,7 @@ public class DevState extends GUIElement {
         if (this.hero == null) {
             return;
         }
-        fillWithGraphicsSize(10, 10, this.hero.getWidth(), this.hero.getHeight(), this.hero.render(Hero.DRAFT), false);
+        fillWithGraphicsSize(10, 10, this.hero.getWidth(), this.hero.getHeight(), this.hero.render(Hero.BUILDER), false);
     }
 
     private void renderStats() {

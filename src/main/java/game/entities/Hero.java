@@ -71,6 +71,9 @@ public class Hero extends GUIElement {
     public static Hero getForDraft(){return null;};
 
     public Hero(HeroDTO dto) {
+        this.width = 64;
+        this.height = 110;
+        this.pixels = new int[this.width*this.height];
         this.basePath = dto.path;
         this.name = dto.name;
         this.role = dto.role;
@@ -137,8 +140,17 @@ public class Hero extends GUIElement {
     }
 
     private void initSkills(HeroDTO dto) {
-        this.skills.addAll(new ArrayList<>(dto.learnedSkills.stream().map(SkillLibrary::getSkill).toList()));
-        this.learnableSkillList.addAll(new ArrayList<>(dto.learnableSkills.stream().map(SkillLibrary::getSkill).toList()));
+        dto.learnedSkills.stream().map(SkillLibrary::getSkill).forEach(this::addSkill);
+        dto.learnableSkills.stream().map(SkillLibrary::getSkill).forEach(this::addLearnableSkill);
+    }
+
+    private void addSkill(Skill skill) {
+        this.skills.add(skill);
+        skill.hero = this;
+    }
+    private void addLearnableSkill(Skill skill) {
+        this.learnableSkillList.add(skill);
+        skill.hero = this;
     }
 
     protected void initStats() {
@@ -168,6 +180,16 @@ public class Hero extends GUIElement {
         base.put(Stat.EVASION, 0);
         base.put(Stat.SHIELD,0);
         base.put(Stat.LETHALITY,0);
+
+        base.put(Stat.NORMAL_RESIST,0);
+        base.put(Stat.HEAT_RESIST,0);
+        base.put(Stat.COLD_RESIST,0);
+        base.put(Stat.LIGHT_RESIST,0);
+        base.put(Stat.DARK_RESIST,0);
+        base.put(Stat.TOX_RESIST,0);
+        base.put(Stat.MIND_RESIST,0);
+        base.put(Stat.SHOCK_RESIST,0);
+
         return base;
     }
 
@@ -555,10 +577,10 @@ public class Hero extends GUIElement {
         }
         boolean added = false;
         boolean newlyAdded = false;
-        if (effect instanceof StatEffect statEffect) {
-            boolean negates = this.effects.stream().anyMatch(e->e.name.equals(statEffect.negates));
+        if (effect.negates != null) {
+            boolean negates = this.effects.stream().anyMatch(e->e.name.equals(effect.negates));
             if (negates) {
-                this.removeEffectByName(statEffect.negates);
+                this.removeEffectByName(effect.negates);
                 added = true;
             }
         } else {

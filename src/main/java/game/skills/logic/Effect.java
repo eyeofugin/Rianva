@@ -33,6 +33,7 @@ public class Effect {
 
     public Condition condition;
 
+    public String negates;
     public String name;
     public String description;
     public boolean stackable;
@@ -48,6 +49,7 @@ public class Effect {
         this.type = dto.type;
         this.stat = dto.stat;
         this.statChangePercentage = dto.statChangePercentage;
+        this.negates = dto.negates;
     }
 
     public Effect() {

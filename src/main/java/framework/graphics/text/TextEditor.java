@@ -187,12 +187,21 @@ public class TextEditor {
         symbols.put(Stat.MAGIC.getIconKey(), Symbol.magic);
         symbols.put(Stat.ATTACK.getIconKey(), Symbol.force);
         symbols.put(Stat.STAMINA.getIconKey(), Symbol.stamina);
+        symbols.put(Stat.ENDURANCE.getIconKey(), Symbol.endurance);
         symbols.put(Stat.SPEED.getIconKey(), Symbol.speed);
         symbols.put(Stat.SHIELD.getIconKey(), Symbol.shield);
         symbols.put(Stat.CRIT_CHANCE.getIconKey(), Symbol.critchance);
         symbols.put(Stat.EVASION.getIconKey(), Symbol.evasion);
         symbols.put(Stat.LETHALITY.getIconKey(), Symbol.lethality);
         symbols.put(Stat.ACCURACY.getIconKey(), Symbol.accuracy);
+        symbols.put(Stat.NORMAL_RESIST.getIconKey(), Symbol.normalRes);
+        symbols.put(Stat.HEAT_RESIST.getIconKey(), Symbol.heatRes);
+        symbols.put(Stat.COLD_RESIST.getIconKey(), Symbol.coldRes);
+        symbols.put(Stat.LIGHT_RESIST.getIconKey(), Symbol.lightRes);
+        symbols.put(Stat.DARK_RESIST.getIconKey(), Symbol.darkRes);
+        symbols.put(Stat.MIND_RESIST.getIconKey(), Symbol.mindRes);
+        symbols.put(Stat.TOX_RESIST.getIconKey(), Symbol.toxRes);
+        symbols.put(Stat.SHOCK_RESIST.getIconKey(), Symbol.shockRes);
 
         symbols.put(Burning.ICON_STRING, Symbol.burning);
         symbols.put(DoubleShot.ICON_STRING, Symbol.doubleshot);

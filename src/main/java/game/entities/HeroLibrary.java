@@ -2,6 +2,8 @@ package game.entities;
 
 import utils.FileWalker;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class HeroLibrary {
@@ -18,5 +20,13 @@ public class HeroLibrary {
             return new Hero(dto);
         }
         return null;
+    }
+
+    public static List<Hero> getAll() {
+        List<Hero> heroList = new ArrayList<>();
+        for (String name: heroesJson.keySet()) {
+            heroList.add(getHero(name));
+        }
+        return heroList;
     }
 }

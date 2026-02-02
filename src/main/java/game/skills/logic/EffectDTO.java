@@ -8,4 +8,6 @@ public class EffectDTO {
     public Effect.ChangeEffectType type;
     public Stat stat;
     public double statChangePercentage;
+    public String negates;
+
 }

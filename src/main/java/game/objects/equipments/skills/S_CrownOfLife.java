@@ -20,7 +20,7 @@ public class S_CrownOfLife extends Skill {
     @Override
     public void setToInitial() {
         super.setToInitial();
-        this.targetType = TargetType.ALL_ENEMY;
+        this.targetType = TargetType.ALL_TARGETS;
         this.healMultipliers = List.of(new Multiplier(Stat.MAGIC, 0.2));
     }
 

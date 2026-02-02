@@ -28,7 +28,16 @@ public enum Stat {
     MANA_REGAIN("Regain", "MRE", "{011}"),
     CURRENT_MANA("Mana", "CMA", "{011}"),
 
-    SHIELD("Shield", "SHI", "{008}");
+    SHIELD("Shield", "SHI", "{008}"),
+
+    NORMAL_RESIST("Normal Resist", "SHI", "{008}"),
+    HEAT_RESIST("Heat Resist", "SHI", "{008}"),
+    COLD_RESIST("Cold Resist", "SHI", "{008}"),
+    LIGHT_RESIST("Light Resist", "SHI", "{008}"),
+    DARK_RESIST("Dark Resist", "SHI", "{008}"),
+    SHOCK_RESIST("Shock Resist", "SHI", "{008}"),
+    MIND_RESIST("Mind Resist", "SHI", "{008}"),
+    TOX_RESIST("Tox Resist", "SHI", "{008}");
 
 
 //    MAX_ACTION("Max", "ACT", "{001}"),
@@ -41,7 +50,8 @@ public enum Stat {
 
     public static List<Stat> nonResourceStats = List.of(Stat.MAGIC,
             Stat.ATTACK, Stat.STAMINA, Stat.ENDURANCE, Stat.EVASION, Stat.CRIT_CHANCE,
-            Stat.ACCURACY, Stat.LETHALITY, Stat.SPEED);
+            Stat.ACCURACY, Stat.LETHALITY, Stat.SPEED, Stat.HEAT_RESIST, Stat.COLD_RESIST, Stat.LIGHT_RESIST,
+            Stat.DARK_RESIST, Stat.SHOCK_RESIST, Stat.MIND_RESIST, Stat.TOX_RESIST);
     public static List<Stat> maxStats = List.of(LIFE, MANA);
 
     Stat(String translationString, String iconKey, String colorKey) {

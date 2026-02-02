@@ -1,9 +1,29 @@
 {
   "Burning": {
     "name": "Burning",
-    "iconString": "",
+    "iconString": "BRN",
     "description": "Description",
     "stackable": true,
-    "type": "STATUS"
+    "type": "DEBUFF"
+  },
+  "Arcane": {
+    "name": "Arcane",
+    "iconString": "MAG",
+    "description": "Description",
+    "stackable": false,
+    "type": "BUFF",
+    "stat" : "MAGIC",
+    "statChangePercentage": 2,
+    "negates": "Dull"
+  },
+  "Fast": {
+    "name": "Fast",
+    "iconString": "SPE",
+    "description": "Description",
+    "stackable": false,
+    "type": "BUFF",
+    "stat" : "SPEED",
+    "statChangePercentage": 2,
+    "negates": "Slow"
   }
 }

@@ -217,6 +217,14 @@ public class Symbol {
     public static Symbol finesse = new Symbol("fonts/finesse.png", 8,8);
     public static Symbol force = new Symbol("fonts/force.png", 8,8);
     public static Symbol endurance = new Symbol("fonts/endurance.png", 8,8);
+    public static Symbol heatRes = new Symbol("fonts/endurance.png", 8,8);
+    public static Symbol coldRes = new Symbol("fonts/endurance.png", 8,8);
+    public static Symbol lightRes = new Symbol("fonts/endurance.png", 8,8);
+    public static Symbol darkRes = new Symbol("fonts/endurance.png", 8,8);
+    public static Symbol toxRes = new Symbol("fonts/endurance.png", 8,8);
+    public static Symbol shockRes = new Symbol("fonts/endurance.png", 8,8);
+    public static Symbol mindRes = new Symbol("fonts/endurance.png", 8,8);
+    public static Symbol normalRes = new Symbol("fonts/endurance.png", 8,8);
     public static Symbol stamina = new Symbol("fonts/stamina.png", 8,8);
     public static Symbol speed = new Symbol("fonts/speed.png", 8,8);
     public static Symbol critchance = new Symbol("fonts/critchance.png", 8,8);

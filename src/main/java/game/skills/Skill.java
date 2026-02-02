@@ -49,10 +49,13 @@ public class Skill {
     protected List<Hero> targets = new ArrayList<>();
 
     protected int accuracy = 100;
-    protected boolean canMiss = true;
+    protected boolean cannotMiss = true;
     protected int countAsHits = 1;
     protected int move = 0;
     protected boolean moveTo = false;
+
+    public int[] possibleTargetPositions = new int[0];
+    public int[] possibleCastPositions = new int[0];
 
     //level scalables
     protected int manaCost = 0;
@@ -89,37 +92,60 @@ public class Skill {
         }
     }
 
+    public boolean performCheck(Hero hero) {
+        return Arrays.stream(this.possibleCastPositions).anyMatch(i -> i == hero.getCasterPosition());
+    }
     public Skill() {}
 
     public Skill(SkillDTO dto) {
         this.scripts = new SkillScripts(this);
-        this.name = dto.name;
-        this.description = dto.description;
-        this.iconPath = dto.iconPath;
-        this.animationName = dto.animationName != null? dto.animationName : "action_w";
-        this.tags = dto.tags;
-        this.aiTags = dto.aiTags;
-        this.targetType = dto.targetType;
-        this.damageType = dto.damageType;
+        if (dto.name != null)
+            this.name = dto.name;
+        if (dto.description != null)
+            this.description = dto.description;
+        if (dto.iconPath != null)
+            this.iconPath = dto.iconPath;
+        if (dto.animationName != null)
+            this.animationName = dto.animationName;
+
+        if (dto.tags != null)
+            this.tags = dto.tags;
+
+        if (dto.aiTags != null)
+            this.aiTags = dto.aiTags;
+        if (dto.targetType != null)
+            this.targetType = dto.targetType;
+        if (dto.damageType != null)
+            this.damageType = dto.damageType;
         this.lifeSteal = dto.lifeSteal;
-        this.targetResources = dto.targetResources;
-        this.dmgMultipliers = dto.dmgMultipliers;
-        this.healMultipliers = dto.healMultipliers;
-        this.shieldMultipliers = dto.shieldMultipliers;
+        if (dto.targetResources != null)
+            this.targetResources = dto.targetResources;
+        if (dto.dmgMultipliers != null)
+            this.dmgMultipliers = dto.dmgMultipliers;
+        if (dto.healMultipliers != null)
+            this.healMultipliers = dto.healMultipliers;
+        if (dto.shieldMultipliers != null)
+            this.shieldMultipliers = dto.shieldMultipliers;
         this.manaCost = dto.manaCost;
         this.lifeCost = dto.lifeCost;
-        this.accuracy = dto.accuracy != 0 ? dto.accuracy : 100;
+        if (dto.accuracy != 100)
+            this.accuracy = dto.accuracy;
         this.critChance = dto.critChance;
         this.dmg = dto.dmg;
         this.heal = dto.heal;
         this.shield = dto.shield;
-        this.canMiss = dto.canMiss;
         this.countAsHits = dto.countAsHits;
         this.lethality = dto.lethality;
-
         this.move = dto.move;
         this.moveTo = dto.moveTo;
-        this.triggerMap = dto.triggerMap;
+        this.cannotMiss = dto.cannotMiss;
+
+        if (dto.triggerMap != null)
+            this.triggerMap = dto.triggerMap;
+        if (dto.possibleCastPositions != null)
+            this.possibleCastPositions = dto.possibleCastPositions;
+        if (dto.possibleTargetPositions != null)
+            this.possibleTargetPositions = dto.possibleTargetPositions;
 
         initEffects(dto);
 
@@ -135,6 +161,11 @@ public class Skill {
         Skill.writeInitialsFromTo(this, saveState);
     }
 
+    private void set(Object a, Object b) {
+        if (b!=null) {
+            a = b;
+        }
+    }
 
     private void initEffects(SkillDTO dto) {
         if (dto.effects != null) {
@@ -173,7 +204,7 @@ public class Skill {
         this.heal = 0;
         this.manaCost = 0;
         this.shield = 0;
-        this.canMiss = true;
+        this.cannotMiss = false;
         this.countAsHits = 1;
         this.lethality = 0;
         this.move = 0;
@@ -270,7 +301,7 @@ public class Skill {
                     int evasion = arenaTarget.getStat( Stat.EVASION);
                     int acc = hero.getStat(Stat.ACCURACY);
                     int hitChance = this.accuracy * acc / 100;
-                    if (this.canMiss && !MyMaths.success(hitChance - evasion)) {
+                    if (!this.cannotMiss && !MyMaths.success(hitChance - evasion)) {
                         this.hero.arena.logCard.addToLog("Missed "+arenaTarget.getName()+"!");
                         continue;
                     }
@@ -369,9 +400,17 @@ public class Skill {
         if (this.targetType == null) {
             return new int[0];
         }
-        List<Integer> targetList = new ArrayList<>(Arrays.stream(Arena.allPos).boxed().toList());
-        if (this.targetType.equals(TargetType.SINGLE_OTHER)) {
-            targetList.remove(this.hero.getPosition());
+        List<Integer> targetList = new ArrayList<>();
+
+        for (int pos : this.possibleTargetPositions) {
+            int targetPos = convertTargetPos(pos);
+            if (this.targetType.equals(TargetType.SINGLE_OTHER) && this.hero.getPosition() == targetPos) {
+                continue;
+            }
+            targetList.add(targetPos);
+        }
+        if (targetType.equals(TargetType.SINGLE) && targetList.stream().anyMatch(i -> i > 2)) {
+            targetList.addAll(List.of(0,1,2));
         }
         Collections.sort(targetList);
         int[] targets = new int[targetList.size()];
@@ -381,7 +420,19 @@ public class Skill {
 
         return targets;
     }
+    public int[] getConvertedTargetPos() {
+        return convertTargetPos(this.possibleTargetPositions);
+    }
+    public int convertTargetPos(int pos) {
+        return this.hero.isTeam2() ? Arena.lastEnemyPos - pos : pos;
+    }
 
+    public int[] convertTargetPos(int[] pos) {
+        for (int i = 0; i < pos.length; i++) {
+            pos[i] = convertTargetPos(pos[i]);
+        }
+        return pos;
+    }
     public int getLifeCost(Hero caster) {
         return lifeCost;
     }
@@ -526,8 +577,60 @@ public class Skill {
         StringBuilder builder = new StringBuilder();
         if (this.isPassive()) {
             return "Passive";
+        }List<Integer> castPosList = Arrays.stream(this.possibleCastPositions)
+                .boxed()
+                .toList();
+        List<Integer> targetPosList = Arrays.stream(this.possibleTargetPositions)
+                .boxed()
+                .toList();
+        for (int i = 0; i < Arena.firstEnemyPos; i++) {
+            if(castPosList.contains(i)) {
+                builder.append("[FTT]");
+            } else {
+                builder.append("[EMT]");
+            }
         }
-        builder.append(this.targetType.getTranslation());
+        builder.append(" ");
+
+        if (this.targetType.equals(TargetType.SELF)) {
+            builder.append("Self");
+        } else if (targetType.equals(TargetType.ARENA)) {
+            builder.append("Arena");
+        } else if (targetType.equals(TargetType.ALL)) {
+            builder.append("All");
+//        } else if (targetType.equals(TargetType.ONE_RDM)){
+//            builder.append("1 Rdm");
+//        } else if (targetType.equals(TargetType.TWO_RDM)) {
+//            builder.append("2 Rdm");
+//        } else if (targetType.equals(TargetType.THREE_RDM)) {
+//            builder.append("3 Rdm");
+        } else if (targetPosList.stream().anyMatch(i-> i < Arena.firstEnemyPos)){
+            for (int i = 0; i < Arena.numberPositions; i++) {
+                if (targetPosList.contains(i)) {
+                    if (targetType.equals(TargetType.SINGLE_OTHER)) {
+                        builder.append("[OTT]");
+                    } else if (targetType.equals(TargetType.SINGLE)) {
+                        builder.append("[FTT]");
+                    } else if (targetType.equals(TargetType.ALL_TARGETS)){
+                        builder.append("[FTA]");
+                    }
+                } else {
+                    builder.append("[EMT]");
+                }
+            }
+        } else {
+            for (int i = Arena.firstEnemyPos; i <= Arena.lastEnemyPos; i++) {
+                if (targetPosList.contains(i)) {
+                    if (targetType.equals(TargetType.SINGLE)) {
+                        builder.append("[ETT]");
+                    } else if (targetType.equals(TargetType.ALL_TARGETS)) {
+                        builder.append("[ETA]");
+                    }
+                } else {
+                    builder.append("[EMT]");
+                }
+            }
+        }
         return builder.toString();
     }
 
@@ -699,7 +802,7 @@ public class Skill {
                 ", accuracy=" + accuracy +
                 ", dmg=" + dmg +
                 ", heal=" + heal +
-                ", canMiss=" + canMiss +
+                ", cannotMiss=" + cannotMiss+
                 ", countAsHits=" + countAsHits +
                 ", tags=" + tags +
                 '}';
@@ -719,7 +822,7 @@ public class Skill {
         to.dmg = from.dmg;
         to.heal = from.heal;
         to.shield = from.shield;
-        to.canMiss = from.canMiss;
+        to.cannotMiss = from.cannotMiss;
         to.lethality = from.lethality;
         to.countAsHits = from.countAsHits;
         to.move = from.move;
