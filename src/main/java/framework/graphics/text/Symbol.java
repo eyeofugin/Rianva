@@ -143,6 +143,7 @@ public class Symbol {
     public static Symbol eightx8=		new Symbol("8", 64,	47,50,	24,31,	SpriteSheet.fonts8x);
     public static Symbol ninex8=		new Symbol("9", 64,	51,54,	24,31,	SpriteSheet.fonts8x);
 
+    public static Symbol exclamationMarkx8 = new Symbol("!", "fonts/8x/exclamationMark.png", 2, 8);
     public static Symbol pointx8 =		new Symbol(".","fonts/8x/point.png",2,8);
     public static Symbol starx8 =		new Symbol("*","fonts/8x/star.png",3,8);
     public static Symbol slashx8 = 	new Symbol("/","fonts/8x/slash.png",3,8);
@@ -188,42 +189,42 @@ public class Symbol {
     public static Symbol turnCD = new Symbol("fonts/turnCD.png", 5,8);
     public static Symbol shield = new Symbol("fonts/shield.png", 5,8);
 
-    public static Symbol axeswingcounter = new Symbol("icons/effect/axeswingcounter.png", 8,8);
-    public static Symbol blastingcounter = new Symbol("icons/effect/blastingcounter.png", 8,8);
-    public static Symbol blight = new Symbol("icons/effect/blightsmall.png", 8,8);
     public static Symbol burning = new Symbol("icons/effect/burning.png", 8,8);
-    public static Symbol combo = new Symbol("icons/effect/combo.png", 8,8);
-    public static Symbol cover = new Symbol("icons/effect/smokescreen.png", 8,8);
-    public static Symbol darksecrets = new Symbol("icons/effect/darksecrets.png", 8,8);
     public static Symbol doubleshot = new Symbol("icons/effect/doubleshot.png", 8,8);
     public static Symbol exalted = new Symbol("icons/effect/exalted.png", 8,8);
     public static Symbol frost = new Symbol("icons/effect/frost.png", 8,8);
-    public static Symbol gifted = new Symbol("icons/effect/gifted.png", 8,8);
+    public static Symbol exhausted = new Symbol("icons/effect/exhausted.png", 8,8);
     public static Symbol immunity = new Symbol("icons/effect/immunity.png", 8,8);
-    public static Symbol invincible = new Symbol("icons/effect/invincible.png", 8,8);
     public static Symbol lifesteal = new Symbol("icons/effect/lifesteal.png", 8,8);
-    public static Symbol lucky = new Symbol("icons/effect/lucky.png", 8,8);
-    public static Symbol regenboost = new Symbol("icons/effect/regenboost.png", 8,8);
-    public static Symbol regenstop = new Symbol("icons/effect/regenstop.png", 8,8);
-    public static Symbol righteoushammer = new Symbol("icons/effect/missing.png", 8,8);
     public static Symbol scoped = new Symbol("icons/effect/scoped.png", 8,8);
     public static Symbol steadfast = new Symbol("icons/effect/steadfast.png", 8,8);
-    public static Symbol swiftstrikecounter = new Symbol("icons/effect/swiftstrikecounter.png", 8,8);
     public static Symbol threatening = new Symbol("icons/effect/threatening.png", 8,8);
 
     public static Symbol bleeding = new Symbol("icons/effect/bleeding.png", 8,8);
-    public static Symbol blinded = new Symbol("icons/effect/blinded.png", 8,8);
     public static Symbol dazed = new Symbol("icons/effect/dazed.png", 8,8);
     public static Symbol disenchanted = new Symbol("icons/effect/disenchanted.png", 8,8);
     public static Symbol injured = new Symbol("icons/effect/injured.png", 8,8);
-    public static Symbol rooted = new Symbol("icons/effect/rooted.png", 8,8);
     public static Symbol taunted = new Symbol("icons/effect/taunted.png", 8,8);
+    public static Symbol _protected = new Symbol("icons/effect/invincible.png", 8,8);
+    public static Symbol missingx8 = new Symbol("icons/effect/missing.png", 8,8);
 
+    public static Symbol tank = new Symbol("icons/gui/tank.png", 8,8);
+    public static Symbol fighter = new Symbol("icons/gui/fighter.png", 8,8);
+    public static Symbol dps = new Symbol("icons/gui/dps.png", 8,8);
+    public static Symbol support = new Symbol("icons/gui/support.png", 8,8);
 
     public static Symbol magic = new Symbol("fonts/magic.png", 8,8);
     public static Symbol finesse = new Symbol("fonts/finesse.png", 8,8);
     public static Symbol force = new Symbol("fonts/force.png", 8,8);
     public static Symbol endurance = new Symbol("fonts/endurance.png", 8,8);
+    public static Symbol heatRes = new Symbol("fonts/endurance.png", 8,8);
+    public static Symbol coldRes = new Symbol("fonts/endurance.png", 8,8);
+    public static Symbol lightRes = new Symbol("fonts/endurance.png", 8,8);
+    public static Symbol darkRes = new Symbol("fonts/endurance.png", 8,8);
+    public static Symbol toxRes = new Symbol("fonts/endurance.png", 8,8);
+    public static Symbol shockRes = new Symbol("fonts/endurance.png", 8,8);
+    public static Symbol mindRes = new Symbol("fonts/endurance.png", 8,8);
+    public static Symbol normalRes = new Symbol("fonts/endurance.png", 8,8);
     public static Symbol stamina = new Symbol("fonts/stamina.png", 8,8);
     public static Symbol speed = new Symbol("fonts/speed.png", 8,8);
     public static Symbol critchance = new Symbol("fonts/critchance.png", 8,8);

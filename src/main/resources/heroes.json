@@ -1,0 +1,56 @@
+{
+  "Burner": {
+    "name": "Burner",
+    "path": "entities/heroes/burner",
+    "learnedSkills": [
+      "Burn",
+      "Fireball",
+      "Fireblast",
+      "Exalted Flames"
+    ],
+    "learnableSkills": [
+      "Burn",
+      "Fireball",
+      "Fireblast",
+      "Exalted Flames"
+    ],
+    "role": "FIGHTER",
+    "baseStats":{
+      "MAGIC" : 8,
+      "ATTACK" : 1,
+      "SPEED" : 12,
+      "STAMINA" : 2,
+      "ENDURANCE": 3,
+      "LIFE" : 7,
+      "MANA": 8,
+      "NORMAL_RESIST": 2,
+      "HEAT_RESIST": 3,
+      "COLD_RESIST": 5,
+      "DARK_RESIST": 6,
+      "LIGHT_RESIST": 34,
+      "SHOCK_RESIST": 2,
+      "MIND_RESIST": 4,
+      "TOX_RESIST": 1
+    }
+  },
+  "Dummy": {
+    "name": "Dummy",
+    "path": "entities/heroes/burner",
+    "learnedSkills": [
+      "Ally Heal"
+    ],
+    "learnableSkills": [
+      "Ally Heal"
+    ],
+    "role": "FIGHTER",
+    "baseStats":{
+      "MAGIC" : 1,
+      "ATTACK" : 1,
+      "SPEED" : 12,
+      "STAMINA" : 2,
+      "ENDURANCE": 3,
+      "LIFE" : 7,
+      "MANA": 100
+    }
+  }
+}

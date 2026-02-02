@@ -10,12 +10,11 @@ import framework.graphics.elements.StatField;
 import framework.graphics.elements.TextField;
 import framework.graphics.text.Color;
 import framework.graphics.text.TextAlignment;
-import framework.graphics.text.TextEditor;
 import framework.resources.SpriteLibrary;
 import framework.states.Arena;
 import framework.states.Draft;
 import game.entities.Hero;
-import game.skills.Stat;
+import game.skills.logic.Stat;
 
 import java.util.List;
 
@@ -163,6 +162,8 @@ public class ActiveCharCard extends GUIElement {
         this.children.remove(name);
         this.children.remove(healthBar);
         this.children.remove(health);
+        this.children.remove(resource);
+        this.children.remove(resourceBar);
 
         this.activeHero = e;
         name = new TextField();
@@ -206,9 +207,6 @@ public class ActiveCharCard extends GUIElement {
 
             this.children.add(resourceBar);
             this.children.add(resource);
-        } else {
-            this.children.remove(resourceBar);
-            this.children.remove(resource);
         }
 
         if (this.activeHero.getStat(Stat.SHIELD) > 0) {
@@ -230,13 +228,15 @@ public class ActiveCharCard extends GUIElement {
     @Override
     public int[] render() {
         background(Color.BLACK);
-        for (GUIElement child: modeIcons) {
-            int[] childP = child.render();
-            fillWithGraphicsSize(child.getX(), child.getY(), child.getWidth(), child.getHeight(), childP, false);
-        }
-        renderChildren();
-        if (this.active) {
-            addBorder(this.width, this.height, this.pixels, Color.WHITE);
+        if (this.activeHero != null) {
+            for (GUIElement child: modeIcons) {
+                int[] childP = child.render();
+                fillWithGraphicsSize(child.getX(), child.getY(), child.getWidth(), child.getHeight(), childP, false);
+            }
+            renderChildren();
+            if (this.active) {
+                addBorder(this.width, this.height, this.pixels, Color.WHITE);
+            }
         }
         return this.pixels;
     }

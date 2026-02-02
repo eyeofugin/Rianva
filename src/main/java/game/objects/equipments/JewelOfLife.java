@@ -5,7 +5,8 @@ import framework.connector.Connector;
 import framework.connector.payloads.DmgTriggerPayload;
 import framework.connector.payloads.HealChangesPayload;
 import game.objects.Equipment;
-import game.skills.changeeffects.effects.RegenBoost;
+import game.skills.logic.Stat;
+import game.skills.changeeffects.effects.other.Protected;
 
 public class JewelOfLife extends Equipment {
 
@@ -17,12 +18,12 @@ public class JewelOfLife extends Equipment {
 
     @Override
     public String getDescription() {
-        return "+30 Life, +50% Heal. Once: When less than 50% Life, gain healboost 5.";
+        return "Trigger: When less than 50%"+ Stat.LIFE.getReference()+", gain " + Protected.getStaticIconString() + "(~).";
     }
 
     @Override
     public void addSubscriptions() {
-        Connector.addSubscription(Connector.HEAL_CHANGES, new Connection(this, HealChangesPayload.class, "healChanges"));
+//        Connector.addSubscription(Connector.HEAL_CHANGES, new Connection(this, HealChangesPayload.class, "healChanges"));
         Connector.addSubscription(Connector.DMG_TRIGGER, new Connection(this, DmgTriggerPayload.class, "dmgTrigger"));
         Connector.addSubscription(Connector.EFFECT_DMG_TRIGGER, new Connection(this, DmgTriggerPayload.class, "dmgTrigger"));
     }
@@ -31,7 +32,7 @@ public class JewelOfLife extends Equipment {
         if (this.active && pl.target != null && pl.target.equals(this.hero)) {
             if (this.healAvailable && pl.target.getCurrentLifePercentage() < 50) {
                 this.healAvailable = false;
-                this.hero.addEffect(new RegenBoost(5), this.hero);
+                this.hero.addEffect(new Protected(-1), this.hero);
             }
         }
     }

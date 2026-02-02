@@ -30,6 +30,7 @@ public class PvpDraft extends GUIElement {
 
     public PvpDraft(Engine engine) {
         super(Engine.X, Engine.Y);
+        this.id = StateManager.PVP_DRAFT;
         this.engine = engine;
         this.hud = new HUD(engine);
         this.hud.setPvpDraft(this);
@@ -47,7 +48,7 @@ public class PvpDraft extends GUIElement {
                 exclusionList.add(hero.getClass());
             }
         }
-        List<Class<? extends Hero>> availableHeroes = DraftBuilder.getAllHeroes();
+        List<Class<? extends Hero>> availableHeroes = DraftBuilder.getAllList();
         availableHeroes.removeIf(exclusionList::contains);
         choices = new Hero[this.maxX*this.maxY];
         removed = new boolean[this.maxX*this.maxY];
@@ -56,7 +57,9 @@ public class PvpDraft extends GUIElement {
             for (int x = 0; x < this.maxX; x++) {
                 if (index < availableHeroes.size() && availableHeroes.get(index) != null) {
                     try {
-                        this.choices[x + y * this.maxX] = availableHeroes.get(index).getConstructor().newInstance();
+                        Hero hero = availableHeroes.get(index).getConstructor().newInstance();
+                        hero.setLevel(5);
+                        this.choices[x + y * this.maxX] = hero;
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }

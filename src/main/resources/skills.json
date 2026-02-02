@@ -1,0 +1,110 @@
+{
+  "Burn": {
+    "name": "Burn",
+    "description": "Burns target.",
+    "iconPath":"icons/skills/wingedboots.png",
+    "targetType": "SINGLE",
+    "damageType": "HEAT",
+    "effects": [
+      {
+        "name": "Burning",
+        "stacks": "1"
+      }
+    ],
+    "manaCost": 5,
+    "accuracy": 90,
+    "dmg": 10,
+    "dmgMultipliers": [
+      {
+        "prof": "MAGIC",
+        "percentage": 0.3
+      }
+    ],
+    "triggerMap":{
+      "BASE_DMG_CHANGES": "burnBaseChanges"
+    },
+    "tags": ["PASSIVE"]
+  },
+  "Fireball": {
+    "name": "Fireball",
+    "description": "Deals Damage To Target.",
+    "iconPath": "icons/skills/wingedboots.png",
+    "targetType": "SINGLE",
+    "damageType": "HEAT",
+    "possibleCastPositions": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "possibleTargetPositions": [
+      4,
+      5
+    ],
+    "manaCost": 5,
+    "accuracy": 90,
+    "dmg": 10,
+    "dmgMultipliers": [
+      {
+        "prof": "MAGIC",
+        "percentage": 0.3
+      }
+    ]
+  },
+  "Fireblast": {
+    "name": "Fireblast",
+    "description": "Deals more Damage To Target.",
+    "iconPath":"icons/skills/wingedboots.png",
+    "targetType": "SINGLE",
+    "damageType": "HEAT",
+    "possibleCastPositions": [2,3],
+    "possibleTargetPositions": [4],
+    "manaCost": 7,
+    "accuracy": 80,
+    "dmg": 20,
+    "dmgMultipliers": [
+      {
+        "prof": "MAGIC",
+        "percentage": 0.3
+      }
+    ]
+  },
+  "Exalted Flames": {
+    "name": "Exalted Flames",
+    "description": "Gain Burn, SPD and MAG.",
+    "iconPath":"icons/skills/wingedboots.png",
+    "targetType": "SELF",
+    "damageType": "HEAT",
+    "possibleCastPositions": [0,1,2,3],
+    "manaCost": 7,
+    "accuracy": 80,
+    "casterEffects": [
+      {
+        "name": "Burning",
+        "stacks": "1"
+      },
+      {
+        "name": "Arcane",
+        "turns": 3
+      },{
+        "name": "Fast",
+        "turns": 3
+      }
+    ]
+  },
+
+  "Ally Heal": {
+    "name": "Ally Heal",
+    "description": "Heals Ally.",
+    "iconPath":"icons/skills/wingedboots.png",
+    "targetType": "SELF",
+    "manaCost": 1,
+    "heal": 10,
+    "healMultipliers": [
+      {
+        "prof": "CURRENT_MANA",
+        "percentage": 0.5
+      }
+    ]
+  }
+}

@@ -30,10 +30,10 @@ public class Property {
     public static int ACTIVE_ABILITY_WIDTH = 240;
     public static int ACTIVE_ABILITY_HEIGHT = 150;
     public static int ACTIVE_ABILITY_X = 190;
-    public static int LOG_WIDTH = 128 + 20; //leaving room for the button
-    public static int LOG_HEIGHT = 96 + 20;
-    public static int LOG_X = 482;
-    public static int LOG_Y = 230 - 20;
+    public static int LOG_WIDTH = 200; //leaving room for the button
+    public static int LOG_HEIGHT = 150;
+    public static int LOG_X = 440;
+    public static int LOG_STATEMENT_WIDTH = 190;
     public static int QUEUE_WIDTH = 300;
     public static int QUEUE_HEIGHT = 20;
     public static int QUEUE_X = 170;

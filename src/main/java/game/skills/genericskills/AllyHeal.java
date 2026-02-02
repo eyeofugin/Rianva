@@ -1,10 +1,9 @@
 package game.skills.genericskills;
 
 import game.entities.Hero;
-import game.entities.individuals.dev.dummy.DUMMY;
+import game.entities.heroes.dev.dummy.DUMMY;
 import game.skills.Skill;
-import game.skills.TargetType;
-import java.util.List;
+import game.skills.logic.TargetType;
 
 public class AllyHeal extends Skill {
 
@@ -18,7 +17,8 @@ public class AllyHeal extends Skill {
     @Override
     public void setToInitial() {
         super.setToInitial();
-        this.heal = 1;
+        this.targetType = TargetType.SELF;
+        this.heal = 3;
     }
 
     protected void initAnimation() {

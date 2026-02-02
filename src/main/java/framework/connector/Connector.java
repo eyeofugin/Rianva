@@ -10,8 +10,9 @@ import java.util.Map;
 public class Connector {
 
     public static final String EXCESS_RESOURCE = "EXCESS_RESOURCE";
+    public static final String STAT_CHANGE =  "STAT_CHANGE";
     public static String GLOBAL_EFFECT_CHANGE = "GLOBAL_EFFECT_CHANGE";
-    public static boolean active = false;
+    public static boolean active = true;
     public static String CAST_CHANGE = "CAST_CHANGE"; //Replacements like
     public static String TARGET_MODE = "TARGET_MODE"; //return the target viability of a skill's target
     public static String CAN_PERFORM = "CAN_PERFORM";
@@ -34,7 +35,6 @@ public class Connector {
     public static String SHIELD_CHANGES = "SHIELD_CHANGES";
     public static String EQUIPMENT_CHANGE_TRIGGER = "EQUIPMENT_CHANGE_TRIGGER";
     public static String MANA_REGAIN = "MANA_REGAIN";
-    public static String PREPARE_UPDATE = "PREPARE_UPDATE";
     public static String UPDATE = "UPDATE";
     public static String START_OF_TURN = "START_OF_TURN";
     public static String END_OF_ROUND = "END_OF_TURN";
@@ -53,11 +53,14 @@ public class Connector {
         }
     }
     public static void removeSubscriptions(Object obj) {
+        if (obj == null) {
+            subscriptions = new HashMap<>();
+        }
         for (Map.Entry<String, ArrayList<Connection>> topicSubscription : subscriptions.entrySet()) {
-            topicSubscription.getValue().removeIf(connection -> connection.element == null || connection.equals(obj));
+            topicSubscription.getValue().removeIf(connection -> connection.element == null || (connection.equals(obj) && !connection.persistant));
         }
     }
-    public static void cleanUpSubscriptions(Object obj) {
+    public static void cleanUpSubscriptions() {
         for (Map.Entry<String, ArrayList<Connection>> topicSubscription : subscriptions.entrySet()) {
             topicSubscription.getValue().removeIf(connection -> connection.element == null);
         }
@@ -71,11 +74,11 @@ public class Connector {
                     Method method = connection.element.getClass().getMethod(connection.methodName, connection.payloadClass);
                     method.invoke(connection.element, payload);
                 } catch (NoSuchMethodException e) {
-                    System.out.println("Hä");
+                    System.out.println("Hä" + connection.methodName);
                 } catch (InvocationTargetException e) {
-                    System.out.println("Hä2");
+                    System.out.println("Hä2" + connection.methodName);
                 } catch (IllegalAccessException e) {
-                    System.out.println("Hä3");
+                    System.out.println("Hä3" + connection.methodName);
                 }
             }
         }

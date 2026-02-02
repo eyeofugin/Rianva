@@ -6,9 +6,12 @@ import framework.graphics.containers.HUD;
 import framework.graphics.containers.TeamBuildAbilitiesCard;
 import framework.graphics.containers.TeamBuildHeroesCard;
 import framework.graphics.containers.TeamBuildItemsCard;
+import framework.graphics.elements.StatField;
 import framework.graphics.text.Color;
 import game.entities.Hero;
 import game.entities.HeroTeam;
+import game.skills.logic.Stat;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,9 +30,11 @@ public class TeamBuilder extends GUIElement {
     TeamBuildHeroesCard heroesCard;
     Map<Hero, TeamBuildAbilitiesCard> abilitiesCardMap = new HashMap<>();
     Map<Hero, TeamBuildItemsCard> itemsCardMap = new HashMap<>();
+    private StatField stats;
 
     public TeamBuilder(Engine e) {
         super(Engine.X, Engine.Y);
+        this.id = StateManager.TEAM_BUILDER;
         this.engine = e;
         this.hud = new HUD(e);
         this.teams = this.engine.memory.teams;
@@ -135,6 +140,9 @@ public class TeamBuilder extends GUIElement {
     }
     public void setActiveHero(Hero hero) {
         this.activeHero = hero;
+        Stat[] lArray = new Stat[]{Stat.LIFE, Stat.LIFE_REGAIN, Stat.MANA, Stat.MANA_REGAIN, Stat.SHIELD};
+        Stat[] rArray = new Stat[]{Stat.MAGIC, Stat.ATTACK, Stat.STAMINA, Stat.SPEED, Stat.ACCURACY, Stat.EVASION, Stat.CRIT_CHANCE, Stat.LETHALITY};
+        this.stats = new StatField(this.activeHero, lArray, rArray);
     }
     public void activate() {
         this.active = true;
@@ -150,9 +158,15 @@ public class TeamBuilder extends GUIElement {
         renderTeam();
         renderAbilityCard();
         renderItemsCard();
+        renderStats();
         return this.pixels;
     }
-
+    private void renderStats() {
+        if (this.activeHero == null) {
+            return;
+        }
+        fillWithGraphicsSize(10, 250, this.stats.getWidth(), this.stats.getHeight(), this.stats.render(), false);
+    }
     private void renderDeco() {
         fillWithGraphicsSize(10, 10, 200, 20, getTextLine("Team " + this.activeTeam, 200, 20, Color.WHITE), false);
     }

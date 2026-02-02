@@ -1,8 +1,8 @@
 package game.objects.equipments;
 
+import framework.graphics.text.TextEditor;
 import game.objects.Equipment;
 import game.objects.equipments.skills.S_GraftedExoskeleton;
-import game.skills.Stat;
 
 import java.util.List;
 
@@ -18,6 +18,6 @@ public class GraftedExoskeleton extends Equipment {
 
     @Override
     public String getDescription() {
-        return "+2 Adaptive stat on each def. +15 Life. [BRL]Active: Remove all debuffs. Cooldown 4.";
+        return "Active: Remove all debuffs. ["+TextEditor.TURN_KEY+"]4.";
     }
 }

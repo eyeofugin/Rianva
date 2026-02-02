@@ -5,17 +5,15 @@ import framework.Property;
 import framework.graphics.text.*;
 
 import javax.sound.sampled.Line;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class GUIElement {
+    public int id;
     public String name;
     protected int width, height;
     protected Color background = Color.VOID;
     protected int[] pixels;
-    protected int x, y; //location in parent
+    public int x, y; //location in parent
     protected TextEditor editor = new TextEditor(TextEditor.baseConf);
     protected List<GUIElement> children = new ArrayList<>();
 
@@ -78,6 +76,7 @@ public class GUIElement {
         }
     }
     protected void renderChildren() {
+        this.children.removeIf(Objects::isNull);
         for (GUIElement child : children) {
             if (child != null) {
                 int[] childP = child.render();
@@ -284,9 +283,11 @@ public class GUIElement {
             for (int j = xfrom; j <= xuntil; j++) {
 
                 if (index >= graphics.length) {
+                    Logger.logLn("Index over graph length");
                     continue;
                 }
                 if (j + i * this.width >= pixels.length) {
+                    Logger.logLn("Content too big.");
                     continue;
                 }
                 if (graphics[index] != Color.VOID.VALUE) {

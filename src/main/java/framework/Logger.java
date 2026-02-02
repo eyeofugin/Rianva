@@ -1,8 +1,8 @@
 package framework;
 
 public class Logger {
-    private static final boolean DEBUG = false;
-    private static final boolean AIDEBUG = false;
+    private static final boolean DEBUG = true;
+    private static final boolean AIDEBUG = true;
 
     public static void logLn(String s) {
         if (DEBUG) {
@@ -18,13 +18,13 @@ public class Logger {
 
     public static void aiLog(String s) {
         if (AIDEBUG) {
-            System.out.print(s);
+            System.out.print("DEBUG" + s);
         }
     }
 
     public static void aiLogln(String s) {
         if (AIDEBUG) {
-            System.out.println(s);
+            System.out.println("AIDEBUG" + s);
         }
     }
 

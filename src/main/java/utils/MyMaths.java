@@ -1,5 +1,7 @@
 package utils;
 
+import framework.states.Arena;
+
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
@@ -8,7 +10,16 @@ import java.util.stream.IntStream;
 public class MyMaths {
 //    public static int damageRdmValue = 2;
     public static int dmgRdmPercentage = 15;
-    public static int dmgEqualizer = 15;
+    public static int dmgEqualizer = 25;
+    public static int getMirrorPos(int pos) {
+        return Arena.lastEnemyPos - pos;
+    }
+
+    public static int getLevelStat(int baseStat, int level) {
+        double multiplier = 0.08 * (level*level) + 1;
+        return (int) Math.round(multiplier*baseStat);
+    }
+
     public static int getPcProbability(int turn, int tier) {
         int m = 1;
         int t = 1;

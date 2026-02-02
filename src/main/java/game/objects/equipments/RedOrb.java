@@ -4,7 +4,7 @@ import framework.connector.Connection;
 import framework.connector.Connector;
 import framework.connector.payloads.*;
 import game.objects.Equipment;
-import game.skills.changeeffects.effects.Burning;
+import game.skills.changeeffects.effects.other.Burning;
 
 public class RedOrb extends Equipment {
 
@@ -12,6 +12,12 @@ public class RedOrb extends Equipment {
         super("redorb", "Red Orb");
         this.statBonus = this.loadBaseStatBonus();
     }
+
+    @Override
+    public String getDescription() {
+        return "Get " + Burning.getStaticIconString() + "(1) at the start of each turn.";
+    }
+
     @Override
     public void addSubscriptions() {
         Connector.addSubscription(Connector.START_OF_TURN, new Connection(this, StartOfTurnPayload.class, "start"));

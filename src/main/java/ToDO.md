@@ -1,3 +1,4 @@
- + Rework range to position skills (like darkest dungeon, ugh)
- + More Abilities / Builds
- + Build Reworks / Balancing
+- XP: 1 XP per Action performed (10max)
+-> levels
+- Base items and Mythic items, 1 per hero
+- 1 consumable per hero

@@ -102,15 +102,19 @@ public class TeamBuildItemsCard extends GUIElement {
         int index = this.pointerX + this.maxX * this.pointerY;
         Equipment equipment = this.choices[index];
         if (this.chosen.contains(equipment)) {
+            equipment.unEquipFromHero();
+            this.hero.getEquipments().remove(equipment);
             this.chosen.remove(equipment);
             this.chosenAmount--;
         } else if (chosenAmount < this.engine.memory.pvpRound) {
+            equipment.equipToHero(this.hero);
             this.chosen.add(equipment);
             this.chosenAmount++;
         }
     }
     public void finish() {
         this.hero.setEquipments(this.chosen);
+        this.hero.getEquipments().forEach(e-> e.equipToHero(hero));
     }
 
     public int[] render(boolean full) {

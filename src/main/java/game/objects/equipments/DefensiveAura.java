@@ -3,8 +3,8 @@ package game.objects.equipments;
 import framework.connector.Connection;
 import framework.connector.Connector;
 import framework.connector.payloads.DmgChangesPayload;
-import game.objects.Equipment;
-import game.skills.DamageMode;
+import framework.graphics.text.Color;
+import game.objects.Equipment; 
 
 public class DefensiveAura extends Equipment {
 
@@ -15,7 +15,7 @@ public class DefensiveAura extends Equipment {
 
     @Override
     public String getDescription() {
-        return "+4 on each Defense Stat. Reduce magical damage by 10%.";
+       return "";// return "Reduce "+DamageMode.MAGICAL.getColor().getCodeString()+"damage"+ Color.WHITE.getCodeString()+" by 10%.";
     }
 
     @Override
@@ -24,10 +24,10 @@ public class DefensiveAura extends Equipment {
     }
 
     public void dmgChanges(DmgChangesPayload pl) {
-        if (this.active && pl.target != null && pl.target.equals(this.hero)) {
-            if (pl.dmgMode != null && pl.dmgMode.equals(DamageMode.MAGICAL)) {
-                pl.dmg = (int)(0.9*pl.dmg);
-            }
-        }
+//        if (this.active && pl.target != null && pl.target.equals(this.hero)) {
+//            if (pl.dmgMode != null && pl.dmgMode.equals(DamageMode.MAGICAL)) {
+//                pl.dmg = (int)(0.9*pl.dmg);
+//            }
+//        }
     }
 }

@@ -3,7 +3,7 @@ package game.skills.changeeffects.globals;
 import framework.connector.Connection;
 import framework.connector.Connector;
 import framework.connector.payloads.ShieldChangesPayload;
-import game.skills.GlobalEffect;
+import game.skills.logic.GlobalEffect;
 
 public class HolyLight extends GlobalEffect {
     public HolyLight() {

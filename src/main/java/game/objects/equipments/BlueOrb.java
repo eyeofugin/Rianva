@@ -11,7 +11,7 @@ public class BlueOrb extends Equipment {
     public BlueOrb() {
         super("blueorb", "Blue Orb");
         this.statBonus = this.loadBaseStatBonus();
-        this.skill = new S_BlueOrb(this);
+//        this.skill = new S_BlueOrb(this);
     }
 
     @Override
@@ -23,5 +23,10 @@ public class BlueOrb extends Equipment {
         if (this.active && this.hero != null) {
             this.hero.arena.setGlobalEffect(new AetherWinds());
         }
+    }
+
+    @Override
+    public String getDescription() {
+        return "Summon the Aether Winds Global Effect at the start of the match.";
     }
 }

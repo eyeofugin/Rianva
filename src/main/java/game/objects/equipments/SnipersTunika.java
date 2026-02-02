@@ -13,6 +13,11 @@ public class SnipersTunika extends Equipment {
     }
 
     @Override
+    public String getDescription() {
+        return "Receive 20% more damage.";
+    }
+
+    @Override
     public void addSubscriptions() {
         Connector.addSubscription(Connector.DMG_CHANGES, new Connection(this, DmgChangesPayload.class, "dmgChanges"));
     }

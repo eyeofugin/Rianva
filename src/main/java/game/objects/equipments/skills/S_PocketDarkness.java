@@ -1,20 +1,17 @@
 package game.objects.equipments.skills;
 
-import framework.connector.Connection;
-import framework.connector.Connector;
-import framework.connector.payloads.StartOfMatchPayload;
 import game.entities.Hero;
 import game.objects.Equipment;
 import game.skills.Skill;
-import game.skills.Stat;
-import game.skills.TargetType;
+import game.skills.logic.TargetType;
+import game.skills.changeeffects.effects.other.StatEffect;
+
+import java.util.List;
 
 public class S_PocketDarkness extends Skill {
 
-    private boolean isUsedUp = false;
-
     public S_PocketDarkness(Equipment equipment) {
-        super(null);
+        super();
         this.equipment = equipment;
         this.iconPath = "icons/skills/pocketdarkness.png";
         setToInitial();
@@ -23,37 +20,16 @@ public class S_PocketDarkness extends Skill {
     public void setToInitial() {
         super.setToInitial();
         this.targetType = TargetType.SINGLE;
-        this.possibleCastPositions = new int[]{0,1,2};
-        this.possibleTargetPositions = new int[]{4,5,6};
-    }
-
-    @Override
-    public void addSubscriptions() {
-        Connector.addSubscription(Connector.START_OF_MATCH, new Connection(this, StartOfMatchPayload.class, "start"));
-    }
-    public void start(StartOfMatchPayload pl) {
-        this.isUsedUp = false;
+        this.effects = List.of(StatEffect.blinded.getNew());
     }
     @Override
     public void applySkillEffects(Hero target) {
         super.applySkillEffects(target);
-        target.addToStat(Stat.ACCURACY, -30);
-        this.equipment.loseTempStat();
-        this.isUsedUp = true;
-    }
-
-    @Override
-    public boolean performCheck(Hero hero) {
-        return super.performCheck(hero) && this.equipment.isActive() && !this.isUsedUp;
+        this.equipment.unEquipFromHero();
     }
 
     public int getAIRating(Hero target) {
         return 2;
-    }
-
-    @Override
-    public String getDescriptionFor(Hero hero) {
-        return "Target -30 Accuracy.";
     }
 
     @Override

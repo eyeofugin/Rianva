@@ -7,7 +7,7 @@ import framework.graphics.text.Color;
 import framework.resources.SpriteLibrary;
 import game.entities.Hero;
 import game.skills.Skill;
-import game.skills.Stat;
+import game.skills.logic.Stat;
 import utils.FileWalker;
 
 import java.util.HashMap;
@@ -20,6 +20,8 @@ public class Equipment {
     protected Map<Stat, Integer> statBonus = new HashMap<>();
     protected Map<Stat, Integer> tempStatBonus = new HashMap<>();
     protected boolean loseTempStat = false;
+    protected boolean consumed = false;
+    protected boolean equipped = false;
     protected Hero hero;
     protected Hero oldHero;
     protected boolean active;
@@ -27,6 +29,10 @@ public class Equipment {
     protected String name;
     protected List<Stat> adaptiveStats;
 
+
+    public Equipment() {
+        this.packageName = "";
+    }
     public Equipment(String packageName, String name) {
         this.packageName = packageName;
         this.name = name;
@@ -39,18 +45,13 @@ public class Equipment {
 
     public void turn() {}
     public void equipToHero(Hero hero) {
+        if (this.hero != null && this.equipped) {
+            return;
+        }
         this.hero = hero;
         this.hero.equip(this);
-        this.active = true;
-        addSubscriptions();
-        statChange(this.statBonus, 1);
-        if (this.loseTempStat) return;
-        statChange(this.tempStatBonus, 1);
-        EquipmentChangePayload pl = new EquipmentChangePayload()
-                .setEquipment(this)
-                .setTarget(this.hero)
-                .setMode(EquipmentChangePayload.EquipmentChangeMode.EQUIP);
-        Connector.fireTopic(Connector.EQUIPMENT_CHANGE_TRIGGER, pl);
+        this.activateEquipment();
+        this.equipped = true;
     }
 
     public void unEquipFromHero() {
@@ -58,7 +59,6 @@ public class Equipment {
         statChange(this.statBonus, -1);
         removeSubscriptions();
         this.oldHero = this.hero;
-        this.hero = null;
         if (this.loseTempStat) return;
         statChange(this.tempStatBonus, -1);
         EquipmentChangePayload pl = new EquipmentChangePayload()
@@ -66,13 +66,15 @@ public class Equipment {
                 .setTarget(this.oldHero)
                 .setMode(EquipmentChangePayload.EquipmentChangeMode.UNEQUIP);
         Connector.fireTopic(Connector.EQUIPMENT_CHANGE_TRIGGER, pl);
+        this.hero = null;
+        this.equipped = false;
     }
 
     private void statChange(Map<Stat, Integer> map, int sign) {
         for (Map.Entry<Stat, Integer> statBonus : map.entrySet()) {
             if (this.adaptiveStats != null && !this.adaptiveStats.isEmpty()) {
                 if (this.adaptiveStats.contains(statBonus.getKey())) {
-                    this.hero.addToStat(statBonus.getKey(), statBonus.getValue() * this.hero.arena.round * sign);
+                    this.hero.addToStat(statBonus.getKey(), statBonus.getValue() * sign);
                 }
             } else {
                 this.hero.addToStat(statBonus.getKey(), statBonus.getValue() * sign);
@@ -82,9 +84,6 @@ public class Equipment {
             }
             if (statBonus.getKey().equals(Stat.MANA) && this.hero.getStat(Stat.CURRENT_MANA) > this.hero.getStat(Stat.LIFE)) {
                 this.hero.changeStatTo(Stat.CURRENT_MANA, this.hero.getStat(Stat.MANA));
-            }
-            if (statBonus.getKey().equals(Stat.FAITH) && this.hero.getStat(Stat.CURRENT_FAITH) > this.hero.getStat(Stat.LIFE)) {
-                this.hero.changeStatTo(Stat.CURRENT_FAITH, this.hero.getStat(Stat.FAITH));
             }
         }
     }
@@ -140,12 +139,21 @@ public class Equipment {
     public String getDescription() { return " "; }
     public Skill getSkill() { return skill; }
     public boolean isActive() { return active; }
-    public String getStatBonusString() {
-        if (statBonus == null || statBonus.isEmpty()) {
+    public String getInfoStatBonus() {
+        return getBaseStatBonusString();
+    }
+    public String getBaseStatBonusString() {
+        return getStatBonusString(this.statBonus);
+    }
+    public String getTempStatBonusString() {
+        return getStatBonusString(this.tempStatBonus);
+    }
+    public String getStatBonusString(Map<Stat, Integer> statMap) {
+        if (statMap == null || statMap.isEmpty()) {
             return "";
         }
         StringBuilder builder = new StringBuilder();
-        for (Map.Entry<Stat, Integer> entry : statBonus.entrySet()) {
+        for (Map.Entry<Stat, Integer> entry : statMap.entrySet()) {
             builder.append(entry.getKey().getColorKey());
             if (entry.getValue()>0) {
                 builder.append(Color.MEDIUMGREEN.getCodeString());
@@ -153,10 +161,11 @@ public class Equipment {
             } else {
                 builder.append(Color.DARKRED.getCodeString());
             }
-            builder.append(entry.getValue()).append(" ");
+            builder.append(entry.getValue());
             builder.append(entry.getKey().getReference());
             builder.append(" ");
         }
+        builder.append(Color.WHITE.getCodeString());
         return builder.toString();
     }
 
@@ -165,4 +174,14 @@ public class Equipment {
                 "equipments/" + this.packageName + "/sprite.png", 0);
     }
 
+    public void consume() {
+        this.consumed = true;
+    }
+    public boolean isConsumed() {
+        return consumed;
+    }
+
+    public void reset() {
+        this.activateEquipment();
+    }
 }

@@ -1,0 +1,9 @@
+{
+  "MAGIC" : 1,
+  "POWER" : 6,
+  "SPEED" : 8,
+  "STAMINA" : 16,
+  "ENDURANCE" : 6,
+  "LIFE" : 13,
+  "LIFE_REGAIN": 1
+}

@@ -36,7 +36,7 @@ public class TeamDraftOverview extends GUIElement {
                 }
             }
             if (engine.keyB._shoulderRightPressed) {
-                if (cardPointer != 2) {
+                if (cardPointer != 1) {
                     cardPointer++;
                 }
             }

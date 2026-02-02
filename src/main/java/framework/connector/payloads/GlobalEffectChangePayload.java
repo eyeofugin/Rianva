@@ -1,7 +1,7 @@
 package framework.connector.payloads;
 
 import framework.connector.ConnectionPayload;
-import game.skills.GlobalEffect;
+import game.skills.logic.GlobalEffect;
 
 public class GlobalEffectChangePayload extends ConnectionPayload {
     public GlobalEffect effect;

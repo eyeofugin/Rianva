@@ -2,7 +2,7 @@ package framework.connector.payloads;
 
 import framework.connector.ConnectionPayload;
 import game.entities.Hero;
-import game.skills.Effect;
+import game.skills.logic.Effect;
 
 public class EffectDmgChangesPayload extends ConnectionPayload {
     public Hero target;

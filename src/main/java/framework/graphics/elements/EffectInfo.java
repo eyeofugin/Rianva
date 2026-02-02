@@ -3,8 +3,7 @@ package framework.graphics.elements;
 import framework.graphics.GUIElement;
 import framework.graphics.text.Color;
 import framework.graphics.text.TextAlignment;
-import game.entities.Hero;
-import game.skills.Effect;
+import game.skills.logic.Effect;
 
 public class EffectInfo extends GUIElement {
 
