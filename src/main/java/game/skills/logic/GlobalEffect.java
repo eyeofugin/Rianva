@@ -2,22 +2,23 @@ package game.skills.logic;
 
 public abstract class GlobalEffect {
 
-    private final String name;
-    private final String description;
+  private final String name;
+  private final String description;
 
-    protected GlobalEffect(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
+  protected GlobalEffect(String name, String description) {
+    this.name = name;
+    this.description = description;
+  }
 
-    public abstract void initSubscriptions();
-    public abstract void turn();
+  public abstract void initSubscriptions();
 
-    public String getName() {
-        return name;
-    }
+  public abstract void turn();
 
-    public String getDescription() {
-        return description;
-    }
+  public String getName() {
+    return name;
+  }
+
+  public String getDescription() {
+    return description;
+  }
 }

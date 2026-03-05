@@ -1,0 +1,373 @@
+{
+  "Stunning": {
+    "name": "Stunning",
+    "iconString": "STU",
+    "description": "Description",
+    "stackable": false,
+    "durability": "ONCE",
+    "type": "HERO",
+    "triggerMap": {
+      "DMG_TRIGGER": "dmgTrigger"
+    },
+    "subTypes": [
+      "ATK_ENHANCE"
+    ]
+  },
+  "Toxic": {
+    "name": "Toxic",
+    "iconString": "TXC",
+    "description": "Description",
+    "stackable": false,
+    "durability": "ONCE",
+    "type": "HERO",
+    "triggerMap": {
+      "DMG_TRIGGER": "onDmg"
+    },
+    "subTypes": [
+      "ATK_ENHANCE"
+    ],
+    "keyValues": {
+      "DmgPercentage": "10"
+    }
+  },
+  "Confusing": {
+    "name": "Confusing",
+    "iconString": "CNF",
+    "description": "Description",
+    "stackable": false,
+    "durability": "ONCE",
+    "type": "HERO",
+    "triggerMap": {
+      "DMG_TRIGGER": "onDmg"
+    },
+    "subTypes": [
+      "ATK_ENHANCE"
+    ],
+    "keyValues": {
+      "DmgPercentage": "10"
+    }
+  },
+  "Flaming": {
+    "name": "Flaming",
+    "iconString": "FLM",
+    "description": "Description",
+    "stackable": false,
+    "durability": "ONCE",
+    "type": "HERO",
+    "triggerMap": {
+      "DMG_TRIGGER": "onDmg"
+    },
+    "subTypes": [
+      "ATK_ENHANCE"
+    ],
+    "keyValues": {
+      "DmgPercentage": "10"
+    }
+  },
+  "Icy": {
+    "name": "Icy",
+    "iconString": "ICY",
+    "description": "Description",
+    "stackable": false,
+    "durability": "ONCE",
+    "type": "HERO",
+    "triggerMap": {
+      "DMG_TRIGGER": "onDmg"
+    },
+    "subTypes": [
+      "ATK_ENHANCE"
+    ],
+    "keyValues": {
+      "DmgPercentage": "10"
+    }
+  },
+  "Glorious": {
+    "name": "Glorious",
+    "iconString": "GLO",
+    "description": "Description",
+    "stackable": false,
+    "durability": "ONCE",
+    "type": "HERO",
+    "triggerMap": {
+      "DMG_TRIGGER": "onDmg"
+    },
+    "subTypes": [
+      "ATK_ENHANCE"
+    ],
+    "keyValues": {
+      "DmgPercentage": "10"
+    }
+  },
+  "Deadly": {
+    "name": "Deadly",
+    "iconString": "DDL",
+    "description": "Description",
+    "stackable": false,
+    "durability": "ONCE",
+    "type": "HERO",
+    "triggerMap": {
+      "DMG_TRIGGER": "onDmg"
+    },
+    "subTypes": [
+      "ATK_ENHANCE"
+    ],
+    "keyValues": {
+      "DmgPercentage": "10"
+    }
+  },
+  "Shocking": {
+    "name": "Shocking",
+    "iconString": "SHG",
+    "description": "Description",
+    "stackable": false,
+    "durability": "ONCE",
+    "type": "HERO",
+    "triggerMap": {
+      "DMG_TRIGGER": "onDmg"
+    },
+    "subTypes": [
+      "ATK_ENHANCE"
+    ],
+    "keyValues": {
+      "DmgPercentage": "10"
+    }
+  },
+  "Annoying": {
+    "name": "Annoying",
+    "iconString": "AYG",
+    "description": "Description",
+    "stackable": false,
+    "durability": "ONCE",
+    "type": "HERO",
+    "triggerMap": {
+      "DMG_TRIGGER": "onDmg"
+    },
+    "subTypes": [
+      "ATK_ENHANCE"
+    ]
+  },
+  "Advantage": {
+    "name": "Advantage",
+    "iconString": "ADV",
+    "description": "Description",
+    "stackable": false,
+    "durability": "ONCE",
+    "type": "HERO",
+    "triggerMap": {
+      "DMG_CHANGES_MULT": "dmgChangesMult"
+    },
+    "subTypes": [
+      "BONUS"
+    ],
+    "keyValues": {
+      "Change": "1.25"
+    }
+  },
+  "Prepared": {
+    "name": "Prepared",
+    "iconString": "PRP",
+    "description": "Description",
+    "stackable": false,
+    "durability": "ONCE",
+    "type": "HERO",
+    "triggerMap": {
+      "DMG_CHANGES_MULT": "dmgChangesMult"
+    },
+    "subTypes": [
+      "BONUS"
+    ],
+    "keyValues": {
+      "Change": "0.75"
+    }
+  },
+  "Initiative": {
+    "name": "Initiative",
+    "iconString": "INI",
+    "description": "Description",
+    "stackable": false,
+    "durability": "ONCE",
+    "type": "HERO",
+    "triggerMap": {
+      "END_OF_TURN": "endOfTurn"
+    },
+    "subTypes": [
+      "BONUS"
+    ]
+  },
+  "PlanA": {
+    "name": "PlanA",
+    "iconString": "PLA",
+    "description": "Description",
+    "stackable": false,
+    "durability": "TIME",
+    "type": "HERO",
+    "triggerMap": {
+      "STAT_CHANGE_MULT": "statChangeMult"
+    },
+    "subTypes": [
+      "STAT"
+    ],
+    "keyValues": {
+      "Change": "1.1"
+    }
+  },
+  "Trophy": {
+    "name": "Trophy",
+    "iconString": "TRO",
+    "description": "Description",
+    "stackable": false,
+    "durability": "TIME",
+    "type": "HERO",
+    "triggerMap": {
+      "BASE_STAT_CHANGE": "baseStatChange"
+    },
+    "subTypes": [
+      "STAT"
+    ],
+    "keyValues": {
+      "Bonus": "1"
+    }
+  },
+  "DragonForm": {
+    "name": "Dragon Form",
+    "iconString": "DRF",
+    "description": "Description",
+    "stackable": false,
+    "durability": "PERSISTENT",
+    "type": "HERO",
+    "triggerMap": {
+      "DMG_CHANGES_MULT": "dmgChangeMult",
+      "CAST_CHANGE": "castChange",
+      "ON_PERFORM": "onPerform"
+    },
+    "subTypes": [
+      "UNIQUE"
+    ],
+    "keyValues": {
+      "CostIncrease": "5",
+      "AoeDmgMult": "1.2"
+    }
+  },
+  "ThunderbirdForm": {
+    "name": "Thunderbird Form",
+    "iconString": "THF",
+    "description": "Description",
+    "stackable": false,
+    "durability": "PERSISTENT",
+    "type": "HERO",
+    "triggerMap": {
+      "TARGET_CHANGE": "targetChange",
+      "ON_PERFORM": "onPerform"
+    },
+    "subTypes": [
+      "UNIQUE"
+    ]
+  },
+  "SnakeForm": {
+    "name": "Snake Form",
+    "iconString": "SNF",
+    "description": "Description",
+    "stackable": false,
+    "durability": "PERSISTENT",
+    "type": "HERO",
+    "triggerMap": {
+      "DMG_CHANGE_MULT": "dmgChangeMult",
+      "CAST_CHANGE": "castChange"
+    },
+    "subTypes": [
+      "UNIQUE"
+    ],
+    "keyValues": {
+      "DmgMult": "1.15"
+    }
+  },
+  "WendigoForm": {
+    "name": "Wendigo Form",
+    "iconString": "WNF",
+    "description": "Description",
+    "stackable": false,
+    "durability": "PERSISTENT",
+    "type": "HERO",
+    "triggerMap": {
+      "CAST_CHANGE": "castChange",
+      "ON_PERFORM" : "onPerform"
+    },
+    "subTypes": [
+      "UNIQUE"
+    ],
+    "keyValues": {
+      "ManaCostChange": "0.8"
+    }
+  },
+  "BearForm": {
+    "name": "Bear Form",
+    "iconString": "BRF",
+    "description": "Description",
+    "stackable": false,
+    "durability": "PERSISTENT",
+    "type": "HERO",
+    "triggerMap": {
+      "BASE_STAT_PERMANENT_CHANGE": "statBaseChange",
+      "ON_PERFORM" : "onPerform"
+    },
+    "subTypes": [
+      "UNIQUE"
+    ],
+    "keyValues": {
+      "AdaptiveResist": "1",
+      "Shield": "2"
+    }
+  },
+  "Dueling": {
+    "name": "Dueling",
+    "iconString": "DUE",
+    "description": "Description",
+    "stackable": true,
+    "durability": "PERSISTENT",
+    "type": "HERO",
+    "triggerMap": {
+      "DMG_CHANGES_MULT": "dmgChangesMult",
+      "DMG_TRIGGER" : "dmgTrigger"
+    },
+    "subTypes": [
+      "UNIQUE"
+    ],
+    "keyValues": {
+      "MultPerStack": "0.05"
+    }
+  },
+  "Disadvantage": {
+    "name": "Disadvantage",
+    "iconString": "DAD",
+    "description": "Description",
+    "stackable": false,
+    "durability": "ONCE",
+    "type": "HERO",
+    "triggerMap": {
+      "DMG_CHANGES_MULT": "dmgChangesMult"
+    },
+    "subTypes": [
+      "WEAKNESS"
+    ],
+    "keyValues": {
+      "Change": "0.75"
+    }
+  },
+  "Marked": {
+    "name": "Marked",
+    "iconString": "MRK",
+    "description": "Description",
+    "stackable": false,
+    "durability": "ONCE",
+    "type": "HERO",
+    "triggerMap": {
+      "DMG_CHANGES_MULT": "dmgChangesMult"
+    },
+    "subTypes": [
+      "WEAKNESS"
+    ],
+    "keyValues": {
+      "Change": "1.1"
+    }
+  }
+}

@@ -7,14 +7,13 @@ import java.util.Map;
 
 public class HeroDTO {
 
-    public String name;
-    public String path;
-    public String idleAnim;
-    public String damagedAnim;
-    public String actionAnim;
-    public List<String> learnedSkills;
-    public List<String> learnableSkills;
-    public Role role;
-    public Map<Stat, Integer> baseStats;
-
+  public String name;
+  public String path;
+  public String idleAnim;
+  public String damagedAnim;
+  public String actionAnim;
+  public List<String> learnedSkills;
+  public List<String> learnableSkills;
+  public Role role;
+  public Map<Stat, Integer> baseStats;
 }

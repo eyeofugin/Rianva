@@ -1,20 +1,18 @@
 package framework.connector;
 
-
 public class Connection {
 
-    Object element;
-    String methodName;
-    boolean persistant;
-    Class<? extends ConnectionPayload> payloadClass;
+  Object element;
+  String methodName;
+  boolean persistant;
 
-    public Connection(Object element, Class<? extends ConnectionPayload> payloadClass, String methodName) {
-        this(element, payloadClass, methodName, false);
-    }
-    public Connection(Object element, Class<? extends ConnectionPayload> payloadClass, String methodName, boolean persistant) {
-        this.element = element;
-        this.methodName = methodName;
-        this.payloadClass = payloadClass;
-        this.persistant = persistant;
-    }
+  public Connection(Object element, String methodName) {
+    this(element, methodName, false);
+  }
+
+  public Connection(Object element, String methodName, boolean persistant) {
+    this.element = element;
+    this.methodName = methodName;
+    this.persistant = persistant;
+  }
 }

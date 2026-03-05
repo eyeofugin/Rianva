@@ -1,4 +1,4 @@
 - XP: 1 XP per Action performed (10max)
--> levels
+  -> levels
 - Base items and Mythic items, 1 per hero
 - 1 consumable per hero

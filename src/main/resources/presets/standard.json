@@ -8,7 +8,7 @@
         "game.entities.individuals.cryobrawler.S_ColdWinds",
         "game.entities.individuals.cryobrawler.S_BlueLife"
       ],
-      "ultimate" : "game.entities.individuals.cryobrawler.S_Avalanche",
+      "ultimate": "game.entities.individuals.cryobrawler.S_Avalanche",
       "equipments": [
         "game.objects.equipments.GraftedExoskeleton",
         "game.objects.equipments.DefensiveAura",
@@ -23,7 +23,7 @@
         "game.entities.individuals.cryobrawler.S_FrostBreath",
         "game.entities.individuals.cryobrawler.S_BlueLife"
       ],
-      "ultimate" : "game.entities.individuals.cryobrawler.S_Avalanche",
+      "ultimate": "game.entities.individuals.cryobrawler.S_Avalanche",
       "equipments": [
         "game.objects.equipments.BlueOrb",
         "game.objects.equipments.ArcaneCloak",
@@ -38,7 +38,7 @@
         "game.entities.individuals.dragonbreather.S_DragonScales",
         "game.entities.individuals.dragonbreather.S_DragonBreath"
       ],
-      "ultimate" : "game.entities.individuals.dragonbreather.S_BellowingRoar",
+      "ultimate": "game.entities.individuals.dragonbreather.S_BellowingRoar",
       "equipments": [
         "game.objects.equipments.FlamingChestplate",
         "game.objects.equipments.ButchersCleaver",
@@ -53,7 +53,7 @@
         "game.entities.individuals.dragonbreather.S_HeatOfTheDragon",
         "game.entities.individuals.dragonbreather.S_InnerFire"
       ],
-      "ultimate" : "game.entities.individuals.dragonbreather.S_BellowingRoar",
+      "ultimate": "game.entities.individuals.dragonbreather.S_BellowingRoar",
       "equipments": [
         "game.objects.equipments.FlamingChestplate",
         "game.objects.equipments.FlamingSword",
@@ -68,7 +68,7 @@
         "game.entities.individuals.eldritchguy.S_UnnaturalDefenses",
         "game.entities.individuals.eldritchguy.S_HorrificGlare"
       ],
-      "ultimate" : "game.entities.individuals.eldritchguy.S_UnleashEmptiness",
+      "ultimate": "game.entities.individuals.eldritchguy.S_UnleashEmptiness",
       "equipments": [
         "game.objects.equipments.CrownOfLife",
         "game.objects.equipments.JewelOfLife",
@@ -83,7 +83,7 @@
         "game.entities.individuals.eldritchguy.S_VoidGraft",
         "game.entities.individuals.eldritchguy.S_TentacleGrab"
       ],
-      "ultimate" : "game.entities.individuals.eldritchguy.S_UnleashEmptiness",
+      "ultimate": "game.entities.individuals.eldritchguy.S_UnleashEmptiness",
       "equipments": [
         "game.objects.equipments.ArcaneCloak",
         "game.objects.equipments.BlueOrb",
@@ -98,7 +98,7 @@
         "game.entities.individuals.longsword.S_Taunt",
         "game.entities.individuals.longsword.S_Steadfast"
       ],
-      "ultimate" : "game.entities.individuals.longsword.S_SupremeDefense",
+      "ultimate": "game.entities.individuals.longsword.S_SupremeDefense",
       "equipments": [
         "game.objects.equipments.DefensiveAura",
         "game.objects.equipments.GraftedExoskeleton",
@@ -113,7 +113,7 @@
         "game.entities.individuals.longsword.S_Challenge",
         "game.entities.individuals.longsword.S_Cover"
       ],
-      "ultimate" : "game.entities.individuals.longsword.S_SupremeDefense",
+      "ultimate": "game.entities.individuals.longsword.S_SupremeDefense",
       "equipments": [
         "game.objects.equipments.DefensiveAura",
         "game.objects.equipments.CrownOfLife",
@@ -128,7 +128,7 @@
         "game.entities.individuals.paladin.S_LightBlast",
         "game.entities.individuals.paladin.S_LightPillar"
       ],
-      "ultimate" : "game.entities.individuals.paladin.S_HoliestShield",
+      "ultimate": "game.entities.individuals.paladin.S_HoliestShield",
       "equipments": [
         "game.objects.equipments.ShiningArmor",
         "game.objects.equipments.WingedBoots",
@@ -143,7 +143,7 @@
         "game.entities.individuals.longsword.S_ShieldAssault",
         "game.entities.individuals.longsword.S_FierceGlow"
       ],
-      "ultimate" : "game.entities.individuals.longsword.S_HoliestShield",
+      "ultimate": "game.entities.individuals.longsword.S_HoliestShield",
       "equipments": [
         "game.objects.equipments.ShiningArmor",
         "game.objects.equipments.GraftedExoskeleton",
@@ -160,7 +160,7 @@
         "game.entities.individuals.battleaxe.S_Headsmash",
         "game.entities.individuals.battleaxe.S_Kick"
       ],
-      "ultimate" : "game.entities.individuals.battleaxe.S_WideSwing",
+      "ultimate": "game.entities.individuals.battleaxe.S_WideSwing",
       "equipments": [
         "game.objects.equipments.GraftedExoskeleton",
         "game.objects.equipments.WingedBoots",
@@ -175,7 +175,7 @@
         "game.entities.individuals.battleaxe.S_Bloodlust",
         "game.entities.individuals.battleaxe.S_BerserkerRage"
       ],
-      "ultimate" : "game.entities.individuals.battleaxe.S_WideSwing",
+      "ultimate": "game.entities.individuals.battleaxe.S_WideSwing",
       "equipments": [
         "game.objects.equipments.BastardSword",
         "game.objects.equipments.ButchersCleaver",
@@ -190,7 +190,7 @@
         "game.entities.individuals.angelguy.S_Reengage",
         "game.entities.individuals.angelguy.S_AngelicWings"
       ],
-      "ultimate" : "game.entities.individuals.angelguy.S_Halo",
+      "ultimate": "game.entities.individuals.angelguy.S_Halo",
       "equipments": [
         "game.objects.equipments.WinterOrb",
         "game.objects.equipments.ShiningArmor",
@@ -205,7 +205,7 @@
         "game.entities.individuals.angelguy.S_LightSpikes",
         "game.entities.individuals.angelguy.S_HolyShield"
       ],
-      "ultimate" : "game.entities.individuals.angelguy.S_Halo",
+      "ultimate": "game.entities.individuals.angelguy.S_Halo",
       "equipments": [
         "game.objects.equipments.ScepterOfTheGods",
         "game.objects.equipments.ArcaneCloak",
@@ -220,7 +220,7 @@
         "game.entities.individuals.duelist.S_AllOut",
         "game.entities.individuals.duelist.S_SwirlingBlades"
       ],
-      "ultimate" : "game.entities.individuals.duelist.S_DuelistDance",
+      "ultimate": "game.entities.individuals.duelist.S_DuelistDance",
       "equipments": [
         "game.objects.equipments.BastardSword",
         "game.objects.equipments.RedOrb",
@@ -235,7 +235,7 @@
         "game.entities.individuals.duelist.S_Mobilize",
         "game.entities.individuals.duelist.S_GiveMeYourWorst"
       ],
-      "ultimate" : "game.entities.individuals.duelist.S_DuelistDance",
+      "ultimate": "game.entities.individuals.duelist.S_DuelistDance",
       "equipments": [
         "game.objects.equipments.JewelOfLife",
         "game.objects.equipments.ButchersCleaver",
@@ -250,7 +250,7 @@
         "game.entities.individuals.firedancer.S_SingingBlades",
         "game.entities.individuals.firedancer.S_FlameDance"
       ],
-      "ultimate" : "game.entities.individuals.firedancer.S_GiftOfTheFirstFlame",
+      "ultimate": "game.entities.individuals.firedancer.S_GiftOfTheFirstFlame",
       "equipments": [
         "game.objects.equipments.RedOrb",
         "game.objects.equipments.FlamingSword",
@@ -265,7 +265,7 @@
         "game.entities.individuals.firedancer.S_RushOfHeat",
         "game.entities.individuals.firedancer.S_FlameLasso"
       ],
-      "ultimate" : "game.entities.individuals.firedancer.S_GiftOfTheFirstFlame",
+      "ultimate": "game.entities.individuals.firedancer.S_GiftOfTheFirstFlame",
       "equipments": [
         "game.objects.equipments.WingedBoots",
         "game.objects.equipments.Arkenwand",
@@ -282,7 +282,7 @@
         "game.entities.individuals.burner.S_TwinFlames",
         "game.entities.individuals.burner.S_FlareUp"
       ],
-      "ultimate" : "game.entities.individuals.burner.S_SpreadingFlames",
+      "ultimate": "game.entities.individuals.burner.S_SpreadingFlames",
       "equipments": [
         "game.objects.equipments.Arkenwand",
         "game.objects.equipments.SnipersTunika",
@@ -297,7 +297,7 @@
         "game.entities.individuals.burner.S_Heat",
         "game.entities.individuals.burner.S_FlareUp"
       ],
-      "ultimate" : "game.entities.individuals.burner.S_SpreadingFlames",
+      "ultimate": "game.entities.individuals.burner.S_SpreadingFlames",
       "equipments": [
         "game.objects.equipments.PocketDarkness",
         "game.objects.equipments.WinterOrb",
@@ -312,7 +312,7 @@
         "game.entities.individuals.dualpistol.S_Roll",
         "game.entities.individuals.dualpistol.S_FocusedFire"
       ],
-      "ultimate" : "game.entities.individuals.dualpistol.S_EagleEye",
+      "ultimate": "game.entities.individuals.dualpistol.S_EagleEye",
       "equipments": [
         "game.objects.equipments.FlamingSword",
         "game.objects.equipments.RedOrb",
@@ -327,7 +327,7 @@
         "game.entities.individuals.dualpistol.S_Outmaneuver",
         "game.entities.individuals.dualpistol.S_LuckyShot"
       ],
-      "ultimate" : "game.entities.individuals.dualpistol.S_EagleEye",
+      "ultimate": "game.entities.individuals.dualpistol.S_EagleEye",
       "equipments": [
         "game.objects.equipments.FlamingSword",
         "game.objects.equipments.WingedBoots",
@@ -342,7 +342,7 @@
         "game.entities.individuals.phoenixguy.S_Fireblast",
         "game.entities.individuals.phoenixguy.S_HonorTheFirstFlame"
       ],
-      "ultimate" : "game.entities.individuals.phoenixguy.S_PhoenixFlames",
+      "ultimate": "game.entities.individuals.phoenixguy.S_PhoenixFlames",
       "equipments": [
         "game.objects.equipments.WingedBoots",
         "game.objects.equipments.ArcaneCloak",
@@ -357,7 +357,7 @@
         "game.entities.individuals.phoenixguy.S_AshenHeat",
         "game.entities.individuals.phoenixguy.S_Combustion"
       ],
-      "ultimate" : "game.entities.individuals.phoenixguy.S_PhoenixFlames",
+      "ultimate": "game.entities.individuals.phoenixguy.S_PhoenixFlames",
       "equipments": [
         "game.objects.equipments.Arkenwand",
         "game.objects.equipments.ArcaneCloak",
@@ -372,7 +372,7 @@
         "game.entities.individuals.rifle.S_FieldRations",
         "game.entities.individuals.rifle.S_Mobilize"
       ],
-      "ultimate" : "game.entities.individuals.rifle.S_Barrage",
+      "ultimate": "game.entities.individuals.rifle.S_Barrage",
       "equipments": [
         "game.objects.equipments.FlamingSword",
         "game.objects.equipments.SnipersTunika",
@@ -387,7 +387,7 @@
         "game.entities.individuals.rifle.S_UseTheScope",
         "game.entities.individuals.rifle.S_DoubleShot"
       ],
-      "ultimate" : "game.entities.individuals.rifle.S_Barrage",
+      "ultimate": "game.entities.individuals.rifle.S_Barrage",
       "equipments": [
         "game.objects.equipments.FlamingSword",
         "game.objects.equipments.SnipersTunika",
@@ -402,7 +402,7 @@
         "game.entities.individuals.thewizard.S_AetherWinds",
         "game.entities.individuals.thewizard.S_Dispel"
       ],
-      "ultimate" : "game.entities.individuals.thewizard.S_LightningStorm",
+      "ultimate": "game.entities.individuals.thewizard.S_LightningStorm",
       "equipments": [
         "game.objects.equipments.ArcaneCloak",
         "game.objects.equipments.Arkenwand",
@@ -417,14 +417,13 @@
         "game.entities.individuals.thewizard.S_AetherStep",
         "game.entities.individuals.thewizard.S_Recharge"
       ],
-      "ultimate" : "game.entities.individuals.thewizard.S_LightningStorm",
+      "ultimate": "game.entities.individuals.thewizard.S_LightningStorm",
       "equipments": [
         "game.objects.equipments.BlueOrb",
         "game.objects.equipments.Arkenwand",
         "game.objects.equipments.ArcaneCloak"
       ]
     }
-
   ],
   "0": [
     {
@@ -435,7 +434,7 @@
         "game.entities.individuals.darkmage.S_DarkSchemes",
         "game.entities.individuals.darkmage.S_UnfairAdvantage"
       ],
-      "ultimate" : "game.entities.individuals.darkmage.S_Deathpact",
+      "ultimate": "game.entities.individuals.darkmage.S_Deathpact",
       "equipments": [
         "game.objects.equipments.ArcaneCloak",
         "game.objects.equipments.BlueOrb",
@@ -450,7 +449,7 @@
         "game.entities.individuals.darkmage.S_LifeForceSharing",
         "game.entities.individuals.darkmage.S_DarkSecrets"
       ],
-      "ultimate" : "game.entities.individuals.darkmage.S_Deathpact",
+      "ultimate": "game.entities.individuals.darkmage.S_Deathpact",
       "equipments": [
         "game.objects.equipments.JewelOfLife",
         "game.objects.equipments.WingedBoots",
@@ -465,7 +464,7 @@
         "game.entities.individuals.divinemage.S_SummonTheLight",
         "game.entities.individuals.divinemage.S_ShieldRay"
       ],
-      "ultimate" : "game.entities.individuals.divinemage.S_HealingGleam",
+      "ultimate": "game.entities.individuals.divinemage.S_HealingGleam",
       "equipments": [
         "game.objects.equipments.ScepterOfTheGods",
         "game.objects.equipments.CrownOfLife",
@@ -480,7 +479,7 @@
         "game.entities.individuals.divinemage.S_Invincibility",
         "game.entities.individuals.divinemage.S_HolyWords"
       ],
-      "ultimate" : "game.entities.individuals.divinemage.S_HealingGleam",
+      "ultimate": "game.entities.individuals.divinemage.S_HealingGleam",
       "equipments": [
         "game.objects.equipments.ScepterOfTheGods",
         "game.objects.equipments.WingedBoots",
@@ -495,7 +494,7 @@
         "game.entities.individuals.sniper.S_GotYourBack",
         "game.entities.individuals.sniper.S_HealingGrenade"
       ],
-      "ultimate" : "game.entities.individuals.sniper.S_FatalBrew",
+      "ultimate": "game.entities.individuals.sniper.S_FatalBrew",
       "equipments": [
         "game.objects.equipments.PocketDarkness",
         "game.objects.equipments.WingedBoots",
@@ -510,7 +509,7 @@
         "game.entities.individuals.sniper.S_BlindingShot",
         "game.entities.individuals.sniper.S_SmokeGrenade"
       ],
-      "ultimate" : "game.entities.individuals.sniper.S_FatalBrew",
+      "ultimate": "game.entities.individuals.sniper.S_FatalBrew",
       "equipments": [
         "game.objects.equipments.WinterOrb",
         "game.objects.equipments.PocketDarkness",
@@ -525,7 +524,7 @@
         "game.entities.individuals.thehealer.S_HolyWords",
         "game.entities.individuals.thehealer.S_HolyLight"
       ],
-      "ultimate" : "game.entities.individuals.thehealer.S_ImbueWithLight",
+      "ultimate": "game.entities.individuals.thehealer.S_ImbueWithLight",
       "equipments": [
         "game.objects.equipments.ArcaneCloak",
         "game.objects.equipments.WingedBoots",
@@ -540,7 +539,7 @@
         "game.entities.individuals.thehealer.S_BlindingLight",
         "game.entities.individuals.thehealer.S_Cleanse"
       ],
-      "ultimate" : "game.entities.individuals.thehealer.S_ImbueWithLight",
+      "ultimate": "game.entities.individuals.thehealer.S_ImbueWithLight",
       "equipments": [
         "game.objects.equipments.ArcaneCloak",
         "game.objects.equipments.BlueOrb",

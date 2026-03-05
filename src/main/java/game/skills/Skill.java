@@ -3,851 +3,917 @@ package game.skills;
 import framework.Logger;
 import framework.Property;
 import framework.connector.Connection;
-import framework.connector.ConnectionType;
+import framework.connector.ConnectionPayload;
 import framework.connector.Connector;
-import framework.connector.payloads.*;
 import framework.graphics.text.Color;
 import framework.resources.SpriteLibrary;
 import framework.states.Arena;
+import game.effects.Effect;
+import game.effects.status.Guarded;
+import game.effects.status.Protected;
 import game.entities.Hero;
 import game.entities.Multiplier;
 import game.objects.Equipment;
-import game.skills.changeeffects.effects.other.Protected;
 import game.skills.logic.*;
 import utils.MyMaths;
+import utils.Utils;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 public class Skill {
 
-    private static int counter;
-    public int id;
-    public Hero hero;
-    public Equipment equipment;
-    public Skill saveState;
+  private static int counter;
+  public int id;
+  public Hero hero;
+  public Equipment equipment;
+  public Skill saveState;
 
-    public String name;
-    public String description;
-    protected int[] iconPixels;
-    protected String iconPath;
-    protected String animationName = "action_w";
+  public String name;
+  public String description;
+  protected int[] iconPixels;
+  protected String iconPath;
+  protected String animationName = "action_w";
 
-    public List<SkillTag> tags = new ArrayList<>();
-    public List<AiSkillTag> aiTags = new ArrayList<>();
+  public List<SkillTag> tags = new ArrayList<>();
+  public List<AiSkillTag> aiTags = new ArrayList<>();
 
-    protected TargetType targetType = TargetType.SINGLE;
-    protected DamageType damageType = null;
-    protected double lifeSteal = 0.0;
-    protected List<Effect> effects = new ArrayList<>();
-    protected List<Effect> casterEffects = new ArrayList<>();
-    protected List<Resource> targetResources = new ArrayList<>();
+  protected TargetType targetType = TargetType.SINGLE;
+  protected DamageType damageType = null;
+  protected DamageMode damageMode = null;
+  protected double lifeSteal = 0.0;
+  protected List<Effect> effects = new ArrayList<>();
+  protected List<Effect> casterEffects = new ArrayList<>();
+  protected Effect globalEffect = null;
+  protected List<Resource> targetResources = new ArrayList<>();
 
-    protected List<Multiplier> dmgMultipliers = new ArrayList<>();
-    protected List<Multiplier> healMultipliers = new ArrayList<>();
-    protected List<Multiplier> shieldMultipliers = new ArrayList<>();
+  protected List<Multiplier> dmgMultipliers = new ArrayList<>();
+  protected List<Multiplier> healMultipliers = new ArrayList<>();
+  protected List<Multiplier> shieldMultipliers = new ArrayList<>();
 
-    protected List<Hero> targets = new ArrayList<>();
+  protected List<Hero> targets = new ArrayList<>();
 
-    protected int accuracy = 100;
-    protected boolean cannotMiss = true;
-    protected int countAsHits = 1;
-    protected int move = 0;
-    protected boolean moveTo = false;
+  protected Integer accuracy = 100;
+  protected boolean cannotMiss = true;
+  protected Integer countAsHits = 1;
+  protected Integer move;
+  protected boolean moveTo = false;
 
-    public int[] possibleTargetPositions = new int[0];
-    public int[] possibleCastPositions = new int[0];
+  public int[] possibleTargetPositions = new int[0];
+  public int[] possibleCastPositions = new int[0];
 
-    //level scalables
-    protected int manaCost = 0;
-    protected int lifeCost = 0;
-    protected int critChance = 0;
-    protected int dmg = 0;
-    protected int heal = 0;
-    protected int shield = 0;
-    protected int lethality = 0;
-    public SkillScripts scripts;
+  protected Integer manaCost = 0;
+  protected Integer lifeCost = 0;
+  protected Integer critChance = 0;
+  protected Integer dmg = 0;
+  protected Integer heal = 0;
+  protected Integer shield = 0;
+  protected Integer lethality = 0;
+  protected Integer currentCd = 0;
+  protected Integer maxCd = 0;
 
-    public Map<ConnectionType, String> triggerMap;
+  public Map<String, String> triggerMap;
 
-    //AI
-    public int getAIRating(Hero target){return 0;}
-    public int getAIArenaRating(Arena arena) {return 0;}
+  /*AI
+   *
+   */
+  public int getAIRating(Hero target) {
+    return 0;
+  }
 
-    protected int getRollRating(Hero target) {
+  public int getAIArenaRating(Arena arena) {
+    return 0;
+  }
 
-        int lastEffectivePosition = this.hero.getLastEffectivePosition();
-        int targetLifeAdvantage = target.getStat(Stat.CURRENT_LIFE) - this.hero.getStat(Stat.CURRENT_LIFE);
+  protected int getRollRating(Hero target) {
 
-        if (target.getPosition() > this.hero.getPosition()) { //ROll Back
-            if (this.hero.getPosition() == lastEffectivePosition) {
-                return -10;
-            }
-            return targetLifeAdvantage / 2;
+    int lastEffectivePosition = this.hero.getLastEffectivePosition();
+    int targetLifeAdvantage =
+        target.getStat(Stat.CURRENT_LIFE) - this.hero.getStat(Stat.CURRENT_LIFE);
 
+    if (target.getPosition() > this.hero.getPosition()) { // ROll Back
+      if (this.hero.getPosition() == lastEffectivePosition) {
+        return -10;
+      }
+      return targetLifeAdvantage / 2;
+
+    } else {
+      if (target.getPosition() == lastEffectivePosition) { // ROLL FORWARD
+        return 10;
+      }
+      return targetLifeAdvantage / 2 * -1;
+    }
+  }
+
+  /*Initiation
+   *
+   */
+
+  public Skill() {}
+
+  public Skill(SkillDTO dto) {
+    if (dto == null) {
+      return;
+    }
+    this.name = dto.name;
+    this.description = dto.description;
+    this.iconPath = dto.iconPath;
+    this.animationName = dto.animationName;
+    this.tags = dto.tags;
+    this.aiTags = dto.aiTags;
+    this.targetType = dto.targetType;
+    this.damageType = dto.damageType;
+    this.damageMode = dto.damageMode;
+    this.lifeSteal = dto.lifeSteal;
+    this.targetResources = dto.targetResources;
+    this.dmgMultipliers = dto.dmgMultipliers;
+    this.healMultipliers = dto.healMultipliers;
+    this.shieldMultipliers = dto.shieldMultipliers;
+    this.manaCost = dto.manaCost;
+    this.lifeCost = dto.lifeCost;
+    this.accuracy = dto.accuracy;
+    this.critChance = dto.critChance;
+    this.dmg = dto.dmg;
+    this.heal = dto.heal;
+    this.shield = dto.shield;
+    this.countAsHits = dto.countAsHits;
+    this.lethality = dto.lethality;
+    this.move = dto.move;
+    this.moveTo = dto.moveTo;
+    this.cannotMiss = dto.cannotMiss;
+    this.possibleCastPositions = dto.possibleCastPositions;
+    this.possibleTargetPositions = dto.possibleTargetPositions;
+    this.maxCd = dto.maxCd;
+
+    initEffects(dto);
+
+    if (SpriteLibrary.hasSprite(this.getName())) {
+      this.iconPixels = SpriteLibrary.getSprite(this.getName());
+    } else {
+      this.iconPixels =
+          SpriteLibrary.sprite(
+              Property.SKILL_ICON_SIZE,
+              Property.SKILL_ICON_SIZE,
+              Property.SKILL_ICON_SIZE,
+              Property.SKILL_ICON_SIZE,
+              this.iconPath,
+              0);
+      SpriteLibrary.addSprite(this.getName(), this.iconPixels);
+    }
+
+    saveState = new Skill();
+    Skill.writeInitialsFromTo(this, saveState);
+  }
+
+  public Skill(Hero hero) {
+    this.id = ++counter;
+    this.hero = hero;
+  }
+
+  private void initEffects(SkillDTO dto) {
+    try {
+      if (dto.effects != null) {
+        for (SkillEffectDTO sed : dto.effects) {
+          Class<?> effectClass = Class.forName(sed.className);
+          Effect effect = (Effect) effectClass.getDeclaredConstructor().newInstance();
+          effect.stacks = sed.stacks;
+          effect.turns = sed.turns;
+          effect.condition = sed.condition;
+          this.effects.add(effect);
+        }
+      }
+      if (dto.casterEffects != null) {
+        for (SkillEffectDTO sed : dto.casterEffects) {
+          Class<?> effectClass = Class.forName(sed.className);
+          Effect effect = (Effect) effectClass.getDeclaredConstructor().newInstance();
+          effect.stacks = sed.stacks;
+          effect.turns = sed.turns;
+          effect.condition = sed.condition;
+          this.casterEffects.add(effect);
+        }
+      }
+      if (dto.globalEffect != null) {
+        Class<?> effectClass = Class.forName(dto.globalEffect.className);
+        Effect effect = (Effect) effectClass.getDeclaredConstructor().newInstance();
+        effect.turns = dto.globalEffect.turns;
+        this.globalEffect = effect;
+      }
+    } catch (ClassNotFoundException
+        | InvocationTargetException
+        | InstantiationException
+        | IllegalAccessException
+        | NoSuchMethodException e) {
+      return;
+    }
+  }
+
+  public void getCurrentVersion() {
+    this.setToInitial();
+    trigger_castChanges();
+  }
+
+  public void setToInitial() {
+    Logger.logLn("Set to initial");
+    Skill.writeInitialsFromTo(this.saveState, this);
+  }
+
+  public boolean performCheck(Hero hero) {
+    return Arrays.stream(this.possibleCastPositions).anyMatch(i -> i == hero.getTeamPosition());
+  }
+
+  public void turn() {}
+
+  public int getLethality() {
+    return this.lethality;
+  }
+
+  public String getUpperDescriptionFor(Hero hero) {
+    return "";
+  }
+
+  public String getComboDescription(Hero hero) {
+    return "";
+  }
+
+  public String getDescriptionFor(Hero hero) {
+    return "";
+  }
+
+  public void addSubscriptions() {
+    if (triggerMap != null) {
+      for (Map.Entry<String, String> entry : this.triggerMap.entrySet()) {
+        Connector.addSubscription(entry.getKey(), new Connection(this, entry.getValue()));
+      }
+    }
+  }
+
+  public void removeSubscriptions() {
+    Connector.removeSubscriptions(this);
+  }
+
+  // SKILL LOGIC
+  public void perform() {
+    this.hero.arena.logCard.addToLog(this.getName() + " performed by " + this.hero.getName() + ".");
+    trigger_onPerform();
+    this.hero.playAnimation(this.animationName);
+    this.hero.payForSkill(this);
+  }
+
+  public void clearEffects() {
+    this.effects = new ArrayList<>();
+    this.casterEffects = new ArrayList<>();
+  }
+
+  public void resolve() {
+    // init action summary
+    if (this.targetType.equals(TargetType.ARENA)) {
+      this.hero.arena.setGlobalEffect(this.globalEffect);
+      this.applySkillEffects(this.hero);
+    } else {
+      oncePerActivationEffect();
+      this.trigger_changeTargets();
+      for (Hero arenaTarget : targets) {
+
+        if (this.targetType.equals(TargetType.SELF)
+            || this.targetType.equals(TargetType.SINGLE_OTHER)) {
+          this.individualResolve(arenaTarget);
         } else {
-            if (target.getPosition() == lastEffectivePosition) { // ROLL FORWARD
-                return 10;
-            }
-            return targetLifeAdvantage / 2 * -1;
+          if (arenaTarget.hasPermanentEffect(Protected.class) && !arenaTarget.isAlly(this.hero)) {
+            this.hero.arena.logCard.addToLog(arenaTarget.getName() + " is shielded!");
+            return;
+          }
+          if (arenaTarget.hasPermanentEffect(Guarded.class) && !arenaTarget.isAlly(this.hero)) {
+            arenaTarget = arenaTarget.getPermanentEffect(Guarded.class).origin;
+          }
+          int evasion = arenaTarget.getStat(Stat.DODGE);
+          int acc = hero.getStat(Stat.ACCURACY);
+          int hitChance = this.accuracy * acc / 100;
+          if (!this.cannotMiss && !MyMaths.success(hitChance - evasion)) {
+            this.hero.arena.logCard.addToLog("Missed " + arenaTarget.getName() + "!");
+            continue;
+          }
+          this.individualResolve(arenaTarget);
         }
+        if (this.moveTo) {
+          this.hero.arena.moveTo(this.hero, arenaTarget.getPosition());
+        }
+      }
+    }
+  }
+
+  protected void oncePerActivationEffect() {}
+
+  protected void individualResolve(Hero target) {
+    int dmg = getDmgWithMulti(target);
+    for (int i = 0; i < getCountsAsHits(); i++) {
+      int dmgPerHit = dmg;
+      int critChance = this.hero.getStat(Stat.CRIT_CHANCE);
+      critChance += this.critChance;
+      if (MyMaths.success(critChance)) {
+        this.hero.arena.logCard.addToLog("Crit!");
+        Logger.logLn("Crit!");
+        dmgPerHit = (int) (dmgPerHit * 1.5);
+        this.trigger_onCrit(target, this);
+      }
+      if (dmgPerHit > 0) {
+        int doneDamage = target.damage(dmgPerHit, this.hero, this, null, null, lethality);
+        this.trigger_onDamage(target, this, doneDamage);
+      }
+      int heal = this.getHealWithMulti(target);
+      if (heal > 0) {
+        target.heal(heal, this.hero, this, null, null, false);
+      }
+      int shield = this.getShieldWithMulti(target);
+      if (shield > 0) {
+        target.shield(shield, this.hero, this, null, null);
+      }
+      this.applySkillEffects(target);
+    }
+  }
+
+  public void applySkillEffects(Hero target) {
+
+    for (Effect effect : this.casterEffects) {
+      if (Effect.ChangeEffectType.FIELD.equals(effect.type)) {
+        this.hero.arena.addFieldEffect(this.hero.getPosition(), effect, this.hero);
+      } else {
+        if (effect.condition != null && effect.condition.isMet(this.hero, target)) {
+          this.hero.addEffect(effect, this.hero);
+        }
+      }
+    }
+    if (this.move != 0) {
+      this.hero.arena.moveTo(
+          target, target.getPosition() + (target.isTeam2() ? this.move : -1 * this.move));
+    }
+    for (Effect effect : this.effects) {
+      if (Effect.ChangeEffectType.FIELD.equals(effect.type)) {
+        this.hero.arena.addFieldEffect(target.getPosition(), effect, this.hero);
+      } else {
+        if (effect.condition != null && effect.condition.isMet(this.hero, target)) {
+          target.addEffect(effect, this.hero);
+        }
+      }
+    }
+    target.addSkillResources(this.targetResources, this, this.hero, this.equipment);
+
+    // action summary add all effects
+  }
+
+  protected int getShieldMultiBonus() {
+    return this.getMultiplierBonus(this.shieldMultipliers);
+  }
+
+  protected int getHealMultiBonus() {
+    return this.getMultiplierBonus(this.healMultipliers);
+  }
+
+  protected int getDmgMultiBonus() {
+    return this.getMultiplierBonus(this.dmgMultipliers);
+  }
+
+  protected int getMultiplierBonus(List<Multiplier> multipliers) {
+    if (multipliers == null) {
+      return 0;
+    }
+    int result = 0;
+    for (Multiplier m : multipliers) {
+      result += (int) (m.percentage * this.hero.getStat(m.prof));
+    }
+    return result;
+  }
+
+  public int[] setupTargetMatrix() {
+    if (this.targetType == null) {
+      return new int[0];
+    }
+    List<Integer> targetList = new ArrayList<>();
+
+    for (int pos : this.possibleTargetPositions) {
+      int targetPos = convertTargetPos(pos);
+      if (this.targetType.equals(TargetType.SINGLE_OTHER) && this.hero.getPosition() == targetPos) {
+        continue;
+      }
+      targetList.add(targetPos);
+    }
+    if (targetType.equals(TargetType.SINGLE) && targetList.stream().anyMatch(i -> i > 2)) {
+      targetList.addAll(List.of(0, 1, 2));
+    }
+    Collections.sort(targetList);
+    int[] targets = new int[targetList.size()];
+    for (int i = 0; i < targets.length; i++) {
+      targets[i] = targetList.get(i);
     }
 
-    public boolean performCheck(Hero hero) {
-        return Arrays.stream(this.possibleCastPositions).anyMatch(i -> i == hero.getCasterPosition());
+    return targets;
+  }
+
+  public int[] getConvertedTargetPos() {
+    return convertTargetPos(this.possibleTargetPositions);
+  }
+
+  public int convertTargetPos(int pos) {
+    return this.hero.isTeam2() ? Arena.lastEnemyPos - pos : pos;
+  }
+
+  public int[] convertTargetPos(int[] pos) {
+    for (int i = 0; i < pos.length; i++) {
+      pos[i] = convertTargetPos(pos[i]);
     }
-    public Skill() {}
+    return pos;
+  }
 
-    public Skill(SkillDTO dto) {
-        this.scripts = new SkillScripts(this);
-        if (dto.name != null)
-            this.name = dto.name;
-        if (dto.description != null)
-            this.description = dto.description;
-        if (dto.iconPath != null)
-            this.iconPath = dto.iconPath;
-        if (dto.animationName != null)
-            this.animationName = dto.animationName;
+  // triggers
 
-        if (dto.tags != null)
-            this.tags = dto.tags;
+  public void trigger_onPerform() {
+    ConnectionPayload pl = new ConnectionPayload().setSkill(this);
+    Connector.fireTopic(Connector.ON_PERFORM, pl);
+  }
 
-        if (dto.aiTags != null)
-            this.aiTags = dto.aiTags;
-        if (dto.targetType != null)
-            this.targetType = dto.targetType;
-        if (dto.damageType != null)
-            this.damageType = dto.damageType;
-        this.lifeSteal = dto.lifeSteal;
-        if (dto.targetResources != null)
-            this.targetResources = dto.targetResources;
-        if (dto.dmgMultipliers != null)
-            this.dmgMultipliers = dto.dmgMultipliers;
-        if (dto.healMultipliers != null)
-            this.healMultipliers = dto.healMultipliers;
-        if (dto.shieldMultipliers != null)
-            this.shieldMultipliers = dto.shieldMultipliers;
-        this.manaCost = dto.manaCost;
-        this.lifeCost = dto.lifeCost;
-        if (dto.accuracy != 100)
-            this.accuracy = dto.accuracy;
-        this.critChance = dto.critChance;
-        this.dmg = dto.dmg;
-        this.heal = dto.heal;
-        this.shield = dto.shield;
-        this.countAsHits = dto.countAsHits;
-        this.lethality = dto.lethality;
-        this.move = dto.move;
-        this.moveTo = dto.moveTo;
-        this.cannotMiss = dto.cannotMiss;
+  public void trigger_onCrit(Hero target, Skill cast) {
+    ConnectionPayload criticalTriggerPayload =
+        new ConnectionPayload().setTarget(target).setSkill(cast);
+    Connector.fireTopic(Connector.CRITICAL_TRIGGER, criticalTriggerPayload);
+  }
 
-        if (dto.triggerMap != null)
-            this.triggerMap = dto.triggerMap;
-        if (dto.possibleCastPositions != null)
-            this.possibleCastPositions = dto.possibleCastPositions;
-        if (dto.possibleTargetPositions != null)
-            this.possibleTargetPositions = dto.possibleTargetPositions;
+  public void trigger_onDamage(Hero target, Skill cast, int damageDone) {
+    ConnectionPayload ConnectionPayload =
+        new ConnectionPayload().setTarget(target).setSkill(cast).setDmg(damageDone);
+    Connector.fireTopic(Connector.DMG_TRIGGER, ConnectionPayload);
+  }
 
-        initEffects(dto);
+  public void trigger_castChanges() {
+    ConnectionPayload payload = new ConnectionPayload().setSkill(this);
+    Connector.fireTopic(Connector.CAST_CHANGE, payload);
+  }
 
-        if (SpriteLibrary.hasSprite(this.getName())) {
-            this.iconPixels = SpriteLibrary.getSprite(this.getName());
+  public void trigger_changeTargets() {
+    ConnectionPayload payload = new ConnectionPayload().setSkill(this);
+    Connector.fireTopic(Connector.TARGET_CHANGE, payload);
+  }
+
+  /*
+   *       Getters / Setters
+   *
+   *
+   *
+   *
+   */
+
+  public int getLifeCost(Hero caster) {
+    return lifeCost;
+  }
+
+  protected List<Effect> of(Effect[] effects) {
+    List<Effect> result = new ArrayList<>();
+    Collections.addAll(result, effects);
+    return result;
+  }
+
+  protected List<Multiplier> of(Multiplier[] multiplier) {
+    List<Multiplier> result = new ArrayList<>();
+    Collections.addAll(result, multiplier);
+    return result;
+  }
+
+  public TargetType getTargetType() {
+    return targetType;
+  }
+
+  public void setTargetType(TargetType targetType) {
+    this.targetType = targetType;
+  }
+
+  public boolean isPassive() {
+    return this.tags.contains(SkillTag.PASSIVE);
+  }
+
+  public List<Effect> getEffects() {
+    return effects;
+  }
+
+  public void setEffects(List<Effect> effects) {
+    this.effects = effects;
+  }
+
+  public List<Effect> getCasterEffects() {
+    return casterEffects;
+  }
+
+  public void setCasterEffects(List<Effect> casterEffects) {
+    this.casterEffects = casterEffects;
+  }
+
+  public List<Multiplier> getDmgMultipliers() {
+    return dmgMultipliers;
+  }
+
+  public void setDmgMultipliers(List<Multiplier> dmgMultipliers) {
+    this.dmgMultipliers = dmgMultipliers;
+  }
+
+  public List<Multiplier> getHealMultipliers() {
+    return healMultipliers;
+  }
+
+  public List<Multiplier> getShieldMultipliers() {
+    return shieldMultipliers;
+  }
+
+  public void setHealMultipliers(List<Multiplier> healMultipliers) {
+    this.healMultipliers = healMultipliers;
+  }
+
+  public int getLifeCost() {
+    return lifeCost;
+  }
+
+  public void setLifeCost(int lifeCost) {
+    this.lifeCost = lifeCost;
+  }
+
+  public int getAccuracy() {
+    return accuracy;
+  }
+
+  public void setAccuracy(int accuracy) {
+    this.accuracy = accuracy;
+  }
+
+  public int getManaCost() {
+    return manaCost;
+  }
+
+  public void setManaCost(int manaCost) {
+    this.manaCost = manaCost;
+  }
+  public DamageMode getDamageMode() {
+    return this.damageMode;
+  }
+  public int getDmg(Hero target) {
+    return MyMaths.getLevelStat(dmg, this.hero.getLevel());
+  }
+
+  public int getDmgWithMulti(Hero target) {
+    return getDmg(target) + getDmgMultiBonus();
+  }
+
+  public int getShieldWithMulti(Hero target) {
+    int baseShield = this.getShield(target);
+    int multiBonus = getShieldMultiBonus();
+    return baseShield + multiBonus;
+  }
+
+  public int getHealWithMulti(Hero target) {
+    int baseHeal = this.getHeal(target);
+    int multiplierBonus = getHealMultiBonus();
+    return baseHeal + multiplierBonus;
+  }
+
+  public int getHeal(Hero target) {
+    return MyMaths.getLevelStat(heal, this.hero.getLevel());
+  }
+
+  public void setPower(int power) {
+    this.dmg = power;
+  }
+
+  public int getCountsAsHits() {
+    return this.countAsHits;
+  }
+
+  public void setCountsAsHits(int countsAsHits) {
+    this.countAsHits = countsAsHits;
+  }
+
+  public String getIcon() {
+    return "aa_blaster";
+  }
+
+  public int[] getIconPixels() {
+    return iconPixels;
+  }
+
+  public List<Resource> getTargetResources() {
+    return targetResources;
+  }
+
+  public void setTargetResources(List<Resource> targetResources) {
+    this.targetResources = targetResources;
+  }
+
+  public String getName() {
+    return this.name;
+  }
+
+  public DamageType getDamageType() {
+    return damageType;
+  }
+
+  public Integer getMove() {
+    return move;
+  }
+  public boolean isMoveTo() {
+    return moveTo;
+  }
+  public Integer getMaxCd() {
+    return maxCd;
+  }
+
+  public Skill setMaxCd(Integer maxCd) {
+    this.maxCd = maxCd;
+    return this;
+  }
+
+  public Integer getCurrentCd() {
+    return currentCd;
+  }
+
+  public Skill setCurrentCd(Integer currentCd) {
+    this.currentCd = currentCd;
+    return this;
+  }
+
+  public void setCannotMiss(boolean bl) {
+    this.cannotMiss = bl;
+  }
+
+  public boolean isCannotMiss() {
+    return cannotMiss;
+  }
+
+  public int getShield(Hero target) {
+    return MyMaths.getLevelStat(shield, this.hero.getLevel());
+  }
+
+  public String getTargetString() {
+    StringBuilder builder = new StringBuilder();
+    if (this.isPassive()) {
+      return "Passive";
+    }
+    List<Integer> castPosList = Arrays.stream(this.possibleCastPositions).boxed().toList();
+    List<Integer> targetPosList = Arrays.stream(this.possibleTargetPositions).boxed().toList();
+    for (int i = 0; i < Arena.firstEnemyPos; i++) {
+      if (castPosList.contains(i)) {
+        builder.append("[FTT]");
+      } else {
+        builder.append("[EMT]");
+      }
+    }
+    builder.append(" ");
+
+    if (this.targetType.equals(TargetType.SELF)) {
+      builder.append("Self");
+    } else if (targetType.equals(TargetType.ARENA)) {
+      builder.append("Arena");
+    } else if (targetType.equals(TargetType.ALL)) {
+      builder.append("All");
+    } else if (targetPosList.stream().anyMatch(i -> i < Arena.firstEnemyPos)) {
+      for (int i = 0; i < Arena.numberPositions; i++) {
+        if (targetPosList.contains(i)) {
+          if (targetType.equals(TargetType.SINGLE_OTHER)) {
+            builder.append("[OTT]");
+          } else if (targetType.equals(TargetType.SINGLE)) {
+            builder.append("[FTT]");
+          } else if (targetType.equals(TargetType.ALL_TARGETS)) {
+            builder.append("[FTA]");
+          }
         } else {
-            this.iconPixels = SpriteLibrary.sprite(Property.SKILL_ICON_SIZE,Property.SKILL_ICON_SIZE,Property.SKILL_ICON_SIZE,Property.SKILL_ICON_SIZE,
-                    this.iconPath, 0);
-            SpriteLibrary.addSprite(this.getName(), this.iconPixels);
+          builder.append("[EMT]");
         }
-
-        saveState = new Skill();
-        Skill.writeInitialsFromTo(this, saveState);
-    }
-
-    private void set(Object a, Object b) {
-        if (b!=null) {
-            a = b;
-        }
-    }
-
-    private void initEffects(SkillDTO dto) {
-        if (dto.effects != null) {
-            for (SkillEffectDTO sed: dto.effects) {
-                this.effects.add(EffectLibrary.getEffect(sed.name, sed.stacks, sed.turns, sed.condition));
-            }
-        }
-        if (dto.casterEffects != null){
-            for (SkillEffectDTO sed : dto.casterEffects) {
-                this.casterEffects.add(EffectLibrary.getEffect(sed.name, sed.stacks, sed.turns, sed.condition));
-            }
-        }
-    }
-
-    public Skill(Hero hero) {
-        this.id = ++counter;
-        this.hero = hero;
-    }
-
-    public void getCurrentVersion() {
-        this.setToInitial();
-        CastChangePayload payload = new CastChangePayload()
-                .setSkill(this);
-        Connector.fireTopic(Connector.CAST_CHANGE, payload);
-    }
-
-    public void setToInitial() {
-        Logger.logLn("Set to initial");
-        this.effects = new ArrayList<>();
-        this.casterEffects = new ArrayList<>();
-        this.dmgMultipliers = new ArrayList<>();
-        this.lifeCost = 0;
-        this.accuracy = 100;
-        this.critChance = 0;
-        this.dmg = 0;
-        this.heal = 0;
-        this.manaCost = 0;
-        this.shield = 0;
-        this.cannotMiss = false;
-        this.countAsHits = 1;
-        this.lethality = 0;
-        this.move = 0;
-        if (SpriteLibrary.hasSprite(this.getName())) {
-            this.iconPixels = SpriteLibrary.getSprite(this.getName());
+      }
+    } else {
+      for (int i = Arena.firstEnemyPos; i <= Arena.lastEnemyPos; i++) {
+        if (targetPosList.contains(i)) {
+          if (targetType.equals(TargetType.SINGLE)) {
+            builder.append("[ETT]");
+          } else if (targetType.equals(TargetType.ALL_TARGETS)) {
+            builder.append("[ETA]");
+          }
         } else {
-            this.iconPixels = SpriteLibrary.sprite(Property.SKILL_ICON_SIZE,Property.SKILL_ICON_SIZE,Property.SKILL_ICON_SIZE,Property.SKILL_ICON_SIZE,
-                    this.iconPath, 0);
-            SpriteLibrary.addSprite(this.getName(), this.iconPixels);
+          builder.append("[EMT]");
         }
+      }
+    }
+    return builder.toString();
+  }
+
+  protected String getDmgString() {
+    int fullDmg = this.getDmgWithMulti(null);
+    int dmg = this.getDmg(null);
+    String pureDmg = dmg == 0 ? "" : dmg + "";
+    StringBuilder builder = new StringBuilder();
+    Iterator<Multiplier> iter = this.dmgMultipliers.iterator();
+    while (iter.hasNext()) {
+      Multiplier mult = iter.next();
+      String profColor = mult.prof.getColorKey();
+      builder.append(profColor);
+      builder
+          .append((int) (mult.percentage * 100))
+          .append("%")
+          .append(mult.prof.getReference())
+          .append("{001}");
+      if (iter.hasNext()) {
+        builder.append("+");
+      }
+    }
+    String multiDmg = builder.toString();
+    StringBuilder resultBuilder = new StringBuilder();
+    resultBuilder.append(fullDmg);
+    if (!multiDmg.isEmpty()) {
+      resultBuilder.append(" (");
+      if (!pureDmg.isEmpty()) {
+        resultBuilder.append(pureDmg);
+        resultBuilder.append("+");
+      }
+      resultBuilder.append(multiDmg);
+      resultBuilder.append(")");
+    }
+    return resultBuilder.toString();
+  }
+
+  protected String getHealString() {
+    int fullHeal = this.getHealWithMulti(null);
+    int heal = this.getHeal(null);
+    String pureHeal = heal == 0 ? "" : heal + "";
+    StringBuilder builder = new StringBuilder();
+    Iterator<Multiplier> iter = this.healMultipliers.iterator();
+    while (iter.hasNext()) {
+      Multiplier mult = iter.next();
+      String profColor = mult.prof.getColorKey();
+      builder.append(profColor);
+      builder
+          .append((int) (mult.percentage * 100))
+          .append("%")
+          .append(mult.prof.getReference())
+          .append("{001}");
+      if (iter.hasNext()) {
+        builder.append("+");
+      }
+    }
+    String multiHeal = builder.toString();
+    StringBuilder resultBuilder = new StringBuilder();
+    resultBuilder.append(fullHeal);
+    if (!multiHeal.isEmpty()) {
+      resultBuilder.append(" (");
+      if (!pureHeal.isEmpty()) {
+        resultBuilder.append(pureHeal);
+        resultBuilder.append("+");
+      }
+      resultBuilder.append(multiHeal);
+      resultBuilder.append(")");
+    }
+    return resultBuilder.toString();
+  }
+
+  protected String getShieldString() {
+    int fullShield = this.getShieldWithMulti(null);
+    int shield = this.getShield(null);
+    String pureShield = shield == 0 ? "" : shield + "";
+    StringBuilder builder = new StringBuilder();
+    Iterator<Multiplier> iter = this.shieldMultipliers.iterator();
+    while (iter.hasNext()) {
+      Multiplier mult = iter.next();
+      String profColor = mult.prof.getColorKey();
+      builder.append(profColor);
+      builder
+          .append((int) (mult.percentage * 100))
+          .append("%")
+          .append(mult.prof.getReference())
+          .append("{001}");
+      if (iter.hasNext()) {
+        builder.append("+");
+      }
+    }
+    String multiShield = builder.toString();
+    StringBuilder resultBuilder = new StringBuilder();
+    resultBuilder.append(fullShield);
+    if (!multiShield.isEmpty()) {
+      resultBuilder.append(" (");
+      if (!pureShield.isEmpty()) {
+        resultBuilder.append(pureShield);
+        resultBuilder.append("+");
+      }
+      resultBuilder.append(multiShield);
+      resultBuilder.append(")");
+    }
+    return resultBuilder.toString();
+  }
+
+  public String getDmgStringGUI() {
+    StringBuilder builder = new StringBuilder();
+    if (this.getDmg(null) != 0 || !this.dmgMultipliers.isEmpty()) {
+      builder.append("DMG: ");
+      builder.append(getDmgString());
+    }
+    return builder.toString();
+  }
+
+  public String getHealStringGUI() {
+    StringBuilder builder = new StringBuilder();
+    if ((this.getHeal(null) != 0 || !this.healMultipliers.isEmpty())) {
+      if (this.getHeal(null) != 0 || !this.healMultipliers.isEmpty()) {
+        builder.append("HEAL: ");
+        builder.append(Color.WHITE.getCodeString());
+        builder.append(getHealString());
+      }
+    }
+    return builder.toString();
+  }
+
+  public String getShieldStringGUI() {
+    StringBuilder builder = new StringBuilder();
+    if ((this.getShield(null) != 0 || !this.shieldMultipliers.isEmpty())) {
+      if (this.getShield(null) != 0 || !this.shieldMultipliers.isEmpty()) {
+        builder.append("SHIELD: ");
+        builder.append(getShieldString());
+      }
+    }
+    return builder.toString();
+  }
+
+  public String getEffectString() {
+    return getEffectStringForEffectList(this.effects, "Target Effects: ");
+  }
+
+  public String getCasterEffectString() {
+    return getEffectStringForEffectList(this.casterEffects, "Caster Effects: ");
+  }
+
+  public String getEffectStringForEffectList(List<Effect> effectList, String listPrefix) {
+    if (effectList.isEmpty()) {
+      return "";
+    }
+    StringBuilder effectString = new StringBuilder();
+    effectString.append(listPrefix);
+    Iterator<Effect> iterator = effectList.iterator();
+    while (iterator.hasNext()) {
+      Effect effect = iterator.next();
+      int value = effect.stackable ? effect.stacks : effect.turns;
+      effectString
+          .append(effect.getIconString())
+          .append("(")
+          .append(value == -1 ? "~" : value)
+          .append(")");
+      if (iterator.hasNext()) {
+        effectString.append(", ");
+      }
     }
 
-    public void turn() {
-    }
+    return effectString.toString();
+  }
 
-    public int getLethality() {
-        return this.lethality;
-    }
+  public static void writeInitialsFromTo(Skill from, Skill to) {
+    to.effects = Utils.copyEffect(from.effects);
+    to.casterEffects = Utils.copyEffect(from.casterEffects);
+    to.targetResources = Utils.copyResource(from.targetResources);
+    to.dmgMultipliers = Utils.copyMultiplier(from.dmgMultipliers);
+    to.healMultipliers = Utils.copyMultiplier(from.healMultipliers);
+    to.shieldMultipliers = Utils.copyMultiplier(from.shieldMultipliers);
+    to.manaCost = from.manaCost;
+    to.lifeCost = from.lifeCost;
+    to.accuracy = from.accuracy;
+    to.critChance = from.critChance;
+    to.damageType = from.damageType;
+    to.damageMode = from.damageMode;
+    to.dmg = from.dmg;
+    to.heal = from.heal;
+    to.shield = from.shield;
+    to.maxCd = from.maxCd;
+    to.cannotMiss = from.cannotMiss;
+    to.lethality = from.lethality;
+    to.countAsHits = from.countAsHits;
+    to.move = from.move;
+    to.moveTo = from.moveTo;
+  }
 
-    public String getUpperDescriptionFor(Hero hero) {
-        return "";
-    }
+  public void setTargets(Hero[] entitiesAt) {
+    this.targets = List.of(entitiesAt);
+  }
 
-    public String getComboDescription(Hero hero) {
-        return "";
-    }
+  public List<Hero> getTargets() {
+    return this.targets;
+  }
 
-    public String getDescriptionFor(Hero hero) {
-        return "";
-    };
-    public void addSubscriptions() {
-        if (triggerMap != null) {
-            for (Map.Entry<ConnectionType, String> entry : this.triggerMap.entrySet()) {
-                ConnectionType ct = entry.getKey();
-                Connector.addSubscription(ct.name, new Connection(scripts, ct.payloadClass, entry.getValue()));
-            }
-        }
+  public int getSort() {
+    if (this.tags.contains(SkillTag.PRIMARY)) {
+      return 1;
     }
-    public void removeSubscriptions() {
-        Connector.removeSubscriptions(this);
+    if (this.tags.contains(SkillTag.TACTICAL)) {
+      return 2;
     }
-    //SKILL LOGIC
-    public void baseDamageChanges(Hero target, Hero caster){
-        if (this.dmg > 0 || !this.dmgMultipliers.isEmpty()) {
-            DmgChangesPayload dmgChangesPayload = new DmgChangesPayload()
-                    .setDmg(this.dmg)
-                    .setSkill(this)
-                    .setTarget(target)
-                    .setCaster(caster);
-            Connector.fireTopic(Connector.BASE_DMG_CHANGES, dmgChangesPayload);
-            this.dmg = dmgChangesPayload.dmg;
-        }
+    if (this.tags.contains(SkillTag.ULT)) {
+      return 3;
     }
-    public void baseHealChanges(Hero target, Hero caster) {
-        if (this.heal > 0 || !this.healMultipliers.isEmpty()) {
-            BaseHealChangesPayload baseHealChangesPayload = new BaseHealChangesPayload()
-                    .setHeal(this.heal)
-                    .setSkill(this)
-                    .setTarget(target)
-                    .setCaster(caster);
-            Connector.fireTopic(Connector.BASE_HEAL_CHANGES, baseHealChangesPayload);
-            this.heal = baseHealChangesPayload.heal;
-        }
+    if (this.equipment != null) {
+      return 4;
     }
-    public void perform() {
-        this.hero.arena.logCard.addToLog(this.getName() + " performed by " + this.hero.getName() + ".");
-        OnPerformPayload pl = new OnPerformPayload()
-                .setSkill(this);
-        Connector.fireTopic(Connector.ON_PERFORM, pl);
-        this.hero.playAnimation(this.animationName);
-        this.hero.payForSkill(this);
-    }
-    public void clearEffects() {
-        this.effects = new ArrayList<>();
-        this.casterEffects = new ArrayList<>();
-    }
+    return 5;
+  }
 
-    public void resolve() {
-        //init action summary
-        if (this.targetType.equals(TargetType.ARENA)) {
-            this.applySkillEffects(this.hero);
-        } else {
-            oncePerActivationEffect();
-            for (Hero arenaTarget : targets) {
+  public void reset() {}
 
-                if (this.targetType.equals(TargetType.SELF) || this.targetType.equals(TargetType.SINGLE_OTHER)) {
-                    this.individualResolve(arenaTarget);
-                } else {
-                    if (arenaTarget.hasPermanentEffect(Protected.class) > 0
-                        && arenaTarget.isTeam2() != this.hero.isTeam2()) {
-                        this.hero.arena.logCard.addToLog(arenaTarget.getName()+" is shielded!");
-                        return;
-                    }
-                    int evasion = arenaTarget.getStat( Stat.EVASION);
-                    int acc = hero.getStat(Stat.ACCURACY);
-                    int hitChance = this.accuracy * acc / 100;
-                    if (!this.cannotMiss && !MyMaths.success(hitChance - evasion)) {
-                        this.hero.arena.logCard.addToLog("Missed "+arenaTarget.getName()+"!");
-                        continue;
-                    }
-                    this.individualResolve(arenaTarget);
-                }
-                if (this.moveTo) {
-                    this.hero.arena.moveTo(this.hero, arenaTarget.getPosition());
-                }
-            }
-        }
-    }
-    protected void oncePerActivationEffect() {}
-    protected void individualResolve(Hero target) {
-        this.baseDamageChanges(target, this.hero);
-        this.baseHealChanges(target, this.hero);
-        int dmg = getDmgWithMulti(target);
-        int lethality = this.hero.getStat(Stat.LETHALITY);
-        for (int i = 0; i < getCountsAsHits(); i++) {
-            int dmgPerHit = dmg;
-            int critChance = this.hero.getStat(Stat.CRIT_CHANCE);
-            critChance += this.critChance;
-            if (MyMaths.success(critChance)) {
-                this.hero.arena.logCard.addToLog("Crit!");
-                Logger.logLn("Crit!");
-                dmgPerHit= (int)(dmgPerHit * 1.5);
-                this.fireCritTrigger(target, this);
-            }
-            if (dmgPerHit>0) {
-                int doneDamage = target.damage(this.hero, dmgPerHit, lethality, this);
-                this.fireDmgTrigger(target,this, doneDamage);
-            }
-            int heal = this.getHealWithMulti(target);
-            if (heal > 0) {
-                target.heal(this.hero, heal, this, false);
-            }
-            int shield = this.getShieldWithMulti(target);
-            if (shield > 0) {
-                target.shield(shield, this.hero);
-            }
-            this.applySkillEffects(target);
-        }
-    }
-    public void fireCritTrigger(Hero target, Skill cast) {
-        CriticalTriggerPayload criticalTriggerPayload = new CriticalTriggerPayload()
-                .setTarget(target)
-                .setCast(cast);
-        Connector.fireTopic(Connector.CRITICAL_TRIGGER, criticalTriggerPayload);
-    }
-
-    public void fireDmgTrigger(Hero target, Skill cast, int damageDone) {
-        DmgTriggerPayload dmgTriggerPayload = new DmgTriggerPayload()
-                .setTarget(target)
-                .setCast(cast)
-                .setDmgDone(damageDone);
-        Connector.fireTopic(Connector.DMG_TRIGGER, dmgTriggerPayload);
-    }
-    public void applySkillEffects(Hero target) {
-
-        for (Effect effect : this.getCasterEffects()) {
-            if ( effect.condition != null && effect.condition.isMet(this.hero, target)) {
-                this.hero.addEffect(effect, this.hero);
-            }
-        }
-        if (this.move != 0) {
-            this.hero.arena.moveTo(target, target.getPosition() + (target.isTeam2()?this.move:-1*this.move));
-        }
-        for (Effect effect : this.getEffects()) {
-            if (effect.condition != null && effect.condition.isMet(this.hero, target)) {
-                target.addEffect(effect, this.hero);
-            }
-        }
-        target.addResources(this.targetResources, this.hero);
-
-        //action summary add all effects
-    }
-    protected int getShieldMultiBonus() {
-        return this.getMultiplierBonus(this.shieldMultipliers);
-    }
-    protected int getHealMultiBonus() {
-        return this.getMultiplierBonus(this.healMultipliers);
-    }
-    protected int getDmgMultiBonus() {
-        return this.getMultiplierBonus(this.dmgMultipliers);
-    }
-    protected int getMultiplierBonus(List<Multiplier> multipliers) {
-        if(multipliers ==null) {
-            return 0;
-        }
-        int result = 0;
-        for(Multiplier m : multipliers) {
-            result +=(int)( m.percentage * this.hero.getStat(m.prof));
-        }
-        return result;
-    }
-    public int[] setupTargetMatrix() {
-        if (this.targetType == null) {
-            return new int[0];
-        }
-        List<Integer> targetList = new ArrayList<>();
-
-        for (int pos : this.possibleTargetPositions) {
-            int targetPos = convertTargetPos(pos);
-            if (this.targetType.equals(TargetType.SINGLE_OTHER) && this.hero.getPosition() == targetPos) {
-                continue;
-            }
-            targetList.add(targetPos);
-        }
-        if (targetType.equals(TargetType.SINGLE) && targetList.stream().anyMatch(i -> i > 2)) {
-            targetList.addAll(List.of(0,1,2));
-        }
-        Collections.sort(targetList);
-        int[] targets = new int[targetList.size()];
-        for (int i = 0; i < targets.length; i++) {
-            targets[i] = targetList.get(i);
-        }
-
-        return targets;
-    }
-    public int[] getConvertedTargetPos() {
-        return convertTargetPos(this.possibleTargetPositions);
-    }
-    public int convertTargetPos(int pos) {
-        return this.hero.isTeam2() ? Arena.lastEnemyPos - pos : pos;
-    }
-
-    public int[] convertTargetPos(int[] pos) {
-        for (int i = 0; i < pos.length; i++) {
-            pos[i] = convertTargetPos(pos[i]);
-        }
-        return pos;
-    }
-    public int getLifeCost(Hero caster) {
-        return lifeCost;
-    }
-    protected List<Effect> of(Effect[] effects){
-        List<Effect> result = new ArrayList<>();
-        Collections.addAll(result, effects);
-        return result;
-    }
-    protected List<Multiplier> of(Multiplier[] multiplier){
-        List<Multiplier> result = new ArrayList<>();
-        Collections.addAll(result, multiplier);
-        return result;
-    }
-
-    public TargetType getTargetType() {
-        return targetType;
-    }
-
-    public void setTargetType(TargetType targetType) {
-        this.targetType = targetType;
-    }
-
-    public boolean isPassive() {
-        return this.tags.contains(SkillTag.PASSIVE);
-    }
-
-    public List<Effect> getEffects() {
-        return effects;
-    }
-
-    public void setEffects(List<Effect> effects) {
-        this.effects = effects;
-    }
-
-    public List<Effect> getCasterEffects() {
-        return casterEffects;
-    }
-
-    public void setCasterEffects(List<Effect> casterEffects) {
-        this.casterEffects = casterEffects;
-    }
-
-    public List<Multiplier> getDmgMultipliers() {
-        return dmgMultipliers;
-    }
-
-    public void setDmgMultipliers(List<Multiplier> dmgMultipliers) {
-        this.dmgMultipliers = dmgMultipliers;
-    }
-
-    public List<Multiplier> getHealMultipliers() {
-        return healMultipliers;
-    }
-
-    public List<Multiplier> getShieldMultipliers() {
-        return shieldMultipliers;
-    }
-
-    public void setHealMultipliers(List<Multiplier> healMultipliers) {
-        this.healMultipliers = healMultipliers;
-    }
-
-    public int getLifeCost() {
-        return lifeCost;
-    }
-
-    public void setLifeCost(int lifeCost) {
-        this.lifeCost = lifeCost;
-    }
-
-    public int getAccuracy() {
-        return accuracy;
-    }
-
-    public void setAccuracy(int accuracy) {
-        this.accuracy = accuracy;
-    }
-
-    public int getManaCost() {
-        return manaCost;
-    }
-
-    public Skill setManaCost(int manaCost) {
-        this.manaCost = manaCost;
-        return this;
-    }
-    public int getDmg(Hero target) {
-        return MyMaths.getLevelStat(dmg, this.hero.getLevel());
-    }
-    public int getDmgWithMulti(Hero target) {
-        return getDmg(target) + getDmgMultiBonus();
-    }
-
-    public int getShieldWithMulti(Hero target) {
-        int baseShield = this.getShield(target);
-        int multiBonus = getShieldMultiBonus();
-        return baseShield + multiBonus;
-    }
-    public int getHealWithMulti(Hero target) {
-        int baseHeal = this.getHeal(target);
-        int multiplierBonus = getHealMultiBonus();
-        return baseHeal + multiplierBonus;
-    }
-    public int getHeal(Hero target) {
-        return MyMaths.getLevelStat(heal, this.hero.getLevel());
-    }
-
-    public void setPower(int power) {
-        this.dmg = power;
-    }
-
-    public int getCountsAsHits() {
-        return this.countAsHits;
-    }
-    public void setCountsAsHits(int countsAsHits) {
-        this.countAsHits = countsAsHits;
-    }
-    public String getIcon() {
-        return "aa_blaster";
-    }
-
-    public int[] getIconPixels() {
-        return iconPixels;
-    }
-
-    public List<Resource> getTargetResources() {
-        return targetResources;
-    }
-
-    public void setTargetResources(List<Resource> targetResources) {
-        this.targetResources = targetResources;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public int getShield(Hero target) {
-        return MyMaths.getLevelStat(shield, this.hero.getLevel());
-    }
-    public String getTargetString() {
-        StringBuilder builder = new StringBuilder();
-        if (this.isPassive()) {
-            return "Passive";
-        }List<Integer> castPosList = Arrays.stream(this.possibleCastPositions)
-                .boxed()
-                .toList();
-        List<Integer> targetPosList = Arrays.stream(this.possibleTargetPositions)
-                .boxed()
-                .toList();
-        for (int i = 0; i < Arena.firstEnemyPos; i++) {
-            if(castPosList.contains(i)) {
-                builder.append("[FTT]");
-            } else {
-                builder.append("[EMT]");
-            }
-        }
-        builder.append(" ");
-
-        if (this.targetType.equals(TargetType.SELF)) {
-            builder.append("Self");
-        } else if (targetType.equals(TargetType.ARENA)) {
-            builder.append("Arena");
-        } else if (targetType.equals(TargetType.ALL)) {
-            builder.append("All");
-//        } else if (targetType.equals(TargetType.ONE_RDM)){
-//            builder.append("1 Rdm");
-//        } else if (targetType.equals(TargetType.TWO_RDM)) {
-//            builder.append("2 Rdm");
-//        } else if (targetType.equals(TargetType.THREE_RDM)) {
-//            builder.append("3 Rdm");
-        } else if (targetPosList.stream().anyMatch(i-> i < Arena.firstEnemyPos)){
-            for (int i = 0; i < Arena.numberPositions; i++) {
-                if (targetPosList.contains(i)) {
-                    if (targetType.equals(TargetType.SINGLE_OTHER)) {
-                        builder.append("[OTT]");
-                    } else if (targetType.equals(TargetType.SINGLE)) {
-                        builder.append("[FTT]");
-                    } else if (targetType.equals(TargetType.ALL_TARGETS)){
-                        builder.append("[FTA]");
-                    }
-                } else {
-                    builder.append("[EMT]");
-                }
-            }
-        } else {
-            for (int i = Arena.firstEnemyPos; i <= Arena.lastEnemyPos; i++) {
-                if (targetPosList.contains(i)) {
-                    if (targetType.equals(TargetType.SINGLE)) {
-                        builder.append("[ETT]");
-                    } else if (targetType.equals(TargetType.ALL_TARGETS)) {
-                        builder.append("[ETA]");
-                    }
-                } else {
-                    builder.append("[EMT]");
-                }
-            }
-        }
-        return builder.toString();
-    }
-
-    protected String getDmgString() {
-        int fullDmg = this.getDmgWithMulti(null);
-        int dmg = this.getDmg(null);
-        String pureDmg = dmg == 0? "": dmg + "";
-        StringBuilder builder = new StringBuilder();
-        Iterator<Multiplier> iter = this.dmgMultipliers.iterator();
-        while (iter.hasNext()) {
-            Multiplier mult = iter.next();
-            String profColor = mult.prof.getColorKey();
-            builder.append(profColor);
-            builder.append((int)(mult.percentage*100))
-                    .append("%")
-                    .append(mult.prof.getReference())
-                    .append("{001}");
-            if (iter.hasNext()) {
-                builder.append("+");
-            }
-        }
-        String multiDmg = builder.toString();
-        StringBuilder resultBuilder = new StringBuilder();
-        resultBuilder.append(fullDmg);
-        if (!multiDmg.isEmpty()) {
-            resultBuilder.append(" (");
-            if (!pureDmg.isEmpty()) {
-                resultBuilder.append(pureDmg);
-                resultBuilder.append("+");
-            }
-            resultBuilder.append(multiDmg);
-            resultBuilder.append(")");
-        }
-        return resultBuilder.toString();
-    }
-
-    protected String getHealString() {
-        int fullHeal = this.getHealWithMulti(null);
-        int heal = this.getHeal(null);
-        String pureHeal = heal == 0? "": heal + "";
-        StringBuilder builder = new StringBuilder();
-        Iterator<Multiplier> iter = this.healMultipliers.iterator();
-        while (iter.hasNext()) {
-            Multiplier mult = iter.next();
-            String profColor = mult.prof.getColorKey();
-            builder.append(profColor);
-            builder.append((int)(mult.percentage*100))
-                    .append("%")
-                    .append(mult.prof.getReference())
-                    .append("{001}");
-            if (iter.hasNext()) {
-                builder.append("+");
-            }
-        }
-        String multiHeal = builder.toString();
-        StringBuilder resultBuilder = new StringBuilder();
-        resultBuilder.append(fullHeal);
-        if (!multiHeal.isEmpty()) {
-            resultBuilder.append(" (");
-            if (!pureHeal.isEmpty()) {
-                resultBuilder.append(pureHeal);
-                resultBuilder.append("+");
-            }
-            resultBuilder.append(multiHeal);
-            resultBuilder.append(")");
-        }
-        return resultBuilder.toString();
-    }
-
-    protected String getShieldString() {
-        int fullShield = this.getShieldWithMulti(null);
-        int shield = this.getShield(null);
-        String pureShield = shield == 0? "": shield + "";
-        StringBuilder builder = new StringBuilder();
-        Iterator<Multiplier> iter = this.shieldMultipliers.iterator();
-        while (iter.hasNext()) {
-            Multiplier mult = iter.next();
-            String profColor = mult.prof.getColorKey();
-            builder.append(profColor);
-            builder.append((int)(mult.percentage*100))
-                    .append("%")
-                    .append(mult.prof.getReference())
-                    .append("{001}");
-            if (iter.hasNext()) {
-                builder.append("+");
-            }
-        }
-        String multiShield = builder.toString();
-        StringBuilder resultBuilder = new StringBuilder();
-        resultBuilder.append(fullShield);
-        if (!multiShield.isEmpty()) {
-            resultBuilder.append(" (");
-            if (!pureShield.isEmpty()) {
-                resultBuilder.append(pureShield);
-                resultBuilder.append("+");
-            }
-            resultBuilder.append(multiShield);
-            resultBuilder.append(")");
-        }
-        return resultBuilder.toString();
-    }
-
-    public String getDmgStringGUI() {
-        StringBuilder builder = new StringBuilder();
-        if (this.getDmg(null) != 0 || !this.dmgMultipliers.isEmpty()) {
-            builder.append("DMG: ");
-            builder.append(getDmgString());
-        }
-        return builder.toString();
-    }
-    public String getHealStringGUI() {
-        StringBuilder builder = new StringBuilder();
-        if ((this.getHeal(null) != 0 || !this.healMultipliers.isEmpty())){
-            if (this.getHeal(null) != 0 || !this.healMultipliers.isEmpty()){
-                builder.append("HEAL: ");
-                builder.append(Color.WHITE.getCodeString());
-                builder.append(getHealString());
-            }
-        }
-        return builder.toString();
-    }
-    public String getShieldStringGUI() {
-        StringBuilder builder = new StringBuilder();
-        if ((this.getShield(null) != 0 || !this.shieldMultipliers.isEmpty())){
-            if (this.getShield(null) != 0 || !this.shieldMultipliers.isEmpty()) {
-                builder.append("SHIELD: ");
-                builder.append(getShieldString());
-            }
-        }
-        return builder.toString();
-    }
-
-    public String getEffectString() {
-        return getEffectStringForEffectList(this.effects, "Target Effects: ");
-    }
-    public String getCasterEffectString() {
-        return getEffectStringForEffectList(this.casterEffects, "Caster Effects: ");
-    }
-    public String getEffectStringForEffectList(List<Effect> effectList, String listPrefix) {
-        if (effectList.isEmpty()) {
-            return "";
-        }
-        StringBuilder effectString = new StringBuilder();
-        effectString.append(listPrefix);
-        Iterator<Effect> iterator = effectList.iterator();
-        while (iterator.hasNext()) {
-            Effect effect = iterator.next();
-            int value = effect.stackable  ? effect.stacks : effect.turns;
-            effectString.append(effect.getIconString()).append("(").append(value == -1 ? "~" : value).append(")");
-            if (iterator.hasNext()) {
-                effectString.append(", ");
-            }
-        }
-
-        return effectString.toString();
-    }
-    @Override
-    public String toString() {
-        return "\nSkill{" +
-                "id=" + id +
-                ", Hero=" + hero.getName() +
-                ", name='" + getName() + '\'' +
-                ", targetType=" + targetType +
-                ", effects=" + effects +
-                ", casterEffects=" + casterEffects +
-                ", dmgMultipliers=" + dmgMultipliers +
-                ", healMultipliers=" + healMultipliers +
-                ", lifeCost=" + lifeCost +
-                ", accuracy=" + accuracy +
-                ", dmg=" + dmg +
-                ", heal=" + heal +
-                ", cannotMiss=" + cannotMiss+
-                ", countAsHits=" + countAsHits +
-                ", tags=" + tags +
-                '}';
-    }
-
-    public static void writeInitialsFromTo(Skill from, Skill to) {
-        to.effects = from.effects;
-        to.casterEffects = from.casterEffects;
-        to.targetResources = from.targetResources;
-        to.dmgMultipliers = from.dmgMultipliers;
-        to.healMultipliers = from.healMultipliers;
-        to.shieldMultipliers = from.shieldMultipliers;
-        to.manaCost = from.manaCost;
-        to.lifeCost = from.lifeCost;
-        to.accuracy = from.accuracy;
-        to.critChance = from.critChance;
-        to.dmg = from.dmg;
-        to.heal = from.heal;
-        to.shield = from.shield;
-        to.cannotMiss = from.cannotMiss;
-        to.lethality = from.lethality;
-        to.countAsHits = from.countAsHits;
-        to.move = from.move;
-        to.moveTo = from.moveTo;
-    }
-
-    public void setTargets(Hero[] entitiesAt) {
-        this.targets = List.of(entitiesAt);
-    }
-
-    public int getSort() {
-        if (this.tags.contains(SkillTag.PRIMARY)) {
-            return 1;
-        }
-        if (this.tags.contains(SkillTag.TACTICAL)) {
-            return 2;
-        }
-        if (this.tags.contains(SkillTag.ULT)) {
-            return 3;
-        }
-        if (this.equipment != null) {
-            return 4;
-        }
-        return 5;
-    }
-    public void reset() {
-    }
+  public List<Effect> getTargetEffects() {
+    return this.effects;
+  }
 }

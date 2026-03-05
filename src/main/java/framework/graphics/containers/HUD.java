@@ -8,64 +8,70 @@ import framework.states.Draft;
 import framework.states.PvpDraft;
 import game.entities.Hero;
 
-
 public class HUD extends GUIElement {
-    Engine e;
-    Arena arena;
-    Draft draft;
-    PvpDraft pvpDraft;
-    TeamArenaOverview arenaOv;
-    TeamDraftOverview draftOV;
-    TeamPvpDraftOverview pvpDraftOV;
+  Arena arena;
+  Draft draft;
+  PvpDraft pvpDraft;
 
-    public HUD(Engine e) {
-        super(Engine.X, Engine.Y);
-        this.e = e;
-    }
+  TeamArenaOverview arenaOv;
+  TeamDraftOverview draftOV;
+  TeamPvpDraftOverview pvpDraftOV;
 
-    public void update(int frame) {
-        if (this.arenaOv!=null){
-            this.arenaOv.update(frame);
-        }
-        if (this.draftOV!=null){
-            this.draftOV.update(frame);
-        }
+  public HUD() {
+    super(Engine.X, Engine.Y);
+  }
+
+  public void update(int frame) {
+    if (this.arenaOv != null) {
+      this.arenaOv.update(frame);
     }
-    public int[] render() {
-        background(Color.VOID);
-        renderChildren();
-        return this.pixels;
+    if (this.draftOV != null) {
+      this.draftOV.update(frame);
     }
-    public void setArena(Arena arena) {
-        this.arena = arena;
-        this.arenaOv = new TeamArenaOverview(e, arena);
-        this.children.add(arenaOv);
+  }
+
+  public int[] render() {
+    background(Color.VOID);
+    renderChildren();
+    return this.pixels;
+  }
+
+  public void setArena(Arena arena) {
+    this.arena = arena;
+    this.arenaOv = new TeamArenaOverview(arena);
+    this.children.add(arenaOv);
+  }
+
+  public void setDraft(Draft draft) {
+    this.draft = draft;
+    this.draftOV = new TeamDraftOverview(draft);
+    this.children.add(draftOV);
+  }
+
+  public void setPvpDraft(PvpDraft pvpDraft) {
+    this.pvpDraft = pvpDraft;
+    this.pvpDraftOV = new TeamPvpDraftOverview(draft);
+    this.children.add(pvpDraftOV);
+  }
+
+  public void setActiveHero(Hero e) {
+    if (this.arenaOv != null) {
+      this.arenaOv.setActiveHero(e);
     }
-    public void setDraft(Draft draft) {
-        this.draft = draft;
-        this.draftOV = new TeamDraftOverview(e, draft);
-        this.children.add(draftOV);
+    if (this.draftOV != null) {
+      this.draftOV.setActiveHero(e);
     }
-    public void setPvpDraft(PvpDraft pvpDraft) {
-        this.pvpDraft = pvpDraft;
-        this.pvpDraftOV = new TeamPvpDraftOverview(e, draft);
-        this.children.add(pvpDraftOV);
-    }
-    public void setActiveHero(Hero e) {
-        if (this.arenaOv != null) {
-            this.arenaOv.setActiveHero(e);
-        }
-        if (this.draftOV != null) {
-            this.draftOV.setActiveHero(e);
-        }
-    }
-    public void activateTeamArenaOv() {
-        this.arenaOv.activate();
-    }
-    public void disableTeamArenaOV() {
-        this.arenaOv.deactivate();
-    }
-    public void activateTeamDraftOV() {
-        this.draftOV.activate();
-    }
+  }
+
+  public void activateTeamArenaOv() {
+    this.arenaOv.activate();
+  }
+
+  public void disableTeamArenaOV() {
+    this.arenaOv.deactivate();
+  }
+
+  public void activateTeamDraftOV() {
+    this.draftOV.activate();
+  }
 }

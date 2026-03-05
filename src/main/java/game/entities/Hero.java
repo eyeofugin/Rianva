@@ -2,21 +2,22 @@ package game.entities;
 
 import framework.Logger;
 import framework.Property;
+import framework.connector.ConnectionPayload;
 import framework.connector.Connector;
-import framework.connector.payloads.*;
 import framework.graphics.GUIElement;
 import framework.graphics.text.Color;
 import framework.graphics.text.TextAlignment;
 import framework.resources.SpriteLibrary;
 import framework.resources.SpriteUtils;
 import framework.states.Arena;
+import game.effects.Effect;
+import game.effects.status.Immunity;
+import game.effects.status.Bleeding;
 import game.objects.Equipment;
-import game.objects.equipments.skills.S_WingedBoots;
-import game.skills.*;
-import game.skills.changeeffects.effects.other.Immunity;
-import game.skills.changeeffects.effects.other.StatEffect;
-import game.skills.changeeffects.effects.status.Injured;
-import game.skills.genericskills.S_Skip;
+import game.skills.Skill;
+import game.skills.SkillLibrary;
+import game.skills.trees.genericskills.S_Boots;
+import game.skills.trees.genericskills.S_Skip;
 import game.skills.logic.*;
 import utils.FileWalker;
 import utils.MyMaths;
@@ -25,1028 +26,1277 @@ import java.util.*;
 
 public class Hero extends GUIElement {
 
-    public static String DRAFT = "DRAFT";
-    public static String ARENA = "ARENA";
-    public static String BUILDER = "BUILDER";
+  public static String DRAFT = "DRAFT";
+  public static String ARENA = "ARENA";
+  public static String BUILDER = "BUILDER";
 
-    private static final String STAT_PATH = "/data/stats.json";
+  private static final String STAT_PATH = "/data/stats.json";
 
-    public Arena arena;
-    public Animator anim;
-    public HeroTeam team;
-    public HeroTeam enemyTeam;
-    protected Map<String, int[][]> sprites = new HashMap<>();
-    public String basePath = "";
+  public Arena arena;
+  public Animator anim;
+  public HeroTeam team;
+  public HeroTeam enemyTeam;
+  protected Map<String, int[][]> sprites = new HashMap<>();
+  public String basePath = "";
 
-    protected static int idCounter;
-    protected int id;
-    protected String name;
-    protected List<Skill> skills = new ArrayList<>();
-    protected List<Skill> learnableSkillList = new ArrayList<>();
-    protected List<Equipment> equipments = new ArrayList<>();
-    protected String portraitName;
-    public static int draftDimensionX = 64;
-    public static int draftDimensionY = 74;
+  protected static int idCounter;
+  protected int id;
+  protected String name;
+  protected List<Skill> skills = new ArrayList<>();
+  protected List<Skill> learnableSkillList = new ArrayList<>();
+  protected List<Equipment> equipments = new ArrayList<>();
+  protected String portraitName;
+  public static int draftDimensionX = 64;
+  public static int draftDimensionY = 74;
 
+  protected int level = 1;
+  protected int exp = 0;
+  protected int[] levelCaps = new int[] {0, 5, 10, 15, 20};
+  protected int draftChoice = 0;
+  protected Map<Stat, Integer> baseStats = new HashMap<>();
+  protected Map<Stat, Integer> stats = new HashMap<>();
+  protected Map<Stat, Integer> statChanges = new HashMap<>();
+  protected Map<Stat, Integer> statCache = new HashMap<>();
+  protected List<Effect> effects = new ArrayList<>();
+  //    protected boolean movedLast = false;
+  protected boolean moved = false;
+  protected Stat secondaryResource = Stat.ENERGY;
+  protected Role role = Role.NONE;
 
-    protected int level = 1;
-    protected int exp = 0;
-    protected int[] levelCaps = new int[]{0, 5, 10, 15, 20};
-    protected int draftChoice = 0;
-    protected Map<Stat, Integer> baseStats = new HashMap<>();
-    protected Map<Stat, Integer> stats = new HashMap<>();
-    protected Map<Stat, Integer> statChanges = new HashMap<>();
-    protected List<Effect> effects = new ArrayList<>();
-//    protected boolean movedLast = false;
-    protected boolean moved = false;
-    protected Stat secondaryResource = Stat.MANA;
-    protected Role role = Role.NONE;
+  private int position;
 
-    private int position;
+  private int yf = 0;
 
-    private int yf = 0;
+  public int effectiveRange = 0;
 
-    public int effectiveRange = 0;
+  public static Hero getForDraft() {
+    return null;
+  }
+  ;
 
-    public static Hero getForDraft(){return null;};
+  public Hero(HeroDTO dto) {
+    this.width = 64;
+    this.height = 110;
+    this.pixels = new int[this.width * this.height];
+    this.basePath = dto.path;
+    this.name = dto.name;
+    this.role = dto.role;
+    this.baseStats = dto.baseStats;
+    this.initAnimator(dto);
+    this.initSkills(dto);
+    this.setLevel(1);
+  }
 
-    public Hero(HeroDTO dto) {
-        this.width = 64;
-        this.height = 110;
-        this.pixels = new int[this.width*this.height];
-        this.basePath = dto.path;
-        this.name = dto.name;
-        this.role = dto.role;
-        this.baseStats = dto.baseStats;
-        this.initAnimator(dto);
-        this.initSkills(dto);
-        this.setLevel(1);
+  protected Hero(String name) {
+    this.id = idCounter++;
+    this.width = 64;
+    this.height = 110;
+    this.pixels = new int[this.width * this.height];
+    this.name = name;
+    this.stats.putAll(statBase());
+    this.statCache.putAll(this.stats);
+  }
+
+  public void setPosition(int position, Arena arena) {
+    this.position = position;
+    this.arena = arena;
+  }
+
+  public void setTriggers() {
+    this.resetResources();
+    this.equipments.forEach(Equipment::addSubscriptions);
+    this.skills.forEach(Skill::addSubscriptions);
+    this.skills.add(new S_Boots(this));
+    this.skills.add(new S_Skip(this));
+  }
+
+  public void resetResources() {
+    this.stats.put(Stat.CURRENT_LIFE, this.stats.get(Stat.VITALITY));
+    this.stats.put(Stat.CURRENT_ENERGY, this.stats.get(Stat.ENERGY));
+  }
+
+  public void leaveArena() {
+    this.effects.forEach(Effect::removeFromHero);
+    this.equipments.forEach(Equipment::reset);
+    this.equipments.forEach(Equipment::removeSubscriptions);
+    this.skills.removeIf(s -> s instanceof S_Boots || s instanceof S_Skip);
+    this.skills.forEach(Skill::reset);
+    this.skills.forEach(Skill::removeSubscriptions);
+  }
+
+  public void initBasePath(String name) {
+    String base = "entities/heroes/";
+    this.basePath = base + name;
+  }
+
+  protected void initAnimator() {}
+  ;
+
+  protected void initSkills() {}
+  ;
+
+  private void initAnimator(HeroDTO dto) {
+    String idleAnim = dto.idleAnim != null ? dto.idleAnim : "idle_w.png";
+    String damagedAnim = dto.damagedAnim != null ? dto.damagedAnim : "damaged_w.png";
+    String actionAnim = dto.actionAnim != null ? dto.actionAnim : "action_w.png";
+    this.anim = new Animator();
+    anim.width = 64;
+    anim.height = 64;
+    anim.setupAnimation(this.basePath + "/sprites/" + idleAnim, "idle", new int[] {40, 80});
+    anim.setupAnimation(this.basePath + "/sprites/" + damagedAnim, "damaged", new int[] {40, 80});
+    anim.setupAnimation(this.basePath + "/sprites/" + actionAnim, "action", new int[] {15, 30, 45});
+
+    anim.setDefaultAnim("idle");
+    anim.currentAnim = anim.getDefaultAnim();
+    anim.onLoop = true;
+  }
+
+  private void initSkills(HeroDTO dto) {
+    dto.learnedSkills.stream().map(SkillLibrary::getSkill).forEach(this::addSkill);
+    dto.learnableSkills.stream().map(SkillLibrary::getSkill).forEach(this::addLearnableSkill);
+  }
+
+  private void addSkill(Skill skill) {
+    this.skills.add(skill);
+    skill.hero = this;
+  }
+
+  private void addLearnableSkill(Skill skill) {
+    this.learnableSkillList.add(skill);
+    skill.hero = this;
+  }
+
+  protected void initStats() {
+    this.baseStats = loadLevelStats();
+  }
+
+  protected Map<Stat, Integer> statBase() {
+    Map<Stat, Integer> base = new HashMap<>();
+    base.put(Stat.MIND, 0);
+    base.put(Stat.BODY, 0);
+    base.put(Stat.DEXTERITY, 0);
+    base.put(Stat.VITALITY, 0);
+
+    // ResourceStats
+    base.put(Stat.CURRENT_LIFE, 0);
+    base.put(Stat.LIFE_REGAIN, 0);
+
+    base.put(Stat.ENERGY, 0);
+    base.put(Stat.CURRENT_ENERGY, 0);
+
+    //        base.put(Stat.MAX_ACTION, 3);
+    //        base.put(Stat.CURRENT_ACTION, 3);
+
+    base.put(Stat.CRIT_CHANCE, 0);
+    base.put(Stat.ACCURACY, 0);
+    base.put(Stat.DODGE, 0);
+    base.put(Stat.SHIELD, 0);
+
+    base.put(Stat.ARMOR, 0);
+    base.put(Stat.HEAT_RESIST, 0);
+    base.put(Stat.COLD_RESIST, 0);
+    base.put(Stat.LIGHT_RESIST, 0);
+    base.put(Stat.DARK_RESIST, 0);
+    base.put(Stat.TOX_RESIST, 0);
+    base.put(Stat.MENTAL_RESIST, 0);
+    base.put(Stat.SHOCK_RESIST, 0);
+
+    return base;
+  }
+
+  //    protected void randomizeSkills() {
+  //        this.skills = new Skill[5];
+  //        int primaryUpper = this.primary.length-1;
+  //        this.skills[0] = primary[MyMaths.getFromToIncl(0,primaryUpper, new ArrayList<>())];
+  //        int tacticalUpper = this.tactical.length-1;
+  //        int tac1 = MyMaths.getFromToIncl(0, tacticalUpper, new ArrayList<>());
+  //        int tac2 = MyMaths.getFromToIncl(0, tacticalUpper, List.of(tac1));
+  //        this.skills[1] = tactical[tac1];
+  //        this.skills[2] = tactical[tac2];
+  //        this.skills[3] = ult;
+  //        this.skills[4] = new S_Skip(this);
+  //    }
+
+  public int getLastEffectivePosition() {
+    return this.team.getFirstPosition() - (effectiveRange * this.team.fillUpDirection);
+  }
+
+  public void animate(int frame) {
+    this.anim.animate();
+  }
+
+  public int[] render(String renderMode) {
+    background(Color.VOID);
+    renderImage();
+    if (renderMode.equals(ARENA)) {
+      yf = 65;
+      renderBars();
+      renderEffects();
+    } else if (renderMode.equals(DRAFT)) {
+      yf = 65;
+      renderDraftInfo();
+    }
+    return pixels;
+  }
+
+  public int[] draftRender() {
+    int[] pixels = new int[draftDimensionX * draftDimensionY];
+    Arrays.fill(pixels, Color.VOID.VALUE);
+    staticFillSize(0, 0, 64, 64, 64, pixels, getImagePixels());
+    staticFillSize(0, 64, 64, 10, 64, pixels, getTextLine(this.name, 64, 10, Color.WHITE));
+    return pixels;
+  }
+
+  private int[] getImagePixels() {
+    boolean flipHorizontal = this.team != null && this.team.teamNumber == 2;
+    return flipHorizontal ? SpriteUtils.flipHorizontal(this.anim.image, 64) : this.anim.image;
+  }
+
+  private void renderImage() {
+    fillWithGraphicsSize(0, 0, 64, 64, getImagePixels(), false);
+  }
+
+  private void renderBars() {
+    fillWithGraphicsSize(
+        0,
+        yf,
+        64,
+        3,
+        getBar(64, 3, 0, getResourcePercentage(Stat.VITALITY), Color.GREEN, Color.DARKRED),
+        false);
+    if (this.getStat(Stat.SHIELD) > 0) {
+      fillWithGraphicsSize(0, yf, 64, 3, getShieldBar(), false);
+    }
+    yf += 4;
+    if (this.secondaryResource != null) {
+      fillWithGraphicsSize(
+          0,
+          yf,
+          64,
+          3,
+          getBar(
+              64,
+              3,
+              0,
+              getResourcePercentage(this.secondaryResource),
+              getResourceColor(this.secondaryResource),
+              Color.DARKRED),
+          false);
+      yf += 4;
+    }
+    if (!this.moved) {
+      int[] action = SpriteLibrary.getSprite("action");
+      fillWithGraphicsSize(2, 2, 5, 5, action, false);
+    }
+    //        fillWithGraphicsSize(0, yf, 64, 3, getBar(64, 3, 0,
+    // getResourcePercentage(Stat.MAX_ACTION), getResourceColor(Stat.MAX_ACTION), Color.DARKRED),
+    // false);
+    //        yf+=4;
+  }
+
+  private int[] getShieldBar() {
+    double currentLifePercentage = getResourcePercentage(Stat.VITALITY);
+    int missingLifePercentage = getMissingLifePercentage();
+    double shieldPercentage = (double) getStat(Stat.SHIELD) / getStat(Stat.VITALITY);
+    int lifeFill = (int) (64 * currentLifePercentage);
+
+    if (missingLifePercentage < shieldPercentage) {
+      return getBar(64, 3, 0, 1.0 - shieldPercentage, Color.VOID, Color.DARKYELLOW);
+    } else {
+      return getBar(64, 3, lifeFill, shieldPercentage, Color.DARKYELLOW, Color.VOID);
+    }
+  }
+
+  private void renderEffects() {
+    int effectsX = 0;
+    int paintedEffects = 0;
+    int paddingX = 2;
+    int paddingY = 5;
+    for (Effect effect : this.effects) {
+      int[] sprite = SpriteLibrary.getSprite(effect.getClass().getName());
+
+      fillWithGraphicsSize(
+          effectsX,
+          yf,
+          Property.EFFECT_ICON_SIZE,
+          Property.EFFECT_ICON_SIZE,
+          sprite,
+          false,
+          null,
+          Color.VOID);
+      if (effect.stackable) {
+        int[] stacks =
+            getSmallNumTextLine(
+                effect.stacks + "",
+                Property.EFFECT_ICON_SIZE,
+                this.editor.smallNumHeight,
+                TextAlignment.RIGHT,
+                Color.VOID,
+                Color.BLACK);
+        fillWithGraphicsSize(
+            effectsX + 1,
+            yf + (Property.EFFECT_ICON_SIZE - 2),
+            Property.EFFECT_ICON_SIZE,
+            this.editor.smallNumHeight,
+            stacks,
+            false);
+      } else if (effect.turns > 0) {
+        int[] turns =
+            getSmallNumTextLine(
+                effect.turns + "",
+                Property.EFFECT_ICON_SIZE,
+                this.editor.smallNumHeight,
+                TextAlignment.RIGHT,
+                Color.VOID,
+                Color.WHITE);
+        fillWithGraphicsSize(
+            effectsX + 1,
+            yf + (Property.EFFECT_ICON_SIZE - 2),
+            Property.EFFECT_ICON_SIZE,
+            this.editor.smallNumHeight,
+            turns,
+            false);
+      }
+
+      paintedEffects++;
+
+      if (paintedEffects % 6 == 0) {
+        yf += Property.EFFECT_ICON_SIZE + paddingY;
+        effectsX = 0;
+      } else {
+        effectsX += Property.EFFECT_ICON_SIZE + paddingX;
+      }
+    }
+    //        for (Map.Entry<Stat, Integer> statChange : this.statChanges.entrySet()) {
+    //            if (Stat.nonResourceStats.contains(statChange.getKey())) {
+    //                Color borderColor  = statChange.getValue() > 0 ? Color.GREEN : Color.RED;
+    //                int [] stat = getTextLine(statChange.getKey().getIconString(),
+    // Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,
+    //                       Color.WHITE);
+    //                fillWithGraphicsSize(effectsX, yf, Property.EFFECT_ICON_SIZE,
+    // Property.EFFECT_ICON_SIZE, stat, borderColor);
+    //
+    //                paintedEffects++;
+    //
+    //                if (paintedEffects % 6 == 0) {
+    //                    yf += Property.EFFECT_ICON_SIZE + paddingY;
+    //                    effectsX = 0;
+    //                } else {
+    //                    effectsX += Property.EFFECT_ICON_SIZE + paddingX;
+    //                }
+    //            }
+    //        }
+  }
+
+  private void renderDraftInfo() {
+    if (this.draftChoice != 0) {
+      int[] draftChoiceNumberPixels = getTextLine(this.draftChoice + "", 10, 10, Color.RED);
+      fillWithGraphicsSize(this.width - 10, 0, 10, 10, draftChoiceNumberPixels, false);
     }
 
-    protected Hero(String name) {
-        this.id = idCounter++;
-        this.width = 64;
-        this.height = 110;
-        this.pixels = new int[this.width*this.height];
-        this.name = name;
-        this.stats.putAll(statBase());
-    }
+    int roleYf = 2;
+    int[] role = getTextLine("[" + this.role.iconKey + "]", 10, 10, Color.WHITE);
+    fillWithGraphicsSize(2, roleYf, 10, 10, role, false);
+  }
 
-    public void enterArena(int position, Arena arena) {
-        this.position = position;
-        this.arena = arena;
-        this.resetResources();
-        this.equipments.forEach(Equipment::addSubscriptions);
-        this.skills.forEach(Skill::addSubscriptions);
-        this.skills.add(new S_WingedBoots(this));
-        this.skills.add(new S_Skip(this));
-    }
+  // StatMagic
 
-    public void resetResources() {
-        this.stats.put(Stat.CURRENT_LIFE, this.stats.get(Stat.LIFE));
-        this.stats.put(Stat.CURRENT_MANA, this.stats.get(Stat.MANA));
-    }
-    public void leaveArena() {
-        this.effects.forEach(Effect::removeEffect);
-        this.equipments.forEach(Equipment::reset);
-        this.equipments.forEach(Equipment::removeSubscriptions);
-        this.skills.removeIf(s->s instanceof S_WingedBoots || s instanceof S_Skip);
-        this.skills.forEach(Skill::reset);
-        this.skills.forEach(Skill::removeSubscriptions);
-    }
+  //    public void levelUp() {
+  //        int newLevel = this.level + 1;
+  //        this.setLevel(newLevel);
+  //        List<Skill> newSkills = this.learnableSkillList.stream().filter(s->s.getLevel() ==
+  // newLevel).toList();
+  //        newSkills.forEach(s-> {
+  //            if (!this.skills.contains(s)) {
+  //                this.skills.add(s);
+  //                sortSkills();
+  //            }
+  //        });
+  //    }
 
-    public void initBasePath(String name) {
-        String base = "entities/heroes/";
-        this.basePath = base + name;
+  private void cacheStats() {
+    for (Map.Entry<Stat, Integer> stat : statCache.entrySet()) {
+      Integer currentValue = this.getStat(stat.getKey());
+      stat.setValue(currentValue);
     }
+  }
 
-    protected void initAnimator(){};
-    protected void initSkills(){};
+  private void sortSkills() {
+    this.skills.sort(Comparator.comparingInt(Skill::getSort));
+  }
 
-    private void initAnimator(HeroDTO dto) {
-        String idleAnim = dto.idleAnim != null? dto.idleAnim : "idle_w.png";
-        String damagedAnim = dto.damagedAnim != null? dto.damagedAnim: "damaged_w.png";
-        String actionAnim = dto.actionAnim != null? dto.actionAnim: "action_w.png";
-        this.anim = new Animator();
-        anim.width = 64;
-        anim.height = 64;
-        anim.setupAnimation(this.basePath + "/sprites/" + idleAnim, "idle", new int[]{40,80});
-        anim.setupAnimation(this.basePath + "/sprites/" + damagedAnim, "damaged", new int[]{40,80});
-        anim.setupAnimation(this.basePath + "/sprites/" + actionAnim, "action", new int[]{15, 30, 45});
+  public void setLevel(int level) {
+    this.level = level;
+    this.stats.putAll(this.baseStats);
+  }
 
-        anim.setDefaultAnim("idle");
-        anim.currentAnim = anim.getDefaultAnim();
-        anim.onLoop = true;
+  public int getStat(Stat stat) {
+    if (stat == null) {
+      return 0;
     }
+    Integer statValue = this.stats.get(stat);
+    if (statValue == null) {
+      return 0;
+    }
+    return trigger_statChange(stat, statValue);
+  }
 
-    private void initSkills(HeroDTO dto) {
-        dto.learnedSkills.stream().map(SkillLibrary::getSkill).forEach(this::addSkill);
-        dto.learnableSkills.stream().map(SkillLibrary::getSkill).forEach(this::addLearnableSkill);
+  public int getCachedStat(Stat stat) {
+    if (stat == null) {
+      return 0;
     }
+    Integer statValue = this.statCache.get(stat);
+    if (statValue == null) {
+      return 0;
+    }
+    return statValue;
+  }
 
-    private void addSkill(Skill skill) {
-        this.skills.add(skill);
-        skill.hero = this;
+  public void permanentStatChange(Stat stat, int changeValue) {
+    changeValue = trigger_statPermanentChange(stat, changeValue);
+    int oldValue = this.stats.get(stat);
+    int newValue = oldValue + changeValue;
+    if (!(stat.equals(Stat.ACCURACY) || stat.equals(Stat.DODGE))) {
+      newValue = Math.max(0, newValue);
+      changeValue = newValue - oldValue;
     }
-    private void addLearnableSkill(Skill skill) {
-        this.learnableSkillList.add(skill);
-        skill.hero = this;
-    }
+    this.stats.put(stat, newValue);
+    this.statChanges.put(stat, changeValue + this.statChanges.getOrDefault(stat, 0));
+  }
 
-    protected void initStats() {
-        this.baseStats = loadLevelStats();
-    }
+  public Map<Stat, Integer> getStatChanges() {
+    return this.statChanges;
+  }
 
-    protected Map<Stat, Integer> statBase() {
-        Map<Stat, Integer> base = new HashMap<>();
-        base.put(Stat.MAGIC, 0);
-        base.put(Stat.ATTACK, 0);
-        base.put(Stat.STAMINA, 0);
-        base.put(Stat.SPEED, 0);
+  public int getStatChange(Stat stat) {
+    if (this.statChanges.containsKey(stat)) {
+      return this.statChanges.get(stat);
+    }
+    return 0;
+  }
 
-        //ResourceStats
-        base.put(Stat.LIFE, 0);
-        base.put(Stat.CURRENT_LIFE, 0);
-        base.put(Stat.LIFE_REGAIN, 0);
+  public Map<Stat, Integer> getStats() {
+    return this.stats;
+  }
 
-        base.put(Stat.MANA, 0);
-        base.put(Stat.CURRENT_MANA, 0);
+  public void addResource(
+      Stat currentStat,
+      Stat maxStat,
+      int value,
+      Hero source,
+      Skill skill,
+      Effect effect,
+      Equipment equipment) {
+    int target = value + this.getStat(currentStat);
+    int max = 99999;
+    if (maxStat != null) {
+      max = this.getStat(maxStat);
+    }
+    int result = Math.min(target, max);
+    int excess = target - max;
+    result = Math.max(result, 0);
+    this.stats.put(currentStat, result);
 
-//        base.put(Stat.MAX_ACTION, 3);
-//        base.put(Stat.CURRENT_ACTION, 3);
+    if (excess > 0) {
+      trigger_excessResource(currentStat, excess, source, skill, effect, equipment);
+    }
+  }
 
-        base.put(Stat.CRIT_CHANCE, 0);
-        base.put(Stat.ACCURACY, 100);
-        base.put(Stat.EVASION, 0);
-        base.put(Stat.SHIELD,0);
-        base.put(Stat.LETHALITY,0);
+  public void addSkillResources(
+      List<Resource> resources, Skill skill, Hero source, Equipment equipment) {
+    for (Resource resource : resources) {
+      addSkillResource(resource, skill, source, equipment);
+    }
+  }
 
-        base.put(Stat.NORMAL_RESIST,0);
-        base.put(Stat.HEAT_RESIST,0);
-        base.put(Stat.COLD_RESIST,0);
-        base.put(Stat.LIGHT_RESIST,0);
-        base.put(Stat.DARK_RESIST,0);
-        base.put(Stat.TOX_RESIST,0);
-        base.put(Stat.MIND_RESIST,0);
-        base.put(Stat.SHOCK_RESIST,0);
+  public void addSkillResource(Resource resource, Skill skill, Hero source, Equipment equipment) {
+    if (resource.resource.equals(Stat.CURRENT_LIFE)) {
+      heal(resource.amount, source, skill, null, equipment, false);
+    } else if (resource.resource.equals(Stat.CURRENT_ENERGY)) {
+      energy(resource.amount, source, skill, null, equipment, false);
+    } else if (resource.resource.equals(Stat.SHIELD)) {
+      shield(resource.amount, source, skill, null, equipment);
+    } else {
+      permanentStatChange(resource.resource, resource.amount);
+    }
+  }
 
-        return base;
+  public int getSkillAccuracy(Skill skill) {
+    if (skill.getAccuracy() == -1 || skill.getTargetType().equals(TargetType.SELF)) {
+      return 100;
     }
+    return skill.getAccuracy();
+  }
 
-//    protected void randomizeSkills() {
-//        this.skills = new Skill[5];
-//        int primaryUpper = this.primary.length-1;
-//        this.skills[0] = primary[MyMaths.getFromToIncl(0,primaryUpper, new ArrayList<>())];
-//        int tacticalUpper = this.tactical.length-1;
-//        int tac1 = MyMaths.getFromToIncl(0, tacticalUpper, new ArrayList<>());
-//        int tac2 = MyMaths.getFromToIncl(0, tacticalUpper, List.of(tac1));
-//        this.skills[1] = tactical[tac1];
-//        this.skills[2] = tactical[tac2];
-//        this.skills[3] = ult;
-//        this.skills[4] = new S_Skip(this);
-//    }
+  public double getResourcePercentage(Stat resource) {
+    if (resource == null) {
+      return 0.0;
+    }
+    return switch (resource) {
+      case VITALITY -> ((double) this.getStat(Stat.CURRENT_LIFE)) / this.getStat(Stat.VITALITY);
+      case ENERGY -> ((double) this.getStat(Stat.CURRENT_ENERGY)) / this.getStat(Stat.ENERGY);
+      //            case MAX_ACTION -> ((double) this.getStat(Stat.CURRENT_ACTION)) /
+      // this.getStat(Stat.MAX_ACTION);
+      default -> 0.0;
+    };
+  }
 
-    public int getLastEffectivePosition() {
-        return this.team.getFirstPosition() - (effectiveRange * this.team.fillUpDirection);
-    }
+  public int getCurrentLifePercentage() {
+    return this.stats.get(Stat.CURRENT_LIFE) * 100 / this.stats.get(Stat.VITALITY);
+  }
 
-    @Override
-    public void update(int frame) {
-        this.anim.animate();
-    }
-    public int[] render(String renderMode) {
-        background(Color.VOID);
-        renderImage();
-        if (renderMode.equals(ARENA)) {
-            yf = 65;
-            renderBars();
-            renderEffects();
-        } else if (renderMode.equals(DRAFT)) {
-            yf = 65;
-            renderDraftInfo();
-        }
-        return pixels;
-    }
+  public int getMissingLifePercentage() {
+    return (100 - getCurrentLifePercentage());
+  }
 
-    public int[] draftRender() {
-        int[] pixels = new int[draftDimensionX*draftDimensionY];
-        Arrays.fill(pixels, Color.VOID.VALUE);
-        staticFillSize(0,0,64,64,64,pixels,getImagePixels());
-        staticFillSize(0,64,64,10,64,pixels,getTextLine(this.name,64,10,Color.WHITE));
-        return pixels;
-    }
+  public int getCurrentManaPercentage() {
+    return this.stats.get(Stat.CURRENT_ENERGY) * 100 / this.stats.get(Stat.ENERGY);
+  }
 
-    private int[] getImagePixels() {
-        boolean flipHorizontal = this.team != null && this.team.teamNumber == 2;
-        return flipHorizontal ? SpriteUtils.flipHorizontal(this.anim.image, 64) : this.anim.image;
-    }
+  // TurnMagic
+  public void startOfTurn() {
+    trigger_startOfTurn();
+    cacheStats();
+  }
 
-    private void renderImage() {
-        fillWithGraphicsSize(0, 0, 64, 64, getImagePixels(), false);
+  public void endOfTurn() {
+    regain();
+    tickEffects();
+    cleanUpEffect();
+    if (!this.isAlive()) {
+      return;
     }
-    private void renderBars() {
-        fillWithGraphicsSize(0, yf, 64, 3, getBar(64, 3, 0, getResourcePercentage(Stat.LIFE), Color.GREEN, Color.DARKRED), false);
-        if (this.getStat(Stat.SHIELD)>0) {
-            fillWithGraphicsSize(0,yf,64,3,getShieldBar(), false);
-        }
-        yf+=4;
-        if (this.secondaryResource != null) {
-            fillWithGraphicsSize(0, yf, 64, 3, getBar(64, 3, 0, getResourcePercentage(this.secondaryResource), getResourceColor(this.secondaryResource), Color.DARKRED), false);
-            yf+=4;
-        }
-        if (!this.moved) {
-            int[] action = SpriteLibrary.getSprite("action");
-            fillWithGraphicsSize(2, 2, 5,5,action,false);
-        }
-//        fillWithGraphicsSize(0, yf, 64, 3, getBar(64, 3, 0, getResourcePercentage(Stat.MAX_ACTION), getResourceColor(Stat.MAX_ACTION), Color.DARKRED), false);
-//        yf+=4;
-    }
-    private int[] getShieldBar() {
-        double currentLifePercentage = getResourcePercentage(Stat.LIFE);
-        int missingLifePercentage = getMissingLifePercentage();
-        double shieldPercentage = (double)getStat(Stat.SHIELD) / getStat(Stat.LIFE);
-        int lifeFill = (int)(64 * currentLifePercentage);
+    trigger_endOfTurn();
+  }
 
-        if (missingLifePercentage < shieldPercentage) {
-            return getBar(64,3,0,1.0-shieldPercentage,Color.VOID,Color.DARKYELLOW);
-        } else {
-            return getBar(64,3,lifeFill,shieldPercentage,Color.DARKYELLOW,Color.VOID);
-        }
+  private void regain() {
+    int heal = getStat(Stat.LIFE_REGAIN);
+    if (!(this.hasPermanentEffect(Bleeding.class))) {
+      heal(heal, this, null, null, null, true);
     }
-    private void renderEffects() {
-        int effectsX = 0;
-        int paintedEffects = 0;
-        int paddingX = 2;
-        int paddingY = 5;
-        for (Effect effect : this.effects) {
-            int[] sprite = new int[0];
-            if (effect instanceof StatEffect) {
-                Stat stat = effect.stat;
-                SpriteLibrary.getSprite(stat.name());
-            } else {
-                sprite = SpriteLibrary.getSprite(effect.getClass().getName());
-            }
+    if (this.secondaryResource != null && this.secondaryResource.equals(Stat.ENERGY)) {
+      energy(this.getStat(Stat.ENERGY_REGAIN), this, null, null, null, true);
+    }
+  }
 
-            fillWithGraphicsSize(effectsX, yf, Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,
-                    sprite, false, null, Color.VOID);
-            if (effect.stackable) {
-                int[] stacks = getSmallNumTextLine(effect.stacks+"", Property.EFFECT_ICON_SIZE, this.editor.smallNumHeight, TextAlignment.RIGHT, Color.VOID, Color.BLACK);
-                fillWithGraphicsSize(effectsX +1, yf + (Property.EFFECT_ICON_SIZE-2), Property.EFFECT_ICON_SIZE, this.editor.smallNumHeight,
-                        stacks, false);
-            } else if (effect.turns > 0) {
-                int[] turns = getSmallNumTextLine(effect.turns+"", Property.EFFECT_ICON_SIZE, this.editor.smallNumHeight, TextAlignment.RIGHT, Color.VOID, Color.WHITE);
-                fillWithGraphicsSize(effectsX +1, yf + (Property.EFFECT_ICON_SIZE-2), Property.EFFECT_ICON_SIZE, this.editor.smallNumHeight,
-                        turns, false);
-            }
+  //    public void refreshAction() {
+  //        if (this.hasPermanentEffect(Exhausted.class) == 0 && (!this.movedLast ||
+  // getStat(Stat.CURRENT_ACTION) == 0)) {
+  //            this.changeStatTo(Stat.CURRENT_ACTION, this.getStat(Stat.MAX_ACTION));
+  //        }
+  //    }
 
+  // Equipment Magic
+  public void equip(Equipment equipment) {
+    if (!this.equipments.contains(equipment)) {
+      this.equipments.add(equipment);
+    }
+    if (equipment.getSkill() != null && this.skills.size() < 8 && this.skills.size() > 1) {
+      equipment.getSkill().hero = this;
+      this.skills.add(equipment.getSkill());
+      sortSkills();
+      System.out.println("equip " + equipment.getName() + " " + this.name);
+    }
+  }
 
-            paintedEffects++;
+  public void unequip(Equipment equipment) {
+    this.equipments.remove(equipment);
+    if (equipment.getSkill() != null) {
+      this.skills.remove(equipment.getSkill());
+    }
+  }
 
-            if (paintedEffects % 6 == 0) {
-                yf += Property.EFFECT_ICON_SIZE + paddingY;
-                effectsX = 0;
-            } else {
-                effectsX += Property.EFFECT_ICON_SIZE + paddingX;
-            }
-        }
-//        for (Map.Entry<Stat, Integer> statChange : this.statChanges.entrySet()) {
-//            if (Stat.nonResourceStats.contains(statChange.getKey())) {
-//                Color borderColor  = statChange.getValue() > 0 ? Color.GREEN : Color.RED;
-//                int [] stat = getTextLine(statChange.getKey().getIconString(), Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,
-//                       Color.WHITE);
-//                fillWithGraphicsSize(effectsX, yf, Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE, stat, borderColor);
-//
-//                paintedEffects++;
-//
-//                if (paintedEffects % 6 == 0) {
-//                    yf += Property.EFFECT_ICON_SIZE + paddingY;
-//                    effectsX = 0;
-//                } else {
-//                    effectsX += Property.EFFECT_ICON_SIZE + paddingX;
-//                }
-//            }
-//        }
+  // EffectMagic
+  private void tickEffects() {
+    for (Effect effect : effects) {
+      effect.tick();
     }
+  }
 
-    private void renderDraftInfo() {
-        if (this.draftChoice != 0) {
-            int[] draftChoiceNumberPixels = getTextLine(this.draftChoice+"", 10,10, Color.RED);
-            fillWithGraphicsSize(this.width-10,0,10,10,draftChoiceNumberPixels, false);
-        }
+  private void cleanUpEffect() {
+    List<Effect> toRemove =
+        this.effects.stream()
+            .filter(
+                e ->
+                    (Effect.Durability.TIME.equals(e.durability) && e.turns < 1)
+                        || (e.stackable && e.stacks <= 0)
+                        || (e.durability.equals(Effect.Durability.ONCE) && e.used))
+            .toList();
+    for (Effect effectToRemove : toRemove) {
+      removeEffect(effectToRemove);
+    }
+  }
 
-        int roleYf = 2;
-        int[] role = getTextLine("["+this.role.iconKey+"]", 10,10,Color.WHITE);
-        fillWithGraphicsSize(2, roleYf, 10,10,role,false);
-    }
+  private void removeEffect(Effect effect) {
+    effect.removeFromHero();
+    this.effects.remove(effect);
+  }
 
-//StatMagic
+  public void addAllEffects(List<Effect> effects, Hero caster) {
+    for (Effect effect : effects) {
+      this.addEffect(effect, caster);
+    }
+  }
 
-//    public void levelUp() {
-//        int newLevel = this.level + 1;
-//        this.setLevel(newLevel);
-//        List<Skill> newSkills = this.learnableSkillList.stream().filter(s->s.getLevel() == newLevel).toList();
-//        newSkills.forEach(s-> {
-//            if (!this.skills.contains(s)) {
-//                this.skills.add(s);
-//                sortSkills();
-//            }
-//        });
-//    }
+  public void addEffect(Effect effect, Hero caster) {
 
-    private void sortSkills() {
-        this.skills.sort(Comparator.comparingInt(Skill::getSort));
+    if (getEffectFailure(effect, caster)) {
+      return;
     }
-
-    public void setLevel(int level) {
-        this.level = level;
-        for (Map.Entry<Stat, Integer> entry : this.baseStats.entrySet()) {
-            this.stats.put(entry.getKey(), entry.getValue());
-        }
-    }
-    public int getStat(Stat stat) {
-        if (stat == null) {
-            return 0;
-        }
-        Integer statValue = this.stats.get(stat);
-        if (statValue == null) {
-            return 0;
-        }
-        return this.stats.get(stat);
-    }
-
-    public void changeStatTo(Stat stat, int value) {
-        int val = Math.max(value, 0);
-        int oldValue = this.stats.get(stat);
-        this.stats.put(stat, val);
-        int change = val - oldValue;
-        this.statChanges.put(stat, change + this.statChanges.getOrDefault(stat, 0));
-        StatChangePayload pl = new StatChangePayload().setStat(stat).setOldValue(oldValue).setNewValue(val);
-        Connector.fireTopic(Connector.STAT_CHANGE, pl);
-    }
-
-    public void addToStat(Stat stat, int value) {
-        int val = Math.max(this.stats.get(stat) + value, 0);
-        int oldValue = this.stats.get(stat);
-        int change = val - oldValue;
-        this.statChanges.put(stat, change + this.statChanges.getOrDefault(stat, 0));
-        this.stats.put(stat, val);
-
-        StatChangePayload pl = new StatChangePayload().setStat(stat).setOldValue(oldValue).setNewValue(val);
-        Connector.fireTopic(Connector.STAT_CHANGE, pl);
-    }
-
-    public Map<Stat, Integer> getStatChanges() {
-        return this.statChanges;
-    }
-    public int getStatChange(Stat stat) {
-        if (this.statChanges.containsKey(stat)) {
-            return this.statChanges.get(stat);
-        }
-        return 0;
-    }
-    public Map<Stat, Integer> getStats() {
-        return this.stats;
-    }
-    public void applyStatChanges(Map<Stat, Integer> changes) {
-        this.stats.putAll(changes);
-    }
-    public void addToStats(Map<Stat, Integer> changes) {
-        for (Map.Entry<Stat, Integer> entry : changes.entrySet()) {
-            if (Stat.nonResourceStats.contains(entry.getKey())) {
-                 addToStat(entry.getKey(), entry.getValue());
-            }
-        }
-    }
-
-    public void addResource(Stat currentStat, Stat maxStat, int value, Hero source) {
-        int target = value + this.getStat(currentStat);
-        int max = this.getStat(maxStat);
-        int result = Math.min(target, max);
-        int excess = target - max;
-        this.changeStatTo(currentStat, Math.max(result, 0));
-
-        if (excess > 0) {
-            ExcessResourcePayload pl = new ExcessResourcePayload()
-                    .setResource(currentStat)
-                    .setExcess(excess)
-                    .setSource(source)
-                    .setTarget(this);
-            Connector.fireTopic(Connector.EXCESS_RESOURCE, pl);
-        }
-    }
-
-    public void addResources(List<Resource> resources, Hero source) {
-        for (Resource resource: resources) {
-            addResource(resource, source);
-        }
-    }
-
-    public void addResource(Resource resource, Hero source) {
-        this.addResource(resource.resource, resource.maxResource, resource.amount, source);
-    }
-
-    public int getSkillAccuracy(Skill skill) {
-        if (skill.getAccuracy() == -1 || skill.getTargetType().equals(TargetType.SELF)) {
-            return 100;
-        }
-        return skill.getAccuracy();
-    }
-    public double getResourcePercentage(Stat resource) {
-        if (resource == null) {
-            return 0.0;
-        }
-        return switch (resource) {
-            case LIFE -> ((double) this.getStat(Stat.CURRENT_LIFE)) / this.getStat(Stat.LIFE);
-            case MANA -> ((double) this.getStat(Stat.CURRENT_MANA)) / this.getStat(Stat.MANA);
-//            case MAX_ACTION -> ((double) this.getStat(Stat.CURRENT_ACTION)) / this.getStat(Stat.MAX_ACTION);
-            default -> 0.0;
-        };
-    }
-    public int getCurrentLifePercentage() {
-        return this.stats.get(Stat.CURRENT_LIFE) * 100 / this.stats.get(Stat.LIFE);
-    }
-    public int getMissingLifePercentage() {
-        return (100 - getCurrentLifePercentage());
-    }
-    public int getCurrentManaPercentage() {
-        return this.stats.get(Stat.CURRENT_MANA) * 100 / this.stats.get(Stat.MANA);
-    }
-
-//TurnMagic
-    public void prepareCast() {
-        for (Skill skill : this.skills) {
-            if (skill != null) {
-                skill.getCurrentVersion();
-            }
-        }
-    }
-    public void startOfTurn() {
-        StartOfTurnPayload startOfTurnPayload = new StartOfTurnPayload();
-        Connector.fireTopic(this.id + Connector.START_OF_TURN, startOfTurnPayload);
-    }
-    public void endOfTurn() {
-        skillTurn();
-        equipmentTurn();
-        if (this.getStat(Stat.CURRENT_LIFE) < 1) {
-            return;
-        }
-        int heal = getStat(Stat.LIFE_REGAIN);
-        if (this.hasPermanentEffect(Injured.class) > 0) {
-            return;
-        }
-        heal(this, heal, null, true);
-//        refreshAction();
-        if (this.secondaryResource != null && this.secondaryResource.equals(Stat.MANA)) {
-            addResource(Stat.CURRENT_MANA, Stat.MANA, this.getStat(Stat.MANA_REGAIN), this);
-        }
-        effectTurn();
-    }
-//    public void refreshAction() {
-//        if (this.hasPermanentEffect(Exhausted.class) == 0 && (!this.movedLast || getStat(Stat.CURRENT_ACTION) == 0)) {
-//            this.changeStatTo(Stat.CURRENT_ACTION, this.getStat(Stat.MAX_ACTION));
-//        }
-//    }
-
-//Equipment Magic
-    public void equip(Equipment equipment) {
-        if (!this.equipments.contains(equipment)) {
-            this.equipments.add(equipment);
-        }
-        if (equipment.getSkill() != null && this.skills.size() < 8 && this.skills.size() > 1) {
-            equipment.getSkill().hero = this;
-            this.skills.add(equipment.getSkill());
-            sortSkills();
-            System.out.println("equip " + equipment.getName() + " " + this.name);
-        }
-    }
-    public void unequip(Equipment equipment) {
-        this.equipments.remove(equipment);
-        if (equipment.getSkill() != null) {
-            this.skills.remove(equipment.getSkill());
-        }
-    }
-    private void equipmentTurn() {
-        for (Equipment equipment: this.equipments) {
-            equipment.turn();
-        }
-    }
-//EffectMagic
-    private void effectTurn() {
-        for (Effect effect : effects) {
-            effect.turn();
-        }
-        cleanUpEffect();
-    }
-    private void cleanUpEffect() {
-        List<Effect> toRemove = this.effects.stream()
-                .filter(e->e.turns == 0 || (e.stackable && e.stacks <= 0))
-                .toList();
-        for (Effect effectToRemove : toRemove) {
-            removeEffect(effectToRemove);
-        }
-    }
-    private void removeEffect(Effect effect) {
-        effect.removeEffect();
-        this.effects.remove(effect);
-    }
-    public <T extends Effect> void removeStack(Class<T> clazz) {
-        for (Effect effect : this.effects) {
-            if (effect.getClass().equals(clazz)) {
-                effect.removeStack();
-            }
-        }
-    }
-    public <T extends Effect> int getPermanentEffectStacks(Class<T> clazz) {
-        int amount = 0;
-        for (Effect currentEffect : effects) {
-            if (currentEffect.getClass().equals(clazz)) {
-                amount+=currentEffect.stacks;
-            }
-        }
-        return amount;
-    }
-    public void addAllEffects(List<Effect> effects, Hero caster) {
-        for (Effect effect : effects) {
-            this.addEffect(effect, caster);
-        }
-    }
-    public void addEffect(Effect effect, Hero caster) {
-
-        if (getEffectFailure(effect, caster)) {
-            return;
-        }
-        boolean added = false;
-        boolean newlyAdded = false;
-        if (effect.negates != null) {
-            boolean negates = this.effects.stream().anyMatch(e->e.name.equals(effect.negates));
-            if (negates) {
-                this.removeEffectByName(effect.negates);
-                added = true;
-            }
-        } else {
-            for (Effect effectHave : effects) {
-                if (effectHave.getClass().equals(effect.getClass())) {
-                    if (effect.stackable) {
-                        added = true;
-                        newlyAdded = true;
-                        effectHave.addStack(effect.stacks);
-                    } else {
-                        effectHave.turns = effect.turns;
-                        added = true;
-                    }
-                }
-            }
-        }
-        if (!added && this.effects.size() != 12) {
-            Effect newEffect = effect.getNew();
-            newEffect.origin = caster;
-            newEffect.hero = this;
-            this.effects.add(newEffect);
-            newEffect.addToHero();
+    boolean added = false;
+    boolean newlyAdded = false;
+    if (effect.negates != null) {
+      boolean negates = this.effects.stream().anyMatch(e -> effect.negates.contains(e.name));
+      if (negates) {
+        effect.negates.forEach(this::removeEffectByName);
+        added = true;
+      }
+    } else {
+      for (Effect effectHave : effects) {
+        if (effectHave.getClass().equals(effect.getClass())) {
+          if (effect.stackable) {
+            added = true;
             newlyAdded = true;
+            effectHave.addStacks(effect.stacks);
+          } else {
+            effectHave.turns += effect.turns;
+            added = true;
+          }
         }
-        if (newlyAdded) {
-            EffectAddedPayload effectAddedPayload = new EffectAddedPayload()
-                    .setEffect(effect)
-                    .setCaster(caster);
-            Connector.fireTopic(Connector.EFFECT_ADDED, effectAddedPayload);
-        }
-        this.arena.logCard.addToLog(this.getName() + " received " + effect.getIconString() + "("+(effect.stackable?effect.stacks:effect.turns)+").");
+      }
     }
-    private boolean getEffectFailure(Effect effect, Hero caster) {
-        if (hasPermanentEffect(Immunity.class) > 0) {
-            return true;
-        }
-        EffectFailurePayload payload = new EffectFailurePayload()
-                .setEffect(effect)
-                .setCaster(caster);
-        Connector.fireTopic(Connector.EFFECT_FAILURE, payload);
-        return payload.isFailure();
+    if (!added && this.effects.size() != 12) {
+      Effect newEffect = effect.copy();
+      newEffect.origin = caster;
+      newEffect.hero = this;
+      this.effects.add(newEffect);
+      newEffect.addSubscriptions();
+      newlyAdded = true;
     }
-    public int hasPermanentEffect(String effectName) {
-        int amount = 0;
-        for (Effect currentEffect : effects) {
-            if (currentEffect.name.equals(effectName)) {
-                amount+=currentEffect.stacks;
-            }
-        }
-        return amount;
-    }
-    public <T extends Effect> int hasPermanentEffect(Class<T> clazz) {
-        int amount = 0;
-        for (Effect currentEffect : effects) {
-            if (currentEffect.getClass().equals(clazz)) {
-                amount+=currentEffect.stacks;
-            }
-        }
-        return amount;
-    }
-    public <T extends Effect> void decreaseEffectStack(Class<T> clazz) {
-        if (this.hasPermanentEffect(clazz) > 0) {
-            this.getPermanentEffect(clazz).stacks--;
-            this.cleanUpEffect();
-        }
-    }
-    public void removeEffectByName(String name) {
-        Logger.logLn(this.name + ".removePermanentEffect:" +name);
-        List<Effect> toRemove = this.effects.stream()
-                .filter(e->e.name.equals(name))
-                .toList();
-        for (Effect effect : toRemove) {
-            removeEffect(effect);
-        }
-    }
-    public <T extends Effect> void removePermanentEffectOfClass(Class<T> clazz) {
-        Logger.logLn(this.name + ".removePermanentEffect:" + clazz.getName());
-        List<Effect> toRemove = this.effects.stream()
-                .filter(e->e.getClass().equals(clazz))
-                .toList();
-        for (Effect effect : toRemove) {
-            removeEffect(effect);
-        }
-    }
-    public <T extends Effect> Effect getPermanentEffect(Class<T> clazz) {
-        for (Effect currentEffect : effects) {
-            if (currentEffect.getClass().equals(clazz)) {
-                return currentEffect;
-            }
-        }
-        return null;
-    }
+    trigger_effectAdded(effect, caster, newlyAdded);
+    this.arena.logCard.addToLog(
+        this.getName()
+            + " received "
+            + effect.getIconString()
+            + "("
+            + (effect.stackable ? effect.stacks : effect.turns)
+            + ").");
+  }
 
-//SkillMagic
-    private void skillTurn() {
-        for (Skill s : this.skills) {
-            if (s != null) {
-                s.turn();
-            }
-        }
+  private boolean getEffectFailure(Effect effect, Hero caster) {
+    if (hasPermanentEffect(Immunity.class)) {
+      return true;
     }
-    public <T extends Skill> boolean hasSkill(Class<T> clazz) {
-        for (Skill s : this.skills) {
-            if (s!= null && s.getClass().equals(clazz)) {
-                return true;
-            }
-        }
-        return false;
-    }
-    public boolean canPerform(Skill s, int[] targetPositions) {
+    return trigger_effectFailure(effect, caster, this);
+  }
 
-        if (!canPerformResourceCheck(s)) {
-            return false;
-        }
-        CanPerformPayload canPerformPayload = new CanPerformPayload()
-                .setSkill(s)
-                .setTargetPositions(targetPositions);
-        Connector.fireTopic(Connector.CAN_PERFORM, canPerformPayload);
-        return canPerformPayload.success;
-    }
-    private boolean canPerformResourceCheck(Skill s) {
-        if (s == null ){
-            return false;
-        }
-        return this.stats.get(Stat.CURRENT_LIFE) > s.getLifeCost() &&
-                this.stats.get(Stat.CURRENT_MANA) > s.getManaCost() && !s.isPassive();
-    }
-    public void payForSkill(Skill s) {
-        addToStat(Stat.CURRENT_LIFE, -1*s.getLifeCost(this));
-        addToStat(Stat.CURRENT_MANA, -1*s.getManaCost());
-        Logger.logLn("Paid life:"+s.getLifeCost(this));
-    }
+  public boolean hasPermanentEffect(String name) {
+    return effects.stream().anyMatch(e -> e.name.equals(name));
+  }
 
-    public void removeNegativeEffects() {
-        List<Effect> toRemove = this.effects.stream().filter(e-> e.type.equals(Effect.ChangeEffectType.DEBUFF)).toList();
-        for (Effect effect : toRemove) {
-            this.removeEffect(effect);
-        }
-    }
-    public void removePositiveEffects() {
-        for (Effect effect : this.effects) {
-            if (effect.type.equals(Effect.ChangeEffectType.BUFF)) {
-                this.removeEffect(effect);
-            }
-        }
-    }
+  public <T extends Effect> boolean hasPermanentEffect(Class<T> clazz) {
+    return effects.stream().anyMatch(e -> e.getClass().equals(clazz));
+  }
 
-    public int simulateHealInPercentages(Hero caster, int heal, Skill skill) {
-        HealChangesPayload healChangesPayload = new HealChangesPayload()
-                .setCaster(caster)
-                .setTarget(this)
-                .setSkill(skill)
-                .setHeal(heal);
-        Connector.fireTopic(Connector.HEAL_CHANGES, healChangesPayload);
-        int pureHeal = healChangesPayload.heal;
-        int actualHeal = Math.min(pureHeal, this.stats.get(Stat.LIFE) - this.stats.get(Stat.CURRENT_LIFE));
-        return actualHeal * 100 / this.stats.get(Stat.LIFE);
+  public int getPermanentEffectStacks(String effectName) {
+    int amount = 0;
+    for (Effect currentEffect : effects) {
+      if (currentEffect.name.equals(effectName)) {
+        amount += currentEffect.stacks;
+      }
     }
-    public void heal(Hero caster, int heal, Skill skill, boolean regen) {
-        HealChangesPayload healChangesPayload = new HealChangesPayload()
-                .setCaster(caster)
-                .setTarget(this)
-                .setSkill(skill)
-                .setHeal(heal)
-                .setRegen(regen);
-        Connector.fireTopic(Connector.HEAL_CHANGES, healChangesPayload);
-        int resultHeal = healChangesPayload.heal;
-        if (resultHeal >0) {
-            this.arena.logCard.addToLog(this.getName() + " was healed by " + resultHeal + ".");
-            addResource(Stat.CURRENT_LIFE, Stat.LIFE, resultHeal, caster);
-        }
-    }
+    return amount;
+  }
 
-    public void shield(int shield, Hero source) {
-        ShieldChangesPayload pl = new ShieldChangesPayload()
-                .setShield(shield)
-                .setSource(source)
-                .setTarget(this);
-        Connector.fireTopic(Connector.SHIELD_CHANGES, pl);
-        addResource(Stat.SHIELD, Stat.LIFE, pl.shield, source);
+  public <T extends Effect> int getPermanentEffectStacks(Class<T> clazz) {
+    int amount = 0;
+    for (Effect currentEffect : effects) {
+      if (currentEffect.getClass().equals(clazz)) {
+        amount += currentEffect.stacks;
+      }
     }
-    public int trueDamage(Hero caster, int damage) {
-        playAnimation("damaged", true);
-        addResource(Stat.CURRENT_LIFE, Stat.LIFE, -1*damage, caster);
-        return damage;
-    }
-    public int damage(Hero caster, int damage,  int lethality, Skill skill) {
+    return amount;
+  }
 
-        int def = getStat(Stat.STAMINA);
-        int result = MyMaths.getDamage(damage, def, lethality);
-        DmgChangesPayload dmgChangesPayload = new DmgChangesPayload()
-                .setCaster(caster)
-                .setTarget(this)
-                .setSkill(skill)
-                .setDmg(result)
-                .setSimulate(false);
-        Connector.fireTopic(Connector.DMG_CHANGES, dmgChangesPayload);
-        System.out.println("dmg:"+result);
-        Logger.logLn("1play dmg animation of " + this.name + "/"+this.id);
-        playAnimation("damaged", true);
-        int shield = getStat(Stat.SHIELD);
-        if (shield > 0) {
-            int dmgToShield;
-            boolean broken = false;
-            if (shield < result) {
-                this.changeStatTo(Stat.SHIELD, 0);
-                result -= shield;
-                dmgToShield = shield;
-                broken = true;
-            } else {
-                this.shield(-1*result, caster);
-                dmgToShield = result;
-                result = 0;
-            }
-
-            DmgToShieldPayload dmgToShieldPayload = new DmgToShieldPayload()
-                    .setTarget(this)
-                    .setDmg(dmgToShield);
-            Connector.fireTopic(Connector.DMG_TO_SHIELD, dmgToShieldPayload);
-
-            if (broken) {
-                ShieldBrokenPayload pl = new ShieldBrokenPayload()
-                        .setTarget(this);
-                Connector.fireTopic(Connector.SHIELD_BROKEN, pl);
-            }
-        }
-        this.arena.logCard.addToLog(this.getName() + " was dealt " + result + " damage.");
-        addResource(Stat.CURRENT_LIFE, Stat.LIFE, -1*result, caster);
-        return result;
+  public <T extends Effect> void decreaseEffectStack(Class<T> clazz) {
+    if (this.getPermanentEffectStacks(clazz) > 0) {
+      this.getPermanentEffect(clazz).stacks--;
     }
+  }
 
-    public int simulateDamageInPercentages(Hero caster, int damage, int lethality, Skill skill) {
-        int def = getStat(Stat.STAMINA);
-        int result = MyMaths.getDamage(damage, def, lethality);
-        DmgChangesPayload dmgChangesPayload = new DmgChangesPayload()
-                .setCaster(caster)
-                .setTarget(this)
-                .setSkill(skill)
-                .setDmg(result)
-                .setSimulate(true);
-        Connector.fireTopic(Connector.DMG_CHANGES, dmgChangesPayload);
-        return result * 100 / this.stats.get(Stat.LIFE);
+  public void removeEffectByName(String name) {
+    Logger.logLn(this.name + ".removePermanentEffect:" + name);
+    List<Effect> toRemove = this.effects.stream().filter(e -> e.name.equals(name)).toList();
+    for (Effect effect : toRemove) {
+      removeEffect(effect);
     }
+  }
 
-    public void effectDamage(int damage, Effect effect) {
-        EffectDmgChangesPayload dmgChangesPayload = new EffectDmgChangesPayload()
-                .setTarget(this)
-                .setEffect(effect)
-                .setDmg(damage);
-        Connector.fireTopic(Connector.EFFECT_DMG_CHANGES, dmgChangesPayload);
-        damage = dmgChangesPayload.dmg;
-        Logger.logLn("2play dmg animation of " + this.name + " at pos " + this.position);
-        this.anim.playAnimation("damaged", true);
-        addToStat(Stat.CURRENT_LIFE, -1*damage);
-        DmgTriggerPayload dmgTriggerPayload = new DmgTriggerPayload()
-                .setDmgDone(damage)
-                .setTarget(this)
-                .setEffect(effect);
-        Connector.fireTopic(Connector.EFFECT_DMG_TRIGGER, dmgTriggerPayload);
+  public <T extends Effect> void removePermanentEffectOfClass(Class<T> clazz) {
+    Logger.logLn(this.name + ".removePermanentEffect:" + clazz.getName());
+    List<Effect> toRemove = this.effects.stream().filter(e -> e.getClass().equals(clazz)).toList();
+    for (Effect effect : toRemove) {
+      removeEffect(effect);
     }
-//GUI
-    public void playAnimation(String anim) {
-        this.playAnimation(anim, true);
-    }
-    public void playAnimation(String anim, boolean waitfor) {
-        if (this.anim != null) {
-            Logger.logLn("play skill animation of " + this.name);
-            this.anim.playAnimation(anim, waitfor);
-        }
-    }
-    public String getResourceString(Stat resource) {
-        if (resource == null) {
-            return "";
-        }
-        return switch (resource) {
-            case LIFE -> getHealthString();
-            case MANA -> getManaString();
-            default -> "";
-        };
-    }
+  }
 
-    public void draft(int draftChoice) {
-        this.draftChoice = draftChoice;
+  public <T extends Effect> Effect getPermanentEffect(Class<T> clazz) {
+    for (Effect currentEffect : effects) {
+      if (currentEffect.getClass().equals(clazz)) {
+        return currentEffect;
+      }
     }
-    public void removeFromDraft() {
-        this.draftChoice = 0;
+    return null;
+  }
+
+  // SkillMagic
+  private void skillTurn() {
+    for (Skill s : this.skills) {
+      if (s != null) {
+        s.turn();
+      }
     }
-    public int getDraftChoice() {
-        return this.draftChoice;
+  }
+
+  public <T extends Skill> boolean hasSkill(Class<T> clazz) {
+    for (Skill s : this.skills) {
+      if (s != null && s.getClass().equals(clazz)) {
+        return true;
+      }
     }
+    return false;
+  }
 
-//Loading
+  public boolean canPerform(Skill s, int[] targetPositions) {
 
-    protected Map<Stat, Integer> loadLevelStats() {
-
-        Map<Stat, Integer> statJson = FileWalker.getStatJson(this.basePath + STAT_PATH);
-        if (statJson != null) {
-            return statJson;
-        }
-        return new HashMap<>();
+    if (!canPerformResourceCheck(s)) {
+      return false;
     }
-
-
-//GetterSetter
-
-    private String getManaString() {
-        return this.stats.get(Stat.CURRENT_MANA) + "(+" + this.stats.get(Stat.MANA_REGAIN) + ")/" + this.stats.get(Stat.MANA);
+    if (trigger_performFailure(s, targetPositions)) {
+      return false;
     }
+    return s.performCheck(this);
+  }
 
-    public String getHealthString() {
-        return this.stats.get(Stat.CURRENT_LIFE) + "(+" + this.stats.get(Stat.LIFE_REGAIN) + ")/" + this.stats.get(Stat.LIFE);
+  private boolean canPerformResourceCheck(Skill s) {
+    if (s == null) {
+      return false;
     }
+    return this.stats.get(Stat.CURRENT_LIFE) > s.getLifeCost()
+        && this.stats.get(Stat.CURRENT_ENERGY) > s.getManaCost()
+        && !s.isPassive();
+  }
 
-    public static Color getResourceColor(Stat stat) {
-        if (stat == null) {
-            return Color.BLACK;
-        }
-        return switch (stat) {
-            case LIFE -> Color.GREEN;
-            case MANA -> Color.BLUE;
-            default -> Color.WHITE;
-        };
-    }
-    public List<Hero> getAllies() {
-        List<Hero> allies = new ArrayList<>();
-        for (Hero hero: this.team.heroes) {
-            if (hero != this) {
-                allies.add(hero);
-            }
-        }
-        return allies;
-    }
-    public List<Hero> getEnemies() {
-        if (this.isTeam2()) {
-            return Arrays.stream(this.arena.teams.get(0).heroes).filter(Objects::nonNull).toList();
-        } else {
-            return Arrays.stream(this.arena.teams.get(1).heroes).filter(Objects::nonNull).toList();
-        }
-    }
+  public void payForSkill(Skill s) {
+    payResource(Stat.CURRENT_LIFE, Stat.VITALITY, -1 * s.getLifeCost(this));
+    payResource(Stat.CURRENT_ENERGY, Stat.ENERGY, -1 * s.getManaCost());
+    Logger.logLn("Paid life:" + s.getLifeCost(this));
+  }
 
-//GETTERS SETTERS
-
-    public int getId() {
-        return id;
+  public boolean hasStatus() {
+    for (Effect effect : this.effects) {
+      if (Effect.ChangeEffectType.STATUS.equals(effect.type)) {
+        return true;
+      }
     }
+    return false;
+  }
 
-    public Hero setId(int id) {
-        this.id = id;
-        return this;
+  public boolean hasStatusDebuff() {
+    for (Effect effect : this.effects) {
+      if (Effect.ChangeEffectType.STATUS.equals(effect.type)
+          && effect.subTypes.contains(Effect.SubType.DEBUFF)) {
+        return true;
+      }
     }
-
-    public String getName() {
-        return name;
+    return false;
+  }
+  public boolean hasStatusBuff() {
+    for (Effect effect : this.effects) {
+      if (Effect.ChangeEffectType.STATUS.equals(effect.type)
+              && effect.subTypes.contains(Effect.SubType.BUFF)) {
+        return true;
+      }
     }
+    return false;
+  }
 
-    public Hero setName(String name) {
-        this.name = name;
-        return this;
+  public void removeNegativeEffects() {
+    List<Effect> toRemove =
+        this.effects.stream().filter(e -> e.subTypes.contains(Effect.SubType.DEBUFF)).toList();
+    for (Effect effect : toRemove) {
+      this.removeEffect(effect);
     }
+  }
 
-    public List<Skill> getLearnableSkillList() {
-        return learnableSkillList;
+  public void removePositiveEffects() {
+    for (Effect effect : this.effects) {
+      if (effect.subTypes.contains(Effect.SubType.BUFF)) {
+        this.removeEffect(effect);
+      }
     }
+  }
 
-    public List<Skill> getSkills() {
-        return skills;
+  public int simulateHealInPercentages(
+      int heal, Hero caster, Skill skill, Effect effect, Equipment equipment) {
+    int pureHeal = trigger_healChanges(heal, caster, skill, effect, equipment, false);
+
+    int actualHeal =
+        Math.min(pureHeal, this.stats.get(Stat.VITALITY) - this.stats.get(Stat.CURRENT_LIFE));
+    return actualHeal * 100 / this.stats.get(Stat.VITALITY);
+  }
+
+  public void payResource(Stat resource, Stat max, int amount) {
+    addResource(resource, max, amount, this, null, null, null);
+  }
+
+  public void energy(
+      int energy, Hero caster, Skill skill, Effect effect, Equipment equipment, boolean regen) {
+    energy = trigger_energyChanges(energy, caster, skill, effect, equipment, regen);
+    addResource(Stat.CURRENT_ENERGY, Stat.ENERGY, energy, caster, skill, effect, equipment);
+  }
+
+  public void percentageHeal(int percentage, Hero caster, Skill skill, Effect effect, Equipment equipment, boolean regen) {
+    int heal = MyMaths.percentageOf(percentage, this.getStat(Stat.VITALITY));
+    heal(heal, caster, skill, effect, equipment, regen);
+  }
+
+  public void heal(
+      int heal, Hero caster, Skill skill, Effect effect, Equipment equipment, boolean regen) {
+    heal = trigger_healChanges(heal, caster, skill, effect, equipment, regen);
+    addResource(Stat.CURRENT_LIFE, Stat.VITALITY, heal, caster, skill, effect, equipment);
+  }
+
+  public void shield(int shield, Hero caster, Skill skill, Effect effect, Equipment equipment) {
+    shield = trigger_shieldChanges(shield, caster, skill, effect, equipment);
+    addResource(Stat.SHIELD, Stat.VITALITY, shield, caster, skill, effect, equipment);
+  }
+
+  public void percentageDamage(
+      double percentageDamage,
+      Hero caster,
+      Skill skill,
+      Effect effect,
+      Equipment equipment,
+      int lethality) {
+    int damage = MyMaths.percentageOf(percentageDamage, this.getStat(Stat.VITALITY));
+    damage(damage, caster, skill, effect, equipment, lethality);
+  }
+
+  public int damage(
+      int damage, Hero caster, Skill skill, Effect effect, Equipment equipment, int lethality) {
+
+    damage = trigger_dmgChanges(damage, caster, skill, effect, equipment);
+
+    int def = getStat(Stat.ARMOR);
+    int result = MyMaths.getDamage(damage, def, lethality);
+
+    System.out.println("dmg:" + result);
+    Logger.logLn("1play dmg animation of " + this.name + "/" + this.id);
+    playAnimation("damaged", true);
+
+    int shield = getStat(Stat.SHIELD);
+    if (shield > 0) {
+      int dmgToShield;
+      boolean broken = false;
+      if (shield < result) {
+        this.stats.put(Stat.SHIELD, 0);
+        result -= shield;
+        dmgToShield = shield;
+        broken = true;
+      } else {
+        this.addResource(Stat.SHIELD, null, -1 * result, caster, skill, effect, equipment);
+        dmgToShield = result;
+        result = 0;
+      }
+      trigger_shieldDamage(this, dmgToShield);
+      if (broken) {
+        trigger_shieldBroken(this);
+      }
     }
+    this.arena.logCard.addToLog(this.getName() + " was dealt " + result + " damage.");
+    addResource(Stat.CURRENT_LIFE, Stat.VITALITY, -1 * result, caster, skill, effect, equipment);
+    return result;
+  }
 
-    public Hero setSkills(List<Skill> skills) {
-        this.skills = skills;
-        return this;
+  public int simulateDamageInPercentages(Hero caster, int damage, int lethality, Skill skill) {
+    damage = trigger_dmgChanges(damage, caster, skill, null, null);
+    int def = getStat(Stat.ARMOR);
+    int result = MyMaths.getDamage(damage, def, lethality);
+    return result * 100 / this.stats.get(Stat.VITALITY);
+  }
+
+  // GUI
+  public void playAnimation(String anim) {
+    this.playAnimation(anim, true);
+  }
+
+  public void playAnimation(String anim, boolean waitfor) {
+    if (this.anim != null) {
+      Logger.logLn("play skill animation of " + this.name);
+      this.anim.playAnimation(anim, waitfor);
     }
+  }
 
-    public List<Equipment> getEquipments() {
-        return equipments;
+  public String getResourceString(Stat resource) {
+    if (resource == null) {
+      return "";
     }
+    return switch (resource) {
+      case VITALITY -> getHealthString();
+      case ENERGY -> getManaString();
+      default -> "";
+    };
+  }
 
-    public Hero setEquipments(List<Equipment> equipments) {
-        this.equipments = equipments;
-        return this;
+  public void draft(int draftChoice) {
+    this.draftChoice = draftChoice;
+  }
+
+  public void removeFromDraft() {
+    this.draftChoice = 0;
+  }
+
+  public int getDraftChoice() {
+    return this.draftChoice;
+  }
+
+  // Loading
+
+  protected Map<Stat, Integer> loadLevelStats() {
+
+    Map<Stat, Integer> statJson = FileWalker.getStatJson(this.basePath + STAT_PATH);
+    if (statJson != null) {
+      return statJson;
     }
+    return new HashMap<>();
+  }
 
-    public String getPortraitName() {
-        return portraitName;
+  // Trigger
+
+  public void trigger_shieldBroken(Hero target) {
+    ConnectionPayload pl = new ConnectionPayload().setTarget(target);
+    Connector.fireTopic(Connector.SHIELD_BROKEN, pl);
+  }
+
+  public void trigger_shieldDamage(Hero target, int damage) {
+    ConnectionPayload dmgToShieldPayload = new ConnectionPayload().setTarget(this).setDmg(damage);
+    Connector.fireTopic(Connector.DMG_TO_SHIELD, dmgToShieldPayload);
+  }
+
+  public boolean trigger_performFailure(Skill skill, int[] targetPositions) {
+    ConnectionPayload canPerformPayload =
+        new ConnectionPayload().setSkill(skill).setTargetPositions(targetPositions);
+    Connector.fireTopic(Connector.CAN_PERFORM, canPerformPayload);
+    return canPerformPayload.failure;
+  }
+
+  public void trigger_effectAdded(Effect effect, Hero caster, boolean newlyAdded) {
+    ConnectionPayload effectAddedPayload =
+        new ConnectionPayload().setEffect(effect).setCaster(caster).setNewEffect(newlyAdded);
+    Connector.fireTopic(Connector.EFFECT_ADDED, effectAddedPayload);
+  }
+
+  public boolean trigger_effectFailure(Effect effect, Hero caster, Hero target) {
+    ConnectionPayload payload = new ConnectionPayload().setEffect(effect).setCaster(caster);
+    Connector.fireTopic(Connector.EFFECT_FAILURE_CHECK, payload);
+    return payload.failure;
+  }
+
+  public void trigger_startOfTurn() {
+    ConnectionPayload pl = new ConnectionPayload();
+    pl.setCaster(this);
+    Connector.fireTopic(this.id + Connector.START_OF_TURN, pl);
+  }
+
+  public void trigger_endOfTurn() {
+    ConnectionPayload pl = new ConnectionPayload();
+    pl.setCaster(this);
+    Connector.fireTopic(this.id + Connector.END_OF_TURN, pl);
+  }
+
+  public void trigger_excessResource(
+      Stat stat, int value, Hero source, Skill skill, Effect effect, Equipment equipment) {
+    ConnectionPayload pl =
+        new ConnectionPayload()
+            .setStat(stat)
+            .setValue(value)
+            .setCaster(source)
+            .setSkill(skill)
+            .setEffect(effect)
+            .setEquipment(equipment)
+            .setTarget(this);
+    Connector.fireTopic(Connector.EXCESS_RESOURCE, pl);
+  }
+
+  public int trigger_energyChanges(
+      int energy, Hero caster, Skill skill, Effect effect, Equipment equipment, boolean regen) {
+    ConnectionPayload energyChangesPayload =
+        new ConnectionPayload()
+            .setCaster(caster)
+            .setTarget(this)
+            .setEffect(effect)
+            .setEquipment(equipment)
+            .setSkill(skill)
+            .setRegen(regen)
+            .setEnergy(energy);
+    Connector.fireTopic(Connector.BASE_ENERGY_CHANGES, energyChangesPayload);
+    Connector.fireTopic(Connector.ENERGY_CHANGES_MULT, energyChangesPayload);
+    return energyChangesPayload.energy;
+  }
+
+  public int trigger_healChanges(
+      int heal, Hero caster, Skill skill, Effect effect, Equipment equipment, boolean regen) {
+    ConnectionPayload healChangesPayload =
+        new ConnectionPayload()
+            .setCaster(caster)
+            .setTarget(this)
+            .setEffect(effect)
+            .setEquipment(equipment)
+            .setSkill(skill)
+            .setRegen(regen)
+            .setHeal(heal);
+    Connector.fireTopic(Connector.BASE_HEAL_CHANGES, healChangesPayload);
+    Connector.fireTopic(Connector.HEAL_CHANGES_MULT, healChangesPayload);
+    return healChangesPayload.heal;
+  }
+
+  public int trigger_dmgChanges(
+      int dmg, Hero caster, Skill skill, Effect effect, Equipment equipment) {
+    ConnectionPayload dmgChangesPayload =
+        new ConnectionPayload()
+            .setCaster(caster)
+            .setTarget(this)
+            .setSkill(skill)
+            .setEffect(effect)
+            .setEquipment(equipment)
+            .setDmg(dmg)
+            .setSimulate(false);
+    Connector.fireTopic(Connector.BASE_DMG_CHANGES, dmgChangesPayload);
+    Connector.fireTopic(Connector.DMG_CHANGES_MULT, dmgChangesPayload);
+    return dmgChangesPayload.dmg;
+  }
+
+  public int trigger_shieldChanges(
+      int shield, Hero caster, Skill skill, Effect effect, Equipment equipment) {
+    ConnectionPayload shieldChangesPayload =
+        new ConnectionPayload()
+            .setCaster(caster)
+            .setTarget(this)
+            .setSkill(skill)
+            .setEquipment(equipment)
+            .setEffect(effect)
+            .setShield(shield)
+            .setSimulate(false);
+    Connector.fireTopic(Connector.BASE_SHIELD_CHANGES, shieldChangesPayload);
+    Connector.fireTopic(Connector.SHIELD_CHANGES_MULT, shieldChangesPayload);
+    return shieldChangesPayload.shield;
+  }
+
+  public int trigger_statChange(Stat stat, int statValue) {
+    ConnectionPayload bsc =
+        new ConnectionPayload().setStat(stat).setValue(statValue).setTarget(this);
+    Connector.fireTopic(Connector.BASE_STAT_CHANGE, bsc);
+
+    ConnectionPayload scm =
+        new ConnectionPayload().setStat(stat).setTarget(this).setValue(bsc.value);
+    Connector.fireTopic(Connector.STAT_CHANGE_MULT, scm);
+    return scm.value;
+  }
+
+  public int trigger_statPermanentChange(Stat stat, int statValue) {
+    ConnectionPayload bsc =
+        new ConnectionPayload().setStat(stat).setValue(statValue).setTarget(this);
+    Connector.fireTopic(Connector.BASE_STAT_PERMANENT_CHANGE, bsc);
+
+    ConnectionPayload scm =
+        new ConnectionPayload().setStat(stat).setTarget(this).setValue(bsc.value);
+    Connector.fireTopic(Connector.STAT_PERMANENT_CHANGE_MULT, scm);
+    return scm.value;
+  }
+
+  // GetterSetter
+
+  private String getManaString() {
+    return this.stats.get(Stat.CURRENT_ENERGY)
+        + "(+"
+        + this.stats.get(Stat.ENERGY_REGAIN)
+        + ")/"
+        + this.stats.get(Stat.ENERGY);
+  }
+
+  public String getHealthString() {
+    return this.stats.get(Stat.CURRENT_LIFE)
+        + "(+"
+        + this.stats.get(Stat.LIFE_REGAIN)
+        + ")/"
+        + this.stats.get(Stat.VITALITY);
+  }
+
+  public static Color getResourceColor(Stat stat) {
+    if (stat == null) {
+      return Color.BLACK;
     }
+    return switch (stat) {
+      case VITALITY -> Color.GREEN;
+      case ENERGY -> Color.BLUE;
+      default -> Color.WHITE;
+    };
+  }
 
-    public Hero setPortraitName(String portraitName) {
-        this.portraitName = portraitName;
-        return this;
+  public List<Hero> getAllies() {
+    List<Hero> allies = new ArrayList<>();
+    for (Hero hero : this.team.heroes) {
+      if (hero != this) {
+        allies.add(hero);
+      }
     }
+    return allies;
+  }
 
-    public List<Effect> getEffects() {
-        return effects;
+  public List<Hero> getEnemies() {
+    if (this.isTeam2()) {
+      return Arrays.stream(this.arena.teams.getFirst().heroes).filter(Objects::nonNull).toList();
+    } else {
+      return Arrays.stream(this.arena.teams.get(1).heroes).filter(Objects::nonNull).toList();
     }
+  }
 
-    public Hero setEffects(List<Effect> effects) {
-        this.effects = effects;
-        return this;
+  // GETTERS SETTERS
+
+  public int getId() {
+    return id;
+  }
+
+  public Hero setId(int id) {
+    this.id = id;
+    return this;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public Hero setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public List<Skill> getLearnableSkillList() {
+    return learnableSkillList;
+  }
+
+  public List<Skill> getSkills() {
+    return skills;
+  }
+
+  public Hero setSkills(List<Skill> skills) {
+    this.skills = skills;
+    return this;
+  }
+
+  public List<Equipment> getEquipments() {
+    return equipments;
+  }
+
+  public Hero setEquipments(List<Equipment> equipments) {
+    this.equipments = equipments;
+    return this;
+  }
+
+  public String getPortraitName() {
+    return portraitName;
+  }
+
+  public Hero setPortraitName(String portraitName) {
+    this.portraitName = portraitName;
+    return this;
+  }
+
+  public List<Effect> getEffects() {
+    return effects;
+  }
+
+  public Hero setEffects(List<Effect> effects) {
+    this.effects = effects;
+    return this;
+  }
+
+  public Stat getSecondaryResource() {
+    return secondaryResource;
+  }
+
+  public Hero setSecondaryResource(Stat secondaryResource) {
+    this.secondaryResource = secondaryResource;
+    return this;
+  }
+
+  public boolean isAlive() {
+    return this.getStat(Stat.CURRENT_LIFE) > 0;
+  }
+
+  public boolean isMoved() {
+    return moved;
+  }
+
+  public Hero setMoved(boolean moved) {
+    this.moved = moved;
+    return this;
+  }
+
+  //    public boolean isMovedLast() {
+  //        return movedLast;
+  //    }
+  //
+  //    public Hero setMovedLast(boolean movedLast) {
+  //        this.movedLast = movedLast;
+  //        return this;
+  //    }
+
+  public int getPosition() {
+    return position;
+  }
+
+  public int getSkillPos() {
+    return this.isTeam2() ? Arena.lastEnemyPos - this.getPosition() : this.getPosition();
+  }
+
+  public void setPosition(int position) {
+    this.position = position;
+  }
+
+  public boolean isTeam2() {
+    return this.team.teamNumber == 2;
+  }
+
+  public List<Skill> getSpecificSkills(SkillTag tag) {
+    return this.skills.stream().filter(s -> s.tags.contains(tag)).toList();
+  }
+
+  // DEV
+
+  public void devDMGTestSkill(int index, Hero target) {
+    if (this.skills.size() > index) {
+      Skill skill = this.skills.get(index);
+      System.out.print(skill.getName() + ":");
+      skill.setTargets(new Hero[] {target});
+      skill.resolve();
     }
+  }
 
-    public Stat getSecondaryResource() {
-        return secondaryResource;
-    }
+  public int getTeamPosition() {
+    return this.isTeam2() ? Arena.lastEnemyPos - this.position : this.position;
+  }
 
-    public Hero setSecondaryResource(Stat secondaryResource) {
-        this.secondaryResource = secondaryResource;
-        return this;
-    }
+  public Role getRole() {
+    return this.role;
+  }
 
-    public boolean isMoved() {
-        return moved;
-    }
+  public int getLevel() {
+    return level;
+  }
 
-    public Hero setMoved(boolean moved) {
-        this.moved = moved;
-        return this;
-    }
-//    public boolean isMovedLast() {
-//        return movedLast;
-//    }
-//
-//    public Hero setMovedLast(boolean movedLast) {
-//        this.movedLast = movedLast;
-//        return this;
-//    }
-
-    public int getPosition() {
-        return position;
-    }
-
-    public int getSkillPos() {
-        return this.isTeam2() ? Arena.lastEnemyPos - this.getPosition() : this.getPosition();
-    }
-
-    public void setPosition(int position) {
-        this.position = position;
-    }
-
-    public boolean isTeam2() {
-        return this.team.teamNumber==2;
-    }
-
-    public List<Skill> getSpecificSkills(SkillTag tag) {
-        return this.skills.stream().filter(s->s.tags.contains(tag)).toList();
-    }
-
-//DEV
-
-    public void devDMGTestSkill(int index, Hero target) {
-        if (this.skills.size() > index) {
-            Skill skill = this.skills.get(index);
-            System.out.print(skill.getName()+":");
-            skill.setTargets(new Hero[]{target});
-            skill.resolve();
-        }
-    }
-
-    public int getCasterPosition() {
-        return this.isTeam2() ? Arena.lastEnemyPos - this.position : this.position;
-    }
-
-    public Role getRole() {
-        return this.role;
-    }
-
-    public int getLevel() {
-        return level;
-    }
+  public boolean isAlly(Hero other) {
+    return this.team != other.team;
+  }
 }

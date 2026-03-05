@@ -1,0 +1,297 @@
+{
+  "Immunity": {
+    "name": "Immunity",
+    "iconString": "IMU",
+    "description": "Description",
+    "stackable": false,
+    "durability": "TIME",
+    "type": "STATUS",
+    "subTypes": [
+      "BUFF"
+    ]
+  },
+  "Bleeding": {
+    "name": "Bleeding",
+    "iconString": "BLD",
+    "description": "Description",
+    "stackable": false,
+    "durability": "TIME",
+    "type": "STATUS",
+    "subTypes": [
+      "DEBUFF"
+    ]
+  },
+  "Protected": {
+    "name": "Protected",
+    "iconString": "PRO",
+    "description": "Description",
+    "stackable": false,
+    "durability": "ONCE",
+    "type": "STATUS",
+    "subTypes": [
+      "BUFF"
+    ]
+  },
+  "Stunned": {
+    "name": "Stunned",
+    "iconString": "STN",
+    "description": "Description",
+    "stackable": false,
+    "durability": "ONCE",
+    "type": "STATUS",
+    "subTypes": [
+      "DEBUFF"
+    ]
+  },
+  "Threatening": {
+    "name": "Threatening",
+    "iconString": "THR",
+    "description": "Description",
+    "stackable": false,
+    "durability": "TIME",
+    "type": "STATUS",
+    "subTypes": [
+      "BUFF"
+    ],
+    "triggerMap": {
+      "CAN_PERFORM": "canPerformCheck"
+    }
+  },
+  "Leech": {
+    "name": "Leech",
+    "iconString": "LCH",
+    "description": "Description",
+    "stackable": false,
+    "durability": "TIME",
+    "type": "STATUS",
+    "subTypes": [
+      "BUFF"
+    ],
+    "triggerMap": {
+      "DMG_TRIGGER": "dmgTrigger"
+    },
+    "keyValues": {
+      "EnergyPercentage": 20
+    }
+  },
+  "Lifesteal": {
+    "name": "Lifesteal",
+    "iconString": "LST",
+    "description": "Description",
+    "stackable": false,
+    "durability": "TIME",
+    "type": "STATUS",
+    "subTypes": [
+      "BUFF"
+    ],
+    "triggerMap": {
+      "DMG_TRIGGER": "dmgTrigger"
+    },
+    "keyValues": {
+      "LifePercentage": 20
+    }
+  },
+  "DoubleStrike": {
+    "name": "DoubleStrike",
+    "iconString": "DST",
+    "description": "Description",
+    "stackable": false,
+    "durability": "TIME",
+    "type": "STATUS",
+    "subTypes": [
+      "BUFF",
+      "ATK_ENHANCE"
+    ],
+    "triggerMap": {
+      "CAST_CHANGE": "castChange"
+    }
+  },
+  "TrueShot": {
+    "name": "TrueShot",
+    "iconString": "TRS",
+    "description": "Description",
+    "stackable": false,
+    "durability": "TIME",
+    "type": "STATUS",
+    "subTypes": [
+      "BUFF",
+      "ATK_ENHANCE"
+    ],
+    "triggerMap": {
+      "CAST_CHANGE": "castChange"
+    }
+  },
+  "Guarded": {
+    "name": "Guarded",
+    "iconString": "GRD",
+    "description": "Description",
+    "stackable": false,
+    "durability": "TIME",
+    "type": "STATUS",
+    "subTypes": [
+      "BUFF"
+    ]
+  },
+  "Frost": {
+    "name": "Frost",
+    "iconString": "FRS",
+    "description": "Description",
+    "stackable": true,
+    "durability": "STACK",
+    "type": "STATUS",
+    "subTypes": [
+      "DEBUFF",
+      "COLD"
+    ],
+    "triggerMap": {
+      "END_OF_TURN": "endOfTurn"
+    },
+    "keyValues": {
+      "FrostEotDmgPercentage": 5,
+      "FrostFinalDmgPercentage": 5,
+      "FrostStackMax": 3,
+      "ShakenTurns": 2
+    },
+    "negates": "Burning"
+  },
+  "Burning": {
+    "name": "Burning",
+    "iconString": "BRN",
+    "description": "Description",
+    "stackable": true,
+    "durability": "STACK",
+    "type": "STATUS",
+    "subTypes": [
+      "DEBUFF",
+      "HEAT"
+    ],
+    "triggerMap": {
+      "END_OF_TURN": "endOfTurn"
+    },
+    "keyValues": {
+      "BurningEotDmgPercentagePerStack": 3,
+      "BurningFinalDmgPercentage": 5,
+      "BurningStackMax": 3,
+      "BrittleTurns": 2
+    },
+    "negates": "Frost"
+  },
+  "Blinded": {
+    "name": "Blinded",
+    "iconString": "BLN",
+    "description": "Description",
+    "stackable": false,
+    "durability": "TIME",
+    "type": "STATUS",
+    "subTypes": [
+      "DEBUFF",
+      "LIGHT"
+    ],
+    "triggerMap": {
+      "BASE_STAT_CHANGE": "baseStatChange"
+    },
+    "keyValues": {
+      "AccuracyMalus": 15
+    }
+  },
+  "Taunted": {
+    "name": "Taunted",
+    "iconString": "TNT",
+    "description": "Description",
+    "stackable": false,
+    "durability": "TIME",
+    "type": "STATUS",
+    "subTypes": [
+      "DEBUFF",
+      "MENTAL"
+    ],
+    "triggerMap": {
+      "CAN_PERFORM": "canPerformCheck"
+    }
+  },
+  "Immobile": {
+    "name": "Immobile",
+    "iconString": "IMM",
+    "description": "Description",
+    "stackable": false,
+    "durability": "TIME",
+    "type": "STATUS",
+    "subTypes": [
+      "DEBUFF"
+    ],
+    "triggerMap": {
+      "CAN_PERFORM": "canPerformCheck"
+    }
+  },
+  "Poisoned": {
+    "name": "Poisoned",
+    "iconString": "POI",
+    "description": "Description",
+    "stackable": true,
+    "durability": "STACK",
+    "type": "STATUS",
+    "subTypes": [
+      "DEBUFF",
+      "TOXIC"
+    ],
+    "triggerMap": {
+      "END_OF_TURN": "endOfTurn"
+    },
+    "keyValues": {
+      "PoisonEotDmgPercentagePerStack": 1
+    }
+  },
+  "Dazed": {
+    "name": "Dazed",
+    "iconString": "DZD",
+    "description": "Description",
+    "stackable": false,
+    "durability": "TIME",
+    "type": "STATUS",
+    "subTypes": [
+      "DEBUFF"
+    ],
+    "triggerMap": {
+      "CAST_CHANGE": "castChange"
+    },
+    "keyValues": {
+      "DazedCdMalus": 1
+    }
+  },
+  "Shocked": {
+    "name": "Shocked",
+    "iconString": "SKD",
+    "description": "Description",
+    "stackable": true,
+    "durability": "STACK",
+    "type": "STATUS",
+    "subTypes": [
+      "DEBUFF",
+      "SHOCK"
+    ],
+    "triggerMap": {
+      "ON_DAMAGE": "onDamage"
+    },
+    "keyValues": {
+      "ShockedMaxStack": 3
+    }
+  },
+  "Blight": {
+    "name": "Blight",
+    "iconString": "BLG",
+    "description": "Description",
+    "stackable": false,
+    "durability": "TIME",
+    "type": "STATUS",
+    "subTypes": [
+      "DEBUFF",
+      "DARK"
+    ],
+    "triggerMap": {
+      "ON_DAMAGE": "onDamage"
+    },
+    "keyValues": {
+      "BlightDmgPercentage": 5
+    }
+  }
+}

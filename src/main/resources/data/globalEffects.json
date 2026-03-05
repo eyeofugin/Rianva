@@ -1,0 +1,115 @@
+{
+  "Aether Winds": {
+    "name": "Starry Night",
+    "iconString": "SPE",
+    "description": "Description",
+    "stackable": false,
+    "durability": "TIME",
+    "type": "ARENA",
+    "triggerMap": {
+      "END_OF_ROUND": "endOfRound"
+    },
+    "subTypes": [
+      "COSMIC"
+    ]
+  },
+  "Darkness": {
+    "name": "Darkness",
+    "iconString": "HEA",
+    "description": "Description",
+    "stackable": false,
+    "durability": "TIME",
+    "type": "ARENA",
+    "triggerMap": {
+      "CAST_CHANGE": "accChange"
+    }
+  },
+  "Scorching Sun": {
+    "name": "Scorching Sun",
+    "iconString": "HEA",
+    "description": "Description",
+    "stackable": false,
+    "durability": "TIME",
+    "type": "ARENA",
+    "triggerMap": {
+      "EFFECT_DMG_CHANGES": "effectDmgChanges",
+      "EFFECT_FAILURE": "effectFailure"
+    },
+    "subTypes": [
+      "HEAT"
+    ]
+  },
+  "Glorious Day": {
+    "name": "Glorious Day",
+    "iconString": "HEA",
+    "description": "Description",
+    "stackable": false,
+    "durability": "TIME",
+    "type": "ARENA",
+    "triggerMap": {
+      "HEAL_CHANGES": "healChanges",
+      "SHIELD_CHANGES": "shieldChanges"
+    },
+    "subTypes": [
+      "COSMIC"
+    ]
+  },
+  "Poison Gasses": {
+    "name": "Poison Gasses",
+    "iconString": "HEA",
+    "description": "Description",
+    "stackable": false,
+    "durability": "TIME",
+    "type": "ARENA",
+    "triggerMap": {
+      "END_OF_ROUND": "endOfRound"
+    },
+    "subTypes": [
+      "TOXIC"
+    ]
+  },
+  "Snowstorm": {
+    "name": "Snowstorm",
+    "iconString": "HEA",
+    "description": "Description",
+    "stackable": false,
+    "durability": "TIME",
+    "type": "ARENA",
+    "triggerMap": {
+      "END_OF_ROUND": "endOfRound",
+      "EFFECT_FAILURE": "effectFailure",
+      "CAST_CHANGE": "accChange"
+    },
+    "subTypes": [
+      "COLD"
+    ]
+  },
+  "Storm": {
+    "name": "Storm",
+    "iconString": "HEA",
+    "description": "Description",
+    "stackable": false,
+    "durability": "TIME",
+    "type": "ARENA",
+    "triggerMap": {
+      "DMG_CHANGES": "dmgChanges"
+    },
+    "subTypes": [
+      "SHOCK"
+    ]
+  },
+  "Eclipse": {
+    "name": "Eclipse",
+    "iconString": "HEA",
+    "description": "Description",
+    "stackable": false,
+    "durability": "TIME",
+    "type": "ARENA",
+    "triggerMap": {
+      "CAST_CHANGE": "castChange"
+    },
+    "subTypes": [
+      "COSMIC"
+    ]
+  }
+}

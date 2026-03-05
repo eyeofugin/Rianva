@@ -1,0 +1,25 @@
+{
+  "1": {
+    "MAGIC": 0,
+    "FORCE": 0,
+    "STAMINA": 0,
+    "ENDURANCE": 0,
+    "FINESSE": 0,
+    "SPEED": 0,
+    "ACCURACY": 0,
+    "EVASION": 0,
+    "CRIT_CHANCE": 0,
+    "LETHALITY": 0,
+    "LIFE": 0,
+    "CURRENT_LIFE": 0,
+    "LIFE_REGAIN": 0,
+    "MANA": 0,
+    "CURRENT_MANA": 0,
+    "MANA_REGAIN": 0,
+    "FAITH": 0,
+    "CURRENT_FAITH": 0,
+    "SHIELD": 0,
+    "MAX_ACTION": 0,
+    "CURRENT_ACTION": 0
+  }
+}

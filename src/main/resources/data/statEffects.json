@@ -1,0 +1,104 @@
+{
+  "Mighty": {
+    "name": "Mighty",
+    "iconString": "MGH",
+    "description": "Description",
+    "stackable": false,
+    "durability": "TIME",
+    "type": "STAT",
+    "subTypes": [
+      "BUFF"
+    ],
+    "triggerMap": {
+      "STAT_CHANGE_MULT": "statChangeMult"
+    },
+    "keyValues": {
+      "MightyPercentage": 33
+    }
+  },
+  "Enlightened": {
+    "name": "Enlightened",
+    "iconString": "ENL",
+    "description": "Description",
+    "stackable": false,
+    "durability": "TIME",
+    "type": "STAT",
+    "subTypes": [
+      "BUFF"
+    ],
+    "triggerMap": {
+      "STAT_CHANGE_MULT": "statChangeMult"
+    },
+    "keyValues": {
+      "EnlightenedPercentage": 33
+    }
+  },
+  "Flawless": {
+    "name": "Flawless",
+    "iconString": "FLW",
+    "description": "Description",
+    "stackable": false,
+    "durability": "TIME",
+    "type": "STAT",
+    "subTypes": [
+      "BUFF"
+    ],
+    "triggerMap": {
+      "STAT_CHANGE_MULT": "statChangeMult"
+    },
+    "keyValues": {
+      "FlawlessPercentage": 33
+    }
+  },
+  "Brittle": {
+    "name": "Brittle",
+    "iconString": "BRT",
+    "description": "Description",
+    "stackable": false,
+    "durability": "TIME",
+    "type": "STAT",
+    "subTypes": [
+      "DEBUFF"
+    ],
+    "triggerMap": {
+      "STAT_CHANGE_MULT": "statChangeMult"
+    },
+    "keyValues": {
+      "BrittlePercentage": 66
+    }
+  },
+  "Dull": {
+    "name": "Dull",
+    "iconString": "DLL",
+    "description": "Description",
+    "stackable": false,
+    "durability": "TIME",
+    "type": "STAT",
+    "subTypes": [
+      "DEBUFF"
+    ],
+    "triggerMap": {
+      "STAT_CHANGE_MULT": "statChangeMult"
+    },
+    "keyValues": {
+      "DullPercentage": 66
+    }
+  },
+  "Shaken": {
+    "name": "Shaken",
+    "iconString": "SHA",
+    "description": "Description",
+    "stackable": false,
+    "durability": "TIME",
+    "type": "STAT",
+    "subTypes": [
+      "DEBUFF"
+    ],
+    "triggerMap": {
+      "STAT_CHANGE_MULT": "statChangeMult"
+    },
+    "keyValues": {
+      "ShakenPercentage": 66
+    }
+  }
+}

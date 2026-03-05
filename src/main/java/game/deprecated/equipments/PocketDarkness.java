@@ -1,0 +1,23 @@
+package game.deprecated.equipments;
+
+import game.objects.Equipment;
+import game.deprecated.skills.S_PocketDarkness;
+import game.skills.logic.Stat;
+
+public class PocketDarkness extends Equipment {
+    public PocketDarkness() {
+        super("pocketdarkness", "Pocket Darkness");
+        this.tempStatBonus = this.loadTempStatBonus();
+        this.skill = new S_PocketDarkness(this);
+    }
+
+    @Override
+    public String getInfoStatBonus() {
+        return getTempStatBonusString();
+    }
+
+    @Override
+    public String getDescription() {
+        return "Consume: Give target -30" + Stat.ACCURACY.getIconString() + ".";
+    }
+}
