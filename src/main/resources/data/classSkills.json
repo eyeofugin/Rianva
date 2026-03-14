@@ -3,7 +3,10 @@
     "name": "Vengeance",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
-    "tags": ["PASSIVE", "CLASS"],
+    "tags": [
+      "PASSIVE",
+      "CLASS"
+    ],
     "subscriptions": [
       {
         "topicName": "DMG_TRIGGER",
@@ -27,7 +30,10 @@
     "description": "Skip",
     "targetType": "SINGLE",
     "iconPath": "icons/skills/wingedboots.png",
-    "tags": ["TACTICAL", "CLASS"],
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
     "maxCd": 3,
     "manaCost": 10,
     "effects": [
@@ -55,10 +61,12 @@
       }
     ],
     "possibleCasterPositions": [
-      2,3
+      2,
+      3
     ],
     "possibleTargetPositions": [
-      4,5
+      4,
+      5
     ]
   },
   "S_GoAfterEvil": {
@@ -66,7 +74,10 @@
     "description": "Skip",
     "targetType": "SINGLE",
     "iconPath": "icons/skills/wingedboots.png",
-    "tags": ["TACTICAL", "CLASS"],
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
     "maxCd": 3,
     "manaCost": 10,
     "moveTo": true,
@@ -77,12 +88,360 @@
         "trigger": {
           "targetHeroReference": "ENEMY"
         }
+      },
+      {
+        "topicName": "CAST_CHANGE",
+        "methodName": "castChange",
+        "trigger": {
+          "casterHeroReference": "SAME",
+          "skillNotNull": true
+        }
       }
     ],
     "possibleCasterPositions": [
-      0,1
+      0,
+      1
     ],
     "possibleTargetPositions": [
+      3
+    ],
+    "keyValues": {
+      "StaticDmg": 10,
+      "StaticDmgTargets": [
+        4,
+        5
+      ],
+      "StaticDamageMode": "PHYSICAL",
+      "StaticDamageType": "NORMAL"
+    }
+  },
+  "S_Judgment": {
+    "name": "Judgment",
+    "description": "Skip",
+    "targetType": "ALL_TARGETS",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "maxCd": 3,
+    "manaCost": 10,
+    "effects": [
+      {
+        "name": "Brittle",
+        "turns": 1
+      },
+      {
+        "name": "Shaken",
+        "turns": 1
+      }
+    ],
+    "subscriptions": [
+      {
+        "topicName": "ON_MARK",
+        "methodName": "onMark",
+        "trigger": {
+          "targetHeroReference": "ENEMY"
+        }
+      },
+      {
+        "topicName": "CAST_CHANGE",
+        "methodName": "castChange",
+        "trigger": {
+          "casterHeroReference": "SAME",
+          "skillNotNull": true
+        }
+      }
+    ],
+    "possibleCasterPositions": [
+      3
+    ],
+    "possibleTargetPositions": [
+      4,
+      5,
+      6,
+      7
+    ]
+  },
+  "S_ByAnyMeans": {
+    "name": "By Any Means",
+    "description": "Skip",
+    "targetType": "ALL_OTHER_ALLIES",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "maxCd": 3,
+    "manaCost": 10,
+    "subscriptions": [
+      {
+        "topicName": "ON_MARK",
+        "methodName": "onMark",
+        "trigger": {
+          "targetHeroReference": "ENEMY"
+        }
+      }
+    ],
+    "possibleCasterPositions": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "S_NoMercy": {
+    "name": "No Mercy",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "PASSIVE",
+      "CLASS"
+    ],
+    "subscriptions": [
+      {
+        "topicName": "DMG_CHANGES_MULT",
+        "methodName": "dmgChangesMult",
+        "trigger": {
+          "targetHeroReference": "ENEMY",
+          "casterHeroReference": "SAME",
+          "targetEffects": {
+            "boolLogic": "ALL_OF",
+            "objects": [
+              "Marked"
+            ]
+          }
+        }
+      },
+      {
+        "topicName": "ON_MARK",
+        "methodName": "onMark",
+        "trigger": {
+          "targetHeroReference": "ENEMY"
+        }
+      }
+    ],
+    "keyValues": {
+      "BasePercentage": 10,
+      "FullPercentage": 25
+    }
+  },
+  "S_LookForTrouble": {
+    "name": "Look For Trouble",
+    "description": "Skip",
+    "targetType": "SELF",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "maxCd" : 2,
+    "manaCost": 10,
+    "effects": [
+      {
+        "name": "Threatening",
+        "turns": 1,
+        "stacks": 0
+      }
+    ],
+    "subscriptions": [
+      {
+        "topicName": "CAST_CHANGE",
+        "methodName": "castChange",
+        "trigger": {
+          "casterHeroReference": "SAME",
+          "skillNotNull": true
+        }
+      },
+      {
+        "topicName": "ON_MARK",
+        "methodName": "onMark",
+        "trigger": {
+          "targetHeroReference": "ENEMY"
+        }
+      }
+    ],
+    "possibleCasterPositions": [0,1,2,3]
+  },
+  "S_Medic": {
+    "name": "Medic",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "PASSIVE",
+      "CLASS"
+    ],
+    "shield": 2,
+    "shieldMultipliers": [
+      {
+        "prof": "VITALITY",
+        "percentage":0.05
+      }
+    ],
+    "subscriptions": [
+      {
+        "topicName": "DMG_CHANGES_MULT",
+        "methodName": "dmgChangesMult",
+        "trigger": {
+          "targetHeroReference": "ENEMY",
+          "casterHeroReference": "SAME",
+          "targetEffects": {
+            "boolLogic": "ALL_OF",
+            "objects": [
+              "Marked"
+            ]
+          }
+        }
+      },
+      {
+        "topicName": "ON_MARK",
+        "methodName": "onMark",
+        "trigger": {
+          "targetHeroReference": "ENEMY"
+        }
+      }
+    ],
+    "keyValues": {
+      "BasePercentage": 10,
+      "FullPercentage": 25
+    }
+  },
+  "S_CarePackage": {
+    "name": "Care Package",
+    "description": "Skip",
+    "targetType": "SINGLE_OTHER",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "maxCd": 5,
+    "manaCost": 4,
+    "heal": 3,
+    "healMultipliers": [
+      {
+        "prof": "VITALITY",
+        "percentage": 0.07
+      }
+    ],
+    "moveTo": true,
+    "possibleCasterPositions": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "S_MedicineUnderFire": {
+    "name": "Medicine Under Fire",
+    "description": "Skip",
+    "targetType": "SINGLE_OTHER",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "effects": [
+      {
+        "name": "Mighty",
+        "turns": 1,
+        "stacks": 0
+      }
+    ],
+    "heal": 3,
+    "healMultipliers": [
+      {
+        "prof": "VITALITY",
+        "percentage": 0.07
+      }
+    ],
+    "maxCd": 3,
+    "manaCost": 10,
+    "possibleCasterPositions": [
+      2,
+      3
+    ],
+    "possibleTargetPositions": [
+      2,
+      3
+    ]
+  },
+  "S_ANewHope": {
+    "name": "A New Hope",
+    "description": "Skip",
+    "targetType": "ARENA",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "maxCd": 3,
+    "manaCost": 10,
+    "globalEffect": {
+      "name": "GloriousDay",
+      "turns": 5
+    },
+    "possibleCasterPositions": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "S_LastStand": {
+    "name": "LastStand",
+    "description": "Skip",
+    "targetType": "ALL_OTHER_ALLIES",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "maxCd": 3,
+    "manaCost": 10,
+    "effects": [
+      {
+        "name": "DoubleStrike",
+        "turns": 1,
+        "condition": {
+          "trigger": "Target",
+          "healthComparison": true,
+          "lessThan": true,
+          "percentage": 50
+        }
+      },      {
+        "name": "Lifesteal",
+        "turns": 1,
+        "condition": {
+          "trigger": "Target",
+          "healthComparison": true,
+          "lessThan": true,
+          "percentage": 50
+        }
+      }
+    ],
+    "possibleCasterPositions": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "S_Motivate": {
+    "name": "Motivate",
+    "description": "Skip",
+    "targetType": "ALL_OTHER_ALLIES",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "maxCd": 3,
+    "manaCost": 10,
+    "possibleCasterPositions": [
+      0,
+      1,
+      2,
       3
     ]
   }

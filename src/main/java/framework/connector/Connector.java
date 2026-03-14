@@ -52,6 +52,7 @@ public class Connector {
   public static String RESOURCE_CHANGES_MULT = "RESOURCE_CHANGES_MULT";
   public static String EXCESS_RESOURCE = "EXCESS_RESOURCE";
 
+  public static String HEAL_TRIGGER = "HEAL_TRIGGER";
   public static String DMG_TRIGGER = "DMG_TRIGGER";
   public static String DMG_TO_SHIELD = "DMG_TO_SHIELD";
   public static String SHIELD_BROKEN = "SHIELD_BROKEN";

@@ -11,6 +11,11 @@ import framework.resources.SpriteLibrary;
 import framework.resources.SpriteUtils;
 import framework.states.Arena;
 import game.effects.Effect;
+import game.effects.EffectLibrary;
+import game.effects.stat.Brittle;
+import game.effects.stat.Mighty;
+import game.effects.status.Cleanse;
+import game.effects.status.Debuff;
 import game.effects.status.Immunity;
 import game.effects.status.Bleeding;
 import game.objects.Equipment;
@@ -439,7 +444,6 @@ public class Hero extends GUIElement {
     this.level = level;
     this.stats.putAll(this.baseStats);
   }
-
   public int getStat(Stat stat) {
     if (stat == null) {
       return 0;
@@ -447,6 +451,9 @@ public class Hero extends GUIElement {
     Integer statValue = this.stats.get(stat);
     if (statValue == null) {
       return 0;
+    }
+    if (stat.equals(Stat.CURRENT_LIFE) || stat.equals(Stat.SHIELD) || stat.equals(Stat.CURRENT_ENERGY)) {
+      return statValue;
     }
     return trigger_statChange(stat, statValue);
   }
@@ -647,37 +654,43 @@ public class Hero extends GUIElement {
     if (getEffectFailure(effect, caster)) {
       return;
     }
-    boolean added = false;
-    boolean newlyAdded = false;
-    if (effect.negates != null) {
-      boolean negates = this.effects.stream().anyMatch(e -> effect.negates.contains(e.name));
-      if (negates) {
-        effect.negates.forEach(this::removeEffectByName);
-        added = true;
-      }
+    if (effect instanceof Cleanse) {
+      this.removeNegativeEffects();
+    }else if (effect instanceof Debuff) {
+      this.removePositiveEffects();
     } else {
-      for (Effect effectHave : effects) {
-        if (effectHave.getClass().equals(effect.getClass())) {
-          if (effect.stackable) {
-            added = true;
-            newlyAdded = true;
-            effectHave.addStacks(effect.stacks);
-          } else {
-            effectHave.turns += effect.turns;
-            added = true;
+      boolean added = false;
+      boolean newlyAdded = false;
+      if (effect.negates != null) {
+        boolean negates = this.effects.stream().anyMatch(e -> effect.negates.contains(e.name));
+        if (negates) {
+          effect.negates.forEach(this::removeEffectByName);
+          added = true;
+        }
+      } else {
+        for (Effect effectHave : effects) {
+          if (effectHave.getClass().equals(effect.getClass())) {
+            if (effect.stackable) {
+              added = true;
+              newlyAdded = true;
+              effectHave.addStacks(effect.stacks);
+            } else {
+              effectHave.turns += effect.turns;
+              added = true;
+            }
           }
         }
       }
+      if (!added && this.effects.size() != 12) {
+        Effect newEffect = effect.copy();
+        newEffect.origin = caster;
+        newEffect.hero = this;
+        this.effects.add(newEffect);
+        newEffect.addSubscriptions();
+        newlyAdded = true;
+      }
+      trigger_effectAdded(effect, caster, newlyAdded);
     }
-    if (!added && this.effects.size() != 12) {
-      Effect newEffect = effect.copy();
-      newEffect.origin = caster;
-      newEffect.hero = this;
-      this.effects.add(newEffect);
-      newEffect.addSubscriptions();
-      newlyAdded = true;
-    }
-    trigger_effectAdded(effect, caster, newlyAdded);
     this.arena.logCard.addToLog(
         this.getName()
             + " received "
@@ -756,6 +769,14 @@ public class Hero extends GUIElement {
     }
   }
 
+  public Effect getPermanentEffectByName(String name) {
+    for (Effect effect : this.effects) {
+      if (effect.getName().equals(name)) {
+        return effect;
+      }
+    }
+    return null;
+  }
   public <T extends Effect> Effect getPermanentEffect(Class<T> clazz) {
     for (Effect currentEffect : effects) {
       if (currentEffect.getClass().equals(clazz)) {
@@ -856,6 +877,15 @@ public class Hero extends GUIElement {
     return false;
   }
 
+  public void revertStatEffects(Hero origin) {
+    List<String> effectNames = this.effects. stream().map(Effect::getName).toList();
+    effectNames.forEach(name -> {
+      Effect remove = this.getPermanentEffectByName(name);
+      Effect add = EffectLibrary.getEffect(remove.negates.getFirst(), remove.stacks, remove.turns, null);
+      this.removeEffect(remove);
+      this.addEffect(add,origin);
+    });
+  }
   public void removeNegativeEffects() {
     List<Effect> toRemove =
         this.effects.stream().filter(e -> e.subTypes.contains(Effect.SubType.DEBUFF)).toList();
@@ -902,6 +932,7 @@ public class Hero extends GUIElement {
       int heal, Hero caster, Skill skill, Effect effect, Equipment equipment, boolean regen) {
     heal = trigger_healChanges(heal, caster, skill, effect, equipment, regen);
     addResource(Stat.CURRENT_LIFE, Stat.VITALITY, heal, caster, skill, effect, equipment, false);
+    trigger_onHeal(heal, caster, skill, effect,equipment, regen);
   }
 
   public void shield(int shield, Hero caster, Skill skill, Effect effect, Equipment equipment) {
@@ -919,7 +950,7 @@ public class Hero extends GUIElement {
     addResource(Stat.ACCURACY, null, accuracy, caster, skill, effect, equipment, true);
   }
 
-  public void percentageDamage(
+  public int percentageDamage(
       double percentageDamage,
       DamageType damageType,
       DamageMode mode,
@@ -929,7 +960,7 @@ public class Hero extends GUIElement {
       Equipment equipment,
       int lethality) {
     int damage = MyMaths.percentageOf(percentageDamage, this.getStat(Stat.VITALITY));
-    damage(damage, damageType, mode, caster, skill, effect, equipment, lethality);
+    return damage(damage, damageType, mode, caster, skill, effect, equipment, lethality);
   }
 
   public int damage(
@@ -1031,6 +1062,18 @@ public class Hero extends GUIElement {
 
   // Trigger
 
+  public void trigger_onHeal(
+          int heal, Hero caster, Skill skill, Effect effect, Equipment equipment, boolean regen) {
+    ConnectionPayload pl = new ConnectionPayload(1)
+            .setHeal(heal)
+            .setCaster(caster)
+            .setTarget(this)
+            .setSkill(skill)
+            .setEffect(effect)
+            .setEquipment(equipment)
+            .setRegen(regen);
+    Connector.fireTopic(Connector.HEAL_TRIGGER, pl);
+  }
   public void trigger_onDamage(
       int dmg,
       int shieldDmg,
@@ -1122,7 +1165,7 @@ public class Hero extends GUIElement {
     return energyChangesPayload.energy;
   }
 
-  public int trigger_healChanges(
+    public int trigger_healChanges(
       int heal, Hero caster, Skill skill, Effect effect, Equipment equipment, boolean regen) {
     ConnectionPayload healChangesPayload =
         new ConnectionPayload(1)

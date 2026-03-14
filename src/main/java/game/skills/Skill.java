@@ -137,6 +137,11 @@ public class Skill implements Subscriber {
     this.animationName = dto.animationName;
     this.tags = dto.tags;
     this.aiTags = dto.aiTags;
+    this.staticDmgTargets = dto.staticDmgTargets;
+    this.staticDmg = dto.staticDmg;
+    this.staticDamageMode = dto.staticDamageMode;
+    this.staticDamageType = dto.staticDamageType;
+    this.staticDmgMultipliers = dto.staticDmgMultipliers;
     this.targetType = dto.targetType;
     this.damageType = dto.damageType;
     this.damageMode = dto.damageMode;
@@ -317,7 +322,8 @@ public class Skill implements Subscriber {
       for (Hero arenaTarget : targets) {
 
         if (this.targetType.equals(TargetType.SELF)
-            || this.targetType.equals(TargetType.SINGLE_OTHER)) {
+            || this.targetType.equals(TargetType.SINGLE_OTHER)
+                || this.targetType.equals(TargetType.ALL_OTHER_ALLY)) {
           this.individualResolve(arenaTarget);
         } else {
           if (arenaTarget.hasPermanentEffect(Protected.class) && !arenaTarget.isAlly(this.hero)) {
@@ -369,8 +375,10 @@ public class Skill implements Subscriber {
         target.shield(shield, this.hero, this, null, null);
       }
       this.applySkillEffects(target);
+      this.customTargetEffect(target);
     }
   }
+  public void customTargetEffect(Hero target){}
 
   public void applySkillEffects(Hero target) {
 
@@ -395,7 +403,9 @@ public class Skill implements Subscriber {
     }
     if (this.staticDmg != null || CollectionUtils.isNotEmpty(this.staticDmgMultipliers)) {
       staticDmgTargets.forEach(i -> {
-//        Hero target = this.hero.arena.getAtPosition(i)
+        Hero staticTarget = this.hero.arena.getAtPosition(convertTargetPos(i));
+        int dmg = getStaticDmgWithMult(staticTarget);
+        staticTarget.damage(dmg, staticDamageType, staticDamageMode, this.hero, this, null, this.equipment, 0);
       });
     }
     for (Effect effect : this.effects) {
@@ -422,6 +432,9 @@ public class Skill implements Subscriber {
 
   protected int getDmgMultiBonus() {
     return this.getMultiplierBonus(this.dmgMultipliers);
+  }
+  protected int getStaticDmgMultiBonus() {
+    return this.getMultiplierBonus(this.staticDmgMultipliers);
   }
 
   protected int getMultiplierBonus(List<Multiplier> multipliers) {
@@ -604,9 +617,15 @@ public class Skill implements Subscriber {
   public int getDmg(Hero target) {
     return MyMaths.getLevelStat(dmg, this.hero.getLevel());
   }
+  public int getStaticDmg(Hero target) {
+    return MyMaths.getLevelStat(staticDmg, this.hero.getLevel());
+  }
 
   public int getDmgWithMulti(Hero target) {
     return getDmg(target) + getDmgMultiBonus();
+  }
+  public int getStaticDmgWithMult(Hero target) {
+    return getStaticDmg(target) + getStaticDmgMultiBonus();
   }
 
   public int getShieldWithMulti(Hero target) {

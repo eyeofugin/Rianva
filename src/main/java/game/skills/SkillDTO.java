@@ -4,6 +4,7 @@ import framework.connector.Subscription;
 import game.entities.Multiplier;
 import game.skills.logic.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,8 @@ public class SkillDTO {
   public TargetType targetType;
   public DamageMode damageMode;
   public DamageType damageType;
+  public DamageType staticDamageType = null;
+  public DamageMode staticDamageMode = null;
   public double lifeSteal;
 
   public List<SkillEffectDTO> effects;
@@ -25,12 +28,15 @@ public class SkillDTO {
   public SkillEffectDTO globalEffect;
   public List<Resource> targetResources;
   public List<Resource> casterResources;
+  public List<Integer> staticDmgTargets = new ArrayList<>();
+  public List<Multiplier> staticDmgMultipliers = new ArrayList<>();
   public List<Multiplier> dmgMultipliers;
   public List<Multiplier> healMultipliers;
   public List<Multiplier> shieldMultipliers;
   public Integer manaCost;
   public Integer lifeCost;
   public Integer critChance;
+  public Integer staticDmg = 0;
   public Integer dmg;
   public Integer heal;
   public Integer shield;
