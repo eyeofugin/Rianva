@@ -141,7 +141,13 @@ public class ArenaAIController {
       //            Logger.aiLog(" target:"+e.getName());
 
       int dmgPercentage =
-          e.simulateDamageInPercentages(this.arena.activeHero, estimatedDamage, lethality, cast);
+          e.simulateDamageInPercentages(
+              this.arena.activeHero,
+              estimatedDamage,
+              cast.getDamageType(),
+              cast.getDamageMode(),
+              lethality,
+              cast);
       if (dmgPercentage >= e.getCurrentLifePercentage()) {
         //                Logger.aiLog(" low life bonus!");
         dmgPercentage *= 5;

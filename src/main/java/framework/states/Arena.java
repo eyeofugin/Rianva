@@ -13,6 +13,7 @@ import framework.graphics.containers.HUD;
 
 import game.controllers.ArenaAIController;
 import game.effects.Effect;
+import game.effects.globals.Darkness;
 import game.effects.status.Stunned;
 import game.entities.Hero;
 import game.entities.HeroTeam;
@@ -156,7 +157,7 @@ public class Arena extends State {
   @Override
   public void start() {
     this.setTeams(memory.teams[0], memory.teams[1]);
-    this.getAllLivingEntities().forEach(Hero::setTriggers);
+    this.getAllLivingEntities().forEach(Hero::arenaStart);
     this.activeHero = this.queue.peek();
     this.hud.setActiveHero(this.activeHero);
     trigger_startOfMatch();
@@ -327,6 +328,10 @@ public class Arena extends State {
     trigger_globalEffectChange(globalEffect, oldEffect);
   }
 
+  public boolean hasGlobalEffect(Class<Darkness> darknessClass) {
+    return this.globalEffect != null && this.globalEffect.getClass().equals(darknessClass);
+  }
+
   public void addFieldEffect(int position, Effect effect, Hero caster) {
     if (trigger_effectFailure(effect, caster, getAtPosition(position))) {
       return;
@@ -353,6 +358,15 @@ public class Arena extends State {
     }
 
     trigger_effectAdded(effect, caster, newlyAdded);
+  }
+
+  public void push(Hero h, int push) {
+    int targetPos = h.getPosition() + (h.isTeam2() ? push : -1 * push);
+    moveTo(h, targetPos);
+  }
+  public void pull(Hero h, int push) {
+    int targetPos = h.getPosition() - (h.isTeam2() ? push : -1 * push);
+    moveTo(h, targetPos);
   }
 
   public void moveTo(Hero e, int targetPos) {
@@ -388,11 +402,13 @@ public class Arena extends State {
   }
 
   private void enters(Hero hero, int position) {
-    Connector.fireTopic(Connector.ON_ENTER, new ConnectionPayload().setTarget(hero).setValue(position));
+    Connector.fireTopic(
+        Connector.ON_ENTER, new ConnectionPayload(1).setTarget(hero).setValue(position));
   }
 
   private void leaves(Hero hero, int position) {
-    Connector.fireTopic(Connector.ON_LEAVE, new ConnectionPayload().setTarget(hero).setValue(position));
+    Connector.fireTopic(
+        Connector.ON_LEAVE, new ConnectionPayload(1).setTarget(hero).setValue(position));
   }
 
   private void removeTheDead() {
@@ -453,34 +469,36 @@ public class Arena extends State {
   // triggers
 
   public void trigger_startOfMatch() {
-    ConnectionPayload pl = new ConnectionPayload().setArena(this);
+    ConnectionPayload pl = new ConnectionPayload(1).setArena(this);
     Connector.fireTopic(Connector.START_OF_MATCH, pl);
   }
 
   public void trigger_startOfRound() {
-    ConnectionPayload pl = new ConnectionPayload().setArena(this);
+    ConnectionPayload pl = new ConnectionPayload(1).setArena(this);
     Connector.fireTopic(Connector.START_OF_ROUND, pl);
   }
 
   public void trigger_endOfRound() {
-    ConnectionPayload endOfTurnPayload = new ConnectionPayload().setArena(this);
+    ConnectionPayload endOfTurnPayload = new ConnectionPayload(1).setArena(this);
     Connector.fireTopic(Connector.END_OF_ROUND, endOfTurnPayload);
   }
 
   public boolean trigger_effectFailure(Effect effect, Hero caster, Hero target) {
     ConnectionPayload payload =
-        new ConnectionPayload().setEffect(effect).setCaster(caster).setTarget(target);
+        new ConnectionPayload(1).setEffect(effect).setCaster(caster).setTarget(target);
     Connector.fireTopic(Connector.EFFECT_FAILURE_CHECK, payload);
     return payload.failure;
   }
+
   public void trigger_effectAdded(Effect effect, Hero caster, boolean newlyAdded) {
     ConnectionPayload effectAddedPayload =
-            new ConnectionPayload().setEffect(effect).setCaster(caster).setNewEffect(newlyAdded);
+        new ConnectionPayload(1).setEffect(effect).setCaster(caster).setNewEffect(newlyAdded);
     Connector.fireTopic(Connector.EFFECT_ADDED, effectAddedPayload);
   }
+
   private void trigger_globalEffectChange(Effect globalEffect, Effect oldEffect) {
     ConnectionPayload globalEffectChangePayload =
-        new ConnectionPayload().setGlobalEffect(globalEffect).setOldGlobalEffect(oldEffect);
+        new ConnectionPayload(1).setGlobalEffect(globalEffect).setOldGlobalEffect(oldEffect);
     Connector.fireTopic(Connector.GLOBAL_EFFECT_CHANGE, globalEffectChangePayload);
   }
 

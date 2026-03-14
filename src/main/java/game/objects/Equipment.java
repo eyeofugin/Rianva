@@ -62,7 +62,7 @@ public class Equipment {
     if (this.loseTempStat) return;
     statChange(this.tempStatBonus, -1);
     ConnectionPayload pl =
-        new ConnectionPayload()
+        new ConnectionPayload(1)
             .setEquipment(this)
             .setTarget(this.oldHero)
             .setMode(ConnectionPayload.EquipmentChangeMode.UNEQUIP);
@@ -92,7 +92,7 @@ public class Equipment {
     if (this.loseTempStat) return;
     statChange(this.tempStatBonus, -1);
     ConnectionPayload pl =
-        new ConnectionPayload()
+        new ConnectionPayload(1)
             .setEquipment(this)
             .setTarget(this.hero)
             .setMode(ConnectionPayload.EquipmentChangeMode.DEACTIVATE);
@@ -108,7 +108,7 @@ public class Equipment {
     statChange(this.tempStatBonus, 1);
     this.active = true;
     ConnectionPayload pl =
-        new ConnectionPayload()
+        new ConnectionPayload(1)
             .setEquipment(this)
             .setTarget(this.hero)
             .setMode(ConnectionPayload.EquipmentChangeMode.ACTIVATE);
@@ -153,6 +153,9 @@ public class Equipment {
     return active;
   }
 
+  public Hero getHero() {
+    return this.hero;
+  }
   public String getInfoStatBonus() {
     return getBaseStatBonusString();
   }

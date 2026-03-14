@@ -1,31 +1,57 @@
 package game.skills.logic;
 
+import game.effects.Effect;
 import game.entities.Hero;
+import game.skills.Skill;
+import utils.MyMaths;
+import utils.Utils;
 
 import java.util.Random;
 
 public class Condition {
-  public ConditionTrigger trigger;
+  public ConditionReference trigger;
 
   public String effectName;
-  public boolean hasCheck;
+  public Boolean hasCheck;
 
-  public boolean healthComparison;
-  public boolean manaComparison;
-  public double percentage;
-  public boolean lessThan;
+  public Boolean hasStatus;
 
-  public boolean chance;
-  public int successChance;
+  public Boolean healthComparison;
+  public Boolean manaComparison;
+  public Double percentage;
+  public Boolean lessThan;
 
-  public boolean isMet(Hero hero, Hero target) {
+  public Integer successChance;
+  public Stat successByCasterStat;
+
+  public boolean isMet(Skill skill, Effect effect, Hero hero, Hero target) {
+
+    if (hasStatus != null) {
+      boolean statusExists = false;
+      switch (trigger) {
+        case CASTER -> {
+          statusExists = hero.hasStatus();
+        }
+        case TARGET -> {
+          statusExists = target.hasStatus();
+        }
+        case ANY -> statusExists = hero.arena.getAllLivingEntities().stream().anyMatch(Hero::hasStatus);
+        case ANY_ALLY -> statusExists = hero.getAllies().stream().anyMatch(Hero::hasStatus);
+        case ANY_ENEMY -> statusExists = hero.getEnemies().stream().anyMatch(Hero::hasStatus);
+      }
+      return hasStatus == statusExists;
+    }
 
     if (this.effectName != null) {
       int amnt = 0;
       switch (trigger) {
-        case CASTER -> amnt = hero.hasPermanentEffect(this.effectName);
-        case TARGET -> amnt = target.hasPermanentEffect(this.effectName);
-        case ANY -> amnt = hero.arena.amountEffects(this.effectName);
+          case CASTER -> {
+              return hero.hasPermanentEffect(this.effectName);
+          }
+          case TARGET -> {
+              return target.hasPermanentEffect(this.effectName);
+          }
+          case ANY -> amnt = hero.arena.amountEffects(this.effectName);
         case ANY_ALLY -> amnt = hero.team.amountEffects(this.effectName);
         case ANY_ENEMY -> amnt = hero.enemyTeam.amountEffects(this.effectName);
         case ARENA ->
@@ -38,26 +64,31 @@ public class Condition {
       return hasCheck ? amnt > 0 : amnt < 1;
     }
     if (this.healthComparison) {
-      if (trigger == ConditionTrigger.CASTER) {
+      if (trigger == ConditionReference.CASTER) {
         return resourceCheck(hero.getCurrentLifePercentage());
       }
-      if (trigger == ConditionTrigger.TARGET) {
+      if (trigger == ConditionReference.TARGET) {
         return resourceCheck(target.getCurrentLifePercentage());
       }
     }
     if (this.manaComparison) {
-      if (trigger == ConditionTrigger.CASTER) {
+      if (trigger == ConditionReference.CASTER) {
         return resourceCheck(hero.getCurrentManaPercentage());
       }
-      if (trigger == ConditionTrigger.TARGET) {
+      if (trigger == ConditionReference.TARGET) {
         return resourceCheck(target.getCurrentManaPercentage());
       }
     }
 
-    if (chance) {
-      Random rand = new Random();
-      int next = rand.nextInt(1, 101);
-      return next > successChance;
+    if (successChance != null) {
+      int value;
+      if (successByCasterStat != null) {
+        value = hero.getStat(successByCasterStat) * this.successChance / 100;
+      } else {
+        value = this.successChance;
+      }
+      value = Utils.chanceChanges(target, hero, value, skill, null, effect, 1);
+      return MyMaths.success(value);
     }
 
     return false;

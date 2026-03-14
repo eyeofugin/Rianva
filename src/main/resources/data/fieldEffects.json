@@ -1,114 +1,278 @@
 {
-  "Thicket" : {
+  "TEST": {
+    "name": "String",
+    "iconString": "STR",
+    "description": "STRING",
+    "stackable": true,
+    "type": "ARENA,FIELD,HERO,STATUS,STAT",
+    "subTypes": [
+      "ATK_ENHANCE",
+      "COSMIC",
+      "DMGTYPE",
+      "BONUS",
+      "STAT",
+      "UNIQUE",
+      "WEAKNESS",
+      "BUFF",
+      "DEBUFF"
+    ],
+    "negates": [
+      "EffectName"
+    ],
+    "subscriptions": [
+      {
+        "topicName": "STRING",
+        "methodName": "String",
+        "trigger": {
+          "targetHeroReference": "SAME,OTHER,ALLY,OTHER_ALLY,ENEMY",
+          "casterHeroReference": "SAME,OTHER,ALLY,OTHER_ALLY,ENEMY",
+          "samePosition": true,
+          "dmgTypeIsElemental": true,
+          "statIsElementalDef": true,
+          "skillNotNull": true,
+          "hasEnergyCost": true,
+          "targetHasStatusDebuff": true,
+          "targetHasStatusBuff": true,
+          "damageTypes": {
+            "boolLogic": "SOME_OF,NONE_OF,ALL_OF",
+            "objects": [
+              "DAMAGETYPE"
+            ]
+          },
+          "damageModes": {
+            "boolLogic": "SOME_OF,NONE_OF,ALL_OF",
+            "objects": [
+              "DAMAGEMODE"
+            ]
+          },
+          "stats": {
+            "boolLogic": "SOME_OF,NONE_OF,ALL_OF",
+            "objects": [
+              "STAT"
+            ]
+          },
+          "effects": {
+            "boolLogic": "SOME_OF,NONE_OF,ALL_OF",
+            "objects": [
+              "EFFECTNAME"
+            ]
+          },
+          "targetEffects": {
+            "boolLogic": "SOME_OF,NONE_OF,ALL_OF",
+            "objects": [
+              "EFFECTNAME"
+            ]
+          },
+          "casterEffects": {
+            "boolLogic": "SOME_OF,NONE_OF,ALL_OF",
+            "objects": [
+              "EFFECTNAME"
+            ]
+          },
+          "targetTypes": {
+            "boolLogic": "SOME_OF,NONE_OF,ALL_OF",
+            "objects": [
+              "TARGETTYPE"
+            ]
+          },
+          "skillTags": {
+            "boolLogic": "SOME_OF,NONE_OF,ALL_OF",
+            "objects": [
+              "SKILLTAG"
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "Thicket": {
     "name": "Thicket",
     "iconString": "THI",
     "description": "Description",
     "stackable": false,
     "durability": "TIME",
     "type": "FIELD",
-    "triggerMap": {
-      "END_OF_TURN": "endOfTurn",
-      "CAN_PERFORM": "canPerform"
-    },
+    "subscriptions": [
+      {
+        "topicName": "END_OF_TURN",
+        "methodName": "endOfTurn",
+        "trigger": {}
+      },
+      {
+        "topicName": "CAN_PERFORM",
+        "methodName": "canPerform",
+        "trigger": {
+          "samePosition": true
+        }
+      }
+    ],
     "keyValues": {
       "DmgPercentage": 10
     }
   },
-  "Cover" : {
+  "Cover": {
     "name": "Cover",
     "iconString": "CVR",
     "description": "Description",
     "stackable": false,
     "durability": "TIME",
     "type": "FIELD",
-    "triggerMap": {
-      "BASE_STAT_CHANGE": "statChange",
-      "ON_PERFORM": "onPerform"
-    },
+    "subscriptions": [
+      {
+        "topicName": "DODGE_BASE_CHANGES",
+        "methodName": "statChange",
+        "trigger": {
+          "samePosition": true,
+          "stats": {
+            "boolLogic": "ALL_OF",
+            "objects": [
+              "DODGE"
+            ]
+          }
+        }
+      },
+      {
+        "topicName": "ON_PERFORM",
+        "methodName": "onPerform",
+        "trigger": {
+          "samePosition": true,
+          "tags": {
+            "boolLogic": "SOME_OF",
+            "objects": [
+              "DAMAGE"
+            ]
+          }
+        }
+      }
+    ],
     "keyValues": {
       "DodgeBonus": 20
     }
   },
-  "BadTerrain" : {
+  "BadTerrain": {
     "name": "Bad Terrain",
     "iconString": "BTR",
     "description": "Description",
     "stackable": false,
     "durability": "TIME",
     "type": "FIELD",
-    "triggerMap": {
-      "DMG_CHANGES_MULT": "dmgChange"
-    },
+    "subscriptions": [
+      {
+        "topicName": "DMG_CHANGES_MULT",
+        "methodName": "dmgChange",
+        "trigger": {
+          "samePosition": true
+        }
+      }
+    ],
     "keyValues": {
       "DmgChange": 1.2
     }
   },
-  "RecoveryField" : {
+  "RecoveryField": {
     "name": "Recovery Field",
     "iconString": "RCF",
     "description": "Description",
     "stackable": false,
     "durability": "TIME",
     "type": "FIELD",
-    "triggerMap": {
-      "END_OF_ROUND": "endOfRound"
-    },
+    "subscriptions": [
+      {
+        "topicName": "END_OF_ROUND",
+        "methodName": "endOfRound",
+        "trigger": {}
+      }
+    ],
     "keyValues": {
       "HealPercentage": 10
     }
   },
-  "Barrier" : {
+  "Barrier": {
     "name": "Barrier",
     "iconString": "BRR",
     "description": "Description",
     "stackable": false,
     "durability": "TIME",
     "type": "FIELD",
-    "triggerMap": {
-      "DMG_CHANGES_MULT": "dmgChange"
-    },
+    "subscriptions": [
+      {
+        "topicName": "DMG_CHANGES_MULT",
+        "methodName": "dmgChange",
+        "trigger": {
+          "samePosition": true,
+          "skillNotNull": true,
+          "damageModes": {
+            "boolLogic": "ALL_OF",
+            "objects": [
+              "PHYSICAL"
+            ]
+          }
+        }
+      }
+    ],
     "keyValues": {
       "DmgChange": 0.65
     }
   },
-  "Reflection" : {
+  "Reflection": {
     "name": "Reflection",
     "iconString": "RFL",
     "description": "Description",
     "stackable": false,
     "durability": "TIME",
     "type": "FIELD",
-    "triggerMap": {
-      "DMG_CHANGES_MULT": "dmgChange"
-    },
+    "subscriptions": [
+      {
+        "topicName": "DMG_CHANGES_MULT",
+        "methodName": "dmgChange",
+        "trigger": {
+          "samePosition": true,
+          "skillNotNull": true,
+          "damageModes": {
+            "boolLogic": "ALL_OF",
+            "objects": [
+              "MAGICAL"
+            ]
+          }
+        }
+      }
+    ],
     "keyValues": {
       "DmgChange": 0.65
     }
   },
-  "SmallTrap" : {
+  "SmallTrap": {
     "name": "Small Trap",
     "iconString": "SMT",
     "description": "Description",
     "stackable": false,
     "durability": "ONCE",
     "type": "FIELD",
-    "triggerMap": {
-      "ON_ENTER": "onEnter"
-    },
+    "subscriptions": [
+      {
+        "topicName": "ON_ENTER",
+        "methodName": "onEnter",
+        "trigger": {}
+      }
+    ],
     "keyValues": {
       "DmgPercentage": 5
     }
   },
-  "BigTrap" : {
+  "BigTrap": {
     "name": "Big Trap",
     "iconString": "BGT",
     "description": "Description",
     "stackable": false,
     "durability": "ONCE",
     "type": "FIELD",
-    "triggerMap": {
-      "ON_ENTER": "onEnter"
-    },
+    "subscriptions": [
+      {
+        "topicName": "ON_ENTER",
+        "methodName": "onEnter",
+        "trigger": {}
+      }
+    ],
     "keyValues": {
       "DmgPercentage": 10
     }

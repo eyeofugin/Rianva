@@ -46,7 +46,7 @@ public class HeroTeam {
       if (this.heroes[i] != null && this.heroes[i].getStat(Stat.CURRENT_LIFE) < 1) {
         this.deadHeroes.add(this.heroes[i]);
         removed.add(this.heroes[i]);
-        ConnectionPayload pl = new ConnectionPayload().setTarget(this.heroes[i]);
+        ConnectionPayload pl = new ConnectionPayload(this.teamNumber).setTarget(this.heroes[i]);
         Connector.fireTopic(Connector.DEATH_TRIGGER, pl);
         this.heroes[i] = null;
         for (int j = i - 1; j >= 0 && j < this.heroes.length; j--) {
@@ -94,7 +94,7 @@ public class HeroTeam {
   public int amountEffects(String effect) {
     int amnt = 0;
     for (Hero hero : getHeroesAsList()) {
-      amnt += hero.hasPermanentEffect(effect);
+      amnt += hero.getPermanentEffectStacks(effect);
     }
     return amnt;
   }

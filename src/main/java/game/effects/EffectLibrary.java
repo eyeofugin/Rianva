@@ -3,6 +3,7 @@ package game.effects;
 import game.skills.logic.Condition;
 import utils.FileWalker;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 public class EffectLibrary {
@@ -20,17 +21,21 @@ public class EffectLibrary {
     statusEffectsJson = FileWalker.loadJsonMap("data/statusEffects.json");
   }
 
-  public static Effect getEffect(String name, int stacks, int turns, Condition condition) {
-    EffectDTO dto = getEffectDTO(name);
-    if (dto != null) {
-      Effect effect = new Effect(dto);
-      effect.set(dto);
+  public static Effect getEffect(String className, int stacks, int turns, Condition condition) {
+    try {
+      Class<?> effectClass = Class.forName(className);
+      Effect effect = (Effect) effectClass.getDeclaredConstructor().newInstance();
       effect.turns = turns;
       effect.stacks = stacks;
       effect.condition = condition;
       return effect;
+    } catch (ClassNotFoundException
+             | InvocationTargetException
+             | InstantiationException
+             | IllegalAccessException
+             | NoSuchMethodException e) {
+      return null;
     }
-    return null;
   }
 
   public static EffectDTO getEffectDTO(String name) {

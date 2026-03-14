@@ -2,17 +2,12 @@ package game.effects.hero;
 
 import framework.connector.ConnectionPayload;
 import game.effects.Effect;
-import game.skills.logic.Stat;
+import utils.Utils;
 
 public class Trophy extends Effect {
   public void baseStatChange(ConnectionPayload pl) {
-    if (pl.target != null && pl.target.equals(this.hero)) {
-      if (Stat.BODY.equals(pl.stat)
-          || Stat.MIND.equals(pl.stat)
-          || Stat.DEXTERITY.equals(pl.stat)
-          || Stat.DODGE.equals(pl.stat)) {
-        pl.value += this.stacks + (int) keyValues.get("Bonus");
-      }
-    }
+    int changeValue = this.stacks + (int) keyValues.get("Bonus");
+    changeValue = Utils.statChangesChanges(this.hero, this.hero, pl.stat, changeValue, null, null, this, pl.depth);
+    pl.value += changeValue;
   }
 }

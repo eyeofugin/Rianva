@@ -16,4 +16,5 @@ public class HeroDTO {
   public List<String> learnableSkills;
   public Role role;
   public Map<Stat, Integer> baseStats;
+
 }

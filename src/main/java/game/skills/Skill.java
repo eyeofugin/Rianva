@@ -2,26 +2,30 @@ package game.skills;
 
 import framework.Logger;
 import framework.Property;
-import framework.connector.Connection;
+import framework.connector.SubscriberSubscriptionConnection;
 import framework.connector.ConnectionPayload;
 import framework.connector.Connector;
+import framework.connector.Subscriber;
 import framework.graphics.text.Color;
 import framework.resources.SpriteLibrary;
 import framework.states.Arena;
+import framework.connector.Subscription;
 import game.effects.Effect;
+import game.effects.EffectLibrary;
 import game.effects.status.Guarded;
 import game.effects.status.Protected;
 import game.entities.Hero;
 import game.entities.Multiplier;
 import game.objects.Equipment;
 import game.skills.logic.*;
+import utils.CollectionUtils;
 import utils.MyMaths;
 import utils.Utils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
-public class Skill {
+public class Skill implements Subscriber {
 
   private static int counter;
   public int id;
@@ -41,12 +45,17 @@ public class Skill {
   protected TargetType targetType = TargetType.SINGLE;
   protected DamageType damageType = null;
   protected DamageMode damageMode = null;
+  protected DamageType staticDamageType = null;
+  protected DamageMode staticDamageMode = null;
   protected double lifeSteal = 0.0;
   protected List<Effect> effects = new ArrayList<>();
   protected List<Effect> casterEffects = new ArrayList<>();
   protected Effect globalEffect = null;
   protected List<Resource> targetResources = new ArrayList<>();
+  protected List<Resource> casterResources = new ArrayList<>();
 
+  protected List<Integer> staticDmgTargets = new ArrayList<>();
+  protected List<Multiplier> staticDmgMultipliers = new ArrayList<>();
   protected List<Multiplier> dmgMultipliers = new ArrayList<>();
   protected List<Multiplier> healMultipliers = new ArrayList<>();
   protected List<Multiplier> shieldMultipliers = new ArrayList<>();
@@ -58,6 +67,8 @@ public class Skill {
   protected Integer countAsHits = 1;
   protected Integer move;
   protected boolean moveTo = false;
+  protected Integer push = 0;
+  protected Integer pull = 0;
 
   public int[] possibleTargetPositions = new int[0];
   public int[] possibleCastPositions = new int[0];
@@ -65,6 +76,7 @@ public class Skill {
   protected Integer manaCost = 0;
   protected Integer lifeCost = 0;
   protected Integer critChance = 0;
+  protected Integer staticDmg = 0;
   protected Integer dmg = 0;
   protected Integer heal = 0;
   protected Integer shield = 0;
@@ -72,7 +84,8 @@ public class Skill {
   protected Integer currentCd = 0;
   protected Integer maxCd = 0;
 
-  public Map<String, String> triggerMap;
+  public List<Subscription> subscriptions;
+  public Map<String, Object> keyValues;
 
   /*AI
    *
@@ -109,9 +122,12 @@ public class Skill {
    *
    */
 
-  public Skill() {}
+  public Skill() {
+    this.name = getClassName();
+    this.set(SkillLibrary.getSkillDTO(this.name));
+  }
 
-  public Skill(SkillDTO dto) {
+  public void set(SkillDTO dto) {
     if (dto == null) {
       return;
     }
@@ -126,9 +142,15 @@ public class Skill {
     this.damageMode = dto.damageMode;
     this.lifeSteal = dto.lifeSteal;
     this.targetResources = dto.targetResources;
+    this.casterResources = dto.casterResources;
     this.dmgMultipliers = dto.dmgMultipliers;
     this.healMultipliers = dto.healMultipliers;
     this.shieldMultipliers = dto.shieldMultipliers;
+    this.subscriptions = dto.subscriptions;
+    if (this.subscriptions != null) {
+      this.subscriptions.forEach(s->s.setSkill(this));
+    }
+    this.keyValues = Utils.copyKeyValues(dto.keyValues);
     this.manaCost = dto.manaCost;
     this.lifeCost = dto.lifeCost;
     this.accuracy = dto.accuracy;
@@ -144,6 +166,8 @@ public class Skill {
     this.possibleCastPositions = dto.possibleCastPositions;
     this.possibleTargetPositions = dto.possibleTargetPositions;
     this.maxCd = dto.maxCd;
+    this.pull = dto.pull;
+    this.push = dto.push;
 
     initEffects(dto);
 
@@ -151,18 +175,21 @@ public class Skill {
       this.iconPixels = SpriteLibrary.getSprite(this.getName());
     } else {
       this.iconPixels =
-          SpriteLibrary.sprite(
-              Property.SKILL_ICON_SIZE,
-              Property.SKILL_ICON_SIZE,
-              Property.SKILL_ICON_SIZE,
-              Property.SKILL_ICON_SIZE,
-              this.iconPath,
-              0);
+              SpriteLibrary.sprite(
+                      Property.SKILL_ICON_SIZE,
+                      Property.SKILL_ICON_SIZE,
+                      Property.SKILL_ICON_SIZE,
+                      Property.SKILL_ICON_SIZE,
+                      this.iconPath,
+                      0);
       SpriteLibrary.addSprite(this.getName(), this.iconPixels);
     }
 
     saveState = new Skill();
     Skill.writeInitialsFromTo(this, saveState);
+  }
+  public Skill(SkillDTO dto) {
+    this.set(dto);
   }
 
   public Skill(Hero hero) {
@@ -206,6 +233,19 @@ public class Skill {
       return;
     }
   }
+  public int getRank() {
+    return 0;
+  }
+
+  public int getSpeed() {
+    if (this.hero != null) {
+      return this.hero.getCachedStat(Stat.DEXTERITY);
+    }
+    if (this.equipment != null) {
+      return this.equipment.getHero().getCachedStat(Stat.DEXTERITY);
+    }
+    return 0;
+  }
 
   public void getCurrentVersion() {
     this.setToInitial();
@@ -240,9 +280,10 @@ public class Skill {
   }
 
   public void addSubscriptions() {
-    if (triggerMap != null) {
-      for (Map.Entry<String, String> entry : this.triggerMap.entrySet()) {
-        Connector.addSubscription(entry.getKey(), new Connection(this, entry.getValue()));
+    if (subscriptions != null) {
+      for (Subscription subscription: this.subscriptions) {
+        Connector.addSubscription(
+            subscription.topicName, new SubscriberSubscriptionConnection(this, subscription));
       }
     }
   }
@@ -266,6 +307,7 @@ public class Skill {
 
   public void resolve() {
     // init action summary
+    this.trigger_onTarget();
     if (this.targetType.equals(TargetType.ARENA)) {
       this.hero.arena.setGlobalEffect(this.globalEffect);
       this.applySkillEffects(this.hero);
@@ -305,6 +347,7 @@ public class Skill {
 
   protected void individualResolve(Hero target) {
     int dmg = getDmgWithMulti(target);
+    int heal = this.getHealWithMulti(target);
     for (int i = 0; i < getCountsAsHits(); i++) {
       int dmgPerHit = dmg;
       int critChance = this.hero.getStat(Stat.CRIT_CHANCE);
@@ -316,10 +359,8 @@ public class Skill {
         this.trigger_onCrit(target, this);
       }
       if (dmgPerHit > 0) {
-        int doneDamage = target.damage(dmgPerHit, this.hero, this, null, null, lethality);
-        this.trigger_onDamage(target, this, doneDamage);
+        target.damage(dmgPerHit, this.damageType, this.damageMode, this.hero, this, null, null, lethality);
       }
-      int heal = this.getHealWithMulti(target);
       if (heal > 0) {
         target.heal(heal, this.hero, this, null, null, false);
       }
@@ -337,7 +378,7 @@ public class Skill {
       if (Effect.ChangeEffectType.FIELD.equals(effect.type)) {
         this.hero.arena.addFieldEffect(this.hero.getPosition(), effect, this.hero);
       } else {
-        if (effect.condition != null && effect.condition.isMet(this.hero, target)) {
+        if (effect.condition != null && effect.condition.isMet(this, effect, this.hero, target)) {
           this.hero.addEffect(effect, this.hero);
         }
       }
@@ -346,17 +387,28 @@ public class Skill {
       this.hero.arena.moveTo(
           target, target.getPosition() + (target.isTeam2() ? this.move : -1 * this.move));
     }
+    if (this.push != null && this.push > 0) {
+      this.hero.arena.push(target, push);
+    }
+    if (this.pull != null && this.pull > 0) {
+      this.hero.arena.pull(target, pull);
+    }
+    if (this.staticDmg != null || CollectionUtils.isNotEmpty(this.staticDmgMultipliers)) {
+      staticDmgTargets.forEach(i -> {
+//        Hero target = this.hero.arena.getAtPosition(i)
+      });
+    }
     for (Effect effect : this.effects) {
       if (Effect.ChangeEffectType.FIELD.equals(effect.type)) {
         this.hero.arena.addFieldEffect(target.getPosition(), effect, this.hero);
       } else {
-        if (effect.condition != null && effect.condition.isMet(this.hero, target)) {
+        if (effect.condition != null && effect.condition.isMet(this, effect, this.hero, target)) {
           target.addEffect(effect, this.hero);
         }
       }
     }
     target.addSkillResources(this.targetResources, this, this.hero, this.equipment);
-
+    this.hero.addSkillResources(this.casterResources, this, this.hero, this.equipment);
     // action summary add all effects
   }
 
@@ -426,29 +478,28 @@ public class Skill {
   // triggers
 
   public void trigger_onPerform() {
-    ConnectionPayload pl = new ConnectionPayload().setSkill(this);
+    ConnectionPayload pl = new ConnectionPayload(1).setSkill(this).setCaster(this.hero);
     Connector.fireTopic(Connector.ON_PERFORM, pl);
   }
 
   public void trigger_onCrit(Hero target, Skill cast) {
     ConnectionPayload criticalTriggerPayload =
-        new ConnectionPayload().setTarget(target).setSkill(cast);
+        new ConnectionPayload(1).setTarget(target).setSkill(cast);
     Connector.fireTopic(Connector.CRITICAL_TRIGGER, criticalTriggerPayload);
   }
 
-  public void trigger_onDamage(Hero target, Skill cast, int damageDone) {
-    ConnectionPayload ConnectionPayload =
-        new ConnectionPayload().setTarget(target).setSkill(cast).setDmg(damageDone);
-    Connector.fireTopic(Connector.DMG_TRIGGER, ConnectionPayload);
-  }
-
   public void trigger_castChanges() {
-    ConnectionPayload payload = new ConnectionPayload().setSkill(this);
+    ConnectionPayload payload = new ConnectionPayload(1).setSkill(this).setCaster(this.hero);
     Connector.fireTopic(Connector.CAST_CHANGE, payload);
   }
 
+  public void trigger_onTarget() {
+    ConnectionPayload pl = new ConnectionPayload(1)
+            .setSkill(this);
+    Connector.fireTopic(Connector.ON_TARGET, pl);
+  }
   public void trigger_changeTargets() {
-    ConnectionPayload payload = new ConnectionPayload().setSkill(this);
+    ConnectionPayload payload = new ConnectionPayload(1).setSkill(this).setCaster(this.hero);
     Connector.fireTopic(Connector.TARGET_CHANGE, payload);
   }
 
@@ -605,7 +656,10 @@ public class Skill {
   public String getName() {
     return this.name;
   }
-
+  public String getClassName() {
+    String[] nameSplit = this.getClass().getName().split("\\.");
+    return nameSplit[nameSplit.length - 1];
+  }
   public DamageType getDamageType() {
     return damageType;
   }
@@ -867,9 +921,14 @@ public class Skill {
     to.effects = Utils.copyEffect(from.effects);
     to.casterEffects = Utils.copyEffect(from.casterEffects);
     to.targetResources = Utils.copyResource(from.targetResources);
+    to.casterResources = Utils.copyResource(from.casterResources);
     to.dmgMultipliers = Utils.copyMultiplier(from.dmgMultipliers);
     to.healMultipliers = Utils.copyMultiplier(from.healMultipliers);
     to.shieldMultipliers = Utils.copyMultiplier(from.shieldMultipliers);
+    to.subscriptions = from.subscriptions;
+    if (to.subscriptions != null) {
+      to.subscriptions.forEach(s->s.setSkill(to));
+    }
     to.manaCost = from.manaCost;
     to.lifeCost = from.lifeCost;
     to.accuracy = from.accuracy;

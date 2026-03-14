@@ -1,5 +1,6 @@
 package game.skills;
 
+import framework.connector.Subscription;
 import game.entities.Multiplier;
 import game.skills.logic.*;
 
@@ -23,6 +24,7 @@ public class SkillDTO {
   public List<SkillEffectDTO> casterEffects;
   public SkillEffectDTO globalEffect;
   public List<Resource> targetResources;
+  public List<Resource> casterResources;
   public List<Multiplier> dmgMultipliers;
   public List<Multiplier> healMultipliers;
   public List<Multiplier> shieldMultipliers;
@@ -34,13 +36,16 @@ public class SkillDTO {
   public Integer shield;
   public Integer lethality;
 
+  public Integer push;
+  public Integer pull;
   public Integer maxCd;
   public Integer accuracy;
   public Boolean cannotMiss;
   public Integer countAsHits;
   public Integer move;
   public boolean moveTo;
-  public Map<String, String> triggerMap;
+  public List<Subscription> subscriptions;
+  public Map<String, Object> keyValues;
 
   public int[] possibleTargetPositions;
   public int[] possibleCastPositions;

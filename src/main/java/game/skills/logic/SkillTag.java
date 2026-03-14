@@ -5,5 +5,9 @@ public enum SkillTag {
   TACTICAL,
   ULT,
   PASSIVE,
-  MOVE
+  MOVE,
+  RACE,
+  CLASS,
+  WEAPON,
+  CANTRIP;
 }

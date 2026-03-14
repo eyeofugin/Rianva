@@ -7,10 +7,6 @@ import game.skills.logic.Stat;
 
 public class Barrier extends Effect {
   public void dmgChange(ConnectionPayload pl) {
-    if (pl.target.getPosition() == this.position
-        && pl.skill != null
-        && DamageMode.PHYSICAL.equals(pl.skill.getDamageMode())) {
-      pl.dmg = (int) (pl.dmg * (double) keyValues.get("DmgChange"));
-    }
+    pl.dmg = (int) (pl.dmg * (double) keyValues.get("DmgChange"));
   }
 }

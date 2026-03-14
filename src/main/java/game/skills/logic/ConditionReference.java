@@ -1,6 +1,6 @@
 package game.skills.logic;
 
-public enum ConditionTrigger {
+public enum ConditionReference {
   CASTER,
   TARGET,
   ARENA,

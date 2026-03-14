@@ -2,17 +2,12 @@ package game.effects.hero;
 
 import framework.connector.ConnectionPayload;
 import game.effects.Effect;
-import game.skills.logic.Stat;
-import utils.MyMaths;
+import utils.Utils;
 
 public class PlanA extends Effect {
   public void statChangeMult(ConnectionPayload pl) {
-    if (pl.target != null && pl.target.equals(this.hero)) {
-      if (Stat.BODY.equals(pl.stat)
-          || Stat.MIND.equals(pl.stat)
-          || Stat.DEXTERITY.equals(pl.stat)) {
-        pl.value = (int) (pl.value * (double) keyValues.get("Change"));
-      }
-    }
+    int changeValue = (int) (pl.value * (double) keyValues.get("Change"));
+    changeValue = Utils.statChangesChanges(this.hero, this.hero, pl.stat, changeValue, null, null, this, pl.depth);
+    pl.value += changeValue;
   }
 }

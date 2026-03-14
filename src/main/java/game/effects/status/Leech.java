@@ -6,9 +6,7 @@ import game.effects.Effect;
 
 public class Leech extends Effect {
   public void dmgTrigger(ConnectionPayload pl) {
-    if (pl.caster.equals(this.hero)) {
-      this.hero.energy(getEnergy(pl.dmg), this.hero, null, this, null, false);
-    }
+    this.hero.energy(getEnergy(pl.dmg), this.hero, null, this, null, false);
   }
 
   private int getEnergy(int dmgDone) {

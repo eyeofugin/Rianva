@@ -2,7 +2,7 @@ package game.skills.logic;
 
 public enum DamageType {
   HEAT,
-  FROST,
+  COLD,
   NORMAL,
   MENTAL,
   LIGHT,
@@ -11,6 +11,6 @@ public enum DamageType {
   TOXIC;
 
   public boolean isElemental() {
-    return this.equals(HEAT) || this.equals(FROST) || this.equals(TOXIC) || this.equals(SHOCK);
+    return this.equals(HEAT) || this.equals(COLD) || this.equals(TOXIC) || this.equals(SHOCK);
   }
 }

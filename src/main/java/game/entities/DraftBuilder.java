@@ -329,7 +329,7 @@ public class DraftBuilder {
     Skill tactical1 = getSkill(entity.tactical[0], hero);
     Skill tactical2 = getSkill(entity.tactical[1], hero);
     Skill ultimate = getSkill(entity.ultimate, hero);
-    hero.getSkills().addAll(List.of(primary, tactical1, tactical2, ultimate, new S_Skip(hero)));
+    hero.addSkill(new S_Skip());
     hero.equipments.add(getEquipment(entity.equipments[0]));
     hero.equipments.add(getEquipment(entity.equipments[1]));
     hero.equipments.add(getEquipment(entity.equipments[2]));
@@ -339,7 +339,7 @@ public class DraftBuilder {
   private static Skill getSkill(String name, Hero hero) {
     try {
       Class<?> skillClass = Class.forName(name);
-      Object obj = skillClass.getDeclaredConstructor(new Class[] {Hero.class}).newInstance(hero);
+      Object obj = skillClass.getDeclaredConstructor(new Class[] {}).newInstance();
       return (Skill) obj;
     } catch (ClassNotFoundException
         | InvocationTargetException

@@ -1,0 +1,89 @@
+{
+  "S_Vengeance": {
+    "name": "Vengeance",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": ["PASSIVE", "CLASS"],
+    "subscriptions": [
+      {
+        "topicName": "DMG_TRIGGER",
+        "methodName": "dmgTrigger",
+        "trigger": {
+          "targetHeroReference": "SAME",
+          "skillNotNull": true
+        }
+      },
+      {
+        "topicName": "ON_MARK",
+        "methodName": "onMark",
+        "trigger": {
+          "targetHeroReference": "ENEMY"
+        }
+      }
+    ]
+  },
+  "S_TightenTheGrip": {
+    "name": "Tighten The Grip",
+    "description": "Skip",
+    "targetType": "SINGLE",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": ["TACTICAL", "CLASS"],
+    "maxCd": 3,
+    "manaCost": 10,
+    "effects": [
+      {
+        "name": "Taunted",
+        "stacks": 0,
+        "turns": 1
+      }
+    ],
+    "subscriptions": [
+      {
+        "topicName": "ON_MARK",
+        "methodName": "onMark",
+        "trigger": {
+          "targetHeroReference": "ENEMY"
+        }
+      },
+      {
+        "topicName": "CAST_CHANGE",
+        "methodName": "castChange",
+        "trigger": {
+          "casterHeroReference": "SAME",
+          "skillNotNull": true
+        }
+      }
+    ],
+    "possibleCasterPositions": [
+      2,3
+    ],
+    "possibleTargetPositions": [
+      4,5
+    ]
+  },
+  "S_GoAfterEvil": {
+    "name": "Go After Evil",
+    "description": "Skip",
+    "targetType": "SINGLE",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": ["TACTICAL", "CLASS"],
+    "maxCd": 3,
+    "manaCost": 10,
+    "moveTo": true,
+    "subscriptions": [
+      {
+        "topicName": "ON_MARK",
+        "methodName": "onMark",
+        "trigger": {
+          "targetHeroReference": "ENEMY"
+        }
+      }
+    ],
+    "possibleCasterPositions": [
+      0,1
+    ],
+    "possibleTargetPositions": [
+      3
+    ]
+  }
+}

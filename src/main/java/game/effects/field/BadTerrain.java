@@ -5,8 +5,6 @@ import game.effects.Effect;
 
 public class BadTerrain extends Effect {
   public void dmgChange(ConnectionPayload pl) {
-    if (pl.target.getPosition() == this.position) {
-      pl.dmg = (int)(pl.dmg * (double) keyValues.get("DmgChange"));
-    }
+    pl.dmg = (int)(pl.dmg * (double) keyValues.get("DmgChange"));
   }
 }

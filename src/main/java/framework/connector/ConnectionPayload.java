@@ -5,11 +5,14 @@ import game.entities.Hero;
 import game.objects.Equipment;
 import game.skills.Skill;
 import game.effects.Effect;
+import game.skills.logic.DamageMode;
+import game.skills.logic.DamageType;
 import game.skills.logic.Stat;
 import game.skills.logic.TargetMode;
 
 public class ConnectionPayload {
   public int dmg;
+  public int shieldDmg;
   public int heal;
   public int shield;
   public int energy;
@@ -31,6 +34,15 @@ public class ConnectionPayload {
   public Equipment equipment;
   public EquipmentChangeMode mode;
   public Stat stat;
+  public DamageType damageType;
+  public DamageMode damageMode;
+  public CondEffectImpact condEffectImpact;
+
+  public int depth;
+
+  public ConnectionPayload(int depth) {
+    this.depth = depth;
+  }
 
   public enum EquipmentChangeMode {
     EQUIP,
@@ -39,6 +51,31 @@ public class ConnectionPayload {
     DEACTIVATE;
   }
 
+  public enum CondEffectImpact {
+    ALLOW,
+    DISALLOW,
+    IGNORE;
+  }
+
+  public ConnectionPayload setCondEffectImpact(CondEffectImpact condEffectImpact) {
+    this.condEffectImpact = condEffectImpact;
+    return this;
+  }
+
+  public ConnectionPayload setDamageType(DamageType damageType) {
+    this.damageType = damageType;
+    return this;
+  }
+
+  public ConnectionPayload setDamageMode(DamageMode damageMode) {
+    this.damageMode = damageMode;
+    return this;
+  }
+
+  public ConnectionPayload setShieldDmg(int dmg) {
+    this.shieldDmg = dmg;
+    return this;
+  }
   public ConnectionPayload setDmg(int dmg) {
     this.dmg = dmg;
     return this;
@@ -56,6 +93,11 @@ public class ConnectionPayload {
 
   public ConnectionPayload setShield(int shield) {
     this.shield = shield;
+    return this;
+  }
+
+  public ConnectionPayload setDepth(int depth) {
+    this.depth = depth;
     return this;
   }
 

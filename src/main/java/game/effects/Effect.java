@@ -1,21 +1,26 @@
 package game.effects;
 
 import framework.Property;
-import framework.connector.Connection;
+import framework.connector.SubscriberSubscriptionConnection;
 import framework.connector.ConnectionPayload;
 import framework.connector.Connector;
+import framework.connector.Subscriber;
 import framework.graphics.GUIElement;
 import framework.graphics.text.Color;
 import framework.states.Arena;
+import framework.connector.Subscription;
+import game.effects.hero.Advantage;
 import game.entities.Hero;
 import game.skills.logic.Condition;
+import game.skills.logic.Stat;
 import utils.Utils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Effect {
+public class Effect implements Subscriber {
 
   public final String name;
   public static String ICON_STRING = "%%%";
@@ -39,7 +44,7 @@ public class Effect {
   public List<SubType> subTypes;
   public Durability durability;
 
-  public Map<String, String> triggerMap = new HashMap<>();
+  public List<Subscription> subscriptions = new ArrayList<>();
   public Map<String, Object> keyValues = new HashMap<>();
 
   public Effect() {
@@ -64,7 +69,7 @@ public class Effect {
       String description,
       boolean stackable,
       ChangeEffectType type,
-      Map<String, String> triggerMap,
+      List<Subscription> subscriptions,
       int position,
       Durability durability,
       List<SubType> subTypes,
@@ -80,8 +85,14 @@ public class Effect {
     this.description = description;
     this.stackable = stackable;
     this.type = type;
-    this.triggerMap = triggerMap;
     this.position = position;
+    this.subscriptions = subscriptions;
+    if (this.subscriptions != null) {
+      this.subscriptions.forEach(s->{
+        s.setEffect(this);
+        s.setPosition(this.position);
+      });
+    }
     this.durability = durability;
     this.subTypes = subTypes;
     this.keyValues = Utils.copyKeyValues(keyValues);
@@ -97,15 +108,38 @@ public class Effect {
     this.type = dto.type;
     this.negates = dto.negates;
     this.durability = dto.durability;
-    this.triggerMap = dto.triggerMap;
+    this.subscriptions = dto.subscriptions;
+    if (this.subscriptions != null) {
+      this.subscriptions.forEach(s->{
+        s.setEffect(this);
+        s.setPosition(this.position);
+      });
+    }
     this.subTypes = dto.subTypes;
     this.keyValues = Utils.copyKeyValues(dto.keyValues);
   }
 
+  public int getRank() {
+    return 0;
+  }
+
+  public int getSpeed() {
+    if (ChangeEffectType.ARENA.equals(this.type)) {
+      return 0;
+    }
+    if (this.origin != null) {
+      return this.origin.getCachedStat(Stat.DEXTERITY);
+    }
+    if (this.hero != null) {
+      return this.hero.getCachedStat(Stat.DEXTERITY);
+    }
+    return 0;
+  }
+
   public void addSubscriptions() {
-    if (triggerMap != null && !triggerMap.isEmpty()) {
-      for (Map.Entry<String, String> entry : triggerMap.entrySet()) {
-        Connector.addSubscription(entry.getKey(), new Connection(this, entry.getValue()));
+    if (subscriptions != null) {
+      for (Subscription subscription : subscriptions) {
+        Connector.addSubscription(subscription.topicName, new SubscriberSubscriptionConnection(this, subscription));
       }
     }
   }
@@ -118,7 +152,7 @@ public class Effect {
   }
 
   public void removeFromHero() {
-    Connector.fireTopic(Connector.EFFECT_REMOVED, new ConnectionPayload().setEffect(this));
+    Connector.fireTopic(Connector.EFFECT_REMOVED, new ConnectionPayload(1).setEffect(this));
     Connector.removeSubscriptions(this);
   }
 
@@ -188,7 +222,6 @@ public class Effect {
     String[] nameSplit = this.getClass().getName().split("\\.");
     return nameSplit[nameSplit.length - 1];
   }
-
   public Effect copy() {
     return new Effect(
         iconString,
@@ -202,7 +235,7 @@ public class Effect {
         description,
         stackable,
         type,
-        triggerMap,
+        subscriptions,
         position,
         durability,
         subTypes,

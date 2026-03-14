@@ -1,4 +1,89 @@
-{
+{"TEST": {
+  "name": "String",
+  "iconString": "STR",
+  "description": "STRING",
+  "stackable": true,
+  "type": "ARENA,FIELD,HERO,STATUS,STAT",
+  "subTypes": [
+    "ATK_ENHANCE",
+    "COSMIC",
+    "DMGTYPE",
+    "BONUS",
+    "STAT",
+    "UNIQUE",
+    "WEAKNESS",
+    "BUFF",
+    "DEBUFF"
+  ],
+  "negates": [
+    "EffectName"
+  ],
+  "subscriptions": [
+    {
+      "topicName": "STRING",
+      "methodName": "String",
+      "trigger": {
+        "targetHeroReference": "SAME,OTHER,ALLY,OTHER_ALLY,ENEMY",
+        "casterHeroReference": "SAME,OTHER,ALLY,OTHER_ALLY,ENEMY",
+        "samePosition": true,
+        "dmgTypeIsElemental": true,
+        "statIsElementalDef": true,
+        "skillNotNull": true,
+        "hasEnergyCost": true,
+        "targetHasStatusDebuff": true,
+        "targetHasStatusBuff": true,
+        "damageTypes": {
+          "boolLogic": "SOME_OF,NONE_OF,ALL_OF",
+          "objects": [
+            "DAMAGETYPE"
+          ]
+        },
+        "damageModes": {
+          "boolLogic": "SOME_OF,NONE_OF,ALL_OF",
+          "objects": [
+            "DAMAGEMODE"
+          ]
+        },
+        "stats": {
+          "boolLogic": "SOME_OF,NONE_OF,ALL_OF",
+          "objects": [
+            "STAT"
+          ]
+        },
+        "effects": {
+          "boolLogic": "SOME_OF,NONE_OF,ALL_OF",
+          "objects": [
+            "EFFECTNAME"
+          ]
+        },
+        "targetEffects": {
+          "boolLogic": "SOME_OF,NONE_OF,ALL_OF",
+          "objects": [
+            "EFFECTNAME"
+          ]
+        },
+        "casterEffects": {
+          "boolLogic": "SOME_OF,NONE_OF,ALL_OF",
+          "objects": [
+            "EFFECTNAME"
+          ]
+        },
+        "targetTypes": {
+          "boolLogic": "SOME_OF,NONE_OF,ALL_OF",
+          "objects": [
+            "TARGETTYPE"
+          ]
+        },
+        "skillTags": {
+          "boolLogic": "SOME_OF,NONE_OF,ALL_OF",
+          "objects": [
+            "SKILLTAG"
+          ]
+        }
+      }
+    }
+  ]
+},
   "Aether Winds": {
     "name": "Starry Night",
     "iconString": "SPE",
@@ -6,9 +91,13 @@
     "stackable": false,
     "durability": "TIME",
     "type": "ARENA",
-    "triggerMap": {
-      "END_OF_ROUND": "endOfRound"
-    },
+    "subscriptions": [
+      {
+        "topicName": "END_OF_ROUND",
+        "methodName": "endOfRound",
+        "trigger": {}
+      }
+    ],
     "subTypes": [
       "COSMIC"
     ]
@@ -22,6 +111,16 @@
     "type": "ARENA",
     "triggerMap": {
       "CAST_CHANGE": "accChange"
+    },
+    "subscriptions": [
+      {
+        "topicName": "CAST_CHANGE",
+        "methodName": "accChange",
+        "trigger": {}
+      }
+    ],
+    "keyValues": {
+      "AccuracyMinus": 15
     }
   },
   "Scorching Sun": {
@@ -31,10 +130,23 @@
     "stackable": false,
     "durability": "TIME",
     "type": "ARENA",
-    "triggerMap": {
-      "EFFECT_DMG_CHANGES": "effectDmgChanges",
-      "EFFECT_FAILURE": "effectFailure"
-    },
+    "subscriptions": [
+      {
+        "topicName": "EFFECT_DMG_CHANGES",
+        "methodName": "effectDmgChanges",
+        "trigger": {}
+      },
+      {
+        "topicName": "EFFECT_FAILURE",
+        "methodName": "effectFailure",
+        "trigger": {
+          "effects": {
+            "boolLogic": "ALL_OF",
+            "objects": ["FROST"]
+          }
+        }
+      }
+    ],
     "subTypes": [
       "HEAT"
     ]
@@ -50,6 +162,22 @@
       "HEAL_CHANGES": "healChanges",
       "SHIELD_CHANGES": "shieldChanges"
     },
+    "subscriptions": [
+      {
+        "topicName": "HEAL_CHANGES",
+        "methodName": "healChanges",
+        "trigger": {}
+      },
+      {
+        "topicName": "SHIELD_CHANGES",
+        "methodName": "shieldChanges",
+        "trigger": {}
+      }
+    ],
+    "keyValues":{
+      "Shield": 1.25,
+      "Heal": 1.25
+    },
     "subTypes": [
       "COSMIC"
     ]
@@ -61,9 +189,13 @@
     "stackable": false,
     "durability": "TIME",
     "type": "ARENA",
-    "triggerMap": {
-      "END_OF_ROUND": "endOfRound"
-    },
+    "subscriptions": [
+      {
+        "topicName": "END_OF_ROUND",
+        "methodName": "endOfRound",
+        "trigger": {}
+      }
+    ],
     "subTypes": [
       "TOXIC"
     ]
@@ -75,11 +207,28 @@
     "stackable": false,
     "durability": "TIME",
     "type": "ARENA",
-    "triggerMap": {
-      "END_OF_ROUND": "endOfRound",
-      "EFFECT_FAILURE": "effectFailure",
-      "CAST_CHANGE": "accChange"
-    },
+    "subscriptions": [
+      {
+        "topicName": "CAST_CHANGE",
+        "methodName": "accChange",
+        "trigger": {}
+      },
+      {
+        "topicName": "EFFECT_FAILURE",
+        "methodName": "effectFailure",
+        "trigger": {
+          "effects": {
+            "boolLogic": "ALL_OF",
+            "objects": ["Burn"]
+          }
+        }
+      },
+      {
+        "topicName": "END_OF_ROUND",
+        "methodName": "endOfRound",
+        "trigger": {}
+      }
+    ],
     "subTypes": [
       "COLD"
     ]
@@ -94,6 +243,15 @@
     "triggerMap": {
       "DMG_CHANGES": "dmgChanges"
     },
+    "subscriptions": [
+      {
+        "topicName": "DMG_CHANGES",
+        "methodName": "dmgChanges",
+        "trigger": {
+          "dmgTypeIsElemental": true
+        }
+      }
+    ],
     "subTypes": [
       "SHOCK"
     ]
@@ -105,9 +263,13 @@
     "stackable": false,
     "durability": "TIME",
     "type": "ARENA",
-    "triggerMap": {
-      "CAST_CHANGE": "castChange"
-    },
+    "subscriptions": [
+      {
+        "topicName": "CAST_CHANGE",
+        "methodName": "castChange",
+        "trigger": {}
+      }
+    ],
     "subTypes": [
       "COSMIC"
     ]

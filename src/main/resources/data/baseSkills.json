@@ -1,0 +1,306 @@
+{
+  "S_Boots": {
+    "name": "Boots",
+    "description": "Boots",
+    "iconPath": "icons/skills/wingedboots.png",
+    "targetType": "SINGLE_OTHER",
+    "possibleCastPositions": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "maxCd" : 5,
+    "isMove": true,
+    "countAsHits": 0
+  },
+  "S_Skip": {
+    "name": "Skip",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "targetType": "SELF",
+    "possibleCastPositions": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "countAsHits": 0
+  },
+  "S_MagicMissile": {
+    "name": "Magic Missile",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "targetType": "SINGLE",
+    "cannotMiss": true,
+    "damageMode": "MAGICAL",
+    "damageType": "MENTAL",
+    "tags": ["PRIMARY", "CANTRIP"],
+    "dmg": 10,
+    "dmgMultipliers": [
+      {
+        "prof": "MIND",
+        "percentage":0.10
+      }
+    ],
+    "possibleCastPositions": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "possibleTargetPositions": [
+      4,
+      5
+    ]
+  },
+  "S_AcidSpout": {
+    "name": "Acid Spout",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "targetType": "SINGLE",
+    "damageMode": "MAGICAL",
+    "damageType": "TOXIC",
+    "tags": ["PRIMARY", "CANTRIP"],
+    "dmg": 3,
+    "dmgMultipliers": [
+      {
+        "prof": "MIND",
+        "percentage":0.08
+      }
+    ],
+    "effects": [
+      {
+        "name": "Poisoned",
+        "stacks": 1,
+        "turns": -1,
+        "condition": {
+          "chance": true,
+          "successChance": 25
+        }
+      }
+    ],
+    "possibleCastPositions": [
+      2,
+      3
+    ],
+    "possibleTargetPositions": [
+      4,
+      5,
+      6,
+      7
+    ]
+  },
+  "S_FrostShard": {
+    "name": "Frost Shard",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "targetType": "SINGLE",
+    "damageMode": "MAGICAL",
+    "damageType": "COLD",
+    "tags": ["PRIMARY", "CANTRIP"],
+    "dmg": 4,
+    "dmgMultipliers": [
+      {
+        "prof": "MIND",
+        "percentage":0.07
+      }
+    ],
+    "casterResources": [
+      {
+        "resource": "ENERGY",
+        "maxResource": "MAX_ENERGY",
+        "amount": 3
+      }
+    ],
+    "possibleCastPositions": [
+      1,
+      2,
+      3
+    ],
+    "possibleTargetPositions": [
+      4,
+      5,
+      6
+    ]
+  },
+  "S_LightBeam": {
+    "name": "Light Beam",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "targetType": "SINGLE",
+    "damageMode": "MAGICAL",
+    "damageType": "LIGHT",
+    "tags": ["PRIMARY", "CANTRIP"],
+    "dmg": 9,
+    "dmgMultipliers": [
+      {
+        "prof": "MIND",
+        "percentage":0.04
+      }
+    ],
+    "effects": [
+      {
+        "name": "Blinded",
+        "stacks": -1,
+        "turns": 2,
+        "condition": {
+          "chance": true,
+          "successChance": 25
+        }
+      }
+    ],
+    "possibleCastPositions": [
+      1,
+      2,
+      3
+    ],
+    "possibleTargetPositions": [
+      4,
+      5,
+      6
+    ]
+  },
+  "S_DarkSpark": {
+    "name": "Dark Spark",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "targetType": "SINGLE",
+    "damageMode": "MAGICAL",
+    "damageType": "DARK",
+    "tags": ["PRIMARY", "CANTRIP"],
+    "dmg": 4,
+    "dmgMultipliers": [
+      {
+        "prof": "MIND",
+        "percentage":0.11
+      }
+    ],
+    "possibleCastPositions": [
+      0,
+      1
+    ],
+    "possibleTargetPositions": [
+      6,
+      7
+    ]
+  },
+  "S_FireBall": {
+    "name": "Fireball",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "targetType": "SINGLE",
+    "damageMode": "MAGICAL",
+    "damageType": "HEAT",
+    "tags": ["PRIMARY", "CANTRIP"],
+    "dmg": 14,
+    "dmgMultipliers": [
+      {
+        "prof": "MIND",
+        "percentage":0.02
+      }
+    ],
+    "effects": [
+      {
+        "name": "Burning",
+        "stacks": 1,
+        "turns": -1,
+        "condition": {
+          "chance": true,
+          "successChance": 25
+        }
+      }
+    ],
+    "possibleCastPositions": [
+      1,
+      2,
+      3
+    ],
+    "possibleTargetPositions": [
+      4,
+      5
+    ]
+  },
+  "S_MinorHex": {
+    "name": "Minor Hex",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "targetType": "SINGLE",
+    "tags": ["PRIMARY", "CANTRIP"],
+    "effects": [
+      {
+        "name": "Burning",
+        "stacks": 1,
+        "turns": -1,
+        "condition": {
+          "chance": true,
+          "successChance": 33
+        }
+      },
+      {
+        "name": "Frost",
+        "stacks": 1,
+        "turns": -1,
+        "condition": {
+          "chance": true,
+          "successChance": 33
+        }
+      },
+      {
+        "name": "Poisoned",
+        "stacks": 0,
+        "turns": 1,
+        "condition": {
+          "chance": true,
+          "successChance": 33
+        }
+      },
+      {
+        "name": "Shocked",
+        "stacks": 1,
+        "turns": -1,
+        "condition": {
+          "chance": true,
+          "successChance": 33
+        }
+      }
+    ],
+    "possibleCastPositions": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "possibleTargetPositions": [
+      4,
+      5,
+      6
+    ]
+  },
+  "S_HealingWords": {
+    "name": "Healing Words",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "targetType": "SINGLE",
+    "tags": ["PRIMARY", "CANTRIP"],
+    "heal": 10,
+    "dmgMultipliers": [
+      {
+        "prof": "MIND",
+        "percentage":0.1
+      }
+    ],
+    "possibleCastPositions": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "possibleTargetPositions": [
+      0,
+      1,
+      2,
+      3
+    ]
+  }
+}

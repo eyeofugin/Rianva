@@ -53,9 +53,13 @@
     "subTypes": [
       "BUFF"
     ],
-    "triggerMap": {
-      "CAN_PERFORM": "canPerformCheck"
-    }
+    "subscriptions": [
+      {
+        "topicName": "CAN_PERFORM",
+        "methodName": "canPerformCheck",
+        "trigger": {}
+      }
+    ]
   },
   "Leech": {
     "name": "Leech",
@@ -67,9 +71,19 @@
     "subTypes": [
       "BUFF"
     ],
-    "triggerMap": {
-      "DMG_TRIGGER": "dmgTrigger"
-    },
+    "subscriptions": [
+      {
+        "topicName": "DMG_TRIGGER",
+        "methodName": "dmgTrigger",
+        "trigger": {
+          "casterHeroReference": "SAME",
+          "damageModes" : {
+            "boolLogic": "ALL_OF",
+            "objects": ["PHYSICAL"]
+          }
+        }
+      }
+    ],
     "keyValues": {
       "EnergyPercentage": 20
     }
@@ -84,9 +98,19 @@
     "subTypes": [
       "BUFF"
     ],
-    "triggerMap": {
-      "DMG_TRIGGER": "dmgTrigger"
-    },
+    "subscriptions": [
+      {
+        "topicName": "DMG_TRIGGER",
+        "methodName": "dmgTrigger",
+        "trigger": {
+          "casterHeroReference": "SAME",
+          "damageModes" : {
+            "boolLogic": "ALL_OF",
+            "objects": ["PHYSICAL"]
+          }
+        }
+      }
+    ],
     "keyValues": {
       "LifePercentage": 20
     }
@@ -104,7 +128,16 @@
     ],
     "triggerMap": {
       "CAST_CHANGE": "castChange"
-    }
+    },
+    "subscriptions": [
+      {
+        "topicName": "CAST_CHANGE",
+        "methodName": "castChange",
+        "trigger": {
+          "casterHeroReference": "SAME"
+        }
+      }
+    ]
   },
   "TrueShot": {
     "name": "TrueShot",
@@ -117,9 +150,15 @@
       "BUFF",
       "ATK_ENHANCE"
     ],
-    "triggerMap": {
-      "CAST_CHANGE": "castChange"
-    }
+    "subscriptions": [
+      {
+        "topicName": "CAST_CHANGE",
+        "methodName": "castChange",
+        "trigger": {
+          "casterHeroReference": "SAME"
+        }
+      }
+    ]
   },
   "Guarded": {
     "name": "Guarded",
@@ -143,8 +182,10 @@
       "DEBUFF",
       "COLD"
     ],
-    "triggerMap": {
-      "END_OF_TURN": "endOfTurn"
+    "subscriptions": {
+      "topicName": "END_OF_TURN",
+      "methodName": "endOfTurn",
+      "trigger": {}
     },
     "keyValues": {
       "FrostEotDmgPercentage": 5,
@@ -165,8 +206,10 @@
       "DEBUFF",
       "HEAT"
     ],
-    "triggerMap": {
-      "END_OF_TURN": "endOfTurn"
+    "subscriptions": {
+      "topicName": "END_OF_TURN",
+      "methodName": "endOfTurn",
+      "trigger": {}
     },
     "keyValues": {
       "BurningEotDmgPercentagePerStack": 3,
@@ -187,11 +230,21 @@
       "DEBUFF",
       "LIGHT"
     ],
-    "triggerMap": {
-      "BASE_STAT_CHANGE": "baseStatChange"
-    },
+    "subscriptions": [
+      {
+        "topicName": "BASE_STAT_CHANGE",
+        "methodName": "baseStatChange",
+        "trigger": {
+          "targetHeroReference": "SAME",
+          "stats": {
+            "boolLogic": "ALL_OF",
+            "objects": ["ACCURACY"]
+          }
+        }
+      }
+    ],
     "keyValues": {
-      "AccuracyMalus": 15
+      "AccuracyMalus": -15
     }
   },
   "Taunted": {
@@ -205,9 +258,13 @@
       "DEBUFF",
       "MENTAL"
     ],
-    "triggerMap": {
-      "CAN_PERFORM": "canPerformCheck"
-    }
+    "subscriptions": [
+      {
+        "topicName": "CAN_PERFORM",
+        "methodName": "CAN_PERFORM",
+        "trigger": {}
+      }
+    ]
   },
   "Immobile": {
     "name": "Immobile",
@@ -219,9 +276,13 @@
     "subTypes": [
       "DEBUFF"
     ],
-    "triggerMap": {
-      "CAN_PERFORM": "canPerformCheck"
-    }
+    "subscriptions": [
+      {
+        "topicName": "CAN_PERFORM",
+        "methodName": "CAN_PERFORM",
+        "trigger": {}
+      }
+    ]
   },
   "Poisoned": {
     "name": "Poisoned",
@@ -234,9 +295,13 @@
       "DEBUFF",
       "TOXIC"
     ],
-    "triggerMap": {
-      "END_OF_TURN": "endOfTurn"
-    },
+    "subscriptions": [
+      {
+        "topicName": "END_OF_TURN",
+        "methodName": "endOfTurn",
+        "trigger": {}
+      }
+    ],
     "keyValues": {
       "PoisonEotDmgPercentagePerStack": 1
     }
@@ -251,9 +316,19 @@
     "subTypes": [
       "DEBUFF"
     ],
-    "triggerMap": {
-      "CAST_CHANGE": "castChange"
-    },
+    "subscriptions": [
+      {
+        "topicName": "CAST_CHANGE",
+        "methodName": "castChange",
+        "trigger": {
+          "casterHeroReference": "SAME",
+          "tags": {
+            "boolLogic": "NONE_OF",
+            "objects": ["PRIMARY","PASSIVE"]
+          }
+        }
+      }
+    ],
     "keyValues": {
       "DazedCdMalus": 1
     }
@@ -269,9 +344,15 @@
       "DEBUFF",
       "SHOCK"
     ],
-    "triggerMap": {
-      "ON_DAMAGE": "onDamage"
-    },
+    "subscriptions": [
+      {
+        "topicName": "ON_DAMAGE",
+        "methodName": "onDamage",
+        "trigger": {
+          "targetHeroReference": "SAME"
+        }
+      }
+    ],
     "keyValues": {
       "ShockedMaxStack": 3
     }
@@ -287,9 +368,15 @@
       "DEBUFF",
       "DARK"
     ],
-    "triggerMap": {
-      "ON_DAMAGE": "onDamage"
-    },
+    "subscriptions": [
+      {
+        "topicName": "ON_DAMAGE",
+        "methodName": "onDamage",
+        "trigger": {
+          "targetHeroReference": "SAME"
+        }
+      }
+    ],
     "keyValues": {
       "BlightDmgPercentage": 5
     }

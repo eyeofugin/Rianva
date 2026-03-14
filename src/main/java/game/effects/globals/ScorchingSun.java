@@ -11,8 +11,6 @@ public class ScorchingSun extends Effect {
   }
 
   public void effectFailure(ConnectionPayload pl) {
-    if ("Frost".equals(pl.effect.name)) {
-      pl.failure = true;
-    }
+    pl.failure = true;
   }
 }

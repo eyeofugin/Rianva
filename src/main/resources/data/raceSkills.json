@@ -1,0 +1,193 @@
+{
+  "S_Adapt": {
+    "name": "Adapt",
+    "description": "Adapt",
+    "iconPath": "icons/skills/wingedboots.png",
+    "targetType": "PASSIVE",
+    "tags": ["PASSIVE", "RACE"]
+  },
+  "S_Unlife": {
+    "name": "Unlife",
+    "description": "Unlife",
+    "iconPath": "icons/skills/wingedboots.png",
+    "targetType": "PASSIVE",
+    "tags": ["PASSIVE", "RACE"],
+    "subscriptions": [
+      {
+        "topicName": "HEAL_CHANGES_MULT",
+        "methodName": "healChanges",
+        "trigger" : {
+          "targetHeroReference": "SAME",
+          "casterHeroReference": "OTHER_ALLY"
+        }
+      }
+    ]
+  },
+  "S_KeenEye": {
+    "name": "Keen eye",
+    "description": "Unlife",
+    "iconPath": "icons/skills/wingedboots.png",
+    "targetType": "PASSIVE",
+    "tags": ["PASSIVE", "RACE"],
+    "keyValues": {
+      "SelfAcc": 20,
+      "OtherAcc": 5
+    },
+    "subscriptions": [
+      {
+        "topicName": "BASE_STAT_CHANGE",
+        "methodName": "statChange",
+        "trigger" : {
+          "targetHeroReference": "ALLY",
+          "stats": {
+            "boolLogic": "ALL_OF",
+            "objects": ["ACCURACY"]
+          }
+        }
+      }
+    ]
+  },
+  "S_Ethereal": {
+    "name": "Ethereal",
+    "description": "Unlife",
+    "iconPath": "icons/skills/wingedboots.png",
+    "targetType": "PASSIVE",
+    "tags": ["PASSIVE", "RACE"],
+    "keyValues": {
+      "Energy": 3
+    },
+    "subscriptions": [
+      {
+        "topicName": "ON_DAMAGE",
+        "methodName": "onHit",
+        "trigger" : {
+          "casterHeroReference": "SAME",
+          "damageModes" : {
+            "boolLogic": "ALL_OF",
+            "objects": ["PHYSICAL"]
+          }
+        }
+      }
+    ]
+  },
+  "S_BornInFlames": {
+    "name": "Born in Flames",
+    "description": "Unlife",
+    "iconPath": "icons/skills/wingedboots.png",
+    "targetType": "PASSIVE",
+    "tags": ["PASSIVE", "RACE"],
+    "subscriptions": [
+      {
+        "topicName": "EFFECT_FAILURE_CHECK",
+        "methodName": "effectFailure",
+        "trigger" : {
+          "targetHeroReference": "SAME",
+          "effects" : {
+            "boolLogic": "ALL_OF",
+            "objects": ["Frost"]
+          }
+        }
+      }
+    ]
+  },
+  "S_HandSewnArmor": {
+    "name": "Hand sewn Armor",
+    "description": "Unlife",
+    "iconPath": "icons/skills/wingedboots.png",
+    "targetType": "PASSIVE",
+    "tags": ["PASSIVE", "RACE"],
+    "subscriptions": [
+      {
+        "topicName": "CHANCE_EFFECT_MULT",
+        "methodName": "chanceEffectMult",
+        "trigger" : {
+          "casterHeroReference": "SAME",
+          "equipmentNotNull": true
+        }
+      },
+      {
+        "topicName": "STAT_BASE_CHANGE_CHANGE",
+        "methodName": "statBaseChangeChange",
+        "trigger" : {
+          "targetHeroReference": "SAME",
+          "equipmentNotNull": true
+        }
+      },
+      {
+        "topicName": "STAT_MULT_CHANGE_CHANGE",
+        "methodName": "statMultChangeChange",
+        "trigger" : {
+          "targetHeroReference": "SAME",
+          "equipmentNotNull": true
+        }
+      }
+    ],
+    "keyValues": {
+      "ChanceMult": 3,
+      "StatMult": 1.15
+
+    }
+  },
+  "S_Agility": {
+    "name": "Agility",
+    "description": "Unlife",
+    "iconPath": "icons/skills/wingedboots.png",
+    "targetType": "PASSIVE",
+    "tags": ["PASSIVE", "RACE"],
+    "subscriptions": [
+      {
+        "topicName": "CAST_CHANGE",
+        "methodName": "castChange",
+        "trigger" : {
+          "casterHeroReference": "SAME"
+        }
+      }
+    ]
+  },
+  "S_Aggression": {
+    "name": "Aggression",
+    "description": "Unlife",
+    "iconPath": "icons/skills/wingedboots.png",
+    "targetType": "PASSIVE",
+    "tags": ["PASSIVE", "RACE"],
+    "subscriptions": [
+      {
+        "topicName": "CHANCE_EFFECT_MULT",
+        "methodName": "chanceEffectMult",
+        "trigger" : {
+          "casterHeroReference": "SAME",
+          "effects": {
+            "boolLogic": "ANY_OF",
+            "objects": ["Dazed", "Stunned", "Immobile"]
+          }
+        }
+      }
+    ],
+    "keyValues": {
+      "ChanceMult": 2
+    }
+  },
+  "S_TheDarken": {
+    "name": "The Darken",
+    "description": "Unlife",
+    "iconPath": "icons/skills/wingedboots.png",
+    "targetType": "PASSIVE",
+    "tags": ["PASSIVE", "RACE"],
+    "subscriptions": [
+      {
+        "topicName": "BASE_DMG_CHANGES",
+        "methodName": "dmgChanges",
+        "trigger" : {
+          "casterHeroReference": "SAME",
+          "damageModes": {
+            "boolLogic": "SOME_OF",
+            "objects": ["PHYSICAL", "MAGICAL"]
+          }
+        }
+      }
+    ],
+    "keyValues": {
+      "Mult": 1.05
+    }
+  }
+}

@@ -9,11 +9,21 @@
     "subTypes": [
       "BUFF"
     ],
-    "triggerMap": {
-      "STAT_CHANGE_MULT": "statChangeMult"
-    },
+    "subscriptions": [
+      {
+        "topicName": "STAT_CHANGE_MULT",
+        "methodName": "dmgChangeMult",
+        "trigger": {
+          "targetHeroReference": "SAME",
+          "stats": {
+            "boolLogic": "ALL_OF",
+            "objects": ["BODY"]
+          }
+        }
+      }
+    ],
     "keyValues": {
-      "MightyPercentage": 33
+      "Percentage": 0.33
     }
   },
   "Enlightened": {
@@ -26,11 +36,21 @@
     "subTypes": [
       "BUFF"
     ],
-    "triggerMap": {
-      "STAT_CHANGE_MULT": "statChangeMult"
-    },
+    "subscriptions": [
+      {
+        "topicName": "STAT_CHANGE_MULT",
+        "methodName": "dmgChangeMult",
+        "trigger": {
+          "targetHeroReference": "SAME",
+          "stats": {
+            "boolLogic": "ALL_OF",
+            "objects": ["MIND"]
+          }
+        }
+      }
+    ],
     "keyValues": {
-      "EnlightenedPercentage": 33
+      "Percentage": 0.33
     }
   },
   "Flawless": {
@@ -43,11 +63,21 @@
     "subTypes": [
       "BUFF"
     ],
-    "triggerMap": {
-      "STAT_CHANGE_MULT": "statChangeMult"
-    },
+    "subscriptions": [
+      {
+        "topicName": "STAT_CHANGE_MULT",
+        "methodName": "dmgChangeMult",
+        "trigger": {
+          "targetHeroReference": "SAME",
+          "stats": {
+            "boolLogic": "ALL_OF",
+            "objects": ["DEXTERITY"]
+          }
+        }
+      }
+    ],
     "keyValues": {
-      "FlawlessPercentage": 33
+      "Percentage": 0.33
     }
   },
   "Brittle": {
@@ -60,11 +90,21 @@
     "subTypes": [
       "DEBUFF"
     ],
-    "triggerMap": {
-      "STAT_CHANGE_MULT": "statChangeMult"
-    },
+    "subscriptions": [
+      {
+        "topicName": "STAT_CHANGE_MULT",
+        "methodName": "dmgChangeMult",
+        "trigger": {
+          "targetHeroReference": "SAME",
+          "stats": {
+            "boolLogic": "ALL_OF",
+            "objects": ["BODY"]
+          }
+        }
+      }
+    ],
     "keyValues": {
-      "BrittlePercentage": 66
+      "Percentage": -0.33
     }
   },
   "Dull": {
@@ -77,11 +117,21 @@
     "subTypes": [
       "DEBUFF"
     ],
-    "triggerMap": {
-      "STAT_CHANGE_MULT": "statChangeMult"
-    },
+    "subscriptions": [
+      {
+        "topicName": "STAT_CHANGE_MULT",
+        "methodName": "dmgChangeMult",
+        "trigger": {
+          "targetHeroReference": "SAME",
+          "stats": {
+            "boolLogic": "ALL_OF",
+            "objects": ["MIND"]
+          }
+        }
+      }
+    ],
     "keyValues": {
-      "DullPercentage": 66
+      "Percentage": -0.33
     }
   },
   "Shaken": {
@@ -94,11 +144,21 @@
     "subTypes": [
       "DEBUFF"
     ],
-    "triggerMap": {
-      "STAT_CHANGE_MULT": "statChangeMult"
-    },
+    "subscriptions": [
+      {
+        "topicName": "STAT_CHANGE_MULT",
+        "methodName": "dmgChangeMult",
+        "trigger": {
+          "targetHeroReference": "SAME",
+          "stats": {
+            "boolLogic": "ALL_OF",
+            "objects": ["DEXTERITY"]
+          }
+        }
+      }
+    ],
     "keyValues": {
-      "ShakenPercentage": 66
+      "Percentage": -0.33
     }
   }
 }

@@ -6,9 +6,15 @@
     "stackable": false,
     "durability": "ONCE",
     "type": "HERO",
-    "triggerMap": {
-      "DMG_TRIGGER": "dmgTrigger"
-    },
+    "subscriptions": [
+      {
+        "topicName": "DMG_TRIGGER",
+        "methodName": "dmgTrigger",
+        "trigger": {
+          "casterHeroReference": "SAME"
+        }
+      }
+    ],
     "subTypes": [
       "ATK_ENHANCE"
     ]
@@ -20,9 +26,15 @@
     "stackable": false,
     "durability": "ONCE",
     "type": "HERO",
-    "triggerMap": {
-      "DMG_TRIGGER": "onDmg"
-    },
+    "subscriptions": [
+      {
+        "topicName": "DMG_TRIGGER",
+        "methodName": "onDmg",
+        "trigger": {
+          "casterHeroReference": "SAME"
+        }
+      }
+    ],
     "subTypes": [
       "ATK_ENHANCE"
     ],
@@ -37,9 +49,15 @@
     "stackable": false,
     "durability": "ONCE",
     "type": "HERO",
-    "triggerMap": {
-      "DMG_TRIGGER": "onDmg"
-    },
+    "subscriptions": [
+      {
+        "topicName": "DMG_TRIGGER",
+        "methodName": "Dmg",
+        "trigger": {
+          "casterHeroReference": "SAME"
+        }
+      }
+    ],
     "subTypes": [
       "ATK_ENHANCE"
     ],
@@ -54,9 +72,15 @@
     "stackable": false,
     "durability": "ONCE",
     "type": "HERO",
-    "triggerMap": {
-      "DMG_TRIGGER": "onDmg"
-    },
+    "subscriptions": [
+      {
+        "topicName": "DMG_TRIGGER",
+        "methodName": "onDmg",
+        "trigger": {
+          "casterHeroReference": "SAME"
+        }
+      }
+    ],
     "subTypes": [
       "ATK_ENHANCE"
     ],
@@ -74,6 +98,15 @@
     "triggerMap": {
       "DMG_TRIGGER": "onDmg"
     },
+    "subscriptions": [
+      {
+        "topicName": "DMG_TRIGGER",
+        "methodName": "onDmg",
+        "trigger": {
+          "casterHeroReference": "SAME"
+        }
+      }
+    ],
     "subTypes": [
       "ATK_ENHANCE"
     ],
@@ -88,9 +121,15 @@
     "stackable": false,
     "durability": "ONCE",
     "type": "HERO",
-    "triggerMap": {
-      "DMG_TRIGGER": "onDmg"
-    },
+    "subscriptions": [
+      {
+        "topicName": "DMG_TRIGGER",
+        "methodName": "onDmg",
+        "trigger": {
+          "casterHeroReference": "SAME"
+        }
+      }
+    ],
     "subTypes": [
       "ATK_ENHANCE"
     ],
@@ -105,9 +144,15 @@
     "stackable": false,
     "durability": "ONCE",
     "type": "HERO",
-    "triggerMap": {
-      "DMG_TRIGGER": "onDmg"
-    },
+    "subscriptions": [
+      {
+        "topicName": "DMG_TRIGGER",
+        "methodName": "onDmg",
+        "trigger": {
+          "casterHeroReference": "SAME"
+        }
+      }
+    ],
     "subTypes": [
       "ATK_ENHANCE"
     ],
@@ -122,9 +167,15 @@
     "stackable": false,
     "durability": "ONCE",
     "type": "HERO",
-    "triggerMap": {
-      "DMG_TRIGGER": "onDmg"
-    },
+    "subscriptions": [
+      {
+        "topicName": "DMG_TRIGGER",
+        "methodName": "onDmg",
+        "trigger": {
+          "casterHeroReference": "SAME"
+        }
+      }
+    ],
     "subTypes": [
       "ATK_ENHANCE"
     ],
@@ -139,9 +190,15 @@
     "stackable": false,
     "durability": "ONCE",
     "type": "HERO",
-    "triggerMap": {
-      "DMG_TRIGGER": "onDmg"
-    },
+    "subscriptions": [
+      {
+        "topicName": "DMG_TRIGGER",
+        "methodName": "onDmg",
+        "trigger": {
+          "casterHeroReference": "SAME"
+        }
+      }
+    ],
     "subTypes": [
       "ATK_ENHANCE"
     ]
@@ -153,9 +210,16 @@
     "stackable": false,
     "durability": "ONCE",
     "type": "HERO",
-    "triggerMap": {
-      "DMG_CHANGES_MULT": "dmgChangesMult"
-    },
+    "subscriptions": [
+      {
+        "topicName": "DMG_CHANGES_MULT",
+        "methodName": "dmgChangesMult",
+        "trigger": {
+          "casterHeroReference": "SAME",
+          "skillNotNull": true
+        }
+      }
+    ],
     "subTypes": [
       "BONUS"
     ],
@@ -170,9 +234,15 @@
     "stackable": false,
     "durability": "ONCE",
     "type": "HERO",
-    "triggerMap": {
-      "DMG_CHANGES_MULT": "dmgChangesMult"
-    },
+    "subscriptions": [
+      {
+        "topicName": "DMG_CHANGES_MULT",
+        "methodName": "dmgChangesMult",
+        "trigger": {
+          "targetHeroReference": "SAME"
+        }
+      }
+    ],
     "subTypes": [
       "BONUS"
     ],
@@ -187,9 +257,15 @@
     "stackable": false,
     "durability": "ONCE",
     "type": "HERO",
-    "triggerMap": {
-      "END_OF_TURN": "endOfTurn"
-    },
+    "subscriptions": [
+      {
+        "topicName": "END_OF_TURN",
+        "methodName": "endOfTurn",
+        "trigger": {
+          "casterHeroReference": "SAME"
+        }
+      }
+    ],
     "subTypes": [
       "BONUS"
     ]
@@ -201,14 +277,24 @@
     "stackable": false,
     "durability": "TIME",
     "type": "HERO",
-    "triggerMap": {
-      "STAT_CHANGE_MULT": "statChangeMult"
-    },
+    "subscriptions": [
+      {
+        "topicName": "STAT_CHANGE_MULT",
+        "methodName": "statChangeMult",
+        "trigger": {
+          "targetHeroReference": "SAME",
+          "stats": {
+            "boolLogic": "SOME_OF",
+            "objects": ["BODY","MIND","DEXTERITY"]
+          }
+        }
+      }
+    ],
     "subTypes": [
       "STAT"
     ],
     "keyValues": {
-      "Change": "1.1"
+      "Change": "0.1"
     }
   },
   "Trophy": {
@@ -218,9 +304,19 @@
     "stackable": false,
     "durability": "TIME",
     "type": "HERO",
-    "triggerMap": {
-      "BASE_STAT_CHANGE": "baseStatChange"
-    },
+    "subscriptions": [
+      {
+        "topicName": "BASE_STAT_CHANGE",
+        "methodName": "baseStatChange",
+        "trigger": {
+          "targetHeroReference": "SAME",
+          "stats": {
+            "boolLogic": "SOME_OF",
+            "objects": ["BODY","MIND","DEXTERITY","DODGE"]
+          }
+        }
+      }
+    ],
     "subTypes": [
       "STAT"
     ],
@@ -240,6 +336,37 @@
       "CAST_CHANGE": "castChange",
       "ON_PERFORM": "onPerform"
     },
+    "subscriptions": [
+      {
+        "topicName": "DMG_CHANGES_MULT",
+        "methodName": "dmgChangeMult",
+        "trigger": {
+          "casterHeroReference": "SAME",
+          "skillNotNull": true,
+          "targetTypes": {
+            "boolLogic": "SOME_OF",
+            "objects": ["ALL_TARGETS","ALL"]
+          }
+        }
+      },
+      {
+        "topicName": "CAST_CHANGE",
+        "methodName": "castChange",
+        "trigger": {
+          "casterHeroReference": "SAME",
+          "skillNotNull": true,
+          "hasEnergyCost": true
+        }
+      },
+      {
+        "topicName": "ON_PERFORM",
+        "methodName": "onPerform",
+        "trigger": {
+          "casterHeroReference": "SAME",
+          "skillNotNull": true
+        }
+      }
+    ],
     "subTypes": [
       "UNIQUE"
     ],
@@ -255,10 +382,27 @@
     "stackable": false,
     "durability": "PERSISTENT",
     "type": "HERO",
-    "triggerMap": {
-      "TARGET_CHANGE": "targetChange",
-      "ON_PERFORM": "onPerform"
-    },
+    "subscriptions": [
+      {
+        "topicName": "TARGET_CHANGE",
+        "methodName": "targetChange",
+        "trigger": {
+          "casterHeroReference": "SAME",
+          "targetTypes": {
+            "boolLogic": "ALL_OF",
+            "objects": ["SINGLE"]
+          }
+        }
+      },
+      {
+        "topicName": "ON_PERFORM",
+        "methodName": "onPerform",
+        "trigger": {
+          "casterHeroReference": "SAME",
+          "skillNotNull": true
+        }
+      }
+    ],
     "subTypes": [
       "UNIQUE"
     ]
@@ -270,10 +414,23 @@
     "stackable": false,
     "durability": "PERSISTENT",
     "type": "HERO",
-    "triggerMap": {
-      "DMG_CHANGE_MULT": "dmgChangeMult",
-      "CAST_CHANGE": "castChange"
-    },
+    "subscriptions": [
+      {
+        "topicName": "DMG_CHANGE_MULT",
+        "methodName": "dmgChangeMult",
+        "trigger": {
+          "casterHeroReference": "SAME",
+          "targetHasStatusDebuff": true
+        }
+      },
+      {
+        "topicName": "CAST_CHANGE",
+        "methodName": "castChange",
+        "trigger": {
+          "casterHeroReference": "SAME"
+        }
+      }
+    ],
     "subTypes": [
       "UNIQUE"
     ],
@@ -288,10 +445,22 @@
     "stackable": false,
     "durability": "PERSISTENT",
     "type": "HERO",
-    "triggerMap": {
-      "CAST_CHANGE": "castChange",
-      "ON_PERFORM" : "onPerform"
-    },
+    "subscriptions": [
+      {
+        "topicName": "ON_PERFORM",
+        "methodName": "onPerform",
+        "trigger": {
+          "casterHeroReference": "SAME"
+        }
+      },
+      {
+        "topicName": "CAST_CHANGE",
+        "methodName": "castChange",
+        "trigger": {
+          "casterHeroReference": "SAME"
+        }
+      }
+    ],
     "subTypes": [
       "UNIQUE"
     ],
@@ -306,10 +475,23 @@
     "stackable": false,
     "durability": "PERSISTENT",
     "type": "HERO",
-    "triggerMap": {
-      "BASE_STAT_PERMANENT_CHANGE": "statBaseChange",
-      "ON_PERFORM" : "onPerform"
-    },
+    "subscriptions": [
+      {
+        "topicName": "BASE_STAT_CHANGE",
+        "methodName": "statBaseChange",
+        "trigger": {
+          "targetHeroReference": "SAME",
+          "statIsElementalDef": true
+        }
+      },
+      {
+        "topicName": "ON_PERFORM",
+        "methodName": "onPerform",
+        "trigger": {
+          "casterHeroReference": "SAME"
+        }
+      }
+    ],
     "subTypes": [
       "UNIQUE"
     ],
@@ -325,10 +507,20 @@
     "stackable": true,
     "durability": "PERSISTENT",
     "type": "HERO",
-    "triggerMap": {
-      "DMG_CHANGES_MULT": "dmgChangesMult",
-      "DMG_TRIGGER" : "dmgTrigger"
-    },
+    "subscriptions": [
+      {
+        "topicName": "DMG_CHANGES_MULT",
+        "methodName": "dmgChangesMult",
+        "trigger": {}
+      },
+      {
+        "topicName": "DMG_TRIGGER",
+        "methodName": "dmgTrigger",
+        "trigger": {
+          "targetHeroReference": "SAME"
+        }
+      }
+    ],
     "subTypes": [
       "UNIQUE"
     ],
@@ -343,9 +535,16 @@
     "stackable": false,
     "durability": "ONCE",
     "type": "HERO",
-    "triggerMap": {
-      "DMG_CHANGES_MULT": "dmgChangesMult"
-    },
+    "subscriptions": [
+      {
+        "topicName": "DMG_CHANGES_MULT",
+        "methodName": "dmgChangesMult",
+        "trigger": {
+          "casterHeroReference": "SAME",
+          "skillNotNull": true
+        }
+      }
+    ],
     "subTypes": [
       "WEAKNESS"
     ],
@@ -360,9 +559,24 @@
     "stackable": false,
     "durability": "ONCE",
     "type": "HERO",
-    "triggerMap": {
-      "DMG_CHANGES_MULT": "dmgChangesMult"
-    },
+    "subscriptions": [
+      {
+        "topicName": "DMG_CHANGES_MULT",
+        "methodName": "dmgChangesMult",
+        "trigger": {
+          "targetHeroReference": "SAME",
+          "skillNotNull": true
+        }
+      },
+      {
+        "topicName": "DMG_TRIGGER",
+        "methodName": "dmgTrigger",
+        "trigger": {
+          "targetHeroReference": "SAME",
+          "skillNotNull": true
+        }
+      }
+    ],
     "subTypes": [
       "WEAKNESS"
     ],
