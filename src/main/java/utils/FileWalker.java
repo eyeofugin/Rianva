@@ -127,7 +127,7 @@ public class FileWalker {
     } catch (Exception e) {
       Logger.logLn(e.getMessage());
     }
-    return null;
+    return new HashMap<>();
   }
 
   public static String loadJson(String path) {

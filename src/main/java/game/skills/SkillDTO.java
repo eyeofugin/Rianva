@@ -35,6 +35,7 @@ public class SkillDTO {
   public List<Multiplier> shieldMultipliers;
   public Integer manaCost;
   public Integer lifeCost;
+  public Integer dodgeCost;
   public Integer critChance;
   public Integer staticDmg = 0;
   public Integer dmg;

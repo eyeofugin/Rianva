@@ -444,5 +444,1112 @@
       2,
       3
     ]
+  },
+  "S_Berserker": {
+    "name": "Berserker",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "PASSIVE",
+      "CLASS"
+    ],
+    "subscriptions": [
+      {
+        "topicName": "DMG_TRIGGER",
+        "methodName": "dmgTrigger"
+      },
+      {
+        "topicName": "START_OF_ROUND",
+        "methodName": "startOfRound"
+      },
+      {
+        "topicName": "END_OF_TURN",
+        "methodName": "endOfTurn"
+      },
+      {
+        "topicName": "DMG_CHANGES_MULT",
+        "methodName": "dmgChangesMult",
+        "trigger": {
+          "targetHeroReference": "SAME",
+          "skillNotNull": true
+        }
+      }
+    ],
+    "keyValues": {
+      "DmgMitigation": -15
+    }
+  },
+  "S_NeverSurrender": {
+    "name": "Never Surrender",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "PASSIVE",
+      "CLASS"
+    ],
+    "subscriptions": [
+      {
+        "topicName": "START_OF_TURN",
+        "methodName": "startOfTurn"
+      }
+    ]
+  },
+  "S_Reengage": {
+    "name": "Reengage",
+    "targetType": "SINGLE",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "maxCd": 5,
+    "manaCost": 10,
+    "possibleCasterPositions": [
+      0,
+      1,
+      2
+    ],
+    "possibleTargetPositions": [
+      3
+    ],
+    "moveTo": true,
+    "staticDmg": 5,
+    "staticDmgMultipliers": [
+      {
+        "prof": "BODY",
+        "percentage": 0.1
+      }
+    ],
+    "staticDamageType": "NORMAL",
+    "staticDamageMode": "PHYSICAL",
+    "staticDmgTargets": [4]
+  },
+  "S_IntimidatingRoar": {
+    "name": "Intimidating Roar",
+    "targetType": "SINGLE",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "maxCd": 5,
+    "manaCost": 10,
+    "possibleCasterPositions": [
+      1,
+      2,
+      3
+    ],
+    "possibleTargetPositions": [
+      4,5,6,7
+    ]
+  },
+  "S_DeathIsNoObstacle": {
+    "name": "Death Is No Obstacle",
+    "targetType": "SELF",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "maxCd": 5,
+    "manaCost": 10,
+    "effects": [
+      {
+        "name": "Advantage",
+        "turns": 1,
+        "stacks": 0
+      },
+      {
+        "name": "DoubleStrike",
+        "turns": 1,
+        "stacks": 0
+      }
+    ],
+    "possibleCasterPositions": [
+      2,
+      3
+    ]
+  },
+  "S_RecklessAttack": {
+    "name": "Reckless Attack",
+    "targetType": "SINGLE",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "dmg": 10,
+    "dmgMultipliers": [
+      {
+        "prof": "BODY",
+        "percentage": 0.05
+      }
+    ],
+    "subscriptions": [
+      {
+        "topicName": "STAT_CHANGE_MULT",
+        "methodName": "statChange",
+        "trigger": {
+          "targetHeroReference": "SAME",
+          "stats": {
+            "boolLogic": "ALL_OF",
+            "objects": ["BODY"]
+          }
+        }
+      }
+    ],
+    "maxCd": 5,
+    "manaCost": 10,
+    "effects": [
+      {
+        "name": "Bleeding",
+        "turns": 1,
+        "stacks": 0
+      }
+    ],
+    "casterEffects": [
+      {
+        "name": "Bleeding",
+        "turns": 1,
+        "condition": {
+          "hasCheck": false,
+          "effectName": "Enraged",
+          "trigger": "CASTER"
+        }
+      }
+    ],
+    "possibleCasterPositions": [
+      2,
+      3
+    ],
+    "possibleTargetPositions": [
+      4
+    ],
+    "keyValues": {
+      "Percentage": 15
+    }
+  },
+  "S_Flora": {
+    "name": "Flora",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "PASSIVE",
+      "CLASS"
+    ],
+    "subscriptions": [
+      {
+        "topicName": "CAST_CHANGE",
+        "methodName": "castChange",
+        "trigger": {
+          "casterHeroReference": "ALLY"
+        }
+      }
+    ]
+  },
+  "S_SporeBomb": {
+    "name": "Spore Bomb",
+    "description": "Skip",
+    "targetType": "SINGLE",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "dmg": 10,
+    "dmgMultipliers": [
+      {
+        "prof": "MIND",
+        "percentage": 0.1
+      }
+    ],
+    "maxCd": 5,
+    "manaCost": 10,
+    "damageType": "TOXIC",
+    "damageMode": "MAGICAL",
+    "keyValues": {
+      "Chance": 10
+    },
+    "possibleCasterPositions": [
+      1,
+      2,
+      3
+    ],
+    "possibleTargetPositions": [
+      4
+    ]
+  },
+  "S_HarvestSun": {
+    "name": "HarvestSun",
+    "description": "Skip",
+    "targetType": "ARENA",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "globalEffect": {
+      "name": "ScorchingSun",
+      "turns": 5
+    },
+    "maxCd": 5,
+    "manaCost": 10,
+    "subscriptions": [
+      {
+        "topicName": "CAST_CHANGE",
+        "methodName": "castChange",
+        "trigger": {
+          "casterHeroReference": "ALLY"
+        }
+      }
+    ],
+    "possibleCasterPositions": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "S_TraverseTheRoots": {
+    "name": "Traverse The Roots",
+    "description": "Skip",
+    "targetType": "SINGLE_OTHER",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "maxCd": 5,
+    "manaCost": 10,
+    "moveTo": true,
+    "subscriptions": [
+      {
+        "topicName": "CAST_CHANGE",
+        "methodName": "castChange",
+        "trigger": {
+          "casterHeroReference": "ALLY"
+        }
+      }
+    ],
+    "possibleCasterPositions": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "possibleTargetPositions": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "S_VineGrab": {
+    "name": "Vine Grab",
+    "description": "Skip",
+    "targetType": "SINGLE",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "damageType": "TOXIC",
+    "damageMode": "MAGICAL",
+    "dmg": 5,
+    "dmgMultipliers": [
+      {
+        "prof": "MIND",
+        "percentage": 0.05
+      }
+    ],
+    "pull": 1,
+    "maxCd": 5,
+    "manaCost": 10,
+    "moveTo": true,
+    "effects": [
+      {
+        "name": "Thicket",
+        "turns": 1
+      }
+    ],
+    "possibleCasterPositions": [
+      2,
+      3
+    ],
+    "possibleTargetPositions": [
+      5
+    ]
+  },
+  "S_ThornCage": {
+    "name": "Thorn Cage",
+    "description": "Skip",
+    "targetType": "SINGLE",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "maxCd": 5,
+    "manaCost": 10,
+    "effects": [
+      {
+        "name": "Thicket",
+        "turns": 1
+      }
+    ],
+    "damageType": "TOXIC",
+    "damageMode": "MAGICAL",
+    "dmg": 5,
+    "dmgMultipliers": [
+      {
+        "prof": "MIND",
+        "percentage": 0.05
+      }
+    ],
+    "subscriptions": [
+      {
+        "topicName": "CAST_CHANGE",
+        "methodName": "castChange",
+        "trigger": {
+          "casterHeroReference": "SAME"
+        }
+      }
+    ],
+    "possibleCasterPositions": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "possibleTargetPositions": [
+      5,6
+    ]
+  },
+  "S_LifeBlossom": {
+    "name": "Life Blossom",
+    "description": "Skip",
+    "targetType": "SINGLE",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "maxCd": 5,
+    "manaCost": 10,
+    "effects": [
+      {
+        "name": "RecoveryField",
+        "turns": 1
+      }
+    ],
+    "subscriptions": [
+      {
+        "topicName": "CAST_CHANGE",
+        "methodName": "castChange",
+        "trigger": {
+          "casterHeroReference": "SAME"
+        }
+      }
+    ],
+    "possibleCasterPositions": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "possibleTargetPositions": [
+      2,3
+    ]
+  },
+  "S_SpreadingVines": {
+    "name": "Spreading Vines",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "PASSIVE",
+      "CLASS"
+    ],
+    "subscriptions": [
+      {
+        "topicName": "END_OF_ROUND",
+        "methodName": "endOfRound"
+      }
+    ],
+    "keyValues": {
+      "Chance": 25,
+      "WeatherChance": 75
+    }
+  },
+  "S_Fauna": {
+    "name": "Fauna",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "PASSIVE",
+      "CLASS"
+    ],
+    "subscriptions": [
+      {
+        "topicName": "EFFECT_ADDED",
+        "methodName": "effectAdded",
+        "trigger": {
+          "targetHeroReference": "SAME"
+        }
+      }
+    ]
+  },
+  "S_SnakeBite": {
+    "name": "Snake Bite",
+    "targetType": "SINGLE",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "maxCd": 5,
+    "manaCost": 10,
+    "dmg": 10,
+    "dmgMultipliers": [
+      {
+        "prof": "DEXTERITY",
+        "percentage": 0.06
+      }
+    ],
+    "damageType": "TOXIC",
+    "damageMode": "PHYSICAL",
+    "effects": [
+      {
+        "name": "Poisoned",
+        "turns": 1
+      },
+      {
+        "name": "Shaken",
+        "turns": 1
+      }
+    ],
+    "casterEffects": [
+      {
+        "name": "SnakeForm"
+      }
+    ],
+    "possibleCasterPositions": [0,1],
+    "possibleTargetPositions": [4,5]
+  },
+  "S_DragonFire": {
+    "name": "Dragon Fire",
+    "targetType": "ALL_TARGETS",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "maxCd": 5,
+    "manaCost": 10,
+    "dmg": 10,
+    "dmgMultipliers": [
+      {
+        "prof": "MIND",
+        "percentage": 0.06
+      }
+    ],
+    "damageType": "HEAT",
+    "damageMode": "MAGICAL",
+    "casterEffects": [
+      {
+        "name": "DragonForm"
+      }
+    ],
+    "possibleCasterPositions": [2,3],
+    "possibleTargetPositions": [4,5]
+  },
+  "S_WendigoDash": {
+    "name": "Wendigo Dash",
+    "targetType": "SINGLE",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "maxCd": 5,
+    "manaCost": 10,
+    "moveTo": true,
+    "casterEffects": [
+      {
+        "name": "WendigoForm"
+      },
+      {
+        "name": "Frost",
+        "stacks": 1
+      }
+    ],
+    "possibleCasterPositions": [0,1],
+    "possibleTargetPositions": [2,3]
+  },
+  "S_ThunderBirdWingClap": {
+    "name": "Thunderbird Wing Clap",
+    "targetType": "SINGLE",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "maxCd": 5,
+    "manaCost": 10,
+    "dmg": 10,
+    "dmgMultipliers": [
+      {
+        "prof": "BODY",
+        "percentage": 0.06
+      },
+      {
+        "prof": "MIND",
+        "percentage": 0.06
+      }
+    ],
+    "damageType": "SHOCK",
+    "damageMode": "PHYSICAL",
+    "effects": [{
+      "name": "Immobile",
+      "turns": 1,
+      "condition": {
+        "successChance":20
+      }
+    }],
+    "casterEffects": [
+      {
+        "name": "ThunderbirdForm"
+      }
+    ],
+    "possibleCasterPositions": [1,2],
+    "possibleTargetPositions": [4,5,6]
+  },
+  "S_ResolveOfTheBear": {
+    "name": "ResolveOfTheBear",
+    "targetType": "SELF",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "maxCd": 5,
+    "manaCost": 10,
+    "heal": 10,
+    "healMultipliers": [
+      {
+        "prof": "BODY",
+        "percentage": 0.06
+      }
+    ],
+    "casterEffects": [
+      {
+        "name": "BearForm"
+      }
+    ],
+    "possibleCasterPositions": [0,1,2,3]
+  },
+  "S_BeastBlast": {
+    "name": "Beast Blast",
+    "targetType": "SINGLE",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "maxCd": 5,
+    "manaCost": 10,
+    "dmg": 10,
+    "dmgMultipliers": [
+      {
+        "prof": "BODY",
+        "percentage": 0.05
+      },
+      {
+        "prof": "MIND",
+        "percentage": 0.05
+      },
+      {
+        "prof": "DEXTERITY",
+        "percentage": 0.05
+      }
+    ],
+    "damageType": "NORMAL",
+    "damageMode": "MAGICAL",
+    "possibleCasterPositions": [0,1,2,3],
+    "possibleTargetPositions": [4,5],
+    "keyValues": {
+      "LifeSteal":15
+    }
+  },
+  "S_Radiance": {
+    "name": "Fauna",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "PASSIVE",
+      "CLASS"
+    ],
+    "subscriptions": [
+      {
+        "topicName": "CAST_CHANGE",
+        "methodName": "castChange",
+        "trigger": {
+          "targetHeroReference": "SAME",
+          "damageTypes": "ALL_OF",
+          "objects": ["LIGHT"]
+        }
+      },
+      {
+        "topicName": "ON_MISS",
+        "methodName": "onMiss",
+        "trigger": {
+          "casterHeroReference": "ENEMY"
+        }
+      }
+    ]
+  },
+  "S_PrismRay": {
+    "name": "Prism Ray",
+    "targetType": "ALL_TARGETS",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "maxCd": 5,
+    "manaCost": 10,
+    "dmg": 5,
+    "dmgMultipliers": [
+      {
+        "prof": "MIND",
+        "percentage": 0.05
+      }
+    ],
+    "damageType": "LIGHT",
+    "damageMode": "MAGICAL",
+    "possibleCasterPositions": [0,1,2,3],
+    "possibleTargetPositions": [4,5,6,7],
+    "keyValues": {
+      "Chance": 5
+    }
+  },
+  "S_LightBarrier": {
+    "name": "Light Barrier",
+    "targetType": "SINGLE",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "maxCd": 5,
+    "manaCost": 10,
+    "effects": [
+      {
+        "name": "Barrier",
+        "turns": 1
+      }
+    ],
+    "subscriptions": [
+      {
+        "topicName": "CAST_CHANGE",
+        "methodName": "castChange",
+        "trigger": {
+          "casterHeroReference": "SAME",
+          "skillNotNull": true
+        }
+      }
+    ],
+    "possibleCasterPositions": [0,1,2,3],
+    "possibleTargetPositions": [0,1,2,3]
+  },
+  "S_LightReflection": {
+    "name": "Light Reflection",
+    "targetType": "SINGLE",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "maxCd": 5,
+    "manaCost": 10,
+    "effects": [
+      {
+        "name": "Reflection",
+        "turns": 1
+      }
+    ],
+    "subscriptions": [
+      {
+        "topicName": "CAST_CHANGE",
+        "methodName": "castChange",
+        "trigger": {
+          "casterHeroReference": "SAME",
+          "skillNotNull": true
+        }
+      }
+    ],
+    "possibleCasterPositions": [0,1,2,3],
+    "possibleTargetPositions": [0,1,2,3]
+  },
+  "S_LightSalve": {
+    "name": "Light Salve",
+    "targetType": "SINGLE",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "maxCd": 5,
+    "manaCost": 10,
+    "countsAsHits": 3,
+    "dmg": 2,
+    "dmgMultipliers": [
+      {
+        "prof": "MIND",
+        "percentage": 0.05
+      }
+    ],
+    "effects": [
+      {
+        "name": "Dazed",
+        "turns": 1,
+        "condition":{
+          "successChance": 10
+        }
+      },
+      {
+        "name": "Stunned",
+        "turns": 1,
+        "condition":{
+          "successChance": 10,
+          "effectName": "Advantage",
+          "trigger": "CASTER",
+          "hasCheck": true
+        }
+      }
+
+    ],
+    "damageType": "LIGHT",
+    "damageMode": "MAGICAL",
+    "possibleCasterPositions": [1,2],
+    "possibleTargetPositions": [4,5,6,7]
+  },
+  "S_PrayForGuidance": {
+    "name": "Pray For Guidance",
+    "targetType": "SELF",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "maxCd": 5,
+    "manaCost": 10,
+    "shield": 2,
+    "shieldMultipliers": [
+      {
+        "prof": "MIND",
+        "percentage": 0.05
+      }
+    ],
+    "heal": 2,
+    "healMultipliers": [
+      {
+        "prof": "MIND",
+        "percentage": 0.05
+      }
+    ],
+    "effects": [
+      {
+        "name": "Prepared",
+        "turns": 1,
+        "condition":{
+          "effectName": "Advantage",
+          "trigger": "CASTER",
+          "hasCheck": true
+        }
+      }
+    ],
+    "possibleCasterPositions": [0,1,2,3]
+  },
+  "S_Halo": {
+    "name": "Halo",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "PASSIVE",
+      "CLASS"
+    ],
+    "subscriptions": [
+      {
+        "topicName": "BASE_STAT_CHANGE",
+        "methodName": "statChange",
+        "trigger": {
+          "targetHeroReference": "ALLY",
+          "stats": {
+            "boolLogic": "ALL_OF",
+            "objects": ["DODGE"]
+          }
+        }
+      }
+    ],
+    "keyValues": {
+      "Self": 10,
+      "Others": 5
+    }
+  },
+  "S_Trickster": {
+    "name": "Trickster",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "PASSIVE",
+      "CLASS"
+    ],
+    "subscriptions": [
+      {
+        "topicName": "EFFECT_ADDED",
+        "methodName": "effectAdded",
+        "trigger": {
+          "casterHeroReference": "SAME"
+        }
+      }
+    ],
+    "keyValues": {
+      "Self": 10,
+      "Others": 5
+    }
+  },
+  "S_PocketHex": {
+    "name": "Pocket Hex",
+    "targetType": "ALL_TARGETS",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "maxCd": 5,
+    "manaCost": 10,
+    "possibleCasterPositions": [0,1,2],
+    "possibleTargetPositions": [4,5]
+  },
+  "S_SleighOfHand": {
+    "name": "Sleigh of Hand",
+    "targetType": "SINGLE",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "maxCd": 5,
+    "manaCost": 10,
+    "possibleCasterPositions": [0,1,2,3],
+    "possibleTargetPositions": [4,5,6,7]
+  },
+  "S_Lure": {
+    "name": "Lure",
+    "targetType": "SINGLE",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "maxCd": 5,
+    "manaCost": 10,
+    "pull": 1,
+    "possibleCasterPositions": [0,1],
+    "possibleTargetPositions": [6,7]
+  },
+  "S_CheapShot": {
+    "name": "Cheap Shot",
+    "targetType": "SINGLE",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "maxCd": 5,
+    "manaCost": 10,
+    "dmg": 4,
+    "dmgMultipliers": [
+      {
+        "prof": "DEXTERITY",
+        "percentage": 0.1
+      }
+    ],
+    "damageType": "NORMAL",
+    "damageMode": "PHYSICAL",
+    "possibleCasterPositions": [1,2],
+    "possibleTargetPositions": [5,6]
+  },
+  "S_Daze": {
+    "name": "Daze",
+    "targetType": "SINGLE",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "effects": [
+      {
+        "name": "Dazed",
+        "turns": 2
+      }
+    ],
+    "maxCd": 5,
+    "manaCost": 10,
+    "possibleCasterPositions": [0,1,2],
+    "possibleTargetPositions": [4,5,6,7]
+  },
+  "S_Rogue": {
+    "name": "Rogue",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "PASSIVE",
+      "CLASS"
+    ],
+    "subscriptions": [
+      {
+        "topicName": "BASE_STAT_CHANGE",
+        "methodName": "statChange",
+        "trigger": {
+          "targetHeroReference": "SAME",
+          "stats": {
+            "boolLogic": "ALL_OF",
+            "objects": ["DODGE"]
+          }
+        }
+      }
+    ],
+    "keyValues": {
+      "Percentage": 10
+    }
+  },
+  "S_Opportunist": {
+    "name": "Opportunist",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "PASSIVE",
+      "CLASS"
+    ],
+    "subscriptions": [
+      {
+        "topicName": "CRITICAL_TRIGGER",
+        "methodName": "onCrit",
+        "trigger": {
+          "casterHeroReference": "SAME"
+        }
+      }
+    ]
+  },
+  "S_Gambit": {
+    "name": "Gambit",
+    "targetType": "SELF",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "effects": [
+      {
+        "name": "Flawless",
+        "turns": 2
+      },{
+        "name": "Initiative"
+      },{
+        "name": "Marked"
+      }
+    ],
+    "maxCd": 5,
+    "manaCost": 10,
+    "dodgeCost": 20,
+    "possibleCasterPositions": [0,1,2,3]
+  },
+  "S_FindTheWeakness": {
+    "name": "Find The Weakness",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "PASSIVE",
+      "CLASS"
+    ],
+    "subscriptions": [
+      {
+        "topicName": "DMG_TRIGGER",
+        "methodName": "onDamage",
+        "trigger": {
+          "casterHeroReference": "SAME",
+          "skillNotNull": true,
+          "damageTypes": {
+            "boolLogic": "ALL_OF",
+            "objects": ["NORMAL"]
+          }
+        }
+      }
+    ],
+    "keyValues": {
+      "Chance": 50
+    }
+  },
+  "S_SmokeBomb": {
+    "name": "Smoke Bomb",
+    "targetType": "SINGLE",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "moveTo": true,
+    "casterEffects": [
+      {
+        "name": "Cover",
+        "turns": 2
+      }
+    ],
+    "maxCd": 5,
+    "manaCost": 10,
+    "possibleCasterPositions": [2,3],
+    "possibleTargetPositions": [1]
+  },
+  "S_PoisonTip": {
+    "name": "Poison Tip",
+    "targetType": "SELF",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "effects": [
+      {
+        "name": "Toxic",
+        "turns": 3
+      }
+    ],
+    "maxCd": 5,
+    "manaCost": 10,
+    "possibleCasterPositions": [0,1,2,3]
   }
 }

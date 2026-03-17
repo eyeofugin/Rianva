@@ -15,10 +15,7 @@ import game.skills.logic.Condition;
 import game.skills.logic.Stat;
 import utils.Utils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Effect implements Subscriber {
 
@@ -176,6 +173,31 @@ public class Effect implements Subscriber {
         x -= 2;
       }
     }
+  }
+
+  public void randomSpread() {
+    if (this.arena == null) {
+      return;
+    }
+    Effect copy = this.copy();
+    int dir = Math.random() < 0.5 ? -1 : 1;
+
+    boolean success = tryToSpread(this.position + dir, copy);
+    if (success) {
+      return;
+    }
+    tryToSpread(this.position-dir, copy);
+  }
+
+  private boolean tryToSpread(int target, Effect copy) {
+    if (target >= 0 && target <= 7) {
+      Hero heroAt = this.arena.getAtPosition(target);
+      if (heroAt != null && heroAt.team == this.arena.getAtPosition(this.position).team) {
+        this.arena.addFieldEffect(target, copy, this.origin);
+        return true;
+      }
+    }
+    return false;
   }
 
   public String getDetailInfo() {

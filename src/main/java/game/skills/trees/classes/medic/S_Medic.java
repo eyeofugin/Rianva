@@ -15,9 +15,9 @@ public class S_Medic extends Skill {
             return;
         }
         if (impact.equals(ConnectionPayload.CondEffectImpact.ALLOW) || pl.target.hasPermanentEffect(Immunity.class)) {
-            pl.target.addEffect(EffectLibrary.getEffect(Protected.class.getName(), 0, 1, null), this.hero);
+            pl.target.addEffect(EffectLibrary.getEffect(Protected.class.getName(), 0, 1, null), this.hero, this);
         } else if (pl.target.getStat(Stat.SHIELD) > 0){
-            pl.target.addEffect(EffectLibrary.getEffect(Immunity.class.getName(), 0, 1, null), this.hero);
+            pl.target.addEffect(EffectLibrary.getEffect(Immunity.class.getName(), 0, 1, null), this.hero, this);
         } else {
             int shieldStrength = getShieldWithMulti(pl.target);
             pl.target.shield(shieldStrength, this.hero, this, null, null);

@@ -7,6 +7,8 @@ import game.skills.Skill;
 import utils.MyMaths;
 import utils.Utils;
 
+import java.util.List;
+
 public class S_FastRegen extends Skill {
     public void eot(ConnectionPayload pl) {
         if (!this.hero.hasDebuff()) {
@@ -14,7 +16,7 @@ public class S_FastRegen extends Skill {
         }
         int chance = Utils.chanceChanges(null, this.hero, (int)keyValues.get("Chance"), this, null, null, ++pl.depth);
         if (MyMaths.success(chance)) {
-            this.hero.removeRdmEffectOfType(Effect.SubType.DEBUFF);
+            this.hero.removeRdmEffectOfTypes(List.of(Effect.SubType.DEBUFF));
         }
     }
 }

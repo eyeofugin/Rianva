@@ -27,6 +27,7 @@ public class Equipment {
   protected boolean active;
   protected Skill skill;
   protected String name;
+  protected EquipmentType type;
   protected List<Stat> adaptiveStats;
 
   public Equipment() {
@@ -152,7 +153,9 @@ public class Equipment {
   public boolean isActive() {
     return active;
   }
-
+  public EquipmentType getType() {
+    return this.type;
+  }
   public Hero getHero() {
     return this.hero;
   }

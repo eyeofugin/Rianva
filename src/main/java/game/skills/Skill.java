@@ -75,6 +75,7 @@ public class Skill implements Subscriber {
 
   protected Integer manaCost = 0;
   protected Integer lifeCost = 0;
+  protected Integer dodgeCost = 0;
   protected Integer critChance = 0;
   protected Integer staticDmg = 0;
   protected Integer dmg = 0;
@@ -158,6 +159,7 @@ public class Skill implements Subscriber {
     this.keyValues = Utils.copyKeyValues(dto.keyValues);
     this.manaCost = dto.manaCost;
     this.lifeCost = dto.lifeCost;
+    this.dodgeCost = dto.dodgeCost;
     this.accuracy = dto.accuracy;
     this.critChance = dto.critChance;
     this.dmg = dto.dmg;
@@ -337,6 +339,7 @@ public class Skill implements Subscriber {
           int acc = hero.getStat(Stat.ACCURACY);
           int hitChance = this.accuracy * acc / 100;
           if (!this.cannotMiss && !MyMaths.success(hitChance - evasion)) {
+            this.trigger_onMiss(arenaTarget);
             this.hero.arena.logCard.addToLog("Missed " + arenaTarget.getName() + "!");
             continue;
           }
@@ -365,7 +368,10 @@ public class Skill implements Subscriber {
         this.trigger_onCrit(target, this);
       }
       if (dmgPerHit > 0) {
-        target.damage(dmgPerHit, this.damageType, this.damageMode, this.hero, this, null, null, lethality);
+        int dmgDone = target.damage(dmgPerHit, this.damageType, this.damageMode, this.hero, this, null, null, lethality);
+        if (this.lifeSteal > 0) {
+          this.hero.heal(MyMaths.percentageOf(lifeSteal, dmgDone), this.hero, this, null, this.equipment, false);
+        }
       }
       if (heal > 0) {
         target.heal(heal, this.hero, this, null, null, false);
@@ -387,7 +393,7 @@ public class Skill implements Subscriber {
         this.hero.arena.addFieldEffect(this.hero.getPosition(), effect, this.hero);
       } else {
         if (effect.condition != null && effect.condition.isMet(this, effect, this.hero, target)) {
-          this.hero.addEffect(effect, this.hero);
+          this.hero.addEffect(effect, this.hero, this);
         }
       }
     }
@@ -413,7 +419,7 @@ public class Skill implements Subscriber {
         this.hero.arena.addFieldEffect(target.getPosition(), effect, this.hero);
       } else {
         if (effect.condition != null && effect.condition.isMet(this, effect, this.hero, target)) {
-          target.addEffect(effect, this.hero);
+          target.addEffect(effect, this.hero, this);
         }
       }
     }
@@ -422,6 +428,13 @@ public class Skill implements Subscriber {
     // action summary add all effects
   }
 
+  public void changeCurrentCdBy(int change) {
+    if (this.maxCd == 0) { return; }
+    if (this.currentCd + change < 0) {
+      this.currentCd = 0;
+    }
+    this.currentCd += change;
+  }
   protected int getShieldMultiBonus() {
     return this.getMultiplierBonus(this.shieldMultipliers);
   }
@@ -510,6 +523,14 @@ public class Skill implements Subscriber {
     ConnectionPayload pl = new ConnectionPayload(1)
             .setSkill(this);
     Connector.fireTopic(Connector.ON_TARGET, pl);
+  }
+
+  public void trigger_onMiss(Hero target) {
+    ConnectionPayload pl = new ConnectionPayload(1)
+            .setTarget(target)
+            .setCaster(this.hero)
+            .setSkill(this);
+    Connector.fireTopic(Connector.ON_MISS, pl);
   }
   public void trigger_changeTargets() {
     ConnectionPayload payload = new ConnectionPayload(1).setSkill(this).setCaster(this.hero);
@@ -602,6 +623,14 @@ public class Skill implements Subscriber {
 
   public void setAccuracy(int accuracy) {
     this.accuracy = accuracy;
+  }
+
+  public Integer getDodgeCost() {
+    return dodgeCost;
+  }
+
+  public void setDodgeCost(Integer dodgeCost) {
+    this.dodgeCost = dodgeCost;
   }
 
   public int getManaCost() {
@@ -950,6 +979,7 @@ public class Skill implements Subscriber {
     }
     to.manaCost = from.manaCost;
     to.lifeCost = from.lifeCost;
+    to.dodgeCost = from.dodgeCost;
     to.accuracy = from.accuracy;
     to.critChance = from.critChance;
     to.damageType = from.damageType;

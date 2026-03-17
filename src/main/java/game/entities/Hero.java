@@ -23,6 +23,7 @@ import game.skills.Skill;
 import game.skills.trees.genericskills.S_Boots;
 import game.skills.trees.genericskills.S_Skip;
 import game.skills.logic.*;
+import utils.CollectionUtils;
 import utils.FileWalker;
 import utils.MyMaths;
 
@@ -650,8 +651,11 @@ public class Hero extends GUIElement {
   }
 
   public void addEffect(Effect effect, Hero caster) {
+    addEffect(effect, caster, null);
+  }
+  public void addEffect(Effect effect, Hero caster, Skill skill) {
 
-    if (getEffectFailure(effect, caster)) {
+    if (getEffectFailure(effect, caster, skill)) {
       return;
     }
     if (effect instanceof Cleanse) {
@@ -689,7 +693,7 @@ public class Hero extends GUIElement {
         newEffect.addSubscriptions();
         newlyAdded = true;
       }
-      trigger_effectAdded(effect, caster, newlyAdded);
+      trigger_effectAdded(effect, caster, skill, newlyAdded);
     }
     this.arena.logCard.addToLog(
         this.getName()
@@ -700,11 +704,11 @@ public class Hero extends GUIElement {
             + ").");
   }
 
-  private boolean getEffectFailure(Effect effect, Hero caster) {
+  private boolean getEffectFailure(Effect effect, Hero caster, Skill skill) {
     if (hasPermanentEffect(Immunity.class)) {
       return true;
     }
-    return trigger_effectFailure(effect, caster);
+    return trigger_effectFailure(effect, caster, skill);
   }
 
   public boolean hasPermanentEffect(String name) {
@@ -741,9 +745,9 @@ public class Hero extends GUIElement {
     }
   }
 
-  public void removeRdmEffectOfType(Effect.SubType subType) {
+  public void removeRdmEffectOfTypes(List<Effect.SubType> subType) {
     List<Effect> effectsOfType = this.effects.stream()
-            .filter(e->e.subTypes.contains(subType))
+            .filter(e-> new HashSet<>(e.subTypes).containsAll(subType))
             .toList();
     if (effectsOfType.isEmpty()) {
       return;
@@ -795,6 +799,15 @@ public class Hero extends GUIElement {
     }
   }
 
+  public void changeRandomActiveCdBy(int change) {
+    List<Skill> cdSkills = this.skills.stream().filter(s->s.getMaxCd() > 0).toList();
+    if (CollectionUtils.isEmpty(cdSkills)) {
+      return;
+    }
+    Random random = new Random();
+    cdSkills.get(random.nextInt(cdSkills.size())).changeCurrentCdBy(change);
+  }
+
   public <T extends Skill> boolean hasSkill(Class<T> clazz) {
     for (Skill s : this.skills) {
       if (s != null && s.getClass().equals(clazz)) {
@@ -820,13 +833,15 @@ public class Hero extends GUIElement {
       return false;
     }
     return this.stats.get(Stat.CURRENT_LIFE) > s.getLifeCost()
-        && this.stats.get(Stat.CURRENT_ENERGY) > s.getManaCost()
+        && this.stats.get(Stat.CURRENT_ENERGY) >= s.getManaCost()
+        && this.stats.get(Stat.DODGE) >= s.getDodgeCost()
         && !s.isPassive();
   }
 
   public void payForSkill(Skill s) {
     payResource(Stat.CURRENT_LIFE, Stat.VITALITY, -1 * s.getLifeCost(this));
     payResource(Stat.CURRENT_ENERGY, Stat.ENERGY, -1 * s.getManaCost());
+    payResource(Stat.DODGE, null, -1 * s.getDodgeCost());
     Logger.logLn("Paid life:" + s.getLifeCost(this));
   }
 
@@ -1107,18 +1122,20 @@ public class Hero extends GUIElement {
     return canPerformPayload.failure;
   }
 
-  public void trigger_effectAdded(Effect effect, Hero caster, boolean newlyAdded) {
+  public void trigger_effectAdded(Effect effect, Hero caster, Skill skill, boolean newlyAdded) {
     ConnectionPayload effectAddedPayload =
         new ConnectionPayload(1)
             .setEffect(effect)
             .setCaster(caster)
+            .setSkill(skill)
+            .setTarget(this)
             .setNewEffect(newlyAdded);
     Connector.fireTopic(Connector.EFFECT_ADDED, effectAddedPayload);
   }
 
-  public boolean trigger_effectFailure(Effect effect, Hero caster) {
+  public boolean trigger_effectFailure(Effect effect, Hero caster, Skill skill) {
     ConnectionPayload payload =
-        new ConnectionPayload(1).setEffect(effect).setTarget(this).setCaster(caster);
+        new ConnectionPayload(1).setSkill(skill).setEffect(effect).setTarget(this).setCaster(caster);
     Connector.fireTopic(Connector.EFFECT_FAILURE_CHECK, payload);
     return payload.failure;
   }

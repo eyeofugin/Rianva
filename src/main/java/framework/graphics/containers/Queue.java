@@ -75,6 +75,9 @@ public class Queue extends GUIElement {
     return pixels;
   }
 
+  public boolean heroIsUp(Hero hero) {
+    return this.queue.upThisTurn.contains(hero);
+  }
   public boolean hasHeroUp() {
     return this.queue.hasHeroUp();
   }

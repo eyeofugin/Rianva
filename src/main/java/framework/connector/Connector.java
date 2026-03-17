@@ -21,14 +21,15 @@ public class Connector {
   public static String BASE_STAT_CHANGE = "BASE_STAT_CHANGE";
   public static String STAT_CHANGE_MULT = "STAT_CHANGE_MULT";
 
-  public static String STAT_BASE_CHANGE_CHANGE = "BASE_STAT_PERMANENT_CHANGE";
-  public static String STAT_MULT_CHANGE_CHANGE = "STAT_PERMANENT_CHANGE_MULT";
+  public static String STAT_BASE_CHANGE_CHANGE = "STAT_BASE_CHANGE_CHANGE";
+  public static String STAT_MULT_CHANGE_CHANGE = "STAT_MULT_CHANGE_CHANGE";
 
   public static String COND_TRIGGER_CHANGES = "COND_TRIGGER_CHANGES";
 
   public static String CAN_PERFORM = "CAN_PERFORM";
   public static String ON_PERFORM = "ON_PERFORM";
   public static String ON_TARGET = "ON_TARGET";
+  public static String ON_MISS = "ON_MISS";
   public static String TARGET_CHANGE = "TARGET_CHANGE";
 
   public static String BASE_DMG_CHANGES = "BASE_DMG_CHANGES";
