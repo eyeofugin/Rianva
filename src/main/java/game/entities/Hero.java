@@ -845,6 +845,9 @@ public class Hero extends GUIElement {
     Logger.logLn("Paid life:" + s.getLifeCost(this));
   }
 
+  public boolean hasFieldEffect() {
+    return this.arena.fieldEffects.stream().anyMatch(fe->fe.position == this.position);
+  }
   public boolean hasStatus() {
     for (Effect effect : this.effects) {
       if (Effect.ChangeEffectType.STATUS.equals(effect.type)) {

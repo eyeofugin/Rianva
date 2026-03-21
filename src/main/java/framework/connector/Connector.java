@@ -11,6 +11,7 @@ public class Connector {
   public static String START_OF_ROUND = "START_OF_ROUND";
   public static String END_OF_ROUND = "END_OF_ROUND";
 
+  public static String ON_MOVE = "ON_MOVE";
   public static String ON_MARK = "ON_MARK";
 
   public static String START_OF_TURN = "START_OF_TURN";

@@ -8,7 +8,8 @@ public enum DamageType {
   LIGHT,
   DARK,
   SHOCK,
-  TOXIC;
+  TOXIC,
+  TRUE;
 
   public boolean isElemental() {
     return this.equals(HEAT) || this.equals(COLD) || this.equals(TOXIC) || this.equals(SHOCK);

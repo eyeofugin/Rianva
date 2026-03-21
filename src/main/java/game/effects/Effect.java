@@ -199,7 +199,6 @@ public class Effect implements Subscriber {
     }
     return false;
   }
-
   public String getDetailInfo() {
     if (stackable) {
       return "Stacks:" + this.stacks + " ";

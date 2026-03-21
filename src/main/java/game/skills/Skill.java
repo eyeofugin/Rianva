@@ -67,7 +67,7 @@ public class Skill implements Subscriber {
   protected Integer countAsHits = 1;
   protected Integer move;
   protected boolean moveTo = false;
-  protected Integer push = 0;
+  public Integer push = 0;
   protected Integer pull = 0;
 
   public int[] possibleTargetPositions = new int[0];
@@ -346,7 +346,7 @@ public class Skill implements Subscriber {
           this.individualResolve(arenaTarget);
         }
         if (this.moveTo) {
-          this.hero.arena.moveTo(this.hero, arenaTarget.getPosition());
+          this.hero.arena.moveTo(this.hero, arenaTarget.getPosition(), false);
         }
       }
     }
@@ -399,7 +399,7 @@ public class Skill implements Subscriber {
     }
     if (this.move != 0) {
       this.hero.arena.moveTo(
-          target, target.getPosition() + (target.isTeam2() ? this.move : -1 * this.move));
+          target, target.getPosition() + (target.isTeam2() ? this.move : -1 * this.move), false);
     }
     if (this.push != null && this.push > 0) {
       this.hero.arena.push(target, push);

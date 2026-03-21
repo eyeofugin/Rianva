@@ -416,7 +416,7 @@
     "type": "HERO",
     "subscriptions": [
       {
-        "topicName": "DMG_CHANGE_MULT",
+        "topicName": "DMG_CHANGES_MULT",
         "methodName": "dmgChangeMult",
         "trigger": {
           "casterHeroReference": "SAME",

@@ -362,14 +362,14 @@ public class Arena extends State {
 
   public void push(Hero h, int push) {
     int targetPos = h.getPosition() + (h.isTeam2() ? push : -1 * push);
-    moveTo(h, targetPos);
+    moveTo(h, targetPos, true);
   }
   public void pull(Hero h, int push) {
     int targetPos = h.getPosition() - (h.isTeam2() ? push : -1 * push);
-    moveTo(h, targetPos);
+    moveTo(h, targetPos, true);
   }
 
-  public void moveTo(Hero e, int targetPos) {
+  public void moveTo(Hero e, int targetPos, boolean isForced) {
 
     if ((e.isTeam2() && (targetPos < firstEnemyPos || targetPos > lastEnemyPos))
         || (!e.isTeam2() && (targetPos < firstFriendPos || targetPos > lastFriendPos))) {
@@ -399,6 +399,8 @@ public class Arena extends State {
     enters(e, targetPos);
     leaves(switchWith, targetPos);
     enters(switchWith, oldPosition);
+
+    trigger_move(e, switchWith, oldPosition, targetPos, isForced);
   }
 
   private void enters(Hero hero, int position) {
@@ -468,6 +470,15 @@ public class Arena extends State {
 
   // triggers
 
+  public void trigger_move(Hero caster, Hero target, int oldPos, int newPos, boolean forced) {
+    ConnectionPayload pl = new ConnectionPayload(1)
+            .setCaster(caster)
+            .setTarget(target)
+            .setOldValue(oldPos)
+            .setValue(newPos)
+            .setForced(forced);
+    Connector.fireTopic(Connector.ON_MOVE, pl);
+  }
   public void trigger_startOfMatch() {
     ConnectionPayload pl = new ConnectionPayload(1).setArena(this);
     Connector.fireTopic(Connector.START_OF_MATCH, pl);

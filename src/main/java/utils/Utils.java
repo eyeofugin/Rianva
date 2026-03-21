@@ -64,7 +64,7 @@ public class Utils {
   public static void onMark(Hero marked, int depth) {
     ConnectionPayload pl = new ConnectionPayload(++depth)
             .setTarget(marked);
-    Connector.fireTopic(Connector.ON_TARGET, pl);
+    Connector.fireTopic(Connector.ON_MARK, pl);
   }
 
   public static int statChangesChanges(Hero target, Hero origin, Stat stat, int value, Skill skill, Equipment equipment, Effect effect, int depth) {

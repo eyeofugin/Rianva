@@ -23,6 +23,7 @@ public class ConnectionPayload {
   public boolean simulate;
   public boolean failure;
   public boolean newEffect;
+  public boolean forced;
   public TargetMode targetMode = TargetMode.NORMAL;
   public Effect effect;
   public Effect globalEffect;
@@ -123,6 +124,10 @@ public class ConnectionPayload {
 
   public ConnectionPayload setSimulate(boolean simulate) {
     this.simulate = simulate;
+    return this;
+  }
+  public ConnectionPayload setForced(boolean forced) {
+    this.forced = forced;
     return this;
   }
 
