@@ -11,7 +11,6 @@ import framework.resources.SpriteLibrary;
 import framework.states.Arena;
 import framework.connector.Subscription;
 import game.effects.Effect;
-import game.effects.EffectLibrary;
 import game.effects.status.Guarded;
 import game.effects.status.Protected;
 import game.entities.Hero;
@@ -397,15 +396,17 @@ public class Skill implements Subscriber {
         }
       }
     }
-    if (this.move != 0) {
-      this.hero.arena.moveTo(
-          target, target.getPosition() + (target.isTeam2() ? this.move : -1 * this.move), false);
-    }
-    if (this.push != null && this.push > 0) {
-      this.hero.arena.push(target, push);
-    }
-    if (this.pull != null && this.pull > 0) {
-      this.hero.arena.pull(target, pull);
+    if (!trigger_moveFailure(target)) {
+      if (this.move != 0) {
+        this.hero.arena.moveTo(
+                target, target.getPosition() + (target.isTeam2() ? this.move : -1 * this.move), false);
+      }
+      if (this.push != null && this.push > 0) {
+        this.hero.arena.push(target, push);
+      }
+      if (this.pull != null && this.pull > 0) {
+        this.hero.arena.pull(target, pull);
+      }
     }
     if (this.staticDmg != null || CollectionUtils.isNotEmpty(this.staticDmgMultipliers)) {
       staticDmgTargets.forEach(i -> {
@@ -513,7 +514,14 @@ public class Skill implements Subscriber {
         new ConnectionPayload(1).setTarget(target).setSkill(cast);
     Connector.fireTopic(Connector.CRITICAL_TRIGGER, criticalTriggerPayload);
   }
-
+  public boolean trigger_moveFailure(Hero target) {
+    ConnectionPayload pl = new ConnectionPayload(1)
+            .setSkill(this)
+            .setCaster(this.hero)
+            .setTarget(target);
+    Connector.fireTopic(Connector.IS_MOVE_FAILURE, pl);
+    return pl.failure;
+  }
   public void trigger_castChanges() {
     ConnectionPayload payload = new ConnectionPayload(1).setSkill(this).setCaster(this.hero);
     Connector.fireTopic(Connector.CAST_CHANGE, payload);

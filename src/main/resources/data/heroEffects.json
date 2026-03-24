@@ -24,7 +24,7 @@
     "iconString": "TXC",
     "description": "Description",
     "stackable": false,
-    "durability": "ONCE",
+    "durability": "TIME",
     "type": "HERO",
     "subscriptions": [
       {
@@ -47,7 +47,7 @@
     "iconString": "CNF",
     "description": "Description",
     "stackable": false,
-    "durability": "ONCE",
+    "durability": "TIME",
     "type": "HERO",
     "subscriptions": [
       {
@@ -70,7 +70,7 @@
     "iconString": "FLM",
     "description": "Description",
     "stackable": false,
-    "durability": "ONCE",
+    "durability": "TIME",
     "type": "HERO",
     "subscriptions": [
       {
@@ -93,7 +93,7 @@
     "iconString": "ICY",
     "description": "Description",
     "stackable": false,
-    "durability": "ONCE",
+    "durability": "TIME",
     "type": "HERO",
     "triggerMap": {
       "DMG_TRIGGER": "onDmg"
@@ -119,7 +119,7 @@
     "iconString": "GLO",
     "description": "Description",
     "stackable": false,
-    "durability": "ONCE",
+    "durability": "TIME",
     "type": "HERO",
     "subscriptions": [
       {
@@ -142,7 +142,7 @@
     "iconString": "DDL",
     "description": "Description",
     "stackable": false,
-    "durability": "ONCE",
+    "durability": "TIME",
     "type": "HERO",
     "subscriptions": [
       {
@@ -165,7 +165,7 @@
     "iconString": "SHG",
     "description": "Description",
     "stackable": false,
-    "durability": "ONCE",
+    "durability": "TIME",
     "type": "HERO",
     "subscriptions": [
       {
@@ -188,7 +188,7 @@
     "iconString": "AYG",
     "description": "Description",
     "stackable": false,
-    "durability": "ONCE",
+    "durability": "TIME",
     "type": "HERO",
     "subscriptions": [
       {

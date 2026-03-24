@@ -11,6 +11,7 @@ public class Connector {
   public static String START_OF_ROUND = "START_OF_ROUND";
   public static String END_OF_ROUND = "END_OF_ROUND";
 
+  public static String IS_MOVE_FAILURE = "IS_MOVE_LEGAL";
   public static String ON_MOVE = "ON_MOVE";
   public static String ON_MARK = "ON_MARK";
 

@@ -13,6 +13,7 @@
         "methodName": "dmgTrigger",
         "trigger": {
           "targetHeroReference": "SAME",
+          "targetHeroReference": "SAME",
           "skillNotNull": true
         }
       },

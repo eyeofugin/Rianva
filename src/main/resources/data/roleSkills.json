@@ -1,0 +1,708 @@
+{
+  "S_BloodLust": {
+    "name": "Blood Lust",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "PASSIVE",
+      "ROLE"
+    ],
+    "subscriptions": [
+      {
+        "topicName": "DMG_TRIGGER",
+        "methodName": "dmgTrigger",
+        "trigger": {
+          "targetHeroReference": "SAME",
+          "skillNotNull": true
+        }
+      },
+      {
+        "topicName": "ON_MARK",
+        "methodName": "onMark",
+        "trigger": {
+          "targetHeroReference": "ENEMY"
+        }
+      },
+      {
+        "topicName": "DMG_CHANGES_MULT",
+        "methodName": "dmgChangesMult",
+        "trigger": {
+          "casterHeroReference": "SAME",
+          "skillNotNull": true
+        }
+      }
+    ],
+    "keyValues": [
+      {
+        "PercentagePerStack": 2
+      }
+    ]
+  },
+  "S_DoubleTime": {
+    "name": "Double Time",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "PASSIVE",
+      "ROLE"
+    ],
+    "subscriptions": [
+      {
+        "topicName": "CAST_CHANGE",
+        "methodName": "castChange",
+        "trigger": {
+          "casterHeroReference": "SAME",
+          "skillTags": {
+            "boolLogic": "ALL_OF",
+            "objects": [
+              "PRIMARY"
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "S_Momentum": {
+    "name": "Momentum",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "PASSIVE",
+      "ROLE"
+    ],
+    "subscriptions": [
+      {
+        "topicName": "DEATH_TRIGGER",
+        "methodName": "deathTrigger",
+        "trigger": {
+          "targetHeroReference": "ENEMY"
+        }
+      }
+    ]
+  },
+  "S_PreyOnTheWeak": {
+    "name": "Prey on the Weak",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "PASSIVE",
+      "ROLE"
+    ],
+    "subscriptions": [
+      {
+        "topicName": "DMG_TRIGGER",
+        "methodName": "dmgTrigger",
+        "trigger": {
+          "targetHeroReference": "ENEMY",
+          "casterHeroReference": "SAME",
+          "skillNotNull": true,
+          "targetHasDebuff": true
+        }
+      }
+    ]
+  },
+  "S_Assassin": {
+    "name": "Assassin",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "PASSIVE",
+      "ROLE"
+    ],
+    "subscriptions": [
+      {
+        "topicName": "DMG_CHANGES_MULT",
+        "methodName": "dmgChanges",
+        "trigger": {
+          "casterHeroReference": "SAME",
+          "skillNotNull": true
+        }
+      }
+    ],
+    "keyValues": [
+      {
+        "LifeCutOff": 50,
+        "DmgPercentage": 100
+      }
+    ]
+  },
+  "S_Frenzy": {
+    "name": "Frenzy",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "PASSIVE",
+      "ROLE"
+    ],
+    "subscriptions": [
+      {
+        "topicName": "EFFECT_ADDED",
+        "methodName": "effectAdded",
+        "trigger": {
+          "targetHeroReference": "SAME",
+          "effects": {
+            "boolLogic": "ALL_OF",
+            "objects": [
+              "Advantage"
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "S_AbuseWeakness": {
+    "name": "Abuse Weakness",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "PASSIVE",
+      "ROLE"
+    ],
+    "subscriptions": [
+      {
+        "topicName": "CRITICAL_TRIGGER",
+        "methodName": "critTrigger",
+        "trigger": {
+          "targetHeroReference": "ENEMY"
+        }
+      }
+    ]
+  },
+  "S_MightAndMagic": {
+    "name": "MightAndMagic",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "PASSIVE",
+      "ROLE"
+    ],
+    "subscriptions": [
+      {
+        "topicName": "EFFECT_ADDED",
+        "methodName": "effectAdded",
+        "trigger": {
+          "targetHeroReference": "SAME",
+          "effects": {
+            "boolLogic": "ANY_OF",
+            "objects": [
+              "Mighty",
+              "Flawless",
+              "Enlightened"
+            ]
+          }
+        }
+      }
+    ],
+    "keyValues": {
+      "NrgPercentage": 10
+    }
+  },
+  "S_WindChant": {
+    "name": "Wind Chant",
+    "targetType": "ARENA",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "ROLE"
+    ],
+    "globalEffect": {
+      "name": "AetherWinds",
+      "turns": 5
+    },
+    "maxCd": 5,
+    "manaCost": 10,
+    "possibleCasterPositions": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "S_SpellShield": {
+    "name": "Spell Shield",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "PASSIVE",
+      "ROLE"
+    ],
+    "subscriptions": [
+      {
+        "topicName": "ON_PERFORM",
+        "methodName": "onPerform",
+        "trigger": {
+          "casterHeroReference": "SAME"
+        }
+      }
+    ],
+    "keyValues": {
+      "NrgPercentage": 10
+    }
+  },
+  "S_ManaFlow": {
+    "name": "Mana Flow",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "PASSIVE",
+      "ROLE"
+    ],
+    "subscriptions": [
+      {
+        "topicName": "END_OF_TURN",
+        "methodName": "endOfTurn"
+      }
+    ],
+    "keyValues": {
+      "NrgPercentage": 10
+    }
+  },
+  "S_TimeTrick": {
+    "name": "Time Trick",
+    "description": "Skip",
+    "targetType": "ALL_TARGETS",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "ROLE"
+    ],
+    "possibleCastPositions": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "possibleTargetPositions": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "S_FreshManaPool": {
+    "name": "Fresh Mana Pool",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "PASSIVE",
+      "ROLE"
+    ],
+    "subscriptions": [
+      {
+        "topicName": "CAST_CHANGE",
+        "methodName": "castChange",
+        "casterHeroReference": "SAME"
+      }
+    ]
+  },
+  "S_CoolVeins": {
+    "name": "Cool Veins",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "PASSIVE",
+      "ROLE"
+    ],
+    "subscriptions": [
+      {
+        "topicName": "CAST_CHANGE",
+        "methodName": "castChange",
+        "casterHeroReference": "SAME"
+      }
+    ]
+  },
+  "S_Sabotage": {
+    "name": "Sabotage",
+    "description": "Skip",
+    "targetType": "SINGLE",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "ROLE"
+    ],
+    "effects": [
+      {
+        "name": "Stunned"
+      }
+    ],
+    "maxCd": 4,
+    "possibleTargetPositions": [
+      4,
+      5,
+      6
+    ],
+    "possibleCasterPositions": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "S_QuickStep": {
+    "name": "Quick Step",
+    "description": "Skip",
+    "targetType": "SINGLE_OTHER",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "ROLE"
+    ],
+    "moveTo": true,
+    "effects": [
+      {
+        "name": "Advantage",
+        "condition": {
+          "trigger": "TARGET",
+          "healthComparison": true,
+          "lessThan": false,
+          "percentage": 50
+        }
+      },
+      {
+        "name": "Prepared",
+        "condition": {
+          "trigger": "TARGET",
+          "healthComparison": true,
+          "lessThan": true,
+          "percentage": 50
+        }
+      }
+    ],
+    "maxCd": 5,
+    "possibleTargetPositions": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "possibleCasterPositions": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "S_BattleTactics": {
+    "name": "Battle Tactics",
+    "description": "Skip",
+    "targetType": "SINGLE_OTHER",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "ROLE"
+    ],
+    "pull": 1,
+    "maxCd": 5,
+    "possibleTargetPositions": [
+      1,
+      2
+    ],
+    "possibleCasterPositions": [
+      5,
+      6
+    ]
+  },
+  "S_Logistics": {
+    "name": "Logistics",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "PASSIVE",
+      "ROLE"
+    ],
+    "subscriptions": [
+      {
+        "topicName": "ON_PERFORM",
+        "methodName": "onPerform",
+        "trigger": {
+          "casterHeroReference": "SAME"
+        }
+      },
+      {
+        "topicName": "CAST_CHANGE",
+        "methodName": "castChange",
+        "trigger": {
+          "casterHeroReference": "SAME"
+        }
+      }
+    ]
+  },
+  "S_Commandeer": {
+    "name": "Commandeer",
+    "description": "Skip",
+    "targetType": "SINGLE_OTHER",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "ROLE"
+    ],
+    "maxCd": 10,
+    "effects": [
+      {
+        "name": "Advantage"
+      },
+      {
+        "name": "Prepared"
+      }
+    ],
+    "subscriptions": [
+      {
+        "topicName": "ON_TARGET",
+        "methodName": "onTarget",
+        "trigger": {
+          "casterHeroReference": "SAME",
+          "spellName": "S_Commandeer"
+        }
+      }
+    ]
+  },
+  "S_Aid": {
+    "name": "Aid",
+    "description": "Skip",
+    "targetType": "SINGLE_OTHER",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "ROLE"
+    ],
+    "maxCd": 10,
+    "casterEffects": [
+      {
+        "name": "Initiative"
+      }
+    ],
+    "effects": [
+      {
+        "name": "Enlightened",
+        "turns": 2,
+        "condition": {
+          "successChance": 50,
+          "successByCasterStat": "MIND"
+        }
+      },
+      {
+        "name": "Mighty",
+        "turns": 2,
+        "condition": {
+          "successChance": 50,
+          "successByCasterStat": "BODY"
+        }
+      },
+      {
+        "name": "Flawless",
+        "turns": 2,
+        "condition": {
+          "successChance": 50,
+          "successByCasterStat": "DEXTERITY"
+        }
+      }
+    ]
+  },
+  "S_WeaponExpert": {
+    "name": "Weapon Expert",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "PASSIVE",
+      "ROLE"
+    ],
+    "subscriptions": [
+      {
+        "topicName": "EFFECT_ADDED",
+        "methodName": "effectAdded",
+        "trigger": {
+          "targetHeroReference": "SAME",
+          "effects": {
+            "boolList": "ALL_OF",
+            "objects": [
+              "Advantage"
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "S_Cover": {
+    "name": "Cover",
+    "targetType": "SINGLE",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "ROLE"
+    ],
+    "effects": [
+      {
+        "name": "Guarded",
+        "turns": 2
+      }
+    ],
+    "possibleCasterPositions": [
+      3
+    ],
+    "possibleTargetPositions": [
+      1,
+      2
+    ]
+  },
+  "S_IronClad": {
+    "name": "Iron Clad",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "PASSIVE",
+      "ROLE"
+    ],
+    "subscriptions": [
+      {
+        "topicName": "STAT_BASE_CHANGE_CHANGE",
+        "methodName": "statBaseChangeChange",
+        "trigger": {
+          "targetHeroReference": "SAME",
+          "equipmentTypes": {
+            "boolLogic": "NONE_OF",
+            "objects": [
+              "ONE_HAND",
+              "TWO_HAND"
+            ]
+          }
+        }
+      },
+      {
+        "topicName": "STAT_MULT_CHANGE_CHANGE",
+        "methodName": "statMultChangeChange",
+        "trigger": {
+          "targetHeroReference": "SAME",
+          "equipmentTypes": {
+            "boolLogic": "NONE_OF",
+            "objects": [
+              "ONE_HAND",
+              "TWO_HAND"
+            ]
+          }
+        }
+      }
+    ],
+    "keyValues": [
+      {"StatMult": 0.15}
+    ]
+  },
+  "S_Kick": {
+    "name": "Kick",
+    "targetType": "SINGLE",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "ROLE"
+    ],
+    "dmg": 10,
+    "dmgMultipliers":[
+      {
+        "prof": "BODY",
+        "percentage": 0.5
+      }
+    ],
+    "maxCd": 10,
+    "damageType": "NORMAL",
+    "damageMode": "PHYSICAL",
+    "push": 1,
+    "possibleTargetPositions": [5],
+    "possibleCasterPositions": [3]
+  },
+  "S_DrawFire": {
+    "name": "Draw Fire",
+    "targetType": "SELF",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "ROLE"
+    ],
+    "maxCd": 10,
+    "effects": [
+      {
+        "name": "Threatening",
+        "turns": 2
+      }
+    ],
+    "subscriptions": [
+      {
+        "topicName": "CAST_CHANGE",
+        "methodName": "castChange",
+        "trigger": {
+          "casterHeroReference": "SAME",
+          "skillName": "S_DrawFire",
+          "casterEffects": {
+            "boolLogic": "ALL_OF",
+            "objects": ["Mighty"]
+          }
+        }
+      }
+    ],
+    "possibleCasterPositions": [2,3]
+  },
+  "S_DeepBreath": {
+    "name": "Deep Breath",
+    "targetType": "SELF",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL",
+      "ROLE"
+    ],
+    "maxCd": 10,
+    "healMultipliers": [
+      {
+        "prof": "VITALITY",
+        "percentage": 0.25
+      }
+    ],
+    "possibleCasterPositions": [0,1,2,3]
+  },
+  "S_Bulwark": {
+    "name": "Bulwark",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "PASSIVE",
+      "ROLE"
+    ],
+    "subscriptions": [
+      {
+        "topicName": "IS_MOVE_LEGAL",
+        "methodName": "isMoveLegal",
+        "trigger": {
+          "targetHeroReference": "SAME",
+          "casterHeroReference": "ENEMY"
+        }
+      }
+    ]
+  },
+  "S_HoldTheBanner": {
+    "name": "Hold The Banner",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "PASSIVE",
+      "ROLE"
+    ],
+    "subscriptions": [
+      {
+        "topicName": "CAST_CHANGE",
+        "methodName": "castChange",
+        "trigger": {
+          "casterHeroReference": "OTHER_ALLY"
+        }
+      },
+      {
+        "topicName": "END_OF_TURN",
+        "methodName": "endOfTurn",
+        "trigger": {
+          "casterHeroReference": "OTHER_ALLY"
+        }
+      }
+    ]
+  }
+}

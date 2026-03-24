@@ -102,7 +102,12 @@
         "methodName": "chanceEffectMult",
         "trigger" : {
           "casterHeroReference": "SAME",
-          "equipmentNotNull": true
+          "equipmentTypes": {
+            "boolLogic": "SOME_OF",
+            "objects": [
+              "ONE_HAND","TWO_HAND"
+            ]
+          }
         }
       },
       {
@@ -110,7 +115,12 @@
         "methodName": "statBaseChangeChange",
         "trigger" : {
           "targetHeroReference": "SAME",
-          "equipmentNotNull": true
+          "equipmentTypes": {
+            "boolLogic": "SOME_OF",
+            "objects": [
+              "ONE_HAND","TWO_HAND"
+            ]
+          }
         }
       },
       {
@@ -118,7 +128,12 @@
         "methodName": "statMultChangeChange",
         "trigger" : {
           "targetHeroReference": "SAME",
-          "equipmentNotNull": true
+          "equipmentTypes": {
+            "boolLogic": "SOME_OF",
+            "objects": [
+              "ONE_HAND","TWO_HAND"
+            ]
+          }
         }
       }
     ],

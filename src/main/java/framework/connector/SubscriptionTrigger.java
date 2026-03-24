@@ -2,6 +2,7 @@ package framework.connector;
 
 import game.effects.Effect;
 import game.entities.Hero;
+import game.objects.EquipmentType;
 import game.skills.Skill;
 import game.skills.logic.*;
 import utils.CollectionUtils;
@@ -24,9 +25,11 @@ public class SubscriptionTrigger {
   Boolean skillNotNull;
   Boolean equipmentNotNull;
   Boolean hasEnergyCost;
+  Boolean targetHasDebuff;
   Boolean targetHasStatusDebuff;
   Boolean targetHasStatusBuff;
   String skillName;
+  ConditionalList<EquipmentType> equipmentTypes;
   ConditionalList<DamageType> damageTypes;
   ConditionalList<DamageMode> damageModes;
   ConditionalList<Stat> stats;
@@ -45,9 +48,11 @@ public class SubscriptionTrigger {
         && statIsElementalDefMet()
         && skillNotNull()
         && equipmentNotNull()
+        && equipmentTypeMet()
         && hasEnergyCostMet()
         && targetHasStatusBuffMet()
         && targetHasStatusDebuffMet()
+        && targetHasDebuffMet()
         && checkDamageTypes()
         && checkDamageMode()
         && checkStat()
@@ -133,6 +138,12 @@ public class SubscriptionTrigger {
     return pl.skill != null && conditionalListIsMet(skillTags, pl.skill.tags);
   }
 
+  private boolean equipmentTypeMet() {
+    if (equipmentTypes == null) {
+      return true;
+    }
+    return pl.equipment != null && conditionalListIsMet(equipmentTypes, List.of(pl.equipment.getType()));
+  }
   private <T> boolean conditionalListIsMet(
       ConditionalList<T> checkList, List<T> connectionObjects) {
     if (checkList.objects == null) {
@@ -178,6 +189,13 @@ public class SubscriptionTrigger {
     return pl.target != null && pl.target.hasStatusDebuff();
   }
 
+  private boolean targetHasDebuffMet() {
+    if (targetHasDebuff == null) {
+      return true;
+    }
+    return pl.target != null && pl.target.hasDebuff();
+  }
+
   private boolean hasEnergyCostMet() {
     if (hasEnergyCost == null) {
       return true;
@@ -198,6 +216,7 @@ public class SubscriptionTrigger {
     }
     return pl.equipment != null;
   }
+
 
   private boolean statIsElementalDefMet() {
     if (statIsElementalDef == null) {

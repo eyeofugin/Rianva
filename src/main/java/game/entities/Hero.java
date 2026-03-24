@@ -934,6 +934,10 @@ public class Hero extends GUIElement {
   }
 
 
+  public void percentageEnergy(int percentage, Hero caster, Skill skill, Effect effect, Equipment equipment, boolean regen) {
+    int nrg = MyMaths.percentageOf(percentage, this.getStat(Stat.ENERGY));
+    energy(nrg, caster, skill, effect, equipment, regen);
+  }
   public void energy(
       int energy, Hero caster, Skill skill, Effect effect, Equipment equipment, boolean regen) {
     energy = trigger_energyChanges(energy, caster, skill, effect, equipment, regen);

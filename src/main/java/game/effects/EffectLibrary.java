@@ -28,6 +28,21 @@ public class EffectLibrary {
     statusEffectsDTOs = loadDTOMap(statusEffectsJson);
   }
 
+  public static Effect getRandomAtkEnhance() {
+    List<EffectDTO> effects = heroEffectDTOs.values().stream()
+            .filter(effectDTO -> effectDTO.subTypes.contains(Effect.SubType.ATK_ENHANCE)).toList();
+    EffectDTO random = CollectionUtils.getRandom(effects);
+    if (random != null) {
+      Effect effect = getEffect(random.name);
+      if (effect != null) {
+        effect.turns = Effect.Durability.TIME.equals(random.durability) ? 1 : 0;
+        effect.stacks = Effect.Durability.STACK.equals(random.durability) ? 1 : 0;
+      }
+      return effect;
+    }
+    return null;
+  }
+
   public static Effect getRandomStatusDebuff() {
     List<EffectDTO> effects = statusEffectsDTOs.values().stream()
             .filter(effectDTO -> effectDTO.subTypes.contains(Effect.SubType.DEBUFF)).toList();
@@ -39,6 +54,21 @@ public class EffectLibrary {
         effect.stacks = Effect.Durability.STACK.equals(randomEffect.durability) ? 1 : 0;
       }
       return effect;
+    }
+    return null;
+  }
+
+  public static Effect getRandomStatDebuff() {
+    List<EffectDTO> effects = statEffectsDTOs.values().stream()
+            .filter(effectDTO -> effectDTO.subTypes.contains(Effect.SubType.DEBUFF)).toList();
+    EffectDTO randomEffect = CollectionUtils.getRandom(effects);
+
+    if (randomEffect != null) {
+      Effect effect = getEffect(randomEffect.name);
+        if (effect != null) {
+            effect.turns = 1;
+        }
+        return effect;
     }
     return null;
   }
