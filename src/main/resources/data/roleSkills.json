@@ -563,8 +563,7 @@
           "equipmentTypes": {
             "boolLogic": "NONE_OF",
             "objects": [
-              "ONE_HAND",
-              "TWO_HAND"
+              "WEAPON"
             ]
           }
         }
@@ -577,8 +576,7 @@
           "equipmentTypes": {
             "boolLogic": "NONE_OF",
             "objects": [
-              "ONE_HAND",
-              "TWO_HAND"
+              "WEAPON"
             ]
           }
         }

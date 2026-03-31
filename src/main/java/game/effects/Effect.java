@@ -9,9 +9,10 @@ import framework.graphics.GUIElement;
 import framework.graphics.text.Color;
 import framework.states.Arena;
 import framework.connector.Subscription;
-import game.effects.hero.Advantage;
 import game.entities.Hero;
+import game.libraries.EffectLibrary;
 import game.skills.logic.Condition;
+import game.skills.logic.DamageType;
 import game.skills.logic.Stat;
 import utils.Utils;
 
@@ -40,6 +41,7 @@ public class Effect implements Subscriber {
   public ChangeEffectType type;
   public List<SubType> subTypes;
   public Durability durability;
+  public DamageType damageType;
 
   public List<Subscription> subscriptions = new ArrayList<>();
   public Map<String, Object> keyValues = new HashMap<>();
@@ -69,6 +71,7 @@ public class Effect implements Subscriber {
       List<Subscription> subscriptions,
       int position,
       Durability durability,
+      DamageType damageType,
       List<SubType> subTypes,
       Map<String, Object> keyValues) {
     this.iconString = iconString;
@@ -80,6 +83,7 @@ public class Effect implements Subscriber {
     this.negates = negates;
     this.name = name;
     this.description = description;
+    this.damageType = damageType;
     this.stackable = stackable;
     this.type = type;
     this.position = position;
@@ -105,6 +109,7 @@ public class Effect implements Subscriber {
     this.type = dto.type;
     this.negates = dto.negates;
     this.durability = dto.durability;
+    this.damageType = dto.damageType;
     this.subscriptions = dto.subscriptions;
     if (this.subscriptions != null) {
       this.subscriptions.forEach(s->{
@@ -228,7 +233,7 @@ public class Effect implements Subscriber {
         + name
         + '\''
         + ", type="
-        + type
+        + damageType
         + '}';
   }
 
@@ -255,10 +260,11 @@ public class Effect implements Subscriber {
         name,
         description,
         stackable,
-        type,
+            type,
         subscriptions,
         position,
         durability,
+            damageType,
         subTypes,
         keyValues);
   }

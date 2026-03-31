@@ -1,7 +1,7 @@
 package game.skills.trees.classes.hunter;
 
 import framework.connector.ConnectionPayload;
-import game.effects.EffectLibrary;
+import game.libraries.EffectLibrary;
 import game.effects.hero.Advantage;
 import game.effects.hero.Marked;
 import game.entities.Hero;
@@ -10,7 +10,6 @@ import utils.CollectionUtils;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class S_Hunter extends Skill {
     int marks = 0;

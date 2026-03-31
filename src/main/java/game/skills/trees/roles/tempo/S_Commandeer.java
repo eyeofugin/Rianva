@@ -1,7 +1,7 @@
 package game.skills.trees.roles.tempo;
 
 import framework.connector.ConnectionPayload;
-import game.effects.EffectLibrary;
+import game.libraries.EffectLibrary;
 import game.effects.hero.Initiative;
 import game.entities.Hero;
 import game.skills.Skill;

@@ -1,7 +1,7 @@
 package game.skills.trees.classes.radiance;
 
 import game.effects.Effect;
-import game.effects.EffectLibrary;
+import game.libraries.EffectLibrary;
 import game.effects.status.*;
 import game.entities.Hero;
 import game.skills.Skill;

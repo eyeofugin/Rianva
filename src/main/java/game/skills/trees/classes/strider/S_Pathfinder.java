@@ -1,7 +1,7 @@
 package game.skills.trees.classes.strider;
 
 import framework.connector.ConnectionPayload;
-import game.effects.EffectLibrary;
+import game.libraries.EffectLibrary;
 import game.effects.field.Cover;
 import game.skills.Skill;
 

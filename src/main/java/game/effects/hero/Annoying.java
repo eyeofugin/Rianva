@@ -2,7 +2,7 @@ package game.effects.hero;
 
 import framework.connector.ConnectionPayload;
 import game.effects.Effect;
-import game.effects.EffectLibrary;
+import game.libraries.EffectLibrary;
 import game.effects.status.Taunted;
 
 public class Annoying extends Effect {

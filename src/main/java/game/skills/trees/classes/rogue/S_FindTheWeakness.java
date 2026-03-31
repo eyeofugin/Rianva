@@ -1,7 +1,7 @@
 package game.skills.trees.classes.rogue;
 
 import framework.connector.ConnectionPayload;
-import game.effects.EffectLibrary;
+import game.libraries.EffectLibrary;
 import game.effects.stat.Brittle;
 import game.effects.status.Bleeding;
 import game.skills.Skill;

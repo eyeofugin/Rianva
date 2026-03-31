@@ -2,13 +2,11 @@ package game.effects.hero;
 
 import framework.connector.ConnectionPayload;
 import game.effects.Effect;
-import game.effects.EffectLibrary;
+import game.libraries.EffectLibrary;
 import game.effects.stat.Flawless;
 import game.effects.status.Shocked;
 import game.entities.Hero;
-import game.skills.logic.TargetType;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class ThunderbirdForm extends Effect {

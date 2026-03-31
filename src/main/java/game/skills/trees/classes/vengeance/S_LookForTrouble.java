@@ -1,12 +1,9 @@
 package game.skills.trees.classes.vengeance;
 
 import framework.connector.ConnectionPayload;
-import game.effects.EffectLibrary;
+import game.libraries.EffectLibrary;
 import game.effects.status.Immunity;
 import game.skills.Skill;
-import game.skills.logic.DamageMode;
-import game.skills.logic.DamageType;
-import java.util.List;
 import utils.Utils;
 
 public class S_LookForTrouble extends Skill {

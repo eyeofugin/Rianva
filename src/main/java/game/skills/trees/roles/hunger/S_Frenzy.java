@@ -1,10 +1,9 @@
 package game.skills.trees.roles.hunger;
 
 import framework.connector.ConnectionPayload;
-import game.effects.EffectLibrary;
+import game.libraries.EffectLibrary;
 import game.effects.hero.Initiative;
 import game.skills.Skill;
-import utils.MyMaths;
 
 public class S_Frenzy extends Skill {
     public void effectAdded(ConnectionPayload pl) {

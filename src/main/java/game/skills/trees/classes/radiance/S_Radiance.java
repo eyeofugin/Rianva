@@ -1,7 +1,7 @@
 package game.skills.trees.classes.radiance;
 
 import framework.connector.ConnectionPayload;
-import game.effects.EffectLibrary;
+import game.libraries.EffectLibrary;
 import game.effects.hero.Advantage;
 import game.effects.status.Blinded;
 import game.skills.Skill;

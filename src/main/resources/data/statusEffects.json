@@ -17,6 +17,7 @@
     "stackable": false,
     "durability": "TIME",
     "type": "STATUS",
+    "damageType": "NORMAL",
     "subTypes": [
       "DEBUFF"
     ]
@@ -178,6 +179,7 @@
     "stackable": true,
     "durability": "STACK",
     "type": "STATUS",
+    "damageType": "COLD",
     "subTypes": [
       "DEBUFF",
       "COLD"
@@ -202,6 +204,7 @@
     "stackable": true,
     "durability": "STACK",
     "type": "STATUS",
+    "damageType": "HEAT",
     "subTypes": [
       "DEBUFF",
       "HEAT"
@@ -226,6 +229,7 @@
     "stackable": false,
     "durability": "TIME",
     "type": "STATUS",
+    "damageType": "LIGHT",
     "subTypes": [
       "DEBUFF",
       "LIGHT"
@@ -236,7 +240,7 @@
         "methodName": "baseStatChange",
         "trigger": {
           "targetHeroReference": "SAME",
-          "stats": {
+          "damageTypes": {
             "boolLogic": "ALL_OF",
             "objects": ["ACCURACY"]
           }
@@ -254,6 +258,7 @@
     "stackable": false,
     "durability": "TIME",
     "type": "STATUS",
+    "damageType": "MENTAL",
     "subTypes": [
       "DEBUFF",
       "MENTAL"
@@ -291,6 +296,7 @@
     "stackable": true,
     "durability": "STACK",
     "type": "STATUS",
+    "damageType": "TOXIC",
     "subTypes": [
       "DEBUFF",
       "TOXIC"
@@ -340,6 +346,7 @@
     "stackable": true,
     "durability": "STACK",
     "type": "STATUS",
+    "damageType": "SHOCK",
     "subTypes": [
       "DEBUFF",
       "SHOCK"
@@ -364,6 +371,7 @@
     "stackable": false,
     "durability": "TIME",
     "type": "STATUS",
+    "damageType": "DARK",
     "subTypes": [
       "DEBUFF",
       "DARK"

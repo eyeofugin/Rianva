@@ -1,7 +1,7 @@
 package game.skills.trees.classes.trickster;
 
 import game.effects.Effect;
-import game.effects.EffectLibrary;
+import game.libraries.EffectLibrary;
 import game.entities.Hero;
 import game.skills.Skill;
 

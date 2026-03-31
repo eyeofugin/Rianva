@@ -1,7 +1,7 @@
 package game.skills.trees.classes.medic;
 
 import framework.connector.ConnectionPayload;
-import game.effects.EffectLibrary;
+import game.libraries.EffectLibrary;
 import game.effects.status.Immunity;
 import game.effects.status.Protected;
 import game.skills.Skill;

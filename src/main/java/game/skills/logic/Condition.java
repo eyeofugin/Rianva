@@ -6,8 +6,6 @@ import game.skills.Skill;
 import utils.MyMaths;
 import utils.Utils;
 
-import java.util.Random;
-
 public class Condition {
   public ConditionReference trigger;
 

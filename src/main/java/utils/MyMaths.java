@@ -1,6 +1,13 @@
 package utils;
 
 import framework.states.Arena;
+import game.effects.Effect;
+import game.effects.status.Dazed;
+import game.effects.status.Immobile;
+import game.effects.status.Stunned;
+import game.entities.Hero;
+import game.skills.logic.DamageType;
+import game.skills.logic.Stat;
 
 import java.util.List;
 import java.util.Random;
@@ -72,11 +79,14 @@ public class MyMaths {
 
   }
 
-  public static int getDamage(int att, int def, int lethal) {
-    return getDamage(att, def, lethal, true);
+  public static int getDamage(int att, int def) {
+    return getDamage(att, def, true);
   }
 
-  public static int getDamage(int att, int def, int lethal, boolean rdmize) {
+  public static int getDamage(int att, int def, boolean rdmize) {
+
+    int reduction = (int)(0.7 * Math.sqrt(50 * def));
+
     int defense = def - (def * lethal / 100);
     if (rdmize) {
       att = rdmize(att);
@@ -134,4 +144,26 @@ public class MyMaths {
     }
     return randomInt;
   }
+
+  public static int calculateDefense(DamageType dt, Hero hero) {
+    if (DamageType.NORMAL.equals(dt)) {
+      return 10 * hero.getStat(Stat.ARMOR) + MyMaths.percentageOf(10, hero.getStat(Stat.BODY));
+    }
+    return hero.getStat(Utils.getDefenseStatForDt(dt)) + hero.getStat(Stat.ARMOR);
+  }
+
+  public static int getEffectResistChance(Hero hero, Effect effect) {
+    DamageType damageType = effect.damageType;
+    if (damageType == DamageType.NORMAL) {
+      return percentageOf(20, hero.getDefense(damageType));
+    }
+    if (damageType != null) {
+      return percentageOf(20, hero.getDefense(damageType)) + percentageOf(10, hero.getStat(Stat.MIND));
+    }
+    if (effect instanceof Dazed || effect instanceof Immobile || effect instanceof Stunned) {
+      return percentageOf(20, hero.getStat(Stat.DEXTERITY));
+    }
+    return 0;
+  }
 }
+

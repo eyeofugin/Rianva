@@ -11,13 +11,8 @@ import framework.resources.SpriteLibrary;
 import framework.resources.SpriteUtils;
 import framework.states.Arena;
 import game.effects.Effect;
-import game.effects.EffectLibrary;
-import game.effects.stat.Brittle;
-import game.effects.stat.Mighty;
-import game.effects.status.Cleanse;
-import game.effects.status.Debuff;
-import game.effects.status.Immunity;
-import game.effects.status.Bleeding;
+import game.libraries.EffectLibrary;
+import game.effects.status.*;
 import game.objects.Equipment;
 import game.skills.Skill;
 import game.skills.trees.genericskills.S_Boots;
@@ -26,6 +21,7 @@ import game.skills.logic.*;
 import utils.CollectionUtils;
 import utils.FileWalker;
 import utils.MyMaths;
+import utils.Utils;
 
 import java.util.*;
 
@@ -445,6 +441,13 @@ public class Hero extends GUIElement {
     this.level = level;
     this.stats.putAll(this.baseStats);
   }
+  public int getDefense(DamageType dt) {
+    Stat defenseStat = Utils.getDefenseStatForDt(dt);
+    if (defenseStat == Stat.ARMOR) {
+      return getStat(defenseStat) * 10 + MyMaths.percentageOf(10, getStat(Stat.BODY));
+    }
+    return getStat(defenseStat) + getStat(Stat.ARMOR);
+  }
   public int getStat(Stat stat) {
     if (stat == null) {
       return 0;
@@ -708,7 +711,17 @@ public class Hero extends GUIElement {
     if (hasPermanentEffect(Immunity.class)) {
       return true;
     }
+    if (isResisted(effect, caster)) {
+      return true;
+    }
     return trigger_effectFailure(effect, caster, skill);
+  }
+
+  private boolean isResisted(Effect effect, Hero caster) {
+    if (caster.isAlly(this)) {
+      return false;
+    }
+    return MyMaths.success(MyMaths.getEffectResistChance(this, effect));
   }
 
   public boolean hasPermanentEffect(String name) {
@@ -997,8 +1010,9 @@ public class Hero extends GUIElement {
 
     damage = trigger_dmgChanges(damage, damageType, mode, caster, skill, effect, equipment);
 
-    int def = getStat(Stat.ARMOR);
-    int result = MyMaths.getDamage(damage, def, lethality);
+    int def = MyMaths.calculateDefense(damageType, this);
+    def -= lethality;
+    int result = MyMaths.getDamage(damage, def);
 
     System.out.println("dmg:" + result);
     Logger.logLn("1play dmg animation of " + this.name + "/" + this.id);

@@ -1,5 +1,7 @@
-package game.effects;
+package game.libraries;
 
+import game.effects.Effect;
+import game.effects.EffectDTO;
 import game.skills.logic.Condition;
 import utils.CollectionUtils;
 import utils.FileWalker;
@@ -9,11 +11,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class EffectLibrary {
-  private static Map<String, EffectDTO> heroEffectDTOs;
-  private static Map<String, EffectDTO> globalEffectDTOs;
-  private static Map<String, EffectDTO> fieldEffectDTOs;
-  private static Map<String, EffectDTO> statEffectsDTOs;
-  private static Map<String, EffectDTO> statusEffectsDTOs;
+  private static Map<String, EffectDTO> heroEffectDTOs = new HashMap<>();
+  private static Map<String, EffectDTO> globalEffectDTOs = new HashMap<>();
+  private static Map<String, EffectDTO> fieldEffectDTOs = new HashMap<>();
+  private static Map<String, EffectDTO> statEffectsDTOs = new HashMap<>();
+  private static Map<String, EffectDTO> statusEffectsDTOs = new HashMap<>();
 
   public static void init() {
     Map<String, String> heroEffectJson = FileWalker.loadJsonMap("data/heroEffects.json");

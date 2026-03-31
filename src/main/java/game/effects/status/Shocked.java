@@ -2,7 +2,7 @@ package game.effects.status;
 
 import framework.connector.ConnectionPayload;
 import game.effects.Effect;
-import game.effects.EffectLibrary;
+import game.libraries.EffectLibrary;
 
 public class Shocked extends Effect {
   public void onDamage(ConnectionPayload pl) {

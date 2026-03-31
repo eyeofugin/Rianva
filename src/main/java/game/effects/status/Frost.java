@@ -2,7 +2,7 @@ package game.effects.status;
 
 import framework.connector.ConnectionPayload;
 import game.effects.Effect;
-import game.effects.EffectLibrary;
+import game.libraries.EffectLibrary;
 import game.effects.stat.Shaken;
 import game.skills.logic.DamageMode;
 import game.skills.logic.DamageType;

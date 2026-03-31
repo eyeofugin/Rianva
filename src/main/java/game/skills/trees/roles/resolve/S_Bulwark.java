@@ -7,7 +7,7 @@ import game.skills.Skill;
 public class S_Bulwark extends Skill {
     public void isMoveLegal(ConnectionPayload pl) {
         if (this.hero.getEquipments().stream().anyMatch(e->
-            EquipmentType.TORSO.equals(e.getType()) && e.isHeavy())) {
+            EquipmentType.ARMOR.equals(e.getType()) && e.isBig())) {
             pl.failure = true;
         }
     }

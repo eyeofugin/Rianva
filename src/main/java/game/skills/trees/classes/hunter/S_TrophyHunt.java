@@ -1,7 +1,7 @@
 package game.skills.trees.classes.hunter;
 
 import framework.connector.ConnectionPayload;
-import game.effects.EffectLibrary;
+import game.libraries.EffectLibrary;
 import game.effects.hero.Trophy;
 import game.skills.Skill;
 import game.skills.logic.Stat;

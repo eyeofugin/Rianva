@@ -7,6 +7,7 @@ import game.entities.Multiplier;
 import game.effects.Effect;
 import game.objects.Equipment;
 import game.skills.Skill;
+import game.skills.logic.DamageType;
 import game.skills.logic.Resource;
 import game.skills.logic.Stat;
 
@@ -89,5 +90,37 @@ public class Utils {
             .setEffect(effect);
     Connector.fireTopic(Connector.COND_TRIGGER_CHANGES, pl);
     return pl.condEffectImpact;
+  }
+
+  public static Stat getDefenseStatForDt(DamageType dt) {
+    switch (dt) {
+        case HEAT -> {
+          return Stat.HEAT_RESIST;
+        }
+        case COLD -> {
+          return Stat.COLD_RESIST;
+        }
+        case NORMAL -> {
+          return Stat.ARMOR;
+        }
+        case MENTAL -> {
+          return Stat.MENTAL_RESIST;
+        }
+        case LIGHT -> {
+          return Stat.LIGHT_RESIST;
+        }
+        case DARK -> {
+          return Stat.DARK_RESIST;
+        }
+        case SHOCK -> {
+          return Stat.SHOCK_RESIST;
+        }
+        case TOXIC -> {
+          return Stat.TOX_RESIST;
+        }
+        default -> {
+          return null;
+        }
+    }
   }
 }

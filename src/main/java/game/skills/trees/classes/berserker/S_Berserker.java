@@ -1,7 +1,7 @@
 package game.skills.trees.classes.berserker;
 
 import framework.connector.ConnectionPayload;
-import game.effects.EffectLibrary;
+import game.libraries.EffectLibrary;
 import game.effects.hero.Enraged;
 import game.skills.Skill;
 import utils.MyMaths;

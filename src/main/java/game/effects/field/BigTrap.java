@@ -2,7 +2,7 @@ package game.effects.field;
 
 import framework.connector.ConnectionPayload;
 import game.effects.Effect;
-import game.effects.EffectLibrary;
+import game.libraries.EffectLibrary;
 import game.effects.status.Stunned;
 import game.entities.Hero;
 import game.skills.logic.DamageMode;

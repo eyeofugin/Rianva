@@ -7,11 +7,11 @@ import framework.graphics.elements.StatField;
 import framework.graphics.text.Color;
 import game.entities.DraftBuilder;
 import game.entities.Hero;
-import game.entities.HeroLibrary;
+import game.libraries.HeroLibrary;
 import game.entities.HeroTeam;
-import game.effects.EffectLibrary;
+import game.libraries.EffectLibrary;
 import game.skills.Skill;
-import game.skills.SkillLibrary;
+import game.libraries.SkillLibrary;
 import game.skills.logic.Stat;
 
 import java.util.ArrayList;
@@ -34,9 +34,10 @@ public class DevState extends State {
   public DevState(Memory memory) {
     super(memory);
     this.id = StateManager.DEV;
-    //        HeroLibrary.init();
+    HeroLibrary.init();
     SkillLibrary.init();
     EffectLibrary.init();
+    setUpHeroList();
     //        Hero hero1 = HeroLibrary.getHero("Burner");
     //        hero1.getSkills().forEach(Skill::addSubscriptions);
     //        Connector.fireTopic(Connector.BASE_DMG_CHANGES, new BaseDmgChangesPayload());

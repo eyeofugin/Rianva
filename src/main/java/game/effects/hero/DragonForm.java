@@ -2,10 +2,8 @@ package game.effects.hero;
 
 import framework.connector.ConnectionPayload;
 import game.effects.Effect;
-import game.effects.EffectLibrary;
+import game.libraries.EffectLibrary;
 import game.effects.stat.Enlightened;
-import game.skills.logic.Stat;
-import game.skills.logic.TargetType;
 
 public class DragonForm extends Effect {
   public void dmgChangeMult(ConnectionPayload pl) {

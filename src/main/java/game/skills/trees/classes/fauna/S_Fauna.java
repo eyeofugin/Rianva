@@ -2,7 +2,7 @@ package game.skills.trees.classes.fauna;
 
 import framework.connector.ConnectionPayload;
 import game.effects.Effect;
-import game.effects.EffectLibrary;
+import game.libraries.EffectLibrary;
 import game.effects.hero.Advantage;
 import game.effects.hero.Initiative;
 import game.effects.hero.Prepared;

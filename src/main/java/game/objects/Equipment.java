@@ -22,7 +22,7 @@ public class Equipment {
   protected boolean loseTempStat = false;
   protected boolean consumed = false;
   protected boolean equipped = false;
-  protected boolean heavy = false;
+  protected boolean big = false;
   protected Hero hero;
   protected Hero oldHero;
   protected boolean active;
@@ -203,8 +203,8 @@ public class Equipment {
         0);
   }
 
-  public boolean isHeavy() {
-    return heavy;
+  public boolean isBig() {
+    return big;
   }
   public void consume() {
     this.consumed = true;

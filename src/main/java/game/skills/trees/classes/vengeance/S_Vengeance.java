@@ -1,7 +1,7 @@
 package game.skills.trees.classes.vengeance;
 
 import framework.connector.ConnectionPayload;
-import game.effects.EffectLibrary;
+import game.libraries.EffectLibrary;
 import game.effects.hero.Marked;
 import game.entities.Hero;
 import game.skills.Skill;

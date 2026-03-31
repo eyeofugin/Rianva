@@ -1,6 +1,8 @@
 package game.effects;
 
 import framework.connector.Subscription;
+import game.skills.logic.DamageType;
+import game.skills.logic.Stat;
 
 import java.util.List;
 import java.util.Map;
@@ -14,6 +16,7 @@ public class EffectDTO {
   public List<Effect.SubType> subTypes;
   public List<String> negates;
   public List<Subscription> subscriptions;
+  public DamageType damageType;
   public Map<String, Object> keyValues;
 
   public Effect.Durability durability;

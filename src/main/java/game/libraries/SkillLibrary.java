@@ -1,15 +1,18 @@
-package game.skills;
+package game.libraries;
 
+import game.skills.SkillDTO;
 import utils.FileWalker;
+
+import java.util.HashMap;
 import java.util.Map;
 
 public class SkillLibrary {
 
-  private static Map<String, String> baseSkillsJson;
-  private static Map<String, String> classSkillsJson;
-  private static Map<String, String> roleSkillsJson;
-  private static Map<String, String> weaponSkillsJson;
-  private static Map<String, String> raceSkillsJson;
+  private static Map<String, String> baseSkillsJson = new HashMap<>();
+  private static Map<String, String> classSkillsJson = new HashMap<>();
+  private static Map<String, String> roleSkillsJson = new HashMap<>();
+  private static Map<String, String> weaponSkillsJson = new HashMap<>();
+  private static Map<String, String> raceSkillsJson = new HashMap<>();
 
   public static void init() {
     baseSkillsJson = FileWalker.loadJsonMap("data/baseSkills.json");

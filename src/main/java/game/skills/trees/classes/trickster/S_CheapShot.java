@@ -1,7 +1,7 @@
 package game.skills.trees.classes.trickster;
 
 import framework.connector.ConnectionPayload;
-import game.effects.EffectLibrary;
+import game.libraries.EffectLibrary;
 import game.effects.status.Stunned;
 import game.entities.Hero;
 import game.skills.Skill;

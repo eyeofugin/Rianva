@@ -1,14 +1,17 @@
-package game.entities;
+package game.libraries;
 
+import game.entities.Hero;
+import game.entities.HeroDTO;
 import utils.FileWalker;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class HeroLibrary {
 
-  private static Map<String, String> heroesJson;
+  private static Map<String, String> heroesJson = new HashMap<>();
 
   public static void init() {
     heroesJson = FileWalker.loadJsonMap("data/heroes.json");
