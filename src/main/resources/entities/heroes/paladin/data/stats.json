@@ -1,9 +1,9 @@
 {
-  "MAGIC": 3,
+  "MIND": 3,
   "POWER": 2,
-  "SPEED": 1,
-  "STAMINA": 8,
-  "ENDURANCE": 17,
+  "DEXTERITY": 1,
+  "FOCUS": 8,
+  "BODY": 17,
   "LIFE": 17,
   "LIFE_REGAIN": 2,
   "FAITH": 100

@@ -1,26 +1,29 @@
 {
   "S_Crush": {
     "name": "Crush",
+    "className": "game.skills.trees.equipment.hammer.S_Crush",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
     "damageMode": "PHYSICAL",
     "damageType": "NORMAL",
-    "tags": ["PRIMARY", "WEAPON"],
+    "tags": [
+      "PRIMARY",
+      "WEAPON"
+    ],
     "dmg": 10,
     "dmgMultipliers": [
       {
         "prof": "BODY",
-        "percentage":0.10
+        "percentage": 0.10
       }
     ],
     "effects": [
       {
-        "name": "Immobile",
+        "className": "game.effects.status.Immobile",
         "stacks": 0,
         "turns": 1,
         "condition": {
-          "chance": true,
           "successChance": 25
         }
       }
@@ -34,26 +37,29 @@
   },
   "S_Merciless": {
     "name": "Merciless",
+    "className": "game.skills.trees.equipment.hammer.S_Merciless",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
     "damageMode": "PHYSICAL",
     "damageType": "NORMAL",
-    "tags": ["PRIMARY", "WEAPON"],
+    "tags": [
+      "PRIMARY",
+      "WEAPON"
+    ],
     "dmg": 12,
     "dmgMultipliers": [
       {
         "prof": "BODY",
-        "percentage":0.08
+        "percentage": 0.08
       }
     ],
     "effects": [
       {
-        "name": "Dazed",
+        "className": "game.effects.status.Dazed",
         "stacks": 0,
         "turns": 1,
         "condition": {
-          "chance": true,
           "successChance": 25
         }
       }
@@ -67,23 +73,27 @@
   },
   "S_Brainsplitter": {
     "name": "Brainsplitter",
+    "className": "game.skills.trees.equipment.hammer.S_Brainsplitter",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "ALL_TARGETS",
     "damageMode": "PHYSICAL",
     "damageType": "NORMAL",
-    "tags": ["TACTICAL", "WEAPON"],
+    "tags": [
+      "TACTICAL",
+      "WEAPON"
+    ],
     "maxCd": 2,
     "dmg": 15,
     "dmgMultipliers": [
       {
         "prof": "BODY",
-        "percentage":0.12
+        "percentage": 0.12
       }
     ],
     "effects": [
       {
-        "name": "Brittle",
+        "className": "game.effects.stat.Brittle",
         "stacks": 0,
         "turns": 1,
         "condition": {
@@ -103,10 +113,12 @@
       }
     ],
     "possibleCastPositions": [
-      2,3
+      2,
+      3
     ],
     "possibleTargetPositions": [
-      4,5
+      4,
+      5
     ],
     "keyValues": {
       "HealPercentage": 0.15
@@ -114,12 +126,16 @@
   },
   "S_FullSwing": {
     "name": "Full Swing",
+    "className": "game.skills.trees.equipment.hammer.S_FullSwing",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
     "damageMode": "PHYSICAL",
     "damageType": "NORMAL",
-    "tags": ["TACTICAL", "WEAPON"],
+    "tags": [
+      "TACTICAL",
+      "WEAPON"
+    ],
     "dmg": 10,
     "push": 1,
     "maxCd": 6,
@@ -127,72 +143,84 @@
     "dmgMultipliers": [
       {
         "prof": "BODY",
-        "percentage":0.1
+        "percentage": 0.1
       }
     ],
     "effects": [
       {
-        "name": "Stunned",
+        "className": "game.effects.status.Stunned",
         "stacks": 0,
         "turns": 1
       }
     ],
-    "possibleCastPositions" : [
+    "possibleCastPositions": [
       3
     ],
     "possibleTargetPositions": [
-      4,5
+      4,
+      5
     ]
   },
   "S_TakeCover": {
     "name": "Take Cover",
+    "className": "game.skills.trees.equipment.shield.S_TakeCover",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SELF",
-    "tags": ["PRIMARY", "WEAPON"],
+    "tags": [
+      "PRIMARY",
+      "WEAPON"
+    ],
     "effects": [
       {
-        "name": "Prepared",
+        "className": "game.effects.hero.Prepared",
         "stacks": 0,
         "turns": 1
       },
       {
-        "name": "Protected",
+        "className": "game.effects.status.Protected",
         "stacks": 0,
         "turns": -1,
         "condition": {
           "trigger": "CASTER",
-          "effectName": "Mighty",
+          "effectName": "game.effects.stat.Mighty",
           "hasCheck": true
         }
       }
     ],
-    "possibleCastPositions" : [
-      0,1,2,3
+    "possibleCastPositions": [
+      0,
+      1,
+      2,
+      3
     ]
   },
   "S_ShieldBash": {
     "name": "Shield Bash",
+    "className": "game.skills.trees.equipment.shield.S_ShieldBash",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
-    "tags": ["TACTICAL", "WEAPON"],
+    "tags": [
+      "TACTICAL",
+      "WEAPON"
+    ],
     "maxCd": 3,
     "manaCost": 5,
     "push": 1,
     "effects": [
       {
-        "name": "Stunned",
+        "className": "game.effects.status.Stunned",
         "stacks": 0,
         "turns": 1,
         "condition": {
           "trigger": "CASTER",
-          "effectName": "Mighty",
+          "effectName": "game.effects.stat.Mighty",
           "hasCheck": true
         }
       }
     ],
-    "possibleCastPositions" : [
+    "possibleCastPositions": [
       3
     ],
     "possibleTargetPositions": [
@@ -201,24 +229,28 @@
   },
   "S_Dice": {
     "name": "Dice",
+    "className": "game.skills.trees.equipment.sword.S_Dice",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
-    "tags": ["PRIMARY", "WEAPON"],
+    "tags": [
+      "PRIMARY",
+      "WEAPON"
+    ],
     "dmg": 10,
     "dmgMultipliers": [
       {
         "prof": "BODY",
-        "percentage":0.05
+        "percentage": 0.05
       },
       {
         "prof": "DEXTERITY",
-        "percentage":0.05
+        "percentage": 0.05
       }
     ],
     "effects": [
       {
-        "name": "Marked",
+        "className": "game.effects.hero.Marked",
         "stacks": 0,
         "turns": -1,
         "condition": {
@@ -228,61 +260,73 @@
         }
       }
     ],
-    "possibleCastPositions" : [
-      2,3
+    "possibleCastPositions": [
+      2,
+      3
     ],
     "possibleTargetPositions": [
-      4,5
+      4,
+      5
     ]
   },
   "S_Slice": {
     "name": "Slice",
+    "className": "game.skills.trees.equipment.sword.S_Slice",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
-    "tags": ["PRIMARY", "WEAPON"],
+    "tags": [
+      "PRIMARY",
+      "WEAPON"
+    ],
     "dmg": 10,
     "dmgMultipliers": [
       {
         "prof": "BODY",
-        "percentage":0.05
+        "percentage": 0.05
       },
       {
         "prof": "DEXTERITY",
-        "percentage":0.05
+        "percentage": 0.05
       }
     ],
     "casterEffects": [
       {
-        "name": "Advantage",
+        "className": "game.effects.hero.Advantage",
         "stacks": 0,
         "turns": -1
       }
     ],
-    "possibleCastPositions" : [
-      2,3
+    "possibleCastPositions": [
+      2,
+      3
     ],
     "possibleTargetPositions": [
-      4,5
+      4,
+      5
     ]
   },
   "S_DuelingSlash": {
     "name": "Dueling Slash",
+    "className": "game.skills.trees.equipment.sword.S_DuelingSlash",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
-    "tags": ["TACTICAL", "WEAPON"],
+    "tags": [
+      "TACTICAL",
+      "WEAPON"
+    ],
     "dmg": 12,
     "maxCd": 3,
     "manaCost": 5,
     "dmgMultipliers": [
       {
         "prof": "BODY",
-        "percentage":0.05
+        "percentage": 0.05
       },
       {
         "prof": "DEXTERITY",
-        "percentage":0.05
+        "percentage": 0.05
       }
     ],
     "subscriptions": [
@@ -294,39 +338,44 @@
         }
       }
     ],
-    "possibleCastPositions" : [
-      2,3
+    "possibleCastPositions": [
+      2,
+      3
     ],
     "possibleTargetPositions": [
-      4,5
+      4,
+      5
     ]
   },
   "S_ShatterSwing": {
     "name": "Shatter Swing",
+    "className": "game.skills.trees.equipment.sword.S_ShatterSwing",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "ALL_TARGETS",
-    "tags": ["TACTICAL", "WEAPON"],
+    "tags": [
+      "TACTICAL",
+      "WEAPON"
+    ],
     "dmg": 12,
     "maxCd": 4,
     "manaCost": 8,
     "dmgMultipliers": [
       {
         "prof": "BODY",
-        "percentage":0.05
+        "percentage": 0.05
       },
       {
         "prof": "DEXTERITY",
-        "percentage":0.05
+        "percentage": 0.05
       }
     ],
     "effects": [
       {
-        "name": "Stunned",
+        "className": "game.effects.status.Stunned",
         "stacks": 0,
         "turns": 1,
         "condition": {
-          "chance": true,
           "successChance": 25
         }
       }
@@ -337,60 +386,79 @@
         "methodName": "chanceChange",
         "trigger": {
           "casterHeroReference": "SAME",
-          "casterEffects" : {
+          "casterEffects": {
             "boolLogic": "ALL_OF",
-            "objects": ["Advantage"]
+            "objects": [
+              "Advantage"
+            ]
           },
           "effects": {
             "boolLogic": "ALL_OF",
-            "objects": ["Stunned"]
+            "objects": [
+              "Stunned"
+            ]
           },
           "skillName": "S_ShatterSwing"
         }
       }
     ],
-    "possibleCastPositions" : [
+    "possibleCastPositions": [
       3
     ],
     "possibleTargetPositions": [
-      4,5
+      4,
+      5
     ]
   },
   "S_DaggerThrow": {
     "name": "Dagger Throw",
+    "className": "game.skills.trees.equipment.dagger.S_DaggerThrow",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
-    "tags": ["PRIMARY", "WEAPON"],
+    "tags": [
+      "PRIMARY",
+      "WEAPON"
+    ],
     "dmg": 4,
     "dmgMultipliers": [
       {
         "prof": "DEXTERITY",
-        "percentage":0.05
+        "percentage": 0.05
       }
     ],
-    "possibleCastPositions" : [
-      0,1,2
+    "possibleCastPositions": [
+      0,
+      1,
+      2
     ],
     "possibleTargetPositions": [
-      4,5,6
+      4,
+      5,
+      6
     ]
   },
   "S_GoForTheThroat": {
     "name": "Go For The Throat",
+    "className": "game.skills.trees.equipment.dagger.S_GoForTheThroat",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
-    "tags": ["PRIMARY", "WEAPON"],
+    "tags": [
+      "PRIMARY",
+      "WEAPON"
+    ],
     "dmg": 4,
     "dmgMultipliers": [
       {
         "prof": "DEXTERITY",
-        "percentage":0.14
+        "percentage": 0.14
       }
     ],
-    "possibleCastPositions" : [
-      1,2,3
+    "possibleCastPositions": [
+      1,
+      2,
+      3
     ],
     "possibleTargetPositions": [
       4
@@ -398,56 +466,69 @@
   },
   "S_AnkleSlice": {
     "name": "Ankle Slice",
+    "className": "game.skills.trees.equipment.dagger.S_AnkleSlice",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
-    "tags": ["TACTICAL", "WEAPON"],
+    "tags": [
+      "TACTICAL",
+      "WEAPON"
+    ],
     "dmg": 4,
     "maxCd": 4,
     "manaCost": 8,
     "dmgMultipliers": [
       {
         "prof": "DEXTERITY",
-        "percentage":0.19
+        "percentage": 0.19
       }
     ],
     "effects": [
       {
-        "name": "Immobilize",
+        "className": "game.effects.status.Immobile",
         "stacks": 0,
         "turns": 1
       },
       {
-        "name": "Shaken",
+        "className": "game.effects.stat.Shaken",
         "stacks": 0,
         "turns": 1
       }
     ],
-    "possibleCastPositions" : [
-      1,2,3
+    "possibleCastPositions": [
+      1,
+      2,
+      3
     ],
     "possibleTargetPositions": [
-      4,5
+      4,
+      5
     ]
   },
   "S_Shiv": {
     "name": "Shiv",
+    "className": "game.skills.trees.equipment.dagger.S_Shiv",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
-    "tags": ["TACTICAL", "WEAPON"],
+    "tags": [
+      "TACTICAL",
+      "WEAPON"
+    ],
     "dmg": 4,
     "maxCd": 4,
     "manaCost": 8,
-    "countAsHits": 3,
+    "countsAsHits": 3,
     "dmgMultipliers": [
       {
         "prof": "DEXTERITY",
-        "percentage":0.1
+        "percentage": 0.1
       }
     ],
-    "possibleCastPositions" : [
-      1,2,3
+    "possibleCastPositions": [
+      1,
+      2,
+      3
     ],
     "possibleTargetPositions": [
       4
@@ -455,30 +536,36 @@
   },
   "S_WeightedArrow": {
     "name": "Weighted Arrow",
+    "className": "game.skills.trees.equipment.bow.S_WeightedArrow",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
-    "tags": ["PRIMARY", "WEAPON"],
+    "tags": [
+      "PRIMARY",
+      "WEAPON"
+    ],
     "dmg": 4,
     "dmgMultipliers": [
       {
         "prof": "DEXTERITY",
-        "percentage":0.14
+        "percentage": 0.14
       }
     ],
     "effects": [
       {
-        "name": "Brittle",
+        "className": "game.effects.stat.Brittle",
         "stacks": 0,
         "turns": 1,
         "condition": {
-          "chance": true,
           "successChance": 25
         }
       }
     ],
-    "possibleCastPositions" : [
-      0,1,2,3
+    "possibleCastPositions": [
+      0,
+      1,
+      2,
+      3
     ],
     "possibleTargetPositions": [
       4
@@ -486,42 +573,52 @@
   },
   "S_AimedShot": {
     "name": "Aimed Shot",
+    "className": "game.skills.trees.equipment.bow.S_AimedShot",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
-    "tags": ["PRIMARY", "WEAPON"],
+    "tags": [
+      "PRIMARY",
+      "WEAPON"
+    ],
     "dmg": 4,
     "dmgMultipliers": [
       {
         "prof": "DEXTERITY",
-        "percentage":0.14
+        "percentage": 0.14
       }
     ],
-    "possibleCastPositions" : [
-      0,1
+    "possibleCastPositions": [
+      0,
+      1
     ],
     "possibleTargetPositions": [
-      4,5
+      4,
+      5
     ]
   },
   "S_CripplingShot": {
     "name": "Crippling Shot",
+    "className": "game.skills.trees.equipment.bow.S_CripplingShot",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "ALL_TARGETS",
-    "tags": ["TACTICAL", "WEAPON"],
+    "tags": [
+      "TACTICAL",
+      "WEAPON"
+    ],
     "dmg": 4,
     "maxCd": 4,
     "manaCost": 8,
     "dmgMultipliers": [
       {
         "prof": "DEXTERITY",
-        "percentage":0.14
+        "percentage": 0.14
       }
     ],
     "effects": [
       {
-        "name": "Bleeding",
+        "className": "game.effects.status.Bleeding",
         "stacks": 0,
         "turns": 2,
         "condition": {
@@ -530,39 +627,49 @@
         }
       },
       {
-        "name": "Immobile",
+        "className": "game.effects.status.Immobile",
         "stacks": 0,
         "turns": 1
       }
     ],
-    "possibleCastPositions" : [
-      0,1
+    "possibleCastPositions": [
+      0,
+      1
     ],
     "possibleTargetPositions": [
-      4,5
+      4,
+      5
     ]
   },
   "S_Barrage": {
     "name": "Barrage",
+    "className": "game.skills.trees.equipment.bow.S_Barrage",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "ALL_TARGETS",
-    "tags": ["TACTICAL", "WEAPON"],
+    "tags": [
+      "TACTICAL",
+      "WEAPON"
+    ],
     "dmg": 2,
     "maxCd": 4,
     "manaCost": 8,
-    "countAsHits": 2,
+    "countsAsHits": 2,
     "dmgMultipliers": [
       {
         "prof": "DEXTERITY",
-        "percentage":0.05
+        "percentage": 0.05
       }
     ],
-    "possibleCastPositions" : [
-      0,1
+    "possibleCastPositions": [
+      0,
+      1
     ],
     "possibleTargetPositions": [
-      4,5,6,7
+      4,
+      5,
+      6,
+      7
     ]
   }
 }

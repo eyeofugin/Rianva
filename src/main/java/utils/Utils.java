@@ -21,6 +21,9 @@ public class Utils {
 
   public static List<Effect> copyEffect(List<Effect> effectList) {
     List<Effect> result = new ArrayList<>();
+      if (effectList == null) {
+          return result;
+      }
     for (Effect effect : effectList) {
       result.add(effect.copy());
     }
@@ -29,6 +32,9 @@ public class Utils {
 
   public static List<Multiplier> copyMultiplier(List<Multiplier> multipliers) {
     List<Multiplier> result = new ArrayList<>();
+      if (multipliers == null) {
+          return result;
+      }
     for (Multiplier multiplier : multipliers) {
       result.add(multiplier.copy());
     }
@@ -37,14 +43,29 @@ public class Utils {
 
   public static List<Resource> copyResource(List<Resource> resources) {
     List<Resource> result = new ArrayList<>();
+    if (resources == null) {
+        return result;
+    }
     for (Resource resource : resources) {
       result.add(resource.copy());
     }
     return result;
   }
 
+
   public static Map<String, Object> copyKeyValues(Map<String, Object> keyValues) {
+      if (keyValues == null) {
+          return null;
+      }
     return keyValues.entrySet().stream()
+        .collect(
+            Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (a, b) -> b, HashMap::new));
+  }
+  public static Map<Stat, Integer> copyStats(Map<Stat, Integer> stats) {
+      if (stats == null) {
+          return null;
+      }
+      return stats.entrySet().stream()
         .collect(
             Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (a, b) -> b, HashMap::new));
   }

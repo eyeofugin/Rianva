@@ -1,0 +1,15 @@
+{
+  "Hunger": {
+    "name": "Hunger",
+    "icon": "Hunger",
+    "learnableSkills": [
+      "S_AbuseWeakness",
+      "S_Assassin",
+      "S_BloodLust",
+      "S_DoubleTime",
+      "S_Frenzy",
+      "S_Momentum",
+      "S_PreyOnTheWeak"
+    ]
+  }
+}

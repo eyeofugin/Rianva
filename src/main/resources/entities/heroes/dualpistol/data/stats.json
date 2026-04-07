@@ -1,9 +1,9 @@
 {
-  "MAGIC": 1,
+  "MIND": 1,
   "POWER": 16,
-  "SPEED": 16,
-  "STAMINA": 4,
-  "ENDURANCE": 1,
+  "DEXTERITY": 16,
+  "FOCUS": 4,
+  "BODY": 1,
   "CRIT_CHANCE": 15,
   "LIFE": 7
 }

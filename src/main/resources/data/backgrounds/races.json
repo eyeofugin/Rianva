@@ -1,0 +1,222 @@
+{
+  "Human": {
+    "name": "Human",
+    "icon": "Human",
+    "learnableSkills": [
+      "S_Adapt"
+    ],
+    "stats": {
+      "BODY": 70,
+      "MIND": 70,
+      "DEXTERITY": 70,
+      "VITALITY": 70,
+      "HEAT_RESIST": 10,
+      "COLD_RESIST": 10,
+      "LIGHT_RESIST": 10,
+      "DARK_RESIST": 10,
+      "SHOCK_RESIST": 10,
+      "TOX_RESIST": 10,
+      "MENTAL_RESIST": 10,
+      "ENERGY": 70,
+      "FOCUS": 70
+    }
+  },
+  "Orc": {
+    "name": "Orc",
+    "icon": "Orc",
+    "learnableSkills": [
+      "S_Aggression"
+    ],
+    "stats": {
+      "BODY": 92,
+      "MIND": 48,
+      "DEXTERITY": 45,
+      "VITALITY": 89,
+      "HEAT_RESIST": 14,
+      "COLD_RESIST": 17,
+      "LIGHT_RESIST": 5,
+      "DARK_RESIST": 6,
+      "SHOCK_RESIST": 20,
+      "TOX_RESIST": 14,
+      "MENTAL_RESIST": 3,
+      "ENERGY": 75,
+      "FOCUS": 43
+    }
+  },
+  "Goblin": {
+    "name": "Goblin",
+    "icon": "Goblin",
+    "learnableSkills": [
+      "S_Agility"
+    ],
+    "stats": {
+      "BODY": 42,
+      "MIND": 81,
+      "DEXTERITY": 100,
+      "VITALITY": 52,
+      "HEAT_RESIST": 3,
+      "COLD_RESIST": 4,
+      "LIGHT_RESIST": 0,
+      "DARK_RESIST": 1,
+      "SHOCK_RESIST": 1,
+      "TOX_RESIST": 0,
+      "MENTAL_RESIST": 5,
+      "ENERGY": 89,
+      "FOCUS": 94
+    }
+  },
+  "Dragonborn": {
+    "name": "Dragonborn",
+    "icon": "Dragonborn",
+    "learnableSkills": [
+      "S_BornInFlames"
+    ],
+    "stats": {
+      "BODY": 81,
+      "MIND": 70,
+      "DEXTERITY": 57,
+      "VITALITY": 72,
+      "HEAT_RESIST": 24,
+      "COLD_RESIST": 7,
+      "LIGHT_RESIST": 3,
+      "DARK_RESIST": 4,
+      "SHOCK_RESIST": 7,
+      "TOX_RESIST": 9,
+      "MENTAL_RESIST": 3,
+      "ENERGY": 80,
+      "FOCUS": 54
+    }
+  },
+  "Spirit": {
+    "name": "Spirit",
+    "icon": "Spirit",
+    "learnableSkills": [
+      "S_Ethereal"
+    ],
+    "stats": {
+      "BODY": 15,
+      "MIND": 71,
+      "DEXTERITY": 79,
+      "VITALITY": 46,
+      "HEAT_RESIST": 17,
+      "COLD_RESIST": 17,
+      "LIGHT_RESIST": 5,
+      "DARK_RESIST": 17,
+      "SHOCK_RESIST": 17,
+      "TOX_RESIST": 21,
+      "MENTAL_RESIST": 12,
+      "ENERGY": 80,
+      "FOCUS": 94
+    }
+  },
+  "Dwarf": {
+    "name": "Dwarf",
+    "icon": "Dwarf",
+    "learnableSkills": [
+      "S_HandSewnArmor"
+    ],
+    "stats": {
+      "BODY": 78,
+      "MIND": 75,
+      "DEXTERITY": 42,
+      "VITALITY": 73,
+      "HEAT_RESIST": 11,
+      "COLD_RESIST": 12,
+      "LIGHT_RESIST": 7,
+      "DARK_RESIST": 9,
+      "SHOCK_RESIST": 7,
+      "TOX_RESIST": 12,
+      "MENTAL_RESIST": 18,
+      "ENERGY": 66,
+      "FOCUS": 65
+    }
+  },
+  "Demon": {
+    "name": "Demon",
+    "icon": "Demon",
+    "learnableSkills": [
+      "S_TheDarken"
+    ],
+    "stats": {
+      "BODY": 78,
+      "MIND": 75,
+      "DEXTERITY": 72,
+      "VITALITY": 73,
+      "HEAT_RESIST": 20,
+      "COLD_RESIST": 12,
+      "LIGHT_RESIST": 0,
+      "DARK_RESIST": 15,
+      "SHOCK_RESIST": 2,
+      "TOX_RESIST": 3,
+      "MENTAL_RESIST": 1,
+      "ENERGY": 66,
+      "FOCUS": 66
+    }
+  },
+  "Elf": {
+    "name": "Elf",
+    "icon": "Elf",
+    "learnableSkills": [
+      "S_KeenEye"
+    ],
+    "stats": {
+      "BODY": 64,
+      "MIND": 79,
+      "DEXTERITY": 81,
+      "VITALITY": 42,
+      "HEAT_RESIST": 6,
+      "COLD_RESIST": 6,
+      "LIGHT_RESIST": 9,
+      "DARK_RESIST": 9,
+      "SHOCK_RESIST": 3,
+      "TOX_RESIST": 6,
+      "MENTAL_RESIST": 14,
+      "ENERGY": 82,
+      "FOCUS": 97
+    }
+  },
+  "Undead": {
+    "name": "Undead",
+    "icon": "Undead",
+    "learnableSkills": [
+      "S_Unlife"
+    ],
+    "stats": {
+      "BODY": 69,
+      "MIND": 70,
+      "DEXTERITY": 49,
+      "VITALITY": 82,
+      "HEAT_RESIST": 9,
+      "COLD_RESIST": 19,
+      "LIGHT_RESIST": 7,
+      "DARK_RESIST": 21,
+      "SHOCK_RESIST": 21,
+      "TOX_RESIST": 20,
+      "MENTAL_RESIST": 5,
+      "ENERGY": 46,
+      "FOCUS": 62
+    }
+  },
+  "Troll": {
+    "name": "Troll",
+    "icon": "Troll",
+    "learnableSkills": [
+      "S_FastRegen"
+    ],
+    "stats": {
+      "BODY": 94,
+      "MIND": 23,
+      "DEXTERITY": 28,
+      "VITALITY": 98,
+      "HEAT_RESIST": 13,
+      "COLD_RESIST": 20,
+      "LIGHT_RESIST": 9,
+      "DARK_RESIST": 13,
+      "SHOCK_RESIST": 18,
+      "TOX_RESIST": 22,
+      "MENTAL_RESIST": 2,
+      "ENERGY": 71,
+      "FOCUS": 59
+    }
+  }
+}

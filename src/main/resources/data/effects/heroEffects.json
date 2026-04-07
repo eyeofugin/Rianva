@@ -95,9 +95,6 @@
     "stackable": false,
     "durability": "TIME",
     "type": "HERO",
-    "triggerMap": {
-      "DMG_TRIGGER": "onDmg"
-    },
     "subscriptions": [
       {
         "topicName": "DMG_TRIGGER",
@@ -331,11 +328,6 @@
     "stackable": false,
     "durability": "PERSISTENT",
     "type": "HERO",
-    "triggerMap": {
-      "DMG_CHANGES_MULT": "dmgChangeMult",
-      "CAST_CHANGE": "castChange",
-      "ON_PERFORM": "onPerform"
-    },
     "subscriptions": [
       {
         "topicName": "DMG_CHANGES_MULT",

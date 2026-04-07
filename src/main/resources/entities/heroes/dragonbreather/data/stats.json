@@ -1,10 +1,10 @@
 {
-  "MAGIC": 3,
+  "MIND": 3,
   "POWER": 9,
-  "SPEED": 6,
-  "STAMINA": 13,
-  "ENDURANCE": 8,
+  "DEXTERITY": 6,
+  "FOCUS": 13,
+  "BODY": 8,
   "LIFE": 15,
-  "MANA": 8,
+  "ENERGY": 8,
   "MANA_REGAIN": 1
 }

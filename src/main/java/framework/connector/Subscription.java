@@ -18,6 +18,7 @@ public class Subscription {
         this.trigger.setEffect(effect);
     }
     public void setSkill(Skill skill) {
-        this.trigger.setSkill(skill);
+        if (trigger != null)
+            this.trigger.setSkill(skill);
     }
 }

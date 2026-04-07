@@ -1,0 +1,305 @@
+{
+  "Berserker": {
+    "name": "Berserker",
+    "icon": "Berserker",
+    "learnableSkills": [
+      "S_Berserker",
+      "S_DeathIsNoObstacle",
+      "S_IntimidatingRoar",
+      "S_NeverSurrender",
+      "S_RecklessAttack",
+      "S_Reengage"
+    ],
+    "statsIncrease": {
+      "BODY": 19,
+      "MIND": 0,
+      "DEXTERITY": 7,
+      "VITALITY": 33,
+      "HEAT_RESIST": 5,
+      "COLD_RESIST": 7,
+      "LIGHT_RESIST": 3,
+      "DARK_RESIST": 3,
+      "SHOCK_RESIST": 6,
+      "TOX_RESIST": 7,
+      "MENTAL_RESIST": 2,
+      "ENERGY": 8,
+      "FOCUS": 0
+    }
+  },
+  "Evoker": {
+    "name": "Evoker",
+    "icon": "Evoker",
+    "learnableSkills": [
+      "S_ChainLightning",
+      "S_Evoker",
+      "S_FireBlast",
+      "S_Meteors",
+      "S_RiskyChannel",
+      "S_StormSeeker",
+      "S_WindWall"
+    ],
+    "statsIncrease": {
+      "BODY": 0,
+      "MIND": 32,
+      "DEXTERITY": 10,
+      "VITALITY": 4,
+      "HEAT_RESIST": 2,
+      "COLD_RESIST": 1,
+      "LIGHT_RESIST": 0,
+      "DARK_RESIST": 0,
+      "SHOCK_RESIST": 3,
+      "TOX_RESIST": 0,
+      "MENTAL_RESIST": 4,
+      "ENERGY": 26,
+      "FOCUS": 18
+    }
+  },
+  "Fauna": {
+    "name": "Fauna",
+    "icon": "Fauna",
+    "learnableSkills": [
+      "S_BeastBlast",
+      "S_DragonFire",
+      "S_Fauna",
+      "S_ResolveOfTheBear",
+      "S_SnakeBite",
+      "S_ThunderBirdWingClap",
+      "S_WendigoDash"
+    ],
+    "statsIncrease": {
+      "BODY": 14,
+      "MIND": 14,
+      "DEXTERITY": 14,
+      "VITALITY": 14,
+      "HEAT_RESIST": 3,
+      "COLD_RESIST": 3,
+      "LIGHT_RESIST": 0,
+      "DARK_RESIST": 0,
+      "SHOCK_RESIST": 3,
+      "TOX_RESIST": 3,
+      "MENTAL_RESIST": 2,
+      "ENERGY": 13,
+      "FOCUS": 17
+    }
+  },
+  "Flora": {
+    "name": "Flora",
+    "icon": "Flora",
+    "learnableSkills": [
+      "S_Flora",
+      "S_HarvestSun",
+      "S_LifeBlossom",
+      "S_SporeBomb",
+      "S_SpreadingVines",
+      "S_ThornCage",
+      "S_TraverseTheRoots",
+      "S_VineGrip"
+    ],
+    "statsIncrease": {
+      "BODY": 2,
+      "MIND": 16,
+      "DEXTERITY": 6,
+      "VITALITY": 15,
+      "HEAT_RESIST": 0,
+      "COLD_RESIST": 0,
+      "LIGHT_RESIST": 7,
+      "DARK_RESIST": 0,
+      "SHOCK_RESIST": 0,
+      "TOX_RESIST": 9,
+      "MENTAL_RESIST": 0,
+      "ENERGY": 22,
+      "FOCUS": 23
+    }
+  },
+  "Hunter": {
+    "name": "Hunter",
+    "icon": "Hunter",
+    "learnableSkills": [
+      "S_Hideout",
+      "S_Hunter",
+      "S_Net",
+      "S_ShareTheSpoils",
+      "S_Trapper",
+      "S_TrophyHunt"
+    ],
+    "statsIncrease": {
+      "BODY": 11,
+      "MIND": 3,
+      "DEXTERITY": 27,
+      "VITALITY": 17,
+      "HEAT_RESIST": 3,
+      "COLD_RESIST": 2,
+      "LIGHT_RESIST": 2,
+      "DARK_RESIST": 3,
+      "SHOCK_RESIST": 4,
+      "TOX_RESIST": 2,
+      "MENTAL_RESIST": 2,
+      "ENERGY": 14,
+      "FOCUS": 10
+    }
+  },
+  "Medic": {
+    "name": "Medic",
+    "icon": "Medic",
+    "learnableSkills": [
+      "S_ANewHope",
+      "S_CarePackage",
+      "S_LastStand",
+      "S_Medic",
+      "S_MedicineUnderFire",
+      "S_Motivate"
+    ],
+    "statsIncrease": {
+      "BODY": 13,
+      "MIND": 5,
+      "DEXTERITY": 9,
+      "VITALITY": 23,
+      "HEAT_RESIST": 2,
+      "COLD_RESIST": 2,
+      "LIGHT_RESIST": 2,
+      "DARK_RESIST": 4,
+      "SHOCK_RESIST": 2,
+      "TOX_RESIST": 3,
+      "MENTAL_RESIST": 4,
+      "ENERGY": 14,
+      "FOCUS": 17
+    }
+  },
+  "Radiance": {
+    "name": "Radiance",
+    "icon": "Radiance",
+    "learnableSkills": [
+      "S_Halo",
+      "S_LightBarrier",
+      "S_LightReflection",
+      "S_LightSalve",
+      "S_PrayForGuidance",
+      "S_PrismRay",
+      "S_Radiance"
+    ],
+    "statsIncrease": {
+      "BODY": 4,
+      "MIND": 17,
+      "DEXTERITY": 3,
+      "VITALITY": 23,
+      "HEAT_RESIST": 1,
+      "COLD_RESIST": 2,
+      "LIGHT_RESIST": 9,
+      "DARK_RESIST": 9,
+      "SHOCK_RESIST": 2,
+      "TOX_RESIST": 2,
+      "MENTAL_RESIST": 4,
+      "ENERGY": 15,
+      "FOCUS": 9
+    }
+  },
+  "Rogue": {
+    "name": "Rogue",
+    "icon": "Rogue",
+    "learnableSkills": [
+      "S_FindTheWeakness",
+      "S_Gambit",
+      "S_Opportunist",
+      "S_PoisonTip",
+      "S_Rogue",
+      "S_SmokeBomb"
+    ],
+    "statsIncrease": {
+      "BODY": 5,
+      "MIND": 5,
+      "DEXTERITY": 32,
+      "VITALITY": 4,
+      "HEAT_RESIST": 0,
+      "COLD_RESIST": 0,
+      "LIGHT_RESIST": 0,
+      "DARK_RESIST": 3,
+      "SHOCK_RESIST": 0,
+      "TOX_RESIST": 3,
+      "MENTAL_RESIST": 9,
+      "ENERGY": 20,
+      "FOCUS": 19
+    }
+  },
+  "Strider": {
+    "name": "Strider",
+    "icon": "Strider",
+    "learnableSkills": [
+      "S_Ambush",
+      "S_HealingPlants",
+      "S_Pathfinder",
+      "S_Strider",
+      "S_Trailblaze",
+      "S_TrueShot"
+    ],
+    "statsIncrease": {
+      "BODY": 16,
+      "MIND": 12,
+      "DEXTERITY": 15,
+      "VITALITY": 17,
+      "HEAT_RESIST": 0,
+      "COLD_RESIST": 1,
+      "LIGHT_RESIST": 0,
+      "DARK_RESIST": 1,
+      "SHOCK_RESIST": 0,
+      "TOX_RESIST": 4,
+      "MENTAL_RESIST": 6,
+      "ENERGY": 15,
+      "FOCUS": 13
+    }
+  },
+  "Trickster": {
+    "name": "Trickster",
+    "icon": "Trickster",
+    "learnableSkills": [
+      "S_CheapShot",
+      "S_Lure",
+      "S_PocketHex",
+      "S_SleighOfHand",
+      "S_Trick",
+      "S_Trickster"
+    ],
+    "statsIncrease": {
+      "BODY": 1,
+      "MIND": 13,
+      "DEXTERITY": 33,
+      "VITALITY": 2,
+      "HEAT_RESIST": 0,
+      "COLD_RESIST": 0,
+      "LIGHT_RESIST": 0,
+      "DARK_RESIST": 3,
+      "SHOCK_RESIST": 0,
+      "TOX_RESIST": 0,
+      "MENTAL_RESIST": 6,
+      "ENERGY": 28,
+      "FOCUS": 14
+    }
+  },
+  "Vengeance": {
+    "name": "Vengeance",
+    "icon": "Vengeance",
+    "learnableSkills": [
+      "S_ByAnyMeans",
+      "S_GoAfterEvil",
+      "S_Judgment",
+      "S_LookForTrouble",
+      "S_NoMercy",
+      "S_TightenTheGrip",
+      "S_Vengeance"
+    ],
+    "statsIncrease": {
+      "BODY": 19,
+      "MIND": 2,
+      "DEXTERITY": 1,
+      "VITALITY": 30,
+      "HEAT_RESIST": 4,
+      "COLD_RESIST": 5,
+      "LIGHT_RESIST": 2,
+      "DARK_RESIST": 7,
+      "SHOCK_RESIST": 5,
+      "TOX_RESIST": 5,
+      "MENTAL_RESIST": 2,
+      "ENERGY": 11,
+      "FOCUS": 7
+    }
+  }
+}

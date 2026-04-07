@@ -25,9 +25,10 @@ public class StateManager {
     this.engine = e;
     this.memory = engine.memory;
     //        dungeonDraft();
-    dev();
+//    dev();
     //        pvpDraft();
     //        arena();
+    abilityGlossary();
   }
 
   private void pvpDraft() {
@@ -76,6 +77,12 @@ public class StateManager {
     DevState devState = new DevState(this.memory);
     devState.setActive(true);
     this.scenes.add(devState);
+  }
+
+  private void abilityGlossary() {
+    AbilityGlossaryState state = new AbilityGlossaryState(this.memory);
+    state.setActive(true);
+    this.scenes.add(state);
   }
 
   //    public void joinDungeon() {

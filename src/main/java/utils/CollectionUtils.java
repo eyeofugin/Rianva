@@ -7,6 +7,9 @@ import java.util.Random;
 
 public class CollectionUtils {
 
+  public static boolean isNotEmpty(String s) {
+    return s != null && s.isEmpty();
+  }
   public static <T> T getRandom(Collection<T> collection) {
     if (collection.isEmpty()) {
       return null;

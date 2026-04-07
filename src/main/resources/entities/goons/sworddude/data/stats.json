@@ -1,8 +1,8 @@
 {
-  "MAGIC": 1,
+  "MIND": 1,
   "POWER": 3,
-  "SPEED": 3,
-  "STAMINA": 3,
-  "ENDURANCE": 3,
+  "DEXTERITY": 3,
+  "FOCUS": 3,
+  "BODY": 3,
   "LIFE": 8
 }

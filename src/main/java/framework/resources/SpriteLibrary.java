@@ -92,13 +92,13 @@ public class SpriteLibrary {
             "fonts/evasion.png",
             0));
     sprites.put(
-        Stat.ACCURACY.name(),
+        Stat.LETHALITY.name(),
         sprite(
             Property.EFFECT_ICON_SIZE,
             Property.EFFECT_ICON_SIZE,
             Property.EFFECT_ICON_SIZE,
             Property.EFFECT_ICON_SIZE,
-            "fonts/accuracy.png",
+            "fonts/lethality.png",
             0));
     sprites.put(
         Stat.CRIT_CHANCE.name(),

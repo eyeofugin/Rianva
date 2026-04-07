@@ -16,14 +16,14 @@
     ],
     "role": "FIGHTER",
     "baseStats": {
-      "MAGIC": 8,
-      "ATTACK": 1,
-      "SPEED": 12,
-      "STAMINA": 2,
-      "ENDURANCE": 3,
+      "MIND": 8,
+      "BODY": 1,
+      "DEXTERITY": 12,
+      "FOCUS": 2,
+      "BODY": 3,
       "LIFE": 7,
-      "MANA": 8,
-      "NORMAL_RESIST": 2,
+      "ENERGY": 8,
+      "ARMOR": 2,
       "HEAT_RESIST": 3,
       "COLD_RESIST": 5,
       "DARK_RESIST": 6,
@@ -44,13 +44,13 @@
     ],
     "role": "FIGHTER",
     "baseStats": {
-      "MAGIC": 1,
-      "ATTACK": 1,
-      "SPEED": 12,
-      "STAMINA": 2,
-      "ENDURANCE": 3,
+      "MIND": 1,
+      "BODY": 1,
+      "DEXTERITY": 12,
+      "FOCUS": 2,
+      "BODY": 3,
       "LIFE": 7,
-      "MANA": 100
+      "ENERGY": 100
     }
   }
 }

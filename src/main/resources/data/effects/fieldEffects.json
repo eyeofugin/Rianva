@@ -1,90 +1,5 @@
 {
-  "TEST": {
-    "name": "String",
-    "iconString": "STR",
-    "description": "STRING",
-    "stackable": true,
-    "type": "ARENA,FIELD,HERO,STATUS,STAT",
-    "subTypes": [
-      "ATK_ENHANCE",
-      "COSMIC",
-      "DMGTYPE",
-      "BONUS",
-      "STAT",
-      "UNIQUE",
-      "WEAKNESS",
-      "BUFF",
-      "DEBUFF"
-    ],
-    "negates": [
-      "EffectName"
-    ],
-    "subscriptions": [
-      {
-        "topicName": "STRING",
-        "methodName": "String",
-        "trigger": {
-          "targetHeroReference": "SAME,OTHER,ALLY,OTHER_ALLY,ENEMY",
-          "casterHeroReference": "SAME,OTHER,ALLY,OTHER_ALLY,ENEMY",
-          "samePosition": true,
-          "dmgTypeIsElemental": true,
-          "statIsElementalDef": true,
-          "skillNotNull": true,
-          "hasEnergyCost": true,
-          "targetHasStatusDebuff": true,
-          "targetHasStatusBuff": true,
-          "damageTypes": {
-            "boolLogic": "SOME_OF,NONE_OF,ALL_OF",
-            "objects": [
-              "DAMAGETYPE"
-            ]
-          },
-          "damageModes": {
-            "boolLogic": "SOME_OF,NONE_OF,ALL_OF",
-            "objects": [
-              "DAMAGEMODE"
-            ]
-          },
-          "stats": {
-            "boolLogic": "SOME_OF,NONE_OF,ALL_OF",
-            "objects": [
-              "STAT"
-            ]
-          },
-          "effects": {
-            "boolLogic": "SOME_OF,NONE_OF,ALL_OF",
-            "objects": [
-              "EFFECTNAME"
-            ]
-          },
-          "targetEffects": {
-            "boolLogic": "SOME_OF,NONE_OF,ALL_OF",
-            "objects": [
-              "EFFECTNAME"
-            ]
-          },
-          "casterEffects": {
-            "boolLogic": "SOME_OF,NONE_OF,ALL_OF",
-            "objects": [
-              "EFFECTNAME"
-            ]
-          },
-          "targetTypes": {
-            "boolLogic": "SOME_OF,NONE_OF,ALL_OF",
-            "objects": [
-              "TARGETTYPE"
-            ]
-          },
-          "skillTags": {
-            "boolLogic": "SOME_OF,NONE_OF,ALL_OF",
-            "objects": [
-              "SKILLTAG"
-            ]
-          }
-        }
-      }
-    ]
-  },
+
   "Thicket": {
     "name": "Thicket",
     "iconString": "THI",
@@ -136,7 +51,7 @@
         "methodName": "onPerform",
         "trigger": {
           "samePosition": true,
-          "tags": {
+          "skillTags": {
             "boolLogic": "SOME_OF",
             "objects": [
               "DAMAGE"

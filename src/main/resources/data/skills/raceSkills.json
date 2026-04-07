@@ -1,22 +1,28 @@
 {
   "S_Adapt": {
     "name": "Adapt",
+    "className": "game.skills.trees.races.S_Adapt",
     "description": "Adapt",
     "iconPath": "icons/skills/wingedboots.png",
-    "targetType": "PASSIVE",
-    "tags": ["PASSIVE", "RACE"]
+    "tags": [
+      "PASSIVE",
+      "RACE"
+    ]
   },
   "S_Unlife": {
     "name": "Unlife",
+    "className": "game.skills.trees.races.S_Unlife",
     "description": "Unlife",
     "iconPath": "icons/skills/wingedboots.png",
-    "targetType": "PASSIVE",
-    "tags": ["PASSIVE", "RACE"],
+    "tags": [
+      "PASSIVE",
+      "RACE"
+    ],
     "subscriptions": [
       {
         "topicName": "HEAL_CHANGES_MULT",
         "methodName": "healChanges",
-        "trigger" : {
+        "trigger": {
           "targetHeroReference": "SAME",
           "casterHeroReference": "OTHER_ALLY"
         }
@@ -25,10 +31,13 @@
   },
   "S_KeenEye": {
     "name": "Keen eye",
+    "className": "game.skills.trees.races.S_KeenEye",
     "description": "Unlife",
     "iconPath": "icons/skills/wingedboots.png",
-    "targetType": "PASSIVE",
-    "tags": ["PASSIVE", "RACE"],
+    "tags": [
+      "PASSIVE",
+      "RACE"
+    ],
     "keyValues": {
       "SelfAcc": 20,
       "OtherAcc": 5
@@ -37,11 +46,13 @@
       {
         "topicName": "BASE_STAT_CHANGE",
         "methodName": "statChange",
-        "trigger" : {
+        "trigger": {
           "targetHeroReference": "ALLY",
           "stats": {
             "boolLogic": "ALL_OF",
-            "objects": ["ACCURACY"]
+            "objects": [
+              "ACCURACY"
+            ]
           }
         }
       }
@@ -49,10 +60,13 @@
   },
   "S_Ethereal": {
     "name": "Ethereal",
+    "className": "game.skills.trees.races.S_Ethereal",
     "description": "Unlife",
     "iconPath": "icons/skills/wingedboots.png",
-    "targetType": "PASSIVE",
-    "tags": ["PASSIVE", "RACE"],
+    "tags": [
+      "PASSIVE",
+      "RACE"
+    ],
     "keyValues": {
       "Energy": 3
     },
@@ -60,11 +74,13 @@
       {
         "topicName": "ON_DAMAGE",
         "methodName": "onHit",
-        "trigger" : {
+        "trigger": {
           "casterHeroReference": "SAME",
-          "damageModes" : {
+          "damageModes": {
             "boolLogic": "ALL_OF",
-            "objects": ["PHYSICAL"]
+            "objects": [
+              "PHYSICAL"
+            ]
           }
         }
       }
@@ -72,19 +88,24 @@
   },
   "S_BornInFlames": {
     "name": "Born in Flames",
+    "className": "game.skills.trees.races.S_BornInFlames",
     "description": "Unlife",
     "iconPath": "icons/skills/wingedboots.png",
-    "targetType": "PASSIVE",
-    "tags": ["PASSIVE", "RACE"],
+    "tags": [
+      "PASSIVE",
+      "RACE"
+    ],
     "subscriptions": [
       {
         "topicName": "EFFECT_FAILURE_CHECK",
         "methodName": "effectFailure",
-        "trigger" : {
+        "trigger": {
           "targetHeroReference": "SAME",
-          "effects" : {
+          "effects": {
             "boolLogic": "ALL_OF",
-            "objects": ["Frost"]
+            "objects": [
+              "Frost"
+            ]
           }
         }
       }
@@ -92,15 +113,18 @@
   },
   "S_HandSewnArmor": {
     "name": "Hand sewn Armor",
+    "className": "game.skills.trees.races.S_HandSewnArmor",
     "description": "Unlife",
     "iconPath": "icons/skills/wingedboots.png",
-    "targetType": "PASSIVE",
-    "tags": ["PASSIVE", "RACE"],
+    "tags": [
+      "PASSIVE",
+      "RACE"
+    ],
     "subscriptions": [
       {
         "topicName": "CHANCE_EFFECT_MULT",
         "methodName": "chanceEffectMult",
-        "trigger" : {
+        "trigger": {
           "casterHeroReference": "SAME",
           "equipmentTypes": {
             "boolLogic": "SOME_OF",
@@ -113,7 +137,7 @@
       {
         "topicName": "STAT_BASE_CHANGE_CHANGE",
         "methodName": "statBaseChangeChange",
-        "trigger" : {
+        "trigger": {
           "targetHeroReference": "SAME",
           "equipmentTypes": {
             "boolLogic": "SOME_OF",
@@ -126,7 +150,7 @@
       {
         "topicName": "STAT_MULT_CHANGE_CHANGE",
         "methodName": "statMultChangeChange",
-        "trigger" : {
+        "trigger": {
           "targetHeroReference": "SAME",
           "equipmentTypes": {
             "boolLogic": "SOME_OF",
@@ -140,20 +164,22 @@
     "keyValues": {
       "ChanceMult": 3,
       "StatMult": 1.15
-
     }
   },
   "S_Agility": {
     "name": "Agility",
+    "className": "game.skills.trees.races.S_Agility",
     "description": "Unlife",
     "iconPath": "icons/skills/wingedboots.png",
-    "targetType": "PASSIVE",
-    "tags": ["PASSIVE", "RACE"],
+    "tags": [
+      "PASSIVE",
+      "RACE"
+    ],
     "subscriptions": [
       {
         "topicName": "CAST_CHANGE",
         "methodName": "castChange",
-        "trigger" : {
+        "trigger": {
           "casterHeroReference": "SAME"
         }
       }
@@ -161,19 +187,26 @@
   },
   "S_Aggression": {
     "name": "Aggression",
+    "className": "game.skills.trees.races.S_Aggression",
     "description": "Unlife",
     "iconPath": "icons/skills/wingedboots.png",
-    "targetType": "PASSIVE",
-    "tags": ["PASSIVE", "RACE"],
+    "tags": [
+      "PASSIVE",
+      "RACE"
+    ],
     "subscriptions": [
       {
         "topicName": "CHANCE_EFFECT_MULT",
         "methodName": "chanceEffectMult",
-        "trigger" : {
+        "trigger": {
           "casterHeroReference": "SAME",
           "effects": {
-            "boolLogic": "ANY_OF",
-            "objects": ["Dazed", "Stunned", "Immobile"]
+            "boolLogic": "SOME_OF",
+            "objects": [
+              "Dazed",
+              "Stunned",
+              "Immobile"
+            ]
           }
         }
       }
@@ -184,19 +217,25 @@
   },
   "S_TheDarken": {
     "name": "The Darken",
+    "className": "game.skills.trees.races.S_TheDarken",
     "description": "Unlife",
     "iconPath": "icons/skills/wingedboots.png",
-    "targetType": "PASSIVE",
-    "tags": ["PASSIVE", "RACE"],
+    "tags": [
+      "PASSIVE",
+      "RACE"
+    ],
     "subscriptions": [
       {
         "topicName": "BASE_DMG_CHANGES",
         "methodName": "dmgChanges",
-        "trigger" : {
+        "trigger": {
           "casterHeroReference": "SAME",
           "damageModes": {
             "boolLogic": "SOME_OF",
-            "objects": ["PHYSICAL", "MAGICAL"]
+            "objects": [
+              "PHYSICAL",
+              "MAGICAL"
+            ]
           }
         }
       }

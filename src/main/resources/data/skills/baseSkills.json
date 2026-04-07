@@ -1,0 +1,32 @@
+{
+  "S_Boots": {
+    "name":"Boots",
+    "className":"game.skills.trees.genericskills.S_Boots",
+    "description": "Boots",
+    "iconPath": "icons/skills/wingedboots.png",
+    "targetType": "SINGLE_OTHER",
+    "possibleCastPositions": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "maxCd" : 5,
+    "isMove": true,
+    "countsAsHits": 0
+  },
+  "S_Skip": {
+    "name":"Skip",
+    "className":"game.skills.trees.genericskills.S_Skip",
+    "description": "Skip",
+    "iconPath": "icons/skills/wingedboots.png",
+    "targetType": "SELF",
+    "possibleCastPositions": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "countsAsHits": 0
+  }
+}

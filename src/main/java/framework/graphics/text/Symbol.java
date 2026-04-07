@@ -230,7 +230,6 @@ public class Symbol {
   public static Symbol critchance = new Symbol("fonts/critchance.png", 8, 8);
   public static Symbol evasion = new Symbol("fonts/evasion.png", 8, 8);
   public static Symbol lethality = new Symbol("fonts/lethality.png", 8, 8);
-  public static Symbol accuracy = new Symbol("fonts/accuracy.png", 8, 8);
 
   public static Symbol enemyTarget = new Symbol("fonts/enemytarget.png", 8, 8);
   public static Symbol friendTarget = new Symbol("fonts/friendtarget.png", 8, 8);

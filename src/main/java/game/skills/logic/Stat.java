@@ -6,33 +6,39 @@ import java.util.List;
 import java.util.Random;
 
 public enum Stat {
+  //Offensive stats
   MIND("Mind", "MIN", "{013}"),
   BODY("Body", "BOD", "{014}"),
   DEXTERITY("Dexterity", "DEX", "{015}"),
-  VITALITY("Vitality", "VIT", "{009}"),
-  DODGE("Dodge", "DDG", "{001}"),
 
-  CRIT_CHANCE("Crit Chance", "CRI", "{001}"),
-
-  ACCURACY("Accuracy", "ACC", "{001}"),
-
-  LIFE_REGAIN("Regain", "LRE", "{009}"),
-  CURRENT_LIFE("Life", "CLI", "{009}"),
-
-  ENERGY("Max", "NRG", "{011}"),
-  ENERGY_REGAIN("Regain", "NRR", "{011}"),
-  CURRENT_ENERGY("Energy", "CNR", "{011}"),
-
-  SHIELD("Shield", "SHI", "{008}"),
-
-  ARMOR("Armor", "ARM", "{008}"),
+  //Defensive Stats
+  VITALITY("Vitality", "VIT", "{009}"),// x3 is the life value
   HEAT_RESIST("Heat Resist", "SHI", "{008}"),
   COLD_RESIST("Cold Resist", "SHI", "{008}"),
   LIGHT_RESIST("Light Resist", "SHI", "{008}"),
   DARK_RESIST("Dark Resist", "SHI", "{008}"),
   SHOCK_RESIST("Shock Resist", "SHI", "{008}"),
   MENTAL_RESIST("Mental Resist", "SHI", "{008}"),
-  TOX_RESIST("Tox Resist", "SHI", "{008}");
+  TOX_RESIST("Tox Resist", "SHI", "{008}"),
+
+  //Utility Stats
+  ENERGY("Max", "NRG", "{011}"),
+  FOCUS("Focus", "NRR", "{011}"), // /10 is the energy regain value
+
+  //Equipment Source stats
+  LETHALITY("Lethality","LET", "{001}"),
+  ARMOR("Armor", "ARM", "{008}"),
+  CRIT_CHANCE("Crit Chance", "CRI", "{001}"),
+  LIFE_REGAIN("Regain", "LRE", "{009}"),
+
+  //Resource Stats
+  LIFE("Life", "LIF", "{009}"),
+  CURRENT_LIFE("Life", "CLI", "{009}"),
+  CURRENT_ENERGY("Energy", "CNR", "{011}"),
+  ENERGY_REGAIN("Regain", "NRR", "{011}"),
+  DODGE("Dodge", "DDG", "{001}"),
+  ACCURACY("Accuracy", "ACC", "{001}"),
+  SHIELD("Shield", "SHI", "{008}");
 
   //    MAX_ACTION("Max", "ACT", "{001}"),
   //    CURRENT_ACTION("Action", "CAC", "{001}");
@@ -40,6 +46,7 @@ public enum Stat {
   private final String translationString;
   private final String iconKey;
   private final String colorKey;
+  public static List<Stat> resistances = List.of(HEAT_RESIST, COLD_RESIST, SHOCK_RESIST, TOX_RESIST, MENTAL_RESIST, LIGHT_RESIST, DARK_RESIST);
 
   public static List<Stat> elementalResistances = List.of(HEAT_RESIST, COLD_RESIST, SHOCK_RESIST, TOX_RESIST);
   public static List<Stat> nonResourceStats =
@@ -49,7 +56,7 @@ public enum Stat {
           Stat.DEXTERITY,
           Stat.DODGE,
           Stat.CRIT_CHANCE,
-          Stat.ACCURACY,
+          Stat.LETHALITY,
           Stat.HEAT_RESIST,
           Stat.COLD_RESIST,
           Stat.LIGHT_RESIST,
@@ -87,7 +94,7 @@ public enum Stat {
 
   public static Stat getRdmStat() {
 
-    Stat[] stdStats = new Stat[] {MIND, BODY, DEXTERITY, ACCURACY, DODGE};
+    Stat[] stdStats = new Stat[] {MIND, BODY, DEXTERITY, LETHALITY, DODGE};
     Random random = new Random();
     int rndInt = random.nextInt(5);
     return stdStats[rndInt];

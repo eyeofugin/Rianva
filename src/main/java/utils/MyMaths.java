@@ -51,7 +51,7 @@ public class MyMaths {
     for (int att = 5; att <= 20; att += 3) {
       System.out.print(att + "\t\t");
       for (int def = 3; def <= 21; def += 3) {
-        System.out.print(getDamage(att, def, 0, false) + "\t");
+        System.out.print(getDamage(att, def, false) + "\t");
       }
       System.out.println();
     }
@@ -61,7 +61,7 @@ public class MyMaths {
     for (int att = 10; att <= 40; att += 5) {
       System.out.print(att + "\t\t");
       for (int def = 10; def <= 40; def += 5) {
-        System.out.print(getDamage(att, def, 0, false) + "\t");
+        System.out.print(getDamage(att, def, false) + "\t");
       }
       System.out.println();
     }
@@ -86,13 +86,9 @@ public class MyMaths {
   public static int getDamage(int att, int def, boolean rdmize) {
 
     int reduction = (int)(0.7 * Math.sqrt(50 * def));
+    reduction = rdmize(reduction);
 
-    int defense = def - (def * lethal / 100);
-    if (rdmize) {
-      att = rdmize(att);
-      defense = rdmize(defense);
-    }
-    return (int) (att * (dmgEqualizer / (dmgEqualizer + (double) defense)));
+    return percentageOf(1-reduction, att);
   }
 
   private static int rdmize(int a) {

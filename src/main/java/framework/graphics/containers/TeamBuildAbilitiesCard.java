@@ -32,7 +32,7 @@ public class TeamBuildAbilitiesCard extends GUIElement {
   public void setHero(Hero hero) {
     this.hero = hero;
     this.availableSkills.addAll(this.hero.getSkills());
-    this.availableSkills.addAll(this.hero.getLearnableSkillList());
+//    this.availableSkills.addAll(this.hero.getLearnableSkillList());
   }
 
   public void finish() {

@@ -20,6 +20,9 @@ public class HeroLibrary {
   public static Hero getHero(String name) {
     if (heroesJson != null && heroesJson.containsKey(name)) {
       HeroDTO dto = FileWalker.mapJson(HeroDTO.class, heroesJson.get(name));
+      if (dto == null) {
+        return null;
+      }
       return new Hero(dto);
     }
     return null;

@@ -4,10 +4,12 @@ import framework.graphics.GUIElement;
 import framework.graphics.text.Color;
 import framework.graphics.text.TextAlignment;
 import game.entities.Hero;
+import game.entities.HeroDTO;
 import game.skills.logic.Stat;
 
 public class StatField extends GUIElement {
   private final Hero hero;
+  private final HeroDTO heroDTO;
   private Stat[] leftStatArray =
       new Stat[] {
         Stat.MIND,
@@ -15,7 +17,7 @@ public class StatField extends GUIElement {
         Stat.DEXTERITY,
         Stat.VITALITY,
         Stat.DODGE,
-        Stat.ACCURACY,
+        Stat.LETHALITY,
         Stat.CRIT_CHANCE
       };
   private Stat[] rightStatArray =
@@ -30,13 +32,26 @@ public class StatField extends GUIElement {
         Stat.SHOCK_RESIST
       };
 
-  public StatField(Hero hero) {
-    this.hero = hero;
+  public StatField(HeroDTO dto) {
+    this.heroDTO = dto;
+    this.hero = null;
     this.setSize(200, 150);
   }
-
+  public StatField(Hero hero) {
+    this.hero = hero;
+    this.heroDTO = null;
+    this.setSize(200, 150);
+  }
+  public StatField(HeroDTO dto, Stat[] lArray, Stat[] rArray) {
+    this.heroDTO = dto;
+    this.hero = null;
+    this.setSize(200, 150);
+    this.leftStatArray = lArray;
+    this.rightStatArray = rArray;
+  }
   public StatField(Hero hero, Stat[] lArray, Stat[] rArray) {
     this.hero = hero;
+    this.heroDTO = null;
     this.setSize(200, 150);
     this.leftStatArray = lArray;
     this.rightStatArray = rArray;
@@ -53,8 +68,8 @@ public class StatField extends GUIElement {
   private void renderSide(Stat[] stats, int x) {
     int yf = 3;
     for (Stat stat : stats) {
-      int totalValue = hero.getStat(stat);
-      int statChange = hero.getStatChange(stat);
+      int totalValue = hero != null? hero.getStat(stat) : heroDTO.getStat(stat);
+      int statChange = hero != null?hero.getStatChange(stat) :0;
       int baseValue = totalValue - statChange;
       //            if (baseValue != 100 && (statChange != 0 || baseValue != 0)) {
       String baseStatString = stat.getReference() + ":" + baseValue;

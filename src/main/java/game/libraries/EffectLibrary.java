@@ -18,15 +18,15 @@ public class EffectLibrary {
   private static Map<String, EffectDTO> statusEffectsDTOs = new HashMap<>();
 
   public static void init() {
-    Map<String, String> heroEffectJson = FileWalker.loadJsonMap("data/heroEffects.json");
+    Map<String, String> heroEffectJson = FileWalker.loadJsonMap("data/effects/heroEffects.json");
     heroEffectDTOs = loadDTOMap(heroEffectJson);
-    Map<String, String> globalEffectJson = FileWalker.loadJsonMap("data/globalEffects.json");
+    Map<String, String> globalEffectJson = FileWalker.loadJsonMap("data/effects/globalEffects.json");
     globalEffectDTOs = loadDTOMap(globalEffectJson);
-    Map<String, String> fieldEffectJson = FileWalker.loadJsonMap("data/fieldEffects.json");
+    Map<String, String> fieldEffectJson = FileWalker.loadJsonMap("data/effects/fieldEffects.json");
     fieldEffectDTOs = loadDTOMap(fieldEffectJson);
-    Map<String, String> statEffectsJson = FileWalker.loadJsonMap("data/statEffects.json");
+    Map<String, String> statEffectsJson = FileWalker.loadJsonMap("data/effects/statEffects.json");
     statEffectsDTOs = loadDTOMap(statEffectsJson);
-    Map<String, String> statusEffectsJson = FileWalker.loadJsonMap("data/statusEffects.json");
+    Map<String, String> statusEffectsJson = FileWalker.loadJsonMap("data/effects/statusEffects.json");
     statusEffectsDTOs = loadDTOMap(statusEffectsJson);
   }
 
@@ -119,12 +119,12 @@ public class EffectLibrary {
             Collectors.toMap(
                 Map.Entry::getKey,
                 e -> {
-                  EffectDTO dto = getEffectDTO(e.getValue());
+                  EffectDTO dto = createEffectDTO(e.getValue());
                   return Objects.requireNonNullElseGet(dto, EffectDTO::new);
                 }));
   }
 
-  public static EffectDTO getEffectDTO(String name, Map<String, String> map) {
-    return FileWalker.mapJson(EffectDTO.class, map.get(name));
+  public static EffectDTO createEffectDTO(String value) {
+    return FileWalker.mapJson(EffectDTO.class, value);
   }
 }

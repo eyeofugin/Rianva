@@ -78,9 +78,11 @@
         "methodName": "dmgTrigger",
         "trigger": {
           "casterHeroReference": "SAME",
-          "damageModes" : {
+          "damageModes": {
             "boolLogic": "ALL_OF",
-            "objects": ["PHYSICAL"]
+            "objects": [
+              "PHYSICAL"
+            ]
           }
         }
       }
@@ -105,9 +107,11 @@
         "methodName": "dmgTrigger",
         "trigger": {
           "casterHeroReference": "SAME",
-          "damageModes" : {
+          "damageModes": {
             "boolLogic": "ALL_OF",
-            "objects": ["PHYSICAL"]
+            "objects": [
+              "PHYSICAL"
+            ]
           }
         }
       }
@@ -127,9 +131,6 @@
       "BUFF",
       "ATK_ENHANCE"
     ],
-    "triggerMap": {
-      "CAST_CHANGE": "castChange"
-    },
     "subscriptions": [
       {
         "topicName": "CAST_CHANGE",
@@ -184,18 +185,20 @@
       "DEBUFF",
       "COLD"
     ],
-    "subscriptions": {
-      "topicName": "END_OF_TURN",
-      "methodName": "endOfTurn",
-      "trigger": {}
-    },
+    "subscriptions": [
+      {
+        "topicName": "END_OF_TURN",
+        "methodName": "endOfTurn",
+        "trigger": {}
+      }
+    ],
     "keyValues": {
       "FrostEotDmgPercentage": 5,
       "FrostFinalDmgPercentage": 5,
       "FrostStackMax": 3,
       "ShakenTurns": 2
     },
-    "negates": "Burning"
+    "negates": ["Burning"]
   },
   "Burning": {
     "name": "Burning",
@@ -209,18 +212,20 @@
       "DEBUFF",
       "HEAT"
     ],
-    "subscriptions": {
-      "topicName": "END_OF_TURN",
-      "methodName": "endOfTurn",
-      "trigger": {}
-    },
+    "subscriptions": [
+      {
+        "topicName": "END_OF_TURN",
+        "methodName": "endOfTurn",
+        "trigger": {}
+      }
+    ],
     "keyValues": {
       "BurningEotDmgPercentagePerStack": 3,
       "BurningFinalDmgPercentage": 5,
       "BurningStackMax": 3,
       "BrittleTurns": 2
     },
-    "negates": "Frost"
+    "negates": ["Frost"]
   },
   "Blinded": {
     "name": "Blinded",
@@ -240,9 +245,11 @@
         "methodName": "baseStatChange",
         "trigger": {
           "targetHeroReference": "SAME",
-          "damageTypes": {
+          "stats": {
             "boolLogic": "ALL_OF",
-            "objects": ["ACCURACY"]
+            "objects": [
+              "ACCURACY"
+            ]
           }
         }
       }
@@ -328,9 +335,12 @@
         "methodName": "castChange",
         "trigger": {
           "casterHeroReference": "SAME",
-          "tags": {
+          "skillTags": {
             "boolLogic": "NONE_OF",
-            "objects": ["PRIMARY","PASSIVE"]
+            "objects": [
+              "PRIMARY",
+              "PASSIVE"
+            ]
           }
         }
       }

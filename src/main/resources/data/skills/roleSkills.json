@@ -1,6 +1,7 @@
 {
   "S_BloodLust": {
     "name": "Blood Lust",
+    "className": "game.skills.trees.roles.hunger.S_BloodLust",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -32,14 +33,13 @@
         }
       }
     ],
-    "keyValues": [
-      {
-        "PercentagePerStack": 2
-      }
-    ]
+    "keyValues": {
+      "PercentagePerStack": 2
+    }
   },
   "S_DoubleTime": {
     "name": "Double Time",
+    "className": "game.skills.trees.roles.hunger.S_DoubleTime",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -64,6 +64,7 @@
   },
   "S_Momentum": {
     "name": "Momentum",
+    "className": "game.skills.trees.roles.hunger.S_Momentum",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -82,6 +83,7 @@
   },
   "S_PreyOnTheWeak": {
     "name": "Prey on the Weak",
+    "className": "game.skills.trees.roles.hunger.S_PreyOnTheWeak",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -103,6 +105,7 @@
   },
   "S_Assassin": {
     "name": "Assassin",
+    "className": "game.skills.trees.roles.hunger.S_Assassin",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -119,15 +122,14 @@
         }
       }
     ],
-    "keyValues": [
-      {
-        "LifeCutOff": 50,
-        "DmgPercentage": 100
-      }
-    ]
+    "keyValues": {
+      "LifeCutOff": 50,
+      "DmgPercentage": 100
+    }
   },
   "S_Frenzy": {
     "name": "Frenzy",
+    "className": "game.skills.trees.roles.hunger.S_Frenzy",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -152,6 +154,7 @@
   },
   "S_AbuseWeakness": {
     "name": "Abuse Weakness",
+    "className": "game.skills.trees.roles.hunger.S_AbuseWeakness",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -170,6 +173,7 @@
   },
   "S_MightAndMagic": {
     "name": "MightAndMagic",
+    "className": "game.skills.trees.roles.inspiration.S_MightAndMagic",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -183,7 +187,7 @@
         "trigger": {
           "targetHeroReference": "SAME",
           "effects": {
-            "boolLogic": "ANY_OF",
+            "boolLogic": "SOME_OF",
             "objects": [
               "Mighty",
               "Flawless",
@@ -199,6 +203,7 @@
   },
   "S_WindChant": {
     "name": "Wind Chant",
+    "className": "game.skills.trees.roles.inspiration.S_WindChant",
     "targetType": "ARENA",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
@@ -207,12 +212,12 @@
       "ROLE"
     ],
     "globalEffect": {
-      "name": "AetherWinds",
+      "className": "game.effects.globals.AetherWinds",
       "turns": 5
     },
     "maxCd": 5,
     "manaCost": 10,
-    "possibleCasterPositions": [
+    "possibleCastPositions": [
       0,
       1,
       2,
@@ -221,6 +226,7 @@
   },
   "S_SpellShield": {
     "name": "Spell Shield",
+    "className": "game.skills.trees.roles.inspiration.S_SpellShield",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -242,6 +248,7 @@
   },
   "S_ManaFlow": {
     "name": "Mana Flow",
+    "className": "game.skills.trees.roles.inspiration.S_ManaFlow",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -260,6 +267,7 @@
   },
   "S_TimeTrick": {
     "name": "Time Trick",
+    "className": "game.skills.trees.roles.inspiration.S_TimeTrick",
     "description": "Skip",
     "targetType": "ALL_TARGETS",
     "iconPath": "icons/skills/wingedboots.png",
@@ -282,6 +290,7 @@
   },
   "S_FreshManaPool": {
     "name": "Fresh Mana Pool",
+    "className": "game.skills.trees.roles.inspiration.S_FreshManaPool",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -292,12 +301,15 @@
       {
         "topicName": "CAST_CHANGE",
         "methodName": "castChange",
-        "casterHeroReference": "SAME"
+        "trigger": {
+          "casterHeroReference": "SAME"
+        }
       }
     ]
   },
   "S_CoolVeins": {
     "name": "Cool Veins",
+    "className": "game.skills.trees.roles.inspiration.S_CoolVeins",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -308,12 +320,15 @@
       {
         "topicName": "CAST_CHANGE",
         "methodName": "castChange",
-        "casterHeroReference": "SAME"
+        "trigger": {
+          "casterHeroReference": "SAME"
+        }
       }
     ]
   },
   "S_Sabotage": {
     "name": "Sabotage",
+    "className": "game.skills.trees.roles.tempo.S_Sabotage",
     "description": "Skip",
     "targetType": "SINGLE",
     "iconPath": "icons/skills/wingedboots.png",
@@ -323,7 +338,7 @@
     ],
     "effects": [
       {
-        "name": "Stunned"
+        "className": "game.effects.status.Stunned"
       }
     ],
     "maxCd": 4,
@@ -332,7 +347,7 @@
       5,
       6
     ],
-    "possibleCasterPositions": [
+    "possibleCastPositions": [
       0,
       1,
       2,
@@ -341,6 +356,7 @@
   },
   "S_QuickStep": {
     "name": "Quick Step",
+    "className": "game.skills.trees.roles.tempo.S_QuickStep",
     "description": "Skip",
     "targetType": "SINGLE_OTHER",
     "iconPath": "icons/skills/wingedboots.png",
@@ -351,7 +367,7 @@
     "moveTo": true,
     "effects": [
       {
-        "name": "Advantage",
+        "className": "game.effects.hero.Advantage",
         "condition": {
           "trigger": "TARGET",
           "healthComparison": true,
@@ -360,7 +376,7 @@
         }
       },
       {
-        "name": "Prepared",
+        "className": "game.effects.hero.tempo.Prepared",
         "condition": {
           "trigger": "TARGET",
           "healthComparison": true,
@@ -376,7 +392,7 @@
       2,
       3
     ],
-    "possibleCasterPositions": [
+    "possibleCastPositions": [
       0,
       1,
       2,
@@ -385,6 +401,7 @@
   },
   "S_BattleTactics": {
     "name": "Battle Tactics",
+    "className": "game.skills.trees.roles.tempo.S_BattleTactics",
     "description": "Skip",
     "targetType": "SINGLE_OTHER",
     "iconPath": "icons/skills/wingedboots.png",
@@ -398,13 +415,14 @@
       1,
       2
     ],
-    "possibleCasterPositions": [
+    "possibleCastPositions": [
       5,
       6
     ]
   },
   "S_Logistics": {
     "name": "Logistics",
+    "className": "game.skills.trees.roles.tempo.S_Logistics",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -430,6 +448,7 @@
   },
   "S_Commandeer": {
     "name": "Commandeer",
+    "className": "game.skills.trees.roles.tempo.S_Commandeer",
     "description": "Skip",
     "targetType": "SINGLE_OTHER",
     "iconPath": "icons/skills/wingedboots.png",
@@ -440,10 +459,10 @@
     "maxCd": 10,
     "effects": [
       {
-        "name": "Advantage"
+        "className": "game.effects.hero.Advantage"
       },
       {
-        "name": "Prepared"
+        "className": "game.effects.hero.Prepared"
       }
     ],
     "subscriptions": [
@@ -452,13 +471,14 @@
         "methodName": "onTarget",
         "trigger": {
           "casterHeroReference": "SAME",
-          "spellName": "S_Commandeer"
+          "skillName": "S_Commandeer"
         }
       }
     ]
   },
   "S_Aid": {
     "name": "Aid",
+    "className": "game.skills.trees.roles.tempo.S_Aid",
     "description": "Skip",
     "targetType": "SINGLE_OTHER",
     "iconPath": "icons/skills/wingedboots.png",
@@ -469,12 +489,12 @@
     "maxCd": 10,
     "casterEffects": [
       {
-        "name": "Initiative"
+        "className": "game.effects.hero.Initiative"
       }
     ],
     "effects": [
       {
-        "name": "Enlightened",
+        "className": "game.effects.stat.Enlightened",
         "turns": 2,
         "condition": {
           "successChance": 50,
@@ -482,7 +502,7 @@
         }
       },
       {
-        "name": "Mighty",
+        "className": "game.effects.stat.Mighty",
         "turns": 2,
         "condition": {
           "successChance": 50,
@@ -490,7 +510,7 @@
         }
       },
       {
-        "name": "Flawless",
+        "className": "game.effects.stat.Flawless",
         "turns": 2,
         "condition": {
           "successChance": 50,
@@ -501,6 +521,7 @@
   },
   "S_WeaponExpert": {
     "name": "Weapon Expert",
+    "className": "game.skills.trees.roles.tempo.S_WeaponExpert",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -514,7 +535,7 @@
         "trigger": {
           "targetHeroReference": "SAME",
           "effects": {
-            "boolList": "ALL_OF",
+            "boolLogic": "ALL_OF",
             "objects": [
               "Advantage"
             ]
@@ -525,6 +546,7 @@
   },
   "S_Cover": {
     "name": "Cover",
+    "className": "game.skills.trees.roles.resolve.S_Cover",
     "targetType": "SINGLE",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
@@ -534,11 +556,11 @@
     ],
     "effects": [
       {
-        "name": "Guarded",
+        "className": "game.effects.status.Guarded",
         "turns": 2
       }
     ],
-    "possibleCasterPositions": [
+    "possibleCastPositions": [
       3
     ],
     "possibleTargetPositions": [
@@ -548,6 +570,7 @@
   },
   "S_IronClad": {
     "name": "Iron Clad",
+    "className": "game.skills.trees.roles.resolve.S_IronClad",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -582,12 +605,13 @@
         }
       }
     ],
-    "keyValues": [
-      {"StatMult": 0.15}
-    ]
+    "keyValues": {
+      "StatMult": 0.15
+    }
   },
   "S_Kick": {
     "name": "Kick",
+    "className": "game.skills.trees.roles.resolve.S_Kick",
     "targetType": "SINGLE",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
@@ -596,7 +620,7 @@
       "ROLE"
     ],
     "dmg": 10,
-    "dmgMultipliers":[
+    "dmgMultipliers": [
       {
         "prof": "BODY",
         "percentage": 0.5
@@ -606,11 +630,16 @@
     "damageType": "NORMAL",
     "damageMode": "PHYSICAL",
     "push": 1,
-    "possibleTargetPositions": [5],
-    "possibleCasterPositions": [3]
+    "possibleTargetPositions": [
+      5
+    ],
+    "possibleCastPositions": [
+      3
+    ]
   },
   "S_DrawFire": {
     "name": "Draw Fire",
+    "className": "game.skills.trees.roles.resolve.S_DrawFire",
     "targetType": "SELF",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
@@ -621,7 +650,7 @@
     "maxCd": 10,
     "effects": [
       {
-        "name": "Threatening",
+        "className": "game.effects.status.Threatening",
         "turns": 2
       }
     ],
@@ -634,15 +663,21 @@
           "skillName": "S_DrawFire",
           "casterEffects": {
             "boolLogic": "ALL_OF",
-            "objects": ["Mighty"]
+            "objects": [
+              "Mighty"
+            ]
           }
         }
       }
     ],
-    "possibleCasterPositions": [2,3]
+    "possibleCastPositions": [
+      2,
+      3
+    ]
   },
   "S_DeepBreath": {
     "name": "Deep Breath",
+    "className": "game.skills.trees.roles.resolve.S_DeepBreath",
     "targetType": "SELF",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
@@ -657,10 +692,16 @@
         "percentage": 0.25
       }
     ],
-    "possibleCasterPositions": [0,1,2,3]
+    "possibleCastPositions": [
+      0,
+      1,
+      2,
+      3
+    ]
   },
   "S_Bulwark": {
     "name": "Bulwark",
+    "className": "game.skills.trees.roles.resolve.S_Bulwark",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -680,6 +721,7 @@
   },
   "S_HoldTheBanner": {
     "name": "Hold The Banner",
+    "className": "game.skills.trees.roles.resolve.S_HoldTheBanner",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [

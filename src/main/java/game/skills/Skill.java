@@ -47,7 +47,7 @@ public class Skill implements Subscriber {
   protected DamageMode damageMode = null;
   protected DamageType staticDamageType = null;
   protected DamageMode staticDamageMode = null;
-  protected double lifeSteal = 0.0;
+  protected Double lifeSteal = 0.0;
   protected List<Effect> effects = new ArrayList<>();
   protected List<Effect> casterEffects = new ArrayList<>();
   protected Effect globalEffect = null;
@@ -63,10 +63,10 @@ public class Skill implements Subscriber {
   protected List<Hero> targets = new ArrayList<>();
 
   protected Integer accuracy = 100;
-  protected boolean cannotMiss = true;
+  protected Boolean cannotMiss = true;
   protected Integer countAsHits = 1;
   protected Integer move;
-  protected boolean moveTo = false;
+  protected Boolean moveTo = false;
   public Integer push = 0;
   protected Integer pull = 0;
 
@@ -132,6 +132,7 @@ public class Skill implements Subscriber {
     if (dto == null) {
       return;
     }
+
     this.name = dto.name;
     this.description = dto.description;
     this.iconPath = dto.iconPath;
@@ -165,7 +166,7 @@ public class Skill implements Subscriber {
     this.dmg = dto.dmg;
     this.heal = dto.heal;
     this.shield = dto.shield;
-    this.countAsHits = dto.countAsHits;
+    this.countAsHits = dto.countsAsHits;
     this.lethality = dto.lethality;
     this.move = dto.move;
     this.moveTo = dto.moveTo;
@@ -336,8 +337,7 @@ public class Skill implements Subscriber {
             arenaTarget = arenaTarget.getPermanentEffect(Guarded.class).origin;
           }
           int evasion = arenaTarget.getStat(Stat.DODGE);
-          int acc = hero.getStat(Stat.ACCURACY);
-          int hitChance = this.accuracy * acc / 100;
+          int hitChance = this.accuracy / 100;
           if (!this.cannotMiss && !MyMaths.success(hitChance - evasion)) {
             this.trigger_onMiss(arenaTarget);
             this.hero.arena.logCard.addToLog("Missed " + arenaTarget.getName() + "!");
@@ -653,10 +653,12 @@ public class Skill implements Subscriber {
     return this.damageMode;
   }
   public int getDmg(Hero target) {
-    return MyMaths.getLevelStat(dmg, this.hero.getLevel());
+    int level = this.hero != null? this.hero.getLevel() : 1;
+    return MyMaths.getLevelStat(dmg, level);
   }
   public int getStaticDmg(Hero target) {
-    return MyMaths.getLevelStat(staticDmg, this.hero.getLevel());
+    int level = this.hero != null? this.hero.getLevel() : 1;
+    return MyMaths.getLevelStat(staticDmg, level);
   }
 
   public int getDmgWithMulti(Hero target) {
@@ -763,7 +765,6 @@ public class Skill implements Subscriber {
       return "Passive";
     }
     List<Integer> castPosList = Arrays.stream(this.possibleCastPositions).boxed().toList();
-    List<Integer> targetPosList = Arrays.stream(this.possibleTargetPositions).boxed().toList();
     for (int i = 0; i < Arena.firstEnemyPos; i++) {
       if (castPosList.contains(i)) {
         builder.append("[FTT]");
@@ -779,30 +780,33 @@ public class Skill implements Subscriber {
       builder.append("Arena");
     } else if (targetType.equals(TargetType.ALL)) {
       builder.append("All");
-    } else if (targetPosList.stream().anyMatch(i -> i < Arena.firstEnemyPos)) {
-      for (int i = 0; i < Arena.numberPositions; i++) {
-        if (targetPosList.contains(i)) {
-          if (targetType.equals(TargetType.SINGLE_OTHER)) {
-            builder.append("[OTT]");
-          } else if (targetType.equals(TargetType.SINGLE)) {
-            builder.append("[FTT]");
-          } else if (targetType.equals(TargetType.ALL_TARGETS)) {
-            builder.append("[FTA]");
+    } else if(this.possibleTargetPositions != null) {
+      List<Integer> targetPosList = Arrays.stream(this.possibleTargetPositions).boxed().toList();
+      if (targetPosList.stream().anyMatch(i -> i < Arena.firstEnemyPos)) {
+        for (int i = 0; i < Arena.numberPositions; i++) {
+          if (targetPosList.contains(i)) {
+            if (targetType.equals(TargetType.SINGLE_OTHER)) {
+              builder.append("[OTT]");
+            } else if (targetType.equals(TargetType.SINGLE)) {
+              builder.append("[FTT]");
+            } else if (targetType.equals(TargetType.ALL_TARGETS)) {
+              builder.append("[FTA]");
+            }
+          } else {
+            builder.append("[EMT]");
           }
-        } else {
-          builder.append("[EMT]");
         }
-      }
-    } else {
-      for (int i = Arena.firstEnemyPos; i <= Arena.lastEnemyPos; i++) {
-        if (targetPosList.contains(i)) {
-          if (targetType.equals(TargetType.SINGLE)) {
-            builder.append("[ETT]");
-          } else if (targetType.equals(TargetType.ALL_TARGETS)) {
-            builder.append("[ETA]");
+      } else {
+        for (int i = Arena.firstEnemyPos; i <= Arena.lastEnemyPos; i++) {
+          if (targetPosList.contains(i)) {
+            if (targetType.equals(TargetType.SINGLE)) {
+              builder.append("[ETT]");
+            } else if (targetType.equals(TargetType.ALL_TARGETS)) {
+              builder.append("[ETA]");
+            }
+          } else {
+            builder.append("[EMT]");
           }
-        } else {
-          builder.append("[EMT]");
         }
       }
     }

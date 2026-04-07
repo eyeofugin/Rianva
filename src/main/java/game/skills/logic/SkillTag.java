@@ -6,8 +6,10 @@ public enum SkillTag {
   ULT,
   PASSIVE,
   MOVE,
+  DAMAGE,
   RACE,
   CLASS,
   WEAPON,
+  ROLE,
   CANTRIP;
 }

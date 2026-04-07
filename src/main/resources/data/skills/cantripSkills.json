@@ -1,46 +1,22 @@
 {
-  "S_Boots": {
-    "name": "Boots",
-    "description": "Boots",
-    "iconPath": "icons/skills/wingedboots.png",
-    "targetType": "SINGLE_OTHER",
-    "possibleCastPositions": [
-      0,
-      1,
-      2,
-      3
-    ],
-    "maxCd" : 5,
-    "isMove": true,
-    "countAsHits": 0
-  },
-  "S_Skip": {
-    "name": "Skip",
-    "description": "Skip",
-    "iconPath": "icons/skills/wingedboots.png",
-    "targetType": "SELF",
-    "possibleCastPositions": [
-      0,
-      1,
-      2,
-      3
-    ],
-    "countAsHits": 0
-  },
   "S_MagicMissile": {
     "name": "Magic Missile",
+    "className": "game.skills.trees.cantrips.S_MagicMissile",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
     "cannotMiss": true,
     "damageMode": "MAGICAL",
     "damageType": "MENTAL",
-    "tags": ["PRIMARY", "CANTRIP"],
+    "tags": [
+      "PRIMARY",
+      "CANTRIP"
+    ],
     "dmg": 10,
     "dmgMultipliers": [
       {
         "prof": "MIND",
-        "percentage":0.10
+        "percentage": 0.10
       }
     ],
     "possibleCastPositions": [
@@ -54,28 +30,31 @@
       5
     ]
   },
-  "S_AcidSpout": {
+  "S_AcidicSpout": {
     "name": "Acid Spout",
+    "className": "game.skills.trees.cantrips.S_AcidicSpout",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
     "damageMode": "MAGICAL",
     "damageType": "TOXIC",
-    "tags": ["PRIMARY", "CANTRIP"],
+    "tags": [
+      "PRIMARY",
+      "CANTRIP"
+    ],
     "dmg": 3,
     "dmgMultipliers": [
       {
         "prof": "MIND",
-        "percentage":0.08
+        "percentage": 0.08
       }
     ],
     "effects": [
       {
-        "name": "Poisoned",
+        "className": "game.effects.status.Poisoned",
         "stacks": 1,
         "turns": -1,
         "condition": {
-          "chance": true,
           "successChance": 25
         }
       }
@@ -93,23 +72,27 @@
   },
   "S_FrostShard": {
     "name": "Frost Shard",
+    "className": "game.skills.trees.cantrips.S_FrostShard",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
     "damageMode": "MAGICAL",
     "damageType": "COLD",
-    "tags": ["PRIMARY", "CANTRIP"],
+    "tags": [
+      "PRIMARY",
+      "CANTRIP"
+    ],
     "dmg": 4,
     "dmgMultipliers": [
       {
         "prof": "MIND",
-        "percentage":0.07
+        "percentage": 0.07
       }
     ],
     "casterResources": [
       {
-        "resource": "ENERGY",
-        "maxResource": "MAX_ENERGY",
+        "resource": "CURRENT_ENERGY",
+        "maxResource": "ENERGY",
         "amount": 3
       }
     ],
@@ -126,26 +109,29 @@
   },
   "S_LightBeam": {
     "name": "Light Beam",
+    "className": "game.skills.trees.cantrips.S_LightBeam",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
     "damageMode": "MAGICAL",
     "damageType": "LIGHT",
-    "tags": ["PRIMARY", "CANTRIP"],
+    "tags": [
+      "PRIMARY",
+      "CANTRIP"
+    ],
     "dmg": 9,
     "dmgMultipliers": [
       {
         "prof": "MIND",
-        "percentage":0.04
+        "percentage": 0.04
       }
     ],
     "effects": [
       {
-        "name": "Blinded",
+        "className": "game.effects.status.Blinded",
         "stacks": -1,
         "turns": 2,
         "condition": {
-          "chance": true,
           "successChance": 25
         }
       }
@@ -163,17 +149,21 @@
   },
   "S_DarkSpark": {
     "name": "Dark Spark",
+    "className": "game.skills.trees.cantrips.S_DarkSpark",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
     "damageMode": "MAGICAL",
     "damageType": "DARK",
-    "tags": ["PRIMARY", "CANTRIP"],
+    "tags": [
+      "PRIMARY",
+      "CANTRIP"
+    ],
     "dmg": 4,
     "dmgMultipliers": [
       {
         "prof": "MIND",
-        "percentage":0.11
+        "percentage": 0.11
       }
     ],
     "possibleCastPositions": [
@@ -187,26 +177,29 @@
   },
   "S_FireBall": {
     "name": "Fireball",
+    "className": "game.skills.trees.cantrips.S_FireBall",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
     "damageMode": "MAGICAL",
     "damageType": "HEAT",
-    "tags": ["PRIMARY", "CANTRIP"],
+    "tags": [
+      "PRIMARY",
+      "CANTRIP"
+    ],
     "dmg": 14,
     "dmgMultipliers": [
       {
         "prof": "MIND",
-        "percentage":0.02
+        "percentage": 0.02
       }
     ],
     "effects": [
       {
-        "name": "Burning",
+        "className": "game.effects.status.Burning",
         "stacks": 1,
         "turns": -1,
         "condition": {
-          "chance": true,
           "successChance": 25
         }
       }
@@ -223,44 +216,44 @@
   },
   "S_MinorHex": {
     "name": "Minor Hex",
+    "className": "game.skills.trees.cantrips.S_MinorHex",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
-    "tags": ["PRIMARY", "CANTRIP"],
+    "tags": [
+      "PRIMARY",
+      "CANTRIP"
+    ],
     "effects": [
       {
-        "name": "Burning",
+        "className": "game.effects.status.Burning",
         "stacks": 1,
         "turns": -1,
         "condition": {
-          "chance": true,
           "successChance": 33
         }
       },
       {
-        "name": "Frost",
+        "className": "game.effects.status.Frost",
         "stacks": 1,
         "turns": -1,
         "condition": {
-          "chance": true,
           "successChance": 33
         }
       },
       {
-        "name": "Poisoned",
+        "className": "game.effects.status.Poisoned",
         "stacks": 0,
         "turns": 1,
         "condition": {
-          "chance": true,
           "successChance": 33
         }
       },
       {
-        "name": "Shocked",
+        "className": "game.effects.status.Shocked",
         "stacks": 1,
         "turns": -1,
         "condition": {
-          "chance": true,
           "successChance": 33
         }
       }
@@ -279,15 +272,19 @@
   },
   "S_HealingWords": {
     "name": "Healing Words",
+    "className": "game.skills.trees.cantrips.S_HealingWords",
     "description": "Skip",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
-    "tags": ["PRIMARY", "CANTRIP"],
+    "tags": [
+      "PRIMARY",
+      "CANTRIP"
+    ],
     "heal": 10,
     "dmgMultipliers": [
       {
         "prof": "MIND",
-        "percentage":0.1
+        "percentage": 0.1
       }
     ],
     "possibleCastPositions": [

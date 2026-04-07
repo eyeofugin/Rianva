@@ -1,0 +1,65 @@
+{
+  "MundaneSword": {
+    "name": "Mundane Sword",
+    "statBonus": {},
+    "big": false,
+    "learnableSkills": [
+      "S_Dice",
+      "S_DuelingSlash",
+      "S_ShatterSwing",
+      "S_Slice"
+    ],
+    "type": "WEAPON",
+    "levelStats": {}
+  },
+  "MundaneBow": {
+    "name": "Mundane Bow",
+    "statBonus": {},
+    "big": true,
+    "learnableSkills": [
+      "S_AimedShot",
+      "S_Barrage",
+      "S_CripplingShot",
+      "S_WeightedArrow"
+    ],
+    "type": "WEAPON",
+    "levelStats": {}
+  },
+  "MundaneDagger": {
+    "name": "Mundane Dagger",
+    "statBonus": {},
+    "big": false,
+    "learnableSkills": [
+      "S_AnkleSlice",
+      "S_DaggerThrow",
+      "S_GoForTheThroat",
+      "S_Shiv"
+    ],
+    "type": "WEAPON",
+    "levelStats": {}
+  },
+  "MundaneHammer": {
+    "name": "Mundane Hammer",
+    "statBonus": {},
+    "big": false,
+    "learnableSkills": [
+      "S_Brainsplitter",
+      "S_Crush",
+      "S_FullSwing",
+      "S_Merciless"
+    ],
+    "type": "WEAPON",
+    "levelStats": {}
+  },
+  "MundaneShield": {
+    "name": "Mundane Shield",
+    "statBonus": {},
+    "big": false,
+    "learnableSkills": [
+      "S_ShieldBash",
+      "S_TakeCover"
+    ],
+    "type": "WEAPON",
+    "levelStats": {}
+  }
+}

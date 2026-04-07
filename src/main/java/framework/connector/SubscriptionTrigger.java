@@ -17,27 +17,27 @@ public class SubscriptionTrigger {
   public int position;
   private ConnectionPayload pl;
 
-  SubscriptionTriggerHeroReference targetHeroReference;
-  SubscriptionTriggerHeroReference casterHeroReference;
-  Boolean samePosition;
-  Boolean dmgTypeIsElemental;
-  Boolean statIsElementalDef;
-  Boolean skillNotNull;
-  Boolean equipmentNotNull;
-  Boolean hasEnergyCost;
-  Boolean targetHasDebuff;
-  Boolean targetHasStatusDebuff;
-  Boolean targetHasStatusBuff;
-  String skillName;
-  ConditionalList<EquipmentType> equipmentTypes;
-  ConditionalList<DamageType> damageTypes;
-  ConditionalList<DamageMode> damageModes;
-  ConditionalList<Stat> stats;
-  ConditionalList<String> effects;
-  ConditionalList<String> targetEffects;
-  ConditionalList<String> casterEffects;
-  ConditionalList<TargetType> targetTypes;
-  ConditionalList<SkillTag> skillTags;
+  public SubscriptionTriggerHeroReference targetHeroReference;
+  public SubscriptionTriggerHeroReference casterHeroReference;
+  public Boolean samePosition;
+  public Boolean dmgTypeIsElemental;
+  public Boolean statIsElementalDef;
+  public Boolean skillNotNull;
+  public Boolean equipmentNotNull;
+  public Boolean hasEnergyCost;
+  public Boolean targetHasDebuff;
+  public Boolean targetHasStatusDebuff;
+  public Boolean targetHasStatusBuff;
+  public String skillName;
+  public ConditionalList<EquipmentType> equipmentTypes;
+  public ConditionalList<DamageType> damageTypes;
+  public ConditionalList<DamageMode> damageModes;
+  public ConditionalList<Stat> stats;
+  public ConditionalList<String> effects;
+  public ConditionalList<String> targetEffects;
+  public ConditionalList<String> casterEffects;
+  public ConditionalList<TargetType> targetTypes;
+  public ConditionalList<SkillTag> skillTags;
 
   public boolean triggered(ConnectionPayload pl) {
     this.pl = pl;

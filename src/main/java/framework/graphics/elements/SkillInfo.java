@@ -44,9 +44,9 @@ public class SkillInfo extends GUIElement {
 
     // second row
     int multipliers =
-        skill.getDmgMultipliers().size()
-            + skill.getHealMultipliers().size()
-            + skill.getShieldMultipliers().size();
+        (skill.getDmgMultipliers()!=null?skill.getDmgMultipliers().size():0)
+            + (skill.getHealMultipliers()!=null?skill.getHealMultipliers().size():0)
+            + (skill.getShieldMultipliers()!=null?skill.getShieldMultipliers().size():0);
     int leftWidth = multipliers > 2 ? FOUR_FIFTH : THREE_FIFTH;
     int rightWidth = leftWidth == FOUR_FIFTH ? FIFTH : TWO_FIFTH;
 

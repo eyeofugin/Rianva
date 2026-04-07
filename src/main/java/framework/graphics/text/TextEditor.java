@@ -192,7 +192,7 @@ public class TextEditor {
     symbols.put(Stat.SHIELD.getIconKey(), Symbol.shield);
     symbols.put(Stat.CRIT_CHANCE.getIconKey(), Symbol.critchance);
     symbols.put(Stat.DODGE.getIconKey(), Symbol.evasion);
-    symbols.put(Stat.ACCURACY.getIconKey(), Symbol.accuracy);
+    symbols.put(Stat.LETHALITY.getIconKey(), Symbol.lethality);
     symbols.put(Stat.ARMOR.getIconKey(), Symbol.normalRes);
     symbols.put(Stat.HEAT_RESIST.getIconKey(), Symbol.heatRes);
     symbols.put(Stat.COLD_RESIST.getIconKey(), Symbol.coldRes);

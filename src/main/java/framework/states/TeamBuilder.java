@@ -146,7 +146,7 @@ public class TeamBuilder extends State {
         new Stat[] {Stat.VITALITY, Stat.LIFE_REGAIN, Stat.ENERGY, Stat.ENERGY_REGAIN, Stat.SHIELD};
     Stat[] rArray =
         new Stat[] {
-          Stat.MIND, Stat.BODY, Stat.DEXTERITY, Stat.ACCURACY, Stat.DODGE, Stat.CRIT_CHANCE
+          Stat.MIND, Stat.BODY, Stat.DEXTERITY, Stat.LETHALITY, Stat.DODGE, Stat.CRIT_CHANCE
         };
     this.stats = new StatField(this.activeHero, lArray, rArray);
   }

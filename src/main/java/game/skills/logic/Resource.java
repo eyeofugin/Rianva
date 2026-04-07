@@ -6,6 +6,9 @@ public class Resource {
   public int amount;
   public int percentage;
 
+  public Resource() {
+
+  }
   public Resource(Stat resource, Stat maxResource, int amount, int percentage) {
     this.resource = resource;
     this.amount = amount;
