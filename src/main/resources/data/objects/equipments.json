@@ -1,6 +1,7 @@
 {
   "MundaneSword": {
     "name": "Mundane Sword",
+    "className": "MundaneSword",
     "statBonus": {},
     "big": false,
     "learnableSkills": [
@@ -61,5 +62,20 @@
     ],
     "type": "WEAPON",
     "levelStats": {}
+  },
+  "MundaneRing": {
+    "name": "Mundane Ring",
+    "statBonus": {},
+    "big": false,
+    "learnableSkills": [
+      "S_MagicMissile",
+      "S_AcidicSpout",
+      "S_FrostShard",
+      "S_LightBeam",
+      "S_DarkSpark",
+      "S_FireBall",
+      "S_MinorHex",
+      "S_HealingWords"
+    ]
   }
 }

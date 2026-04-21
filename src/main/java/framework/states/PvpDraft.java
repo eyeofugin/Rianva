@@ -1,7 +1,6 @@
 package framework.states;
 
 import framework.Engine;
-import framework.graphics.GUIElement;
 import framework.graphics.containers.HUD;
 import framework.graphics.text.Color;
 import game.entities.DraftBuilder;
@@ -56,7 +55,7 @@ public class PvpDraft extends State {
         if (index < availableHeroes.size() && availableHeroes.get(index) != null) {
           try {
             Hero hero = availableHeroes.get(index).getConstructor().newInstance();
-            hero.setLevel(5);
+            hero.addLevel();
             this.choices[x + y * this.maxX] = hero;
           } catch (Exception e) {
             throw new RuntimeException(e);

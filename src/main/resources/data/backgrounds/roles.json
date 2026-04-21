@@ -11,5 +11,44 @@
       "S_Momentum",
       "S_PreyOnTheWeak"
     ]
+  },
+  "Inspiration": {
+    "name": "Inspiration",
+    "icon": "Inspiration",
+    "learnableSkills": [
+      "S_CoolVeins",
+      "S_FreshManaPool",
+      "S_ManaFlow",
+      "S_MightAndMagic",
+      "S_SpellShield",
+      "S_TimeTrick",
+      "S_WindChant"
+    ]
+  },
+  "Resolve": {
+    "name": "Resolve",
+    "icon": "Resolve",
+    "learnableSkills": [
+      "S_Bulwark",
+      "S_Cover",
+      "S_DeepBreath",
+      "S_DrawFire",
+      "S_HoldTheBanner",
+      "S_IronClad",
+      "S_Kick"
+    ]
+  },
+  "Tempo": {
+    "name": "Tempo",
+    "icon": "Tempo",
+    "learnableSkills": [
+      "S_Aid",
+      "S_BattleTactics",
+      "S_Commandeer",
+      "S_Logistics",
+      "S_QuickStep",
+      "S_Sabotage",
+      "S_WeaponExpert"
+    ]
   }
 }

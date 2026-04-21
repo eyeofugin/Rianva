@@ -9,14 +9,15 @@ import game.entities.Hero;
 import game.skills.Skill;
 import game.skills.logic.Stat;
 import utils.FileWalker;
+import utils.Utils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Equipment {
 
-  protected final String packageName;
   protected Map<Stat, Integer> statBonus = new HashMap<>();
   protected Map<Stat, Integer> tempStatBonus = new HashMap<>();
   protected boolean loseTempStat = false;
@@ -26,18 +27,26 @@ public class Equipment {
   protected Hero hero;
   protected Hero oldHero;
   protected boolean active;
-  protected Skill skill;
+  protected String specialSkill;
+  public List<String> learnableSkills = new ArrayList<>();
   protected String name;
   protected EquipmentType type;
-  protected List<Stat> adaptiveStats;
+  protected Map<Stat, Integer> adaptiveStats;
+  public String icon;
 
-  public Equipment() {
-    this.packageName = "";
-  }
-
-  public Equipment(String packageName, String name) {
-    this.packageName = packageName;
-    this.name = name;
+  public Equipment() {}
+  public void set(EquipmentDTO dto) {
+    if (dto == null) {
+      return;
+    }
+    this.name = dto.name;
+    this.icon = dto.icon;
+    this.statBonus = Utils.copyStats(dto.statBonus);
+    this.big = dto.big;
+    this.learnableSkills = dto.learnableSkills;
+    this.specialSkill = dto.specialSkill;
+    this.type = dto.type;
+    this.adaptiveStats = Utils.copyStats(dto.levelStats);
   }
 
   public void addSubscriptions() {}
@@ -122,22 +131,6 @@ public class Equipment {
     statChange(this.tempStatBonus, -1);
   }
 
-  private Map<Stat, Integer> loadStatBonus(String file) {
-    Map<Stat, Integer> result =
-        FileWalker.getEquipmentStatJson("equipments/" + this.packageName + file);
-    if (result != null) {
-      return result;
-    }
-    return new HashMap<>();
-  }
-
-  protected Map<Stat, Integer> loadBaseStatBonus() {
-    return loadStatBonus("/data/stats.json");
-  }
-
-  protected Map<Stat, Integer> loadTempStatBonus() {
-    return loadStatBonus("/tempstats.json");
-  }
 
   public String getName() {
     return this.name;
@@ -147,8 +140,8 @@ public class Equipment {
     return " ";
   }
 
-  public Skill getSkill() {
-    return skill;
+  public String getSpecialSkill() {
+    return specialSkill;
   }
 
   public boolean isActive() {
@@ -199,7 +192,7 @@ public class Equipment {
         Property.SKILL_ICON_SIZE,
         Property.SKILL_ICON_SIZE,
         Property.SKILL_ICON_SIZE,
-        "equipments/" + this.packageName + "/sprite.png",
+        icon,
         0);
   }
 

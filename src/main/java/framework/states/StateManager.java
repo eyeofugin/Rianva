@@ -1,13 +1,15 @@
 package framework.states;
 
 import framework.Engine;
+import framework.states.dev.AbilityGlossaryState;
+import framework.states.dev.DevState;
+import framework.states.dev.HeroBuilderTest;
 import game.entities.DraftBuilder;
 import game.entities.Hero;
 import game.entities.HeroTeam;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 public class StateManager {
 
@@ -25,10 +27,11 @@ public class StateManager {
     this.engine = e;
     this.memory = engine.memory;
     //        dungeonDraft();
-//    dev();
+    dev();
+//    heroBuilder();
     //        pvpDraft();
     //        arena();
-    abilityGlossary();
+//    abilityGlossary();
   }
 
   private void pvpDraft() {
@@ -73,6 +76,11 @@ public class StateManager {
   //        this.scenes.add(draft);
   //    }
 
+  private void heroBuilder() {
+    HeroBuilderTest state  = new HeroBuilderTest(this.memory);
+    state.setActive(true);
+    this.scenes.add(state);
+  }
   private void dev() {
     DevState devState = new DevState(this.memory);
     devState.setActive(true);

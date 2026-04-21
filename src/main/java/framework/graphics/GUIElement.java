@@ -118,7 +118,7 @@ public class GUIElement {
 
   private List<List<Symbol>> splitRows(List<Symbol> fullList, int maxWidth) {
     int width = editor.getTextWidth(fullList);
-    boolean hasLineBreaks = fullList.stream().anyMatch(s -> s instanceof LineBreak);
+    boolean hasLineBreaks = fullList.stream().anyMatch(s -> "BRL".equals(s.code));
     if (width > maxWidth || hasLineBreaks) {
       return splitAt(maxWidth, fullList);
     } else {
@@ -160,7 +160,7 @@ public class GUIElement {
     }
     int index = 0;
     while (editor.getTextWidth(newLine) + editor.getTextWidth(words.get(index)) + 5 < maxWidth) {
-      if (words.get(index) instanceof LineBreak) {
+      if (words.get(index).stream().anyMatch(s -> "BRL".equals(s.code))) {
         words.remove(index);
         return newLine;
       }

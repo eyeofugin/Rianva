@@ -62,6 +62,7 @@ public class Connector {
   public static String EFFECT_DMG_TRIGGER = "EFFECT_DMG_TRIGGER";
   public static String CRITICAL_TRIGGER = "CRITICAL_TRIGGER";
   public static String DEATH_TRIGGER = "DEATH_TRIGGER";
+  public static String ON_HIT = "ON_HIT";
 
   public static String CHANCE_EFFECT_BASE_CHANGE = "CHANCE_EFFECT_BASE_CHANGE";
   public static String CHANCE_EFFECT_MULT_CHANGE = "CHANCE_EFFECT_MULT_CHANGE";

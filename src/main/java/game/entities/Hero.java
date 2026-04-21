@@ -19,15 +19,15 @@ import game.entities.roles.HeroRole;
 import game.entities.roles.HeroRoleDTO;
 import game.libraries.EffectLibrary;
 import game.effects.status.*;
+import game.libraries.EquipmentLibrary;
+import game.libraries.HeroBackgroundLibrary;
 import game.libraries.SkillLibrary;
 import game.objects.Equipment;
-import game.objects.EquipmentDTO;
 import game.skills.Skill;
 import game.skills.trees.genericskills.S_Boots;
 import game.skills.trees.genericskills.S_Skip;
 import game.skills.logic.*;
 import utils.CollectionUtils;
-import utils.FileWalker;
 import utils.MyMaths;
 import utils.Utils;
 
@@ -46,7 +46,6 @@ public class Hero extends GUIElement {
   public HeroTeam team;
   public HeroTeam enemyTeam;
   protected Map<String, int[][]> sprites = new HashMap<>();
-  public String basePath = "";
 
   protected static int idCounter;
   protected int id;
@@ -93,24 +92,24 @@ public class Hero extends GUIElement {
     this.width = 64;
     this.height = 110;
     this.pixels = new int[this.width * this.height];
-    this.basePath = "";
     this.name = raceDto.name + " " + classDto.name;
     this.baseStats = Utils.copyStats(raceDto.stats);
     this.initBackgrounds(classDto, raceDto, roleDto);
-    this.setLevel(1);
+    this.addLevel();
   }
   public Hero(HeroDTO dto) {
     this.width = 64;
     this.height = 110;
     this.pixels = new int[this.width * this.height];
-    this.basePath = dto.path;
     this.name = dto.name;
-    this.role = dto.role;
-    this.baseStats = dto.baseStats;
+    this.baseStats = statBase();
+    this.stats = statBase();
     this.initBackgrounds(dto);
+    this.initEquipment(dto);
     this.initAnimator(dto);
     this.initSkills(dto);
-    this.setLevel(1);
+    this.setStatBase();
+    this.addLevel();
   }
 
   protected Hero(String name) {
@@ -158,17 +157,19 @@ public class Hero extends GUIElement {
     this.skills.forEach(Skill::removeSubscriptions);
   }
 
-  public void initBasePath(String name) {
-    String base = "entities/heroes/";
-    this.basePath = base + name;
-  }
-
   private void initBackgrounds(HeroClassDTO classDTO, HeroRaceDTO raceDTO, HeroRoleDTO roleDTO) {
     initHeroRace(raceDTO);
     initHeroRole(roleDTO);
     initHeroClass(classDTO);
   }
 
+  private void initEquipment(HeroDTO dto) {
+    for (String item : dto.equipments) {
+      Equipment equipment = new Equipment();
+      equipment.set(EquipmentLibrary.getEquipment(item));
+      this.equip(equipment);
+    }
+  }
   private void initBackgrounds(HeroDTO dto) {
     initHeroRace(dto.heroRace);
     initHeroRole(dto.heroRole);
@@ -182,6 +183,18 @@ public class Hero extends GUIElement {
     this.heroRace.icon = dto.icon;
     this.heroRace.stats = Utils.copyStats(dto.stats);
     this.heroRace.learnableSkills = new ArrayList<>(dto.learnableSkills);
+  }
+
+  private void initHeroRace(String name) {
+    if (name == null) { return; }
+    HeroRaceDTO dto = HeroBackgroundLibrary.getHeroRace(name);
+    initHeroRace(dto);
+  }
+
+  private void initHeroRole(String name) {
+    if (name == null) { return; }
+    HeroRoleDTO dto = HeroBackgroundLibrary.getHeroRole(name);
+    initHeroRole(dto);
   }
   private void initHeroRole(HeroRoleDTO dto) {
     if (dto == null) { return; }
@@ -198,6 +211,11 @@ public class Hero extends GUIElement {
     this.heroClass.statsIncrease = Utils.copyStats(dto.statsIncrease);
     this.heroClass.learnableSkills = new ArrayList<>(dto.learnableSkills);
   }
+  private void initHeroClass(String name) {
+    if (name == null) { return; }
+    HeroClassDTO dto = HeroBackgroundLibrary.getHeroClass(name);
+    initHeroClass(dto);
+  }
   private void initAnimator(HeroDTO dto) {
     String idleAnim = dto.idleAnim != null ? dto.idleAnim : "idle_w.png";
     String damagedAnim = dto.damagedAnim != null ? dto.damagedAnim : "damaged_w.png";
@@ -205,9 +223,9 @@ public class Hero extends GUIElement {
     this.anim = new Animator();
     anim.width = 64;
     anim.height = 64;
-    anim.setupAnimation(this.basePath + "/sprites/" + idleAnim, "idle", new int[] {40, 80});
-    anim.setupAnimation(this.basePath + "/sprites/" + damagedAnim, "damaged", new int[] {40, 80});
-    anim.setupAnimation(this.basePath + "/sprites/" + actionAnim, "action", new int[] {15, 30, 45});
+    anim.setupAnimation("sprites/" + idleAnim, "idle", new int[] {40, 80});
+    anim.setupAnimation("sprites/" + damagedAnim, "damaged", new int[] {40, 80});
+    anim.setupAnimation("sprites/" + actionAnim, "action", new int[] {15, 30, 45});
 
     anim.setDefaultAnim("idle");
     anim.currentAnim = anim.getDefaultAnim();
@@ -219,12 +237,23 @@ public class Hero extends GUIElement {
     this.learnableSkillList.addAll(this.heroClass.learnableSkills);
     this.learnableSkillList.addAll(this.heroRace.learnableSkills);
     this.learnableSkillList.addAll(this.heroRole.learnableSkills);
+    this.learnableSkillList.addAll(dto.additionalSkills);
+    this.equipments.forEach(e->this.learnableSkillList.addAll(e.learnableSkills));
     addActiveSkills(dto);
+  }
+  private void buildSkillsFromPresets() {
+    if (heroRace == null || heroClass == null || heroRole == null || this.equipments.isEmpty()) {
+      return;
+    }
+    this.skills.add(SkillLibrary.getSkillByName(heroRace.learnableSkills.get(0)));
+    this.skills.add(SkillLibrary.getSkillByName(heroClass.learnableSkills.get(0)));
+
+
   }
   private void addActiveSkills(HeroDTO dto) {
     for (String skill : dto.learnedSkills) {
       if (this.learnableSkillList.contains(skill)) {
-        this.addSkill(SkillLibrary.getSkillByClassName(skill));
+        this.addSkill(SkillLibrary.getSkillByName(skill));
       }
     }
   }
@@ -236,10 +265,6 @@ public class Hero extends GUIElement {
 
   private void addLearnableSkill(String skill) {
     this.learnableSkillList.add(skill);
-  }
-
-  protected void initStats() {
-    this.baseStats = loadLevelStats();
   }
 
   protected Map<Stat, Integer> statBase() {
@@ -497,11 +522,21 @@ public class Hero extends GUIElement {
     this.skills.sort(Comparator.comparingInt(Skill::getSort));
   }
 
-  public void setLevel(int level) {
-    this.level = level;
-    this.stats.putAll(this.baseStats);
-    //levelup
+  private void setStatBase() {
+    this.stats = statBase();
+    this.stats.putAll(this.heroRace.stats);
+    this.baseStats.putAll(this.stats);
   }
+  public void addLevel() {
+    this.level++;
+    Utils.addStats(this.stats, this.heroClass.statsIncrease, 1);
+  }
+
+  public void removeLevel() {
+    this.level--;
+    Utils.addStats(this.stats, this.heroClass.statsIncrease, -1);
+  }
+
   public int getDefense(DamageType dt) {
     Stat defenseStat = Utils.getDefenseStatForDt(dt);
     if (defenseStat == Stat.ARMOR) {
@@ -667,9 +702,9 @@ public class Hero extends GUIElement {
     if (!this.equipments.contains(equipment)) {
       this.equipments.add(equipment);
     }
-    if (equipment.getSkill() != null && this.skills.size() < 8 && this.skills.size() > 1) {
-      equipment.getSkill().hero = this;
-      this.skills.add(equipment.getSkill());
+    if (equipment.getSpecialSkill() != null && this.skills.size() < 8 && this.skills.size() > 1) {
+//      equipment.getSpecialSkill().hero = this;
+//      this.skills.add(equipment.getSpecialSkill());
       sortSkills();
       System.out.println("equip " + equipment.getName() + " " + this.name);
     }
@@ -677,8 +712,8 @@ public class Hero extends GUIElement {
 
   public void unequip(Equipment equipment) {
     this.equipments.remove(equipment);
-    if (equipment.getSkill() != null) {
-      this.skills.remove(equipment.getSkill());
+    if (equipment.getSpecialSkill() != null) {
+//      this.skills.remove(equipment.getSpecialSkill());
     }
   }
 
@@ -1099,7 +1134,12 @@ public class Hero extends GUIElement {
     }
     this.arena.logCard.addToLog(this.getName() + " was dealt " + result + " damage.");
     addResource(Stat.CURRENT_LIFE, Stat.VITALITY, -1 * result, caster, skill, effect, equipment, false);
-    trigger_onDamage(result, dmgToShield, damageType, mode, skill, effect, caster);
+    if (DamageMode.PHYSICAL.equals(mode)) {
+      trigger_onHit(result, dmgToShield, damageType, skill, caster);
+      trigger_onDamage(result, dmgToShield, damageType, mode, skill, effect, caster);
+    } else {
+      trigger_onDamage(result, dmgToShield, damageType, mode, skill, effect, caster);
+    }
     return result;
   }
 
@@ -1148,14 +1188,6 @@ public class Hero extends GUIElement {
 
   // Loading
 
-  protected Map<Stat, Integer> loadLevelStats() {
-
-    Map<Stat, Integer> statJson = FileWalker.getStatJson(this.basePath + STAT_PATH);
-    if (statJson != null) {
-      return statJson;
-    }
-    return new HashMap<>();
-  }
 
   // Trigger
 
@@ -1170,6 +1202,23 @@ public class Hero extends GUIElement {
             .setEquipment(equipment)
             .setRegen(regen);
     Connector.fireTopic(Connector.HEAL_TRIGGER, pl);
+  }
+
+  public void trigger_onHit(
+          int dmg,
+          int shieldDmg,
+          DamageType type,
+          Skill skill,
+          Hero caster) {
+    ConnectionPayload ConnectionPayload =
+            new ConnectionPayload(1)
+                    .setTarget(this)
+                    .setCaster(caster)
+                    .setSkill(skill)
+                    .setDamageType(type)
+                    .setDmg(dmg)
+                    .setShieldDmg(shieldDmg);
+    Connector.fireTopic(Connector.ON_HIT, ConnectionPayload);
   }
   public void trigger_onDamage(
       int dmg,

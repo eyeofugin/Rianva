@@ -12,7 +12,7 @@
   "S_Unlife": {
     "name": "Unlife",
     "className": "game.skills.trees.races.S_Unlife",
-    "description": "Unlife",
+    "description": "Cannot be healed by allies.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -32,7 +32,7 @@
   "S_KeenEye": {
     "name": "Keen eye",
     "className": "game.skills.trees.races.S_KeenEye",
-    "description": "Unlife",
+    "description": "+20 Accuracy. Allies get +5 Accuracy.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -61,7 +61,7 @@
   "S_Ethereal": {
     "name": "Ethereal",
     "className": "game.skills.trees.races.S_Ethereal",
-    "description": "Unlife",
+    "description": "Gain 3 Energy on Physical hits.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -89,7 +89,7 @@
   "S_BornInFlames": {
     "name": "Born in Flames",
     "className": "game.skills.trees.races.S_BornInFlames",
-    "description": "Unlife",
+    "description": "Cannot be Frozen.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -114,7 +114,7 @@
   "S_HandSewnArmor": {
     "name": "Hand sewn Armor",
     "className": "game.skills.trees.races.S_HandSewnArmor",
-    "description": "Unlife",
+    "description": "Chance effects of your armor are 3 times more likely. Stats from Armor are 15% increased.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -129,7 +129,7 @@
           "equipmentTypes": {
             "boolLogic": "SOME_OF",
             "objects": [
-              "WEAPON"
+              "ARMOR"
             ]
           }
         }
@@ -142,7 +142,7 @@
           "equipmentTypes": {
             "boolLogic": "SOME_OF",
             "objects": [
-              "WEAPON"
+              "ARMOR"
             ]
           }
         }
@@ -155,7 +155,7 @@
           "equipmentTypes": {
             "boolLogic": "SOME_OF",
             "objects": [
-              "WEAPON"
+              "ARMOR"
             ]
           }
         }
@@ -169,7 +169,7 @@
   "S_Agility": {
     "name": "Agility",
     "className": "game.skills.trees.races.S_Agility",
-    "description": "Unlife",
+    "description": "Every second skill has -1 Cooldown.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -188,7 +188,7 @@
   "S_Aggression": {
     "name": "Aggression",
     "className": "game.skills.trees.races.S_Aggression",
-    "description": "Unlife",
+    "description": "Chance to give Dazed, Stunned and Immobile is doubled.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -218,7 +218,7 @@
   "S_TheDarken": {
     "name": "The Darken",
     "className": "game.skills.trees.races.S_TheDarken",
-    "description": "Unlife",
+    "description": "Deal 15% more damage during Darkness.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -241,7 +241,7 @@
       }
     ],
     "keyValues": {
-      "Mult": 1.05
+      "Mult": 0.15
     }
   }
 }

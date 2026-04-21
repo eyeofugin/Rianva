@@ -1,8 +1,11 @@
-package framework.states;
+package framework.states.dev;
 
 import framework.Engine;
+import framework.Logger;
 import framework.graphics.elements.SkillInfo;
 import framework.graphics.text.Color;
+import framework.states.Memory;
+import framework.states.State;
 import game.entities.Hero;
 import game.libraries.SkillLibrary;
 import game.skills.Skill;
@@ -49,6 +52,7 @@ public class AbilityGlossaryState extends State {
         if (CollectionUtils.isNotEmpty(skills)) {
             Skill skill = this.skills.get(index);
             SkillInfo info = new SkillInfo(skill);
+            Logger.logLn(skill.name);
             fillWithGraphicsSize(200, 150, info.getWidth(), info.getHeight(), info.render(), false);
         }
     }

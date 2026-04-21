@@ -1,24 +1,20 @@
-package framework.states;
+package framework.states.dev;
 
 import framework.Engine;
+import framework.Logger;
 import framework.graphics.GUIElement;
 import framework.graphics.elements.SkillElement;
 import framework.graphics.elements.SkillInfo;
 import framework.graphics.elements.StatField;
 import framework.graphics.text.Color;
-import game.entities.DraftBuilder;
-import game.entities.Hero;
-import game.entities.HeroDTO;
-import game.entities.classes.HeroClass;
+import framework.states.*;
+import game.entities.*;
 import game.entities.classes.HeroClassDTO;
-import game.entities.races.HeroRace;
 import game.entities.races.HeroRaceDTO;
 import game.entities.roles.HeroRoleDTO;
 import game.libraries.*;
-import game.entities.HeroTeam;
 import game.objects.EquipmentDTO;
 import game.skills.Skill;
-import game.skills.SkillDTO;
 import game.skills.logic.Stat;
 import utils.CollectionUtils;
 
@@ -38,18 +34,19 @@ public class DevState extends State {
   HeroRoleDTO roleDTO;
   EquipmentDTO equipmentDTO;
 
-  private String activeMode = "";
-  public static String LIST_MODE = "LIST_MODE";
-  public static String BUILDER_MODE = "BUILDER_MODE";
+  private String activeMode = "HERO";
+  public static String HERO = "HERO";
+  public static String SKILL = "SKILL";
   public static String AI_EVAL_TEST = "AI_EVAL_TEST";
 
   Hero hero;
+  Skill activeSkill;
   HeroDTO heroDTO;
   List<Skill> skillList;
   private StatField stats;
 
-  private int sx, sy = 0;
-  private int hr, hc, hro, he = 0;
+  private int s = 0;
+  private int h = 1;
 
   public DevState(Memory memory) {
     super(memory);
@@ -59,20 +56,8 @@ public class DevState extends State {
     EffectLibrary.init();
     EquipmentLibrary.init();
     HeroBackgroundLibrary.init();
-    this.activeMode = BUILDER_MODE;
-    testStatDistribution();
-    setUpBackgroundList();
-    updateHeroBuilder();
-
-//    setUpHeroList();
-    //        Hero hero1 = HeroLibrary.getHero("Burner");
-    //        hero1.getSkills().forEach(Skill::addSubscriptions);
-    //        Connector.fireTopic(Connector.BASE_DMG_CHANGES, new BaseDmgChangesPayload());
-
-    //        FileWalker.getHeroes("test.json");
-    //        setUpHeroList();
-    //        S_WindChant wc = new S_WindChant();
-    //        System.out.println(wc.description);
+    HeroBuilder.init();
+    this.hero = HeroLibrary.getHero(h+ "");
   }
 
   private void setUpAiEvalTest() {
@@ -192,17 +177,34 @@ public class DevState extends State {
   @Override
   public void update(int frame) {
     if (active) {
+      this.hero.animate(frame);
       updateKeys();
-      updateKeysHeroDevSelections();
+//      updateKeysHeroDevSelections();
     }
   }
 
   private void updateKeys() {
-    if (Engine.KeyBoard.upPressed) {
-      System.out.println("up");
+    if (Engine.KeyBoard._leftPressed) {
+      if (this.activeMode.equals(HERO)) {
+        this.h = Math.max(1, h - 1);
+      } else {
+        this.s = Math.max(0, s - 1);
+      }
+      this.hero = HeroLibrary.getHero(h + "");
     }
-    if (Engine.KeyBoard.downPressed) {
-      System.out.println("down");
+    if (Engine.KeyBoard._rightPressed) {
+      if (this.activeMode.equals(HERO)) {
+        this.s = Math.min(8, h + 1);
+      } else {
+        this.s = Math.min(5, s + 1);
+      }
+      this.activeSkill = this.hero.getSkills().get(s);
+    }
+    if (Engine.KeyBoard._enterPressed) {
+      this.activeMode = SKILL;
+    }
+    if (Engine.KeyBoard._backPressed) {
+      this.activeMode = HERO;
     }
   }
 
@@ -280,10 +282,10 @@ public class DevState extends State {
 
   private void updateHeroBuilder() {
     this.heroDTO = new HeroDTO();
-    heroDTO.heroRace = this.heroRaces.get(hr);
-    heroDTO.heroClass = this.heroClasses.get(hc);
-    heroDTO.heroRole = this.heroRoles.get(hro);
-    heroDTO.calcStatsForLevel(1);
+    heroDTO.heroRace = this.heroRaces.get(hr).name;
+    heroDTO.heroClass = this.heroClasses.get(hc).name;
+    heroDTO.heroRole = this.heroRoles.get(hro).name;
+//    heroDTO.calcStatsForLevel(1);
     this.stats = new StatField(this.heroDTO);
   }
   private void setHero(int index) {

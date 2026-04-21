@@ -144,4 +144,11 @@ public class Utils {
         }
     }
   }
+
+    public static void addStats(Map<Stat, Integer> stats, Map<Stat, Integer> statsIncrease, int change) {
+      for (Map.Entry<Stat, Integer> stat: statsIncrease.entrySet()) {
+          int val = stat.getValue() * change;
+          stats.put(stat.getKey(), stats.get(stat.getKey()) + val);
+      }
+    }
 }

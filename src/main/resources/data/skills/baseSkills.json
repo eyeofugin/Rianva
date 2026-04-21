@@ -11,8 +11,11 @@
       2,
       3
     ],
+    "possibleTargetPositions": [
+      0,1,2,3
+    ],
     "maxCd" : 5,
-    "isMove": true,
+    "moveTo": true,
     "countsAsHits": 0
   },
   "S_Skip": {

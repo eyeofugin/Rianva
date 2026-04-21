@@ -75,7 +75,7 @@ public class DungeonRoom {
   }
 
   public static DungeonRoom getLootRoom() {
-    return new DungeonRoom(new Equipment("", ""));
+    return new DungeonRoom(new Equipment());
   }
 
   public static DungeonRoom getMoneyRoom() {

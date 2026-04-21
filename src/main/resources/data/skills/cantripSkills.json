@@ -2,7 +2,7 @@
   "S_MagicMissile": {
     "name": "Magic Missile",
     "className": "game.skills.trees.cantrips.S_MagicMissile",
-    "description": "Skip",
+    "description": "Cannot miss.",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
     "cannotMiss": true,
@@ -33,7 +33,7 @@
   "S_AcidicSpout": {
     "name": "Acid Spout",
     "className": "game.skills.trees.cantrips.S_AcidicSpout",
-    "description": "Skip",
+    "description": "25% chance to give Poisoned 1.",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
     "damageMode": "MAGICAL",
@@ -73,7 +73,7 @@
   "S_FrostShard": {
     "name": "Frost Shard",
     "className": "game.skills.trees.cantrips.S_FrostShard",
-    "description": "Skip",
+    "description": "Gain 3 Energy.",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
     "damageMode": "MAGICAL",
@@ -110,7 +110,7 @@
   "S_LightBeam": {
     "name": "Light Beam",
     "className": "game.skills.trees.cantrips.S_LightBeam",
-    "description": "Skip",
+    "description": "25% Chance to give Blinded 2.",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
     "damageMode": "MAGICAL",
@@ -150,7 +150,7 @@
   "S_DarkSpark": {
     "name": "Dark Spark",
     "className": "game.skills.trees.cantrips.S_DarkSpark",
-    "description": "Skip",
+    "description": " ",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
     "damageMode": "MAGICAL",
@@ -178,7 +178,7 @@
   "S_FireBall": {
     "name": "Fireball",
     "className": "game.skills.trees.cantrips.S_FireBall",
-    "description": "Skip",
+    "description": "25% Chance to give Burning 1.",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
     "damageMode": "MAGICAL",
@@ -217,7 +217,7 @@
   "S_MinorHex": {
     "name": "Minor Hex",
     "className": "game.skills.trees.cantrips.S_MinorHex",
-    "description": "Skip",
+    "description": "33% Chance to give any of Burning 1, Frost 1, Poisoned 1 or Shocked 1.",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
     "tags": [
@@ -273,7 +273,7 @@
   "S_HealingWords": {
     "name": "Healing Words",
     "className": "game.skills.trees.cantrips.S_HealingWords",
-    "description": "Skip",
+    "description": " ",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
     "tags": [
@@ -281,7 +281,7 @@
       "CANTRIP"
     ],
     "heal": 10,
-    "dmgMultipliers": [
+    "healMultipliers": [
       {
         "prof": "MIND",
         "percentage": 0.1

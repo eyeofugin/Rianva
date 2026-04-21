@@ -1,56 +1,170 @@
 {
-  "Burner": {
-    "name": "Burner",
-    "path": "entities/heroes/burner",
+  "1": {
+    "name": "Brutalitops",
+    "heroClass": "Evoker",
+    "heroRace": "Elf",
+    "heroRole": "Inspiration",
+    "idleAnim": "characters/baze/baze_idle.png",
+    "damagedAnim": "characters/baze/baze_idle.png",
+    "actionAnim": "characters/baze/baze_act1.png",
+    "equipments": [
+      "MundaneRing"
+    ],
     "learnedSkills": [
-      "Burn",
-      "Fireball",
-      "Fireblast",
-      "Exalted Flames"
+      "S_KeenEye",
+      "S_Evoker",
+      "S_DarkSpark",
+      "S_RiskyChannel",
+      "S_FireBlast",
+      "S_Meteors"
     ],
-    "learnableSkills": [
-      "Burn",
-      "Fireball",
-      "Fireblast",
-      "Exalted Flames"
-    ],
-    "role": "FIGHTER",
-    "baseStats": {
-      "MIND": 8,
-      "BODY": 1,
-      "DEXTERITY": 12,
-      "FOCUS": 2,
-      "BODY": 3,
-      "LIFE": 7,
-      "ENERGY": 8,
-      "ARMOR": 2,
-      "HEAT_RESIST": 3,
-      "COLD_RESIST": 5,
-      "DARK_RESIST": 6,
-      "LIGHT_RESIST": 34,
-      "SHOCK_RESIST": 2,
-      "MIND_RESIST": 4,
-      "TOX_RESIST": 1
-    }
+    "additionalSkills": []
   },
-  "Dummy": {
-    "name": "Dummy",
-    "path": "entities/heroes/burner",
+  "2": {
+    "name": "Hector the Well-Endowed",
+    "heroClass": "Barbarian",
+    "heroRace": "Troll",
+    "heroRole": "Resolve",
+    "idleAnim": "characters/baze/baze_idle.png",
+    "damagedAnim": "characters/baze/baze_idle.png",
+    "actionAnim": "characters/baze/baze_act1.png",
+    "equipments": [
+      "MundaneHammer"
+    ],
     "learnedSkills": [
-      "Ally Heal"
+      "S_FastRegen",
+      "S_Barbarian",
+      "S_Crush",
+      "S_Kick",
+      "S_Reengage",
+      "S_FullSwing"
     ],
-    "learnableSkills": [
-      "Ally Heal"
+    "additionalSkills": []
+  },
+  "3": {
+    "name": "Selvala the Wild",
+    "heroClass": "Fauna",
+    "heroRace": "Goblin",
+    "heroRole": "Hunger",
+    "idleAnim": "characters/baze/baze_idle.png",
+    "damagedAnim": "characters/baze/baze_idle.png",
+    "actionAnim": "characters/baze/baze_act1.png",
+    "equipments": [
+      "MundaneSword"
     ],
-    "role": "FIGHTER",
-    "baseStats": {
-      "MIND": 1,
-      "BODY": 1,
-      "DEXTERITY": 12,
-      "FOCUS": 2,
-      "BODY": 3,
-      "LIFE": 7,
-      "ENERGY": 100
-    }
+    "learnedSkills": [
+      "S_Agility",
+      "S_Fauna",
+      "S_Slice",
+      "S_Dice",
+      "S_WendigoDash",
+      "S_DoubleTime"
+    ],
+    "additionalSkills": []
+  },
+  "4": {
+    "name": "Brutus the Behutus",
+    "heroClass": "Flora",
+    "heroRace": "Elf",
+    "heroRole": "Inspiration",
+    "idleAnim": "characters/baze/baze_idle.png",
+    "damagedAnim": "characters/baze/baze_idle.png",
+    "actionAnim": "characters/baze/baze_act1.png",
+    "equipments": [
+      "MundaneRing"
+    ],
+    "learnedSkills": [
+      "S_KeenEye",
+      "S_Flora",
+      "S_MinorHex",
+      "S_LifeBlossom",
+      "S_WindChant",
+      "S_SpreadingVines"
+    ],
+    "additionalSkills": []
+  },
+  "5": {
+    "name": "Dalia the Destroyer",
+    "heroClass": "Vengeance",
+    "heroRace": "Undead",
+    "heroRole": "Resolve",
+    "idleAnim": "characters/baze/baze_idle.png",
+    "damagedAnim": "characters/baze/baze_idle.png",
+    "actionAnim": "characters/baze/baze_act1.png",
+    "equipments": [
+      "MundaneRing"
+    ],
+    "learnedSkills": [
+      "S_Unlife",
+      "S_Vengeance",
+      "S_MagicMissile",
+      "S_DeepBreath",
+      "S_GoAfterEvil",
+      "S_Judgment"
+    ],
+    "additionalSkills": []
+  },
+  "6": {
+    "name": "Kraven the Hunter",
+    "heroClass": "Hunter",
+    "heroRace": "Human",
+    "heroRole": "Resolve",
+    "idleAnim": "characters/baze/baze_idle.png",
+    "damagedAnim": "characters/baze/baze_idle.png",
+    "actionAnim": "characters/baze/baze_act1.png",
+    "equipments": [
+      "MundaneBow"
+    ],
+    "learnedSkills": [
+      "S_Adapt",
+      "S_Hunter",
+      "S_WeightedArrow",
+      "S_TrophyHunt",
+      "S_ShareTheSpoils",
+      "S_Barrage"
+    ],
+    "additionalSkills": []
+  },
+  "7": {
+    "name": "Darla Swiftblade",
+    "heroClass": "Trickster",
+    "heroRace": "Spirit",
+    "heroRole": "Tempo",
+    "idleAnim": "characters/baze/baze_idle.png",
+    "damagedAnim": "characters/baze/baze_idle.png",
+    "actionAnim": "characters/baze/baze_act1.png",
+    "equipments": [
+      "MundaneDagger"
+    ],
+    "learnedSkills": [
+      "S_Ethereal",
+      "S_Trickster",
+      "S_DaggerThrow",
+      "S_Sabotage",
+      "S_QuickStep",
+      "S_PocketHex"
+    ],
+    "additionalSkills": []
+  },
+  "8": {
+    "name": "Jeff",
+    "heroClass": "Medic",
+    "heroRace": "Elf",
+    "heroRole": "Tempo",
+    "idleAnim": "characters/baze/baze_idle.png",
+    "damagedAnim": "characters/baze/baze_idle.png",
+    "actionAnim": "characters/baze/baze_act1.png",
+    "equipments": [
+      "MundaneBow"
+    ],
+    "learnedSkills": [
+      "S_KeenEye",
+      "S_Medic",
+      "S_AimedShot",
+      "S_MedicineUnderFire",
+      "S_LastStand",
+      "S_Aid"
+    ],
+    "additionalSkills": []
   }
 }

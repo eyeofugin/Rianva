@@ -7,6 +7,8 @@ import framework.connector.ConnectionPayload;
 import framework.connector.Connector;
 import framework.connector.Subscriber;
 import framework.graphics.text.Color;
+import framework.graphics.text.TextAlignment;
+import framework.graphics.text.TextEditor;
 import framework.resources.SpriteLibrary;
 import framework.states.Arena;
 import framework.connector.Subscription;
@@ -283,6 +285,9 @@ public class Skill implements Subscriber {
     return "";
   }
 
+  public String getDescription() {
+    return description;
+  }
   public String getDescriptionFor(Hero hero) {
     return "";
   }
@@ -799,7 +804,7 @@ public class Skill implements Subscriber {
       } else {
         for (int i = Arena.firstEnemyPos; i <= Arena.lastEnemyPos; i++) {
           if (targetPosList.contains(i)) {
-            if (targetType.equals(TargetType.SINGLE)) {
+            if (targetType.equals(TargetType.SINGLE)||targetType.equals(TargetType.SINGLE_OTHER)) {
               builder.append("[ETT]");
             } else if (targetType.equals(TargetType.ALL_TARGETS)) {
               builder.append("[ETA]");
@@ -915,10 +920,29 @@ public class Skill implements Subscriber {
     return resultBuilder.toString();
   }
 
+  public Color getCostColor() {
+    Color color = Color.WHITE;
+    if (manaCost != 0) {
+      color = Color.BLUE;
+    }
+    if (lifeCost != 0) {
+      color = Color.RED;
+    }
+    return color;
+  }
+  public String getCostStringGUI() {
+    String amount = "0";
+    if (manaCost != 0) {
+      amount = manaCost + "";
+    }
+    if (lifeCost != 0) {
+      amount = lifeCost + "";
+    }
+    return amount;
+  }
   public String getDmgStringGUI() {
     StringBuilder builder = new StringBuilder();
     if (this.getDmg(null) != 0 || !this.dmgMultipliers.isEmpty()) {
-      builder.append("DMG: ");
       builder.append(getDmgString());
     }
     return builder.toString();
@@ -928,8 +952,6 @@ public class Skill implements Subscriber {
     StringBuilder builder = new StringBuilder();
     if ((this.getHeal(null) != 0 || !this.healMultipliers.isEmpty())) {
       if (this.getHeal(null) != 0 || !this.healMultipliers.isEmpty()) {
-        builder.append("HEAL: ");
-        builder.append(Color.WHITE.getCodeString());
         builder.append(getHealString());
       }
     }
@@ -940,7 +962,6 @@ public class Skill implements Subscriber {
     StringBuilder builder = new StringBuilder();
     if ((this.getShield(null) != 0 || !this.shieldMultipliers.isEmpty())) {
       if (this.getShield(null) != 0 || !this.shieldMultipliers.isEmpty()) {
-        builder.append("SHIELD: ");
         builder.append(getShieldString());
       }
     }

@@ -13,7 +13,8 @@ public class S_TheDarken extends Skill {
     if (ConnectionPayload.CondEffectImpact.ALLOW.equals(impact)
         || (ConnectionPayload.CondEffectImpact.IGNORE.equals(impact)
             && this.hero.arena.hasGlobalEffect(Darkness.class))) {
-      pl.dmg = (int) ((double) keyValues.get("Mult") * pl.dmg);
+      int change = (int) ((double) keyValues.get("Mult") * pl.dmg);
+      pl.dmg += change;
     }
   }
 }

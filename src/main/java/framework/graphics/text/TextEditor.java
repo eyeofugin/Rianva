@@ -4,10 +4,7 @@ import framework.Property;
 import game.entities.Role;
 import game.skills.logic.Stat;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class TextEditor {
 
@@ -178,6 +175,7 @@ public class TextEditor {
     symbols.put(" ", Symbol.spacex8);
     symbols.put("~", Symbol.infinitex8);
     symbols.put("!", Symbol.exclamationMarkx8);
+    symbols.put("?", Symbol.questionMarkx8);
     symbols.put(Stat.CURRENT_ENERGY.getIconKey(), Symbol.mana);
     symbols.put(Stat.ENERGY.getIconKey(), Symbol.mana);
     symbols.put(Stat.ENERGY_REGAIN.getIconKey(), Symbol.manaregain);
@@ -221,7 +219,12 @@ public class TextEditor {
     symbols.put("FTA", Symbol.friendTargetAll);
     symbols.put("OTA", Symbol.otherTargetAll);
     symbols.put("EMT", Symbol.emptyTarget);
+    symbols.put("CHN", Symbol.chancex8);
+    symbols.put("MRK", Symbol.markx8);
+    symbols.put("BNS", Symbol.bonusx8);
     symbols.put("BRL", new LineBreak());
+    symbols.put("DMG", Symbol.damagex8);
+    symbols.put("OHT", Symbol.onhitx8);
     symbols.put("???", Symbol.missingx8);
     symbols.put(Role.TANK.iconKey, Symbol.tank);
     symbols.put(Role.FIGHTER.iconKey, Symbol.fighter);
@@ -517,6 +520,7 @@ public class TextEditor {
           Symbol _sym = this.symbolMap.get(String.valueOf(character));
           if (_sym == null) {
             System.out.println(character);
+            character = '*';
           }
           symbol = this.symbolMap.get(String.valueOf(character)).copy();
         }
@@ -873,7 +877,7 @@ public class TextEditor {
 
   private static String[] splitRows(String text, int width, int fontSize) {
     int stringWidth = getStringWidth(text, fontSize);
-    boolean hasLineBreaks = text.contains("[br][br]");
+    boolean hasLineBreaks = text.contains("[br]");
     if (stringWidth > width || hasLineBreaks) {
       return splitAt(width, text, fontSize);
     } else {

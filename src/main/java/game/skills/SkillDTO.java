@@ -47,7 +47,7 @@ public class SkillDTO {
   public Integer push = 0;
   public Integer pull = 0;
   public Integer maxCd = 0;
-  public Integer accuracy = 0;
+  public Integer accuracy = 100;
   public Boolean cannotMiss = false;
   public Integer countsAsHits;
   public Integer move;

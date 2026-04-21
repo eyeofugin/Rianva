@@ -6,7 +6,7 @@ import game.effects.status.Immunity;
 import game.skills.Skill;
 import utils.Utils;
 
-public class S_LookForTrouble extends Skill {
+public class S_LookForTrouble extends Skill{
     int marks = 0;
     public void onMark(ConnectionPayload pl) {
         this.marks++;

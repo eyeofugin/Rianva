@@ -5,10 +5,7 @@ import game.skills.SkillDTO;
 import utils.CollectionUtils;
 import utils.FileWalker;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SkillLibrary {
 
@@ -30,11 +27,13 @@ public class SkillLibrary {
 
   public static List<Skill> fullSkillList() {
     List<String> allNames = new ArrayList<>();
+    allNames.addAll(baseSkillsJson.keySet());
     allNames.addAll(cantripSkillsJson.keySet());
     allNames.addAll(classSkillsJson.keySet());
     allNames.addAll(roleSkillsJson.keySet());
     allNames.addAll(weaponSkillsJson.keySet());
     allNames.addAll(raceSkillsJson.keySet());
+    Collections.sort(allNames);
     return allNames.stream().map(SkillLibrary::getSkillByName).toList();
   }
   public static Skill getSkillByName(String name) {

@@ -2,7 +2,7 @@
   "S_Vengeance": {
     "name": "Vengeance",
     "className": "game.skills.trees.classes.vengeance.S_Vengeance",
-    "description": "Skip",
+    "description": "When you receive damage, the caster receives Marked. [BRL] Whenever an enemy Mark is claimed, gain 3% Health and Energy.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -14,7 +14,6 @@
         "methodName": "dmgTrigger",
         "trigger": {
           "targetHeroReference": "SAME",
-          "targetHeroReference": "SAME",
           "skillNotNull": true
         }
       },
@@ -25,12 +24,16 @@
           "targetHeroReference": "ENEMY"
         }
       }
-    ]
+    ],
+    "keyValues": {
+      "Energy": "3",
+      "Heal": "3"
+    }
   },
   "S_TightenTheGrip": {
     "name": "Tighten The Grip",
     "className": "game.skills.trees.classes.vengeance.S_TightenTheGrip",
-    "description": "Skip",
+    "description": "Give Taunted 1. If you claimed 10 or more Marks, +1 duration.",
     "targetType": "SINGLE",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -75,7 +78,7 @@
   "S_GoAfterEvil": {
     "name": "Go After Evil",
     "className": "game.skills.trees.classes.vengeance.S_GoAfterEvil",
-    "description": "Skip",
+    "description": "Move to position. 10+ Marks: Deal X Normal Physical damage to the first two enemies, where X is the amount of Marks.",
     "targetType": "SINGLE",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -104,13 +107,13 @@
     ],
     "possibleCastPositions": [
       0,
-      1
+      1,
+      2
     ],
     "possibleTargetPositions": [
       3
     ],
     "keyValues": {
-      "StaticDmg": 10,
       "StaticDmgTargets": [
         4,
         5
@@ -122,7 +125,7 @@
   "S_Judgment": {
     "name": "Judgment",
     "className": "game.skills.trees.classes.vengeance.S_Judgment",
-    "description": "Skip",
+    "description": "Give Brittle 1 and Shaken 1. 10+ Marks: Debuff the target.",
     "targetType": "ALL_TARGETS",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -171,7 +174,7 @@
   "S_ByAnyMeans": {
     "name": "By Any Means",
     "className": "game.skills.trees.classes.vengeance.S_ByAnyMeans",
-    "description": "Skip",
+    "description": "Deal 10% Dark Magical damage to your allies to heal for 150% of the damage done. 10+ Marks: Get an extra turn.",
     "targetType": "ALL_OTHER_ALLY",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -194,12 +197,16 @@
       1,
       2,
       3
-    ]
+    ],
+    "keyValues": {
+      "DmgPercentage": 10,
+      "HealPercentage": 150
+    }
   },
   "S_NoMercy": {
     "name": "No Mercy",
     "className": "game.skills.trees.classes.vengeance.S_NoMercy",
-    "description": "Skip",
+    "description": "Deal +10% damage to Marked enemies. 5+ Marks: +25% instead.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -236,7 +243,7 @@
   "S_LookForTrouble": {
     "name": "Look For Trouble",
     "className": "game.skills.trees.classes.vengeance.S_LookForTrouble",
-    "description": "Skip",
+    "description": "Receive Threatening 1. 5+ Marks: Gain Immunity.",
     "targetType": "SELF",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -279,7 +286,7 @@
   "S_Medic": {
     "name": "Medic",
     "className": "game.skills.trees.classes.medic.S_Medic",
-    "description": "Skip",
+    "description": "Whenever you heal an ally, give them shield. If they already had a shield, they receive Immunity 1 instead. If they already had Immunity, they receive Protected 1.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -294,36 +301,19 @@
     ],
     "subscriptions": [
       {
-        "topicName": "DMG_CHANGES_MULT",
-        "methodName": "dmgChangesMult",
+        "topicName": "HEAL_TRIGGER",
+        "methodName": "onHeal",
         "trigger": {
-          "targetHeroReference": "ENEMY",
-          "casterHeroReference": "SAME",
-          "targetEffects": {
-            "boolLogic": "ALL_OF",
-            "objects": [
-              "Marked"
-            ]
-          }
-        }
-      },
-      {
-        "topicName": "ON_MARK",
-        "methodName": "onMark",
-        "trigger": {
-          "targetHeroReference": "ENEMY"
+          "targetHeroReference": "ALLY",
+          "casterHeroReference": "SAME"
         }
       }
-    ],
-    "keyValues": {
-      "BasePercentage": 10,
-      "FullPercentage": 25
-    }
+    ]
   },
   "S_CarePackage": {
     "name": "Care Package",
     "className": "game.skills.trees.classes.medic.S_CarePackage",
-    "description": "Skip",
+    "description": "Move to target position. Heal all allies passed.",
     "targetType": "SINGLE_OTHER",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -350,7 +340,7 @@
   "S_MedicineUnderFire": {
     "name": "Medicine Under Fire",
     "className": "game.skills.trees.classes.medic.S_MedicineUnderFire",
-    "description": "Skip",
+    "description": "Give Mighty 1.",
     "targetType": "SINGLE_OTHER",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -385,7 +375,7 @@
   "S_ANewHope": {
     "name": "A New Hope",
     "className": "game.skills.trees.classes.medic.S_ANewHope",
-    "description": "Skip",
+    "description": "Summon Glorious Day.",
     "targetType": "ARENA",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -408,7 +398,7 @@
   "S_LastStand": {
     "name": "LastStand",
     "className": "game.skills.trees.classes.medic.S_LastStand",
-    "description": "Skip",
+    "description": "If the target has less than 50% Health, they receive Lifesteal 2, otherwise they receive Double Strike 2.",
     "targetType": "ALL_OTHER_ALLY",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -420,17 +410,17 @@
     "effects": [
       {
         "className": "game.effects.status.DoubleStrike",
-        "turns": 1,
+        "turns": 2,
         "condition": {
           "trigger": "TARGET",
           "healthComparison": true,
-          "lessThan": true,
+          "lessThan": false,
           "percentage": 50
         }
       },
       {
         "className": "game.effects.status.Lifesteal",
-        "turns": 1,
+        "turns": 2,
         "condition": {
           "trigger": "TARGET",
           "healthComparison": true,
@@ -449,7 +439,7 @@
   "S_Motivate": {
     "name": "Motivate",
     "className": "game.skills.trees.classes.medic.S_Motivate",
-    "description": "Skip",
+    "description": "Revert Stat Effects.",
     "targetType": "ALL_OTHER_ALLY",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -468,7 +458,7 @@
   "S_Berserker": {
     "name": "Berserker",
     "className": "game.skills.trees.classes.berserker.S_Berserker",
-    "description": "Skip",
+    "description": "Whenever you deal or receive damage, get a Rage stack to a maximum of 5. End of turn, if you didn't deal or receive damage, lose 2 stacks. 5+ Rage: You are enraged, and receive 15% less damage.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -503,7 +493,7 @@
   "S_NeverSurrender": {
     "name": "Never Surrender",
     "className": "game.skills.trees.classes.berserker.S_NeverSurrender",
-    "description": "Skip",
+    "description": "Start of turn, if you have less than 50% life, remove a random debuff.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -520,7 +510,7 @@
     "name": "Reengage",
     "className": "game.skills.trees.classes.berserker.S_Reengage",
     "targetType": "SINGLE",
-    "description": "Skip",
+    "description": "Move to position. Deal Normal Physical damage to the first enemy.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -554,7 +544,7 @@
     "name": "Intimidating Roar",
     "className": "game.skills.trees.classes.berserker.S_IntimidatingRoar",
     "targetType": "SINGLE",
-    "description": "Skip",
+    "description": "Remove random Stat Buff. Enraged: All targets.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -578,7 +568,7 @@
     "name": "Death Is No Obstacle",
     "className": "game.skills.trees.classes.berserker.S_DeathIsNoObstacle",
     "targetType": "SELF",
-    "description": "Skip",
+    "description": "Receive Advantage 1. [BRL] You have a 10% chance to survive on 1 Health, when taking lethal damage. Enraged: 45% instead.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -591,23 +581,33 @@
         "className": "game.effects.hero.Advantage",
         "turns": 1,
         "stacks": 0
-      },
+      }
+    ],
+    "subscriptions": [
       {
-        "className": "game.effects.status.DoubleStrike",
-        "turns": 1,
-        "stacks": 0
+        "topicName": "DAMAGE_TRIGGER",
+        "methodName": "onDamage",
+        "trigger": {
+          "targetHeroReference": "SAME"
+        }
       }
     ],
     "possibleCastPositions": [
       2,
       3
-    ]
+    ],
+    "keyValues": {
+      "Chance": 10,
+      "EnragedChance": 45
+    }
   },
   "S_RecklessAttack": {
     "name": "Reckless Attack",
     "className": "game.skills.trees.classes.berserker.S_RecklessAttack",
     "targetType": "SINGLE",
-    "description": "Skip",
+    "description": "Give Bleeding 1. Receive Bleeding 1 if you are not enraged. While you have no Armor, your BODY is increased by 15%.",
+    "damageType": "NORMAL",
+    "damageMode": "PHYSICAL",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -669,7 +669,7 @@
   "S_Flora": {
     "name": "Flora",
     "className": "game.skills.trees.classes.flora.S_Flora",
-    "description": "Skip",
+    "description": "During Weather, your Field Effects have +1 Duration.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -688,7 +688,7 @@
   "S_SporeBomb": {
     "name": "Spore Bomb",
     "className": "game.skills.trees.classes.flora.S_SporeBomb",
-    "description": "Skip",
+    "description": "10% Chance to summon Poison Gasses.",
     "targetType": "SINGLE",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -721,7 +721,7 @@
   "S_HarvestSun": {
     "name": "HarvestSun",
     "className": "game.skills.trees.classes.flora.S_HarvestSun",
-    "description": "Skip",
+    "description": "Summon Scorching Sun. During Scorching Sun, Field Effects of your team have +1 duration.",
     "targetType": "ARENA",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -753,7 +753,7 @@
   "S_TraverseTheRoots": {
     "name": "Traverse The Roots",
     "className": "game.skills.trees.classes.flora.S_TraverseTheRoots",
-    "description": "Skip",
+    "description": "Move to position.",
     "targetType": "SINGLE_OTHER",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -763,15 +763,6 @@
     "maxCd": 5,
     "manaCost": 10,
     "moveTo": true,
-    "subscriptions": [
-      {
-        "topicName": "CAST_CHANGE",
-        "methodName": "castChange",
-        "trigger": {
-          "casterHeroReference": "ALLY"
-        }
-      }
-    ],
     "possibleCastPositions": [
       0,
       1,
@@ -788,7 +779,7 @@
   "S_VineGrip": {
     "name": "Vine Grip",
     "className": "game.skills.trees.classes.flora.S_VineGrip",
-    "description": "Skip",
+    "description": "Summon Thicket 1. Pull 1.",
     "targetType": "SINGLE",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -825,7 +816,7 @@
   "S_ThornCage": {
     "name": "Thorn Cage",
     "className": "game.skills.trees.classes.flora.S_ThornCage",
-    "description": "Skip",
+    "description": "Summon Thicket 1. During Weather this affects all targets.",
     "targetType": "SINGLE",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -872,7 +863,7 @@
   "S_LifeBlossom": {
     "name": "Life Blossom",
     "className": "game.skills.trees.classes.flora.S_LifeBlossom",
-    "description": "Skip",
+    "description": "Summon Recovery Field 1. During Weather this affects all targets.",
     "targetType": "SINGLE",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -910,7 +901,7 @@
   "S_SpreadingVines": {
     "name": "Spreading Vines",
     "className": "game.skills.trees.classes.flora.S_SpreadingVines",
-    "description": "Skip",
+    "description": "End of turn each of your Field Effects, has a 25% chance to spread. 75% during weather.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -930,7 +921,7 @@
   "S_Fauna": {
     "name": "Fauna",
     "className": "game.skills.trees.classes.fauna.S_Fauna",
-    "description": "Skip",
+    "description": "Whenever you receive a Hero Effect, if you have Prepared, gain Initiative. Otherwise if you have Advantage, gain Prepared 1. Otherwise gain Advantage 1.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -950,7 +941,7 @@
     "name": "Snake Bite",
     "className": "game.skills.trees.classes.fauna.S_SnakeBite",
     "targetType": "SINGLE",
-    "description": "Skip",
+    "description": "Give Poisoned 1 and Shaken 1. Receive Snake Form.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -995,7 +986,7 @@
     "name": "Dragon Fire",
     "className": "game.skills.trees.classes.fauna.S_DragonFire",
     "targetType": "ALL_TARGETS",
-    "description": "Skip",
+    "description": "Receive Dragon Form.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -1030,7 +1021,7 @@
     "name": "Wendigo Dash",
     "className": "game.skills.trees.classes.fauna.S_WendigoDash",
     "targetType": "SINGLE",
-    "description": "Skip",
+    "description": "Receive Frost 1 and Wendigo Form.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -1061,7 +1052,7 @@
     "name": "Thunderbird Wing Clap",
     "className": "game.skills.trees.classes.fauna.S_ThunderBirdWingClap",
     "targetType": "SINGLE",
-    "description": "Skip",
+    "description": "20% chance to give Immobile 1. Receive Thunderbird Form.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -1110,7 +1101,7 @@
     "name": "ResolveOfTheBear",
     "className": "game.skills.trees.classes.fauna.S_ResolveOfTheBear",
     "targetType": "SELF",
-    "description": "Skip",
+    "description": "Receive Bear Form.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -1141,7 +1132,7 @@
     "name": "Beast Blast",
     "className": "game.skills.trees.classes.fauna.S_BeastBlast",
     "targetType": "SINGLE",
-    "description": "Skip",
+    "description": "Damage type changes with the active Beast Form. 15% Life steal.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -1183,7 +1174,7 @@
   "S_Radiance": {
     "name": "Fauna",
     "className": "game.skills.trees.classes.radiance.S_Radiance",
-    "description": "Skip",
+    "description": "Light damage you deal has 20% chance to give Blinded 1. Whenever an enemy misses an attack, receive Advantage 1.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -1216,7 +1207,7 @@
     "name": "Prism Ray",
     "className": "game.skills.trees.classes.radiance.S_PrismRay",
     "targetType": "ALL_TARGETS",
-    "description": "Skip",
+    "description": "5% chance to give each Status Debuff. You receive each Status Debuff given this way.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -1253,7 +1244,7 @@
     "name": "Light Barrier",
     "className": "game.skills.trees.classes.radiance.S_LightBarrier",
     "targetType": "SINGLE",
-    "description": "Skip",
+    "description": "Summon Barrier 1. If you have Advantage: +2 Duration.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -1294,7 +1285,7 @@
     "name": "Light Reflection",
     "className": "game.skills.trees.classes.radiance.S_LightReflection",
     "targetType": "SINGLE",
-    "description": "Skip",
+    "description": "Summon Reflection 1. If you have Advantage: +2 Duration.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -1335,7 +1326,7 @@
     "name": "Light Salve",
     "className": "game.skills.trees.classes.radiance.S_LightSalve",
     "targetType": "SINGLE",
-    "description": "Skip",
+    "description": "Hits 3 times. 10% Chance to give Dazed 1. If you have Advantage: 10% Chance to Stun.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -1387,7 +1378,7 @@
     "name": "Pray For Guidance",
     "className": "game.skills.trees.classes.radiance.S_PrayForGuidance",
     "targetType": "SELF",
-    "description": "Skip",
+    "description": "If you have Advantage: Gain Prepared 1.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -1430,7 +1421,7 @@
   "S_Halo": {
     "name": "Halo",
     "className": "game.skills.trees.classes.radiance.S_Halo",
-    "description": "Skip",
+    "description": "Gain 10 Dodge. If you have Advantage, allies get 5 dodge.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -1459,7 +1450,7 @@
   "S_Trickster": {
     "name": "Trickster",
     "className": "game.skills.trees.classes.trickster.S_Trickster",
-    "description": "Skip",
+    "description": "Whenever you give a Debuff, heat the target up by 1.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -1473,17 +1464,13 @@
           "casterHeroReference": "SAME"
         }
       }
-    ],
-    "keyValues": {
-      "Self": 10,
-      "Others": 5
-    }
+    ]
   },
   "S_PocketHex": {
     "name": "Pocket Hex",
     "className": "game.skills.trees.classes.trickster.S_PocketHex",
     "targetType": "ALL_TARGETS",
-    "description": "Skip",
+    "description": "Gives a random Status Debuff.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -1505,7 +1492,7 @@
     "name": "Sleigh of Hand",
     "className": "game.skills.trees.classes.trickster.S_SleighOfHand",
     "targetType": "SINGLE",
-    "description": "Skip",
+    "description": "Switches an own Debuff for an enemy Buff.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -1530,7 +1517,7 @@
     "name": "Lure",
     "className": "game.skills.trees.classes.trickster.S_Lure",
     "targetType": "SINGLE",
-    "description": "Skip",
+    "description": "Pull 1.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -1552,7 +1539,7 @@
     "name": "Cheap Shot",
     "className": "game.skills.trees.classes.trickster.S_CheapShot",
     "targetType": "SINGLE",
-    "description": "Skip",
+    "description": "If the target is still in queue, push 1. Otherwise Stun.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -1582,7 +1569,7 @@
     "name": "Daze",
     "className": "game.skills.trees.classes.trickster.S_Trick",
     "targetType": "SINGLE",
-    "description": "Skip",
+    "description": "Give Dazed 2.",
     "iconPath": "icons/skills/winterorb.png",
     "tags": [
       "TACTICAL",
@@ -1611,7 +1598,7 @@
   "S_Rogue": {
     "name": "Rogue",
     "className": "game.skills.trees.classes.rogue.S_Rogue",
-    "description": "Skip",
+    "description": "Get 10% of your DEXTERITY as Dodge.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -1639,7 +1626,7 @@
   "S_Opportunist": {
     "name": "Opportunist",
     "className": "game.skills.trees.classes.rogue.S_Opportunist",
-    "description": "Skip",
+    "description": "Whenever you crit, if you have Advantage, gain Initiative. Otherwise gain Advantage.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -1659,7 +1646,7 @@
     "name": "Gambit",
     "className": "game.skills.trees.classes.rogue.S_Gambit",
     "targetType": "SELF",
-    "description": "Skip",
+    "description": "Pay 20 Dodge. Receive Flawless 2, Initiative and Marked.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -1690,7 +1677,7 @@
   "S_FindTheWeakness": {
     "name": "Find The Weakness",
     "className": "game.skills.trees.classes.rogue.S_FindTheWeakness",
-    "description": "Skip",
+    "description": "Whenever you deal Normal Damage, have a 50% chance to give Bleeding 1 and a 50% chance to give Brittle 1.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -1720,7 +1707,7 @@
     "name": "Smoke Bomb",
     "className": "game.skills.trees.classes.rogue.S_SmokeBomb",
     "targetType": "SINGLE",
-    "description": "Skip",
+    "description": "Summon Cover 2 on your original position. Move to position.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -1747,7 +1734,7 @@
     "name": "Poison Tip",
     "className": "game.skills.trees.classes.rogue.S_PoisonTip",
     "targetType": "SELF",
-    "description": "Skip",
+    "description": "Receive Toxic 3.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -1771,7 +1758,7 @@
   "S_Hunter": {
     "name": "Hunter",
     "className": "game.skills.trees.classes.hunter.S_Hunter",
-    "description": "Skip",
+    "description": "Start of Round a random enemy is Marked. Start of turn, if you claimed 5+ Marks, receive Advantage. Primary attacks can always target marked enemies.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -1806,16 +1793,13 @@
           "targetHeroReference": "ENEMY"
         }
       }
-    ],
-    "keyValues": {
-      "Chance": 50
-    }
+    ]
   },
   "S_Hideout": {
     "name": "Hideout",
     "className": "game.skills.trees.classes.hunter.S_Hideout",
     "targetType": "SELF",
-    "description": "Skip",
+    "description": "Summon Cover 2. Receive Prepared 1.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -1843,7 +1827,7 @@
   "S_TrophyHunt": {
     "name": "Trophy Hunt",
     "className": "game.skills.trees.classes.hunter.S_TrophyHunt",
-    "description": "Skip",
+    "description": "Claiming a Mark gives you a Trophy stack. 5+ Marks: Deal 30% more damage to Marked enemies. 10+ Marks: +30% DEXTERITY. 20+ Marks: Start of Round get an extra turn.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -1898,7 +1882,7 @@
     "name": "Net",
     "className": "game.skills.trees.classes.hunter.S_Net",
     "targetType": "ALL_TARGETS",
-    "description": "Skip",
+    "description": "Give Immobile 2. Targets lose 20 Dodge.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -1932,7 +1916,7 @@
     "name": "Trapper",
     "className": "game.skills.trees.classes.hunter.S_Trapper",
     "targetType": "SINGLE",
-    "description": "Skip",
+    "description": "Summon Small Trap. If the target is Marked, summon Big Trap instead.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -1970,7 +1954,7 @@
   "S_ShareTheSpoils": {
     "name": "Share The Spoils",
     "className": "game.skills.trees.classes.hunter.S_ShareTheSpoils",
-    "description": "Skip",
+    "description": "Each round the first Mark can be claimed twice.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -1993,7 +1977,7 @@
   "S_Evoker": {
     "name": "Evoker",
     "className": "game.skills.trees.classes.evoker.S_Evoker",
-    "description": "Skip",
+    "description": "Deal 15% more damage. Receive 10% of the Energy you pay as True Damage.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -2025,7 +2009,7 @@
     "name": "Risky Channel",
     "className": "game.skills.trees.classes.evoker.S_RiskyChannel",
     "targetType": "SELF",
-    "description": "Skip",
+    "description": "Gain 25 Energy.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -2051,12 +2035,14 @@
     "name": "Wind Wall",
     "className": "game.skills.trees.classes.evoker.S_WindWall",
     "targetType": "SINGLE",
-    "description": "Skip",
+    "description": "50% chance to Push 1.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
       "CLASS"
     ],
+    "damageType": "NORMAL",
+    "damageMode": "MAGICAL",
     "dmg": 10,
     "dmgMultipliers": [
       {
@@ -2086,14 +2072,14 @@
     ],
     "keyValues":
       {
-        "ChancePercentage": 0.5
+        "ChancePercentage": 50
       }
   },
   "S_ChainLightning": {
-    "name": "Chain Lighnint",
+    "name": "Chain Lightning",
     "className": "game.skills.trees.classes.evoker.S_ChainLightning",
     "targetType": "ALL_TARGETS",
-    "description": "Skip",
+    "description": "25% Chance to give Burning 1. 50% during Storm.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -2147,7 +2133,7 @@
     "name": "Fire Blast",
     "className": "game.skills.trees.classes.evoker.S_FireBlast",
     "targetType": "ALL_TARGETS",
-    "description": "Skip",
+    "description": "Move back 1. Receive Burning 1.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -2184,7 +2170,7 @@
     "name": "Meteors",
     "className": "game.skills.trees.classes.evoker.S_Meteors",
     "targetType": "ALL_TARGETS",
-    "description": "Skip",
+    "description": "Receive Dull 3.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -2223,7 +2209,7 @@
     "name": "Storm Seeker",
     "className": "game.skills.trees.classes.evoker.S_StormSeeker",
     "targetType": "ARENA",
-    "description": "Skip",
+    "description": "Summon Storm.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -2245,7 +2231,7 @@
   "S_Strider": {
     "name": "Strider",
     "className": "game.skills.trees.classes.strider.S_Strider",
-    "description": "Skip",
+    "description": "Once per round, whenever Weather is summoned, gain an extra turn. End of Turn, if you are on a Field Effect, gain 10% Health.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -2264,13 +2250,16 @@
         "topicName": "START_OF_TURN",
         "methodName": "startOfTurn"
       }
-    ]
+    ],
+    "keyValues": {
+      "HealPercentage": 10
+    }
   },
   "S_Ambush": {
     "name": "Ambush",
     "className": "game.skills.trees.classes.strider.S_Ambush",
     "targetType": "SINGLE",
-    "description": "Skip",
+    "description": "Move forward 1. If the target is on a Field Effect or has a Debuff, push 1.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -2311,7 +2300,7 @@
     "name": "Healing Plants",
     "className": "game.skills.trees.classes.strider.S_HealingPlants",
     "targetType": "SINGLE",
-    "description": "Skip",
+    "description": " ",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -2335,7 +2324,7 @@
   "S_Pathfinder": {
     "name": "Pathfinder",
     "className": "game.skills.trees.classes.strider.S_Pathfinder",
-    "description": "Skip",
+    "description": "If you move by an ally, cool them down by 1 and Summon Cover 1.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -2355,7 +2344,7 @@
     "name": "Trailblaze",
     "className": "game.skills.trees.classes.strider.S_Trailblaze",
     "targetType": "SINGLE_OTHER",
-    "description": "Skip",
+    "description": "Move to position.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -2380,7 +2369,7 @@
     "name": "True Shot",
     "className": "game.skills.trees.classes.strider.S_TrueShot",
     "targetType": "SELF",
-    "description": "Skip",
+    "description": "Receive Flawless 2. If you are on a Field Effect, gain Advantage.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",

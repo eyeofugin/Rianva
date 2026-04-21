@@ -144,6 +144,7 @@ public class Symbol {
   public static Symbol ninex8 = new Symbol("9", 64, 51, 54, 24, 31, SpriteSheet.fonts8x);
 
   public static Symbol exclamationMarkx8 = new Symbol("!", "fonts/8x/exclamationMark.png", 2, 8);
+  public static Symbol questionMarkx8 = new Symbol("?", "fonts/8x/questionmark.png", 4, 8);
   public static Symbol pointx8 = new Symbol(".", "fonts/8x/point.png", 2, 8);
   public static Symbol starx8 = new Symbol("*", "fonts/8x/star.png", 3, 8);
   public static Symbol slashx8 = new Symbol("/", "fonts/8x/slash.png", 3, 8);
@@ -161,6 +162,11 @@ public class Symbol {
   public static Symbol spacex8 = new Symbol(" ", "fonts/8x/space.png", 3, 8);
   public static Symbol apostrophex8 = new Symbol("'", "fonts/8x/apostrophe.png", 2, 8);
   public static Symbol infinitex8 = new Symbol("~", "fonts/infinite.png", 8, 8);
+  public static Symbol chancex8 = new Symbol("CHN", "icons/gui/chance.png", 8, 8);
+  public static Symbol markx8 = new Symbol("MRK", "icons/gui/mark.png", 8, 8);
+  public static Symbol bonusx8 = new Symbol("BON", "icons/gui/bonus.png", 8, 8);
+  public static Symbol damagex8 = new Symbol("DMG", "icons/gui/damage.png", 8, 8);
+  public static Symbol onhitx8 = new Symbol("OHT", "icons/gui/onhit.png", 8, 8);
 
   public static Symbol point5x8 = initPoint5x8();
   public static Symbol slash5x8 = initSlash5x8();
@@ -339,6 +345,17 @@ public class Symbol {
     }
   }
 
+  private static Symbol initQuestionMarkx8(){
+    int[] pixels =
+            new int[] {
+                    -12450784, -12450784, -12450784,       -1 ,       -1 , -12450784, -12450784, -12450784,
+                    -12450784, -12450784,       -1 , -12450784, -12450784,        -1, -12450784, -12450784,
+                    -12450784, -12450784, -12450784, -12450784,       -1 , -12450784, -12450784, -12450784,
+                    -12450784, -12450784, -12450784, -12450784, -12450784, -12450784, -12450784, -12450784,
+                    -12450784, -12450784, -12450784, -12450784,       -1 , -12450784, -12450784, -12450784
+            };
+    return new Symbol(pixels, 8, 5);
+  }
   private static Symbol initPoint5x8() {
     int[] pixels =
         new int[] {

@@ -68,7 +68,7 @@ public class StatField extends GUIElement {
   private void renderSide(Stat[] stats, int x) {
     int yf = 3;
     for (Stat stat : stats) {
-      int totalValue = hero != null? hero.getStat(stat) : heroDTO.getStat(stat);
+      int totalValue = hero != null? hero.getStat(stat) : 0;//heroDTO.getStat(stat);
       int statChange = hero != null?hero.getStatChange(stat) :0;
       int baseValue = totalValue - statChange;
       //            if (baseValue != 100 && (statChange != 0 || baseValue != 0)) {

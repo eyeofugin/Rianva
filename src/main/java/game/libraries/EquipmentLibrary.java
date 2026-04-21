@@ -3,7 +3,9 @@ package game.libraries;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import game.objects.Equipment;
 import game.objects.EquipmentDTO;
+import game.skills.Skill;
 import utils.FileWalker;
 
 public class EquipmentLibrary {
@@ -12,6 +14,21 @@ public class EquipmentLibrary {
   public static void init() {
     Map<String, String> equipmentJson = FileWalker.loadJsonMap("data/objects/equipments.json");
     equipments = loadDtoMap(equipmentJson, EquipmentDTO.class);
+  }
+
+  public static Equipment getEquipmentByName(String equipmentName) {
+    EquipmentDTO dto = getEquipment(equipmentName);
+    if (dto != null && dto.className != null) {
+      try {
+        Class<?> eqClass = Class.forName(dto.className);
+        Equipment equipment = (Equipment) eqClass.getDeclaredConstructor().newInstance();
+        equipment.set(dto);
+        return equipment;
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+    return null;
   }
 
   public static List<EquipmentDTO> getAllEquipments() {

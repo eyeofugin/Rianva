@@ -2,15 +2,15 @@
   "S_BloodLust": {
     "name": "Blood Lust",
     "className": "game.skills.trees.roles.hunger.S_BloodLust",
-    "description": "Skip",
+    "description": "[OHT] On-hit, give {008}Marked{001}. [BRL] [BRL] For each {008}Mark{001} you activated, you deal 2% more damage.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
-      "PASSIVE",
-      "ROLE"
+      "ROLE",
+      "PASSIVE"
     ],
     "subscriptions": [
       {
-        "topicName": "DMG_TRIGGER",
+        "topicName": "ON_HIT",
         "methodName": "dmgTrigger",
         "trigger": {
           "targetHeroReference": "SAME",
@@ -40,11 +40,11 @@
   "S_DoubleTime": {
     "name": "Double Time",
     "className": "game.skills.trees.roles.hunger.S_DoubleTime",
-    "description": "Skip",
+    "description": "Primary Skills hit twice.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
-      "PASSIVE",
-      "ROLE"
+      "ROLE",
+      "PASSIVE"
     ],
     "subscriptions": [
       {
@@ -65,11 +65,11 @@
   "S_Momentum": {
     "name": "Momentum",
     "className": "game.skills.trees.roles.hunger.S_Momentum",
-    "description": "Skip",
+    "description": "Whenever an Enemy dies, you get a bonus turn.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
-      "PASSIVE",
-      "ROLE"
+      "ROLE",
+      "PASSIVE"
     ],
     "subscriptions": [
       {
@@ -84,11 +84,11 @@
   "S_PreyOnTheWeak": {
     "name": "Prey on the Weak",
     "className": "game.skills.trees.roles.hunger.S_PreyOnTheWeak",
-    "description": "Skip",
+    "description": "[BNS], [DMG] Whenever you deal damage, if the Target has a {004}Debuff{000}, receive {008}Advantage{000}.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
-      "PASSIVE",
-      "ROLE"
+      "ROLE",
+      "PASSIVE"
     ],
     "subscriptions": [
       {
@@ -106,11 +106,10 @@
   "S_Assassin": {
     "name": "Assassin",
     "className": "game.skills.trees.roles.hunger.S_Assassin",
-    "description": "Skip",
+    "description": "Double damage to Targets with less than 50% life.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
-      "PASSIVE",
-      "ROLE"
+      "ROLE","PASSIVE"
     ],
     "subscriptions": [
       {
@@ -130,11 +129,11 @@
   "S_Frenzy": {
     "name": "Frenzy",
     "className": "game.skills.trees.roles.hunger.S_Frenzy",
-    "description": "Skip",
+    "description": "Whenever you receive {008}Advantage{001}, receive an extra turn.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
-      "PASSIVE",
-      "ROLE"
+      "ROLE","PASSIVE"
+
     ],
     "subscriptions": [
       {
@@ -155,7 +154,7 @@
   "S_AbuseWeakness": {
     "name": "Abuse Weakness",
     "className": "game.skills.trees.roles.hunger.S_AbuseWeakness",
-    "description": "Skip",
+    "description": "CRT If you deal a critical hit, give a random {004}Stat Debuff{001}.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -174,7 +173,7 @@
   "S_MightAndMagic": {
     "name": "MightAndMagic",
     "className": "game.skills.trees.roles.inspiration.S_MightAndMagic",
-    "description": "Skip",
+    "description": "Whenever you receive a {003}Stat Buff{001}, gain 10% Energy.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -205,7 +204,7 @@
     "name": "Wind Chant",
     "className": "game.skills.trees.roles.inspiration.S_WindChant",
     "targetType": "ARENA",
-    "description": "Skip",
+    "description": "Summon {010}Aether Winds{001}.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -227,7 +226,7 @@
   "S_SpellShield": {
     "name": "Spell Shield",
     "className": "game.skills.trees.roles.inspiration.S_SpellShield",
-    "description": "Skip",
+    "description": "Whenever you perform a Skill, gain 10% of the Energy spent as shield.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -249,7 +248,7 @@
   "S_ManaFlow": {
     "name": "Mana Flow",
     "className": "game.skills.trees.roles.inspiration.S_ManaFlow",
-    "description": "Skip",
+    "description": "End of turn, gain 10% Energy.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -268,7 +267,7 @@
   "S_TimeTrick": {
     "name": "Time Trick",
     "className": "game.skills.trees.roles.inspiration.S_TimeTrick",
-    "description": "Skip",
+    "description": "Reduce a random active Cooldown by 1.",
     "targetType": "ALL_TARGETS",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -291,7 +290,7 @@
   "S_FreshManaPool": {
     "name": "Fresh Mana Pool",
     "className": "game.skills.trees.roles.inspiration.S_FreshManaPool",
-    "description": "Skip",
+    "description": "While you have more than 70% Energy, your Effects have +1 Duration.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -305,12 +304,15 @@
           "casterHeroReference": "SAME"
         }
       }
-    ]
+    ],
+    "keyValues": {
+      "ManaCutOff": 70
+    }
   },
   "S_CoolVeins": {
     "name": "Cool Veins",
     "className": "game.skills.trees.roles.inspiration.S_CoolVeins",
-    "description": "Skip",
+    "description": "While you have no active Cooldowns, skills you perform have -1 Cooldown. This cannot reduce the cooldown to 0.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -329,7 +331,7 @@
   "S_Sabotage": {
     "name": "Sabotage",
     "className": "game.skills.trees.roles.tempo.S_Sabotage",
-    "description": "Skip",
+    "description": "Give {004}Stunned{001}.",
     "targetType": "SINGLE",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -357,7 +359,7 @@
   "S_QuickStep": {
     "name": "Quick Step",
     "className": "game.skills.trees.roles.tempo.S_QuickStep",
-    "description": "Skip",
+    "description": "Move to target position. The ally on that position receives {008}Prepared{001} if they have less than 50% life. Otherwise they receive {008}Advantage{001}.",
     "targetType": "SINGLE_OTHER",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -376,7 +378,7 @@
         }
       },
       {
-        "className": "game.effects.hero.tempo.Prepared",
+        "className": "game.effects.hero.Prepared",
         "condition": {
           "trigger": "TARGET",
           "healthComparison": true,
@@ -402,7 +404,7 @@
   "S_BattleTactics": {
     "name": "Battle Tactics",
     "className": "game.skills.trees.roles.tempo.S_BattleTactics",
-    "description": "Skip",
+    "description": "Pull 1.",
     "targetType": "SINGLE_OTHER",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -423,7 +425,7 @@
   "S_Logistics": {
     "name": "Logistics",
     "className": "game.skills.trees.roles.tempo.S_Logistics",
-    "description": "Skip",
+    "description": "Every third Skill costs no Energy.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -449,7 +451,7 @@
   "S_Commandeer": {
     "name": "Commandeer",
     "className": "game.skills.trees.roles.tempo.S_Commandeer",
-    "description": "Skip",
+    "description": "???",
     "targetType": "SINGLE_OTHER",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -474,7 +476,9 @@
           "skillName": "S_Commandeer"
         }
       }
-    ]
+    ],
+    "possibleCastPositions": [0,1,2,3],
+    "possibleTargetPositions": [0,1,2,3]
   },
   "S_Aid": {
     "name": "Aid",
@@ -517,12 +521,14 @@
           "successByCasterStat": "DEXTERITY"
         }
       }
-    ]
+    ],
+    "possibleCastPositions": [0,1,2,3],
+    "possibleTargetPositions": [0,1,2,3]
   },
   "S_WeaponExpert": {
     "name": "Weapon Expert",
     "className": "game.skills.trees.roles.tempo.S_WeaponExpert",
-    "description": "Skip",
+    "description": "Whenever you receive {008}Advantage{001}, get a random {008}Atk Enhancement{001}.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -548,7 +554,7 @@
     "name": "Cover",
     "className": "game.skills.trees.roles.resolve.S_Cover",
     "targetType": "SINGLE",
-    "description": "Skip",
+    "description": "Give {004}Guarded{001}(2).",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -571,7 +577,7 @@
   "S_IronClad": {
     "name": "Iron Clad",
     "className": "game.skills.trees.roles.resolve.S_IronClad",
-    "description": "Skip",
+    "description": "15% bonus on all stats from equipment except weapons.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -613,7 +619,7 @@
     "name": "Kick",
     "className": "game.skills.trees.roles.resolve.S_Kick",
     "targetType": "SINGLE",
-    "description": "Skip",
+    "description": "Push 1.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -641,7 +647,7 @@
     "name": "Draw Fire",
     "className": "game.skills.trees.roles.resolve.S_DrawFire",
     "targetType": "SELF",
-    "description": "Skip",
+    "description": "Receive {004}Threatening{001}(2). +1 Duration if you have {004}Mighty{001}.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -679,7 +685,7 @@
     "name": "Deep Breath",
     "className": "game.skills.trees.roles.resolve.S_DeepBreath",
     "targetType": "SELF",
-    "description": "Skip",
+    "description": " ",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -702,7 +708,7 @@
   "S_Bulwark": {
     "name": "Bulwark",
     "className": "game.skills.trees.roles.resolve.S_Bulwark",
-    "description": "Skip",
+    "description": "If you have a big armor item, you cannot be moved by enemies.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -722,7 +728,7 @@
   "S_HoldTheBanner": {
     "name": "Hold The Banner",
     "className": "game.skills.trees.roles.resolve.S_HoldTheBanner",
-    "description": "Skip",
+    "description": "Allies next to you have +10 Accuracy on Skills. [BRL] Allies next to you gain 5% Energy end of turn.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -743,6 +749,9 @@
           "casterHeroReference": "OTHER_ALLY"
         }
       }
-    ]
+    ],
+    "keyValues": {
+      "Nrg": "5"
+    }
   }
 }

@@ -42,6 +42,17 @@ public class SpriteLibrary {
     sprites.put("group", sprite(32, 32, 32, 32, "icons/gui/group.png", 0));
     sprites.put("relax", sprite(32, 32, 32, 32, "icons/gui/relax.png", 0));
     sprites.put("notseenyet", sprite(32, 32, 32, 32, "icons/gui/notseenyet.png", 0));
+    sprites.put("NORMAL", sprite(10, 10, 10, 10, "icons/damagetype/normal.png", 0));
+    sprites.put("LIGHT", sprite(10, 10, 10, 10, "icons/damagetype/light.png", 0));
+    sprites.put("DARK", sprite(10, 10, 10, 10, "icons/damagetype/dark.png", 0));
+    sprites.put("HEAT", sprite(10, 10, 10, 10, "icons/damagetype/heat.png", 0));
+    sprites.put("COLD", sprite(10, 10, 10, 10, "icons/damagetype/cold.png", 0));
+    sprites.put("TOXIC", sprite(10, 10, 10, 10, "icons/damagetype/toxic.png", 0));
+    sprites.put("MENTAL", sprite(10, 10, 10, 10, "icons/damagetype/mental.png", 0));
+    sprites.put("SHOCK", sprite(10, 10, 10, 10, "icons/damagetype/shock.png", 0));
+    sprites.put("MAGICAL", sprite(10, 10, 10, 10, "icons/damagetype/magical.png", 0));
+    sprites.put("PHYSICAL", sprite(10, 10, 10, 10, "icons/damagetype/physical.png", 0));
+
 
     //        sprites.put(Burning.class.getName(), sprite(Property.EFFECT_ICON_SIZE,
     // Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,

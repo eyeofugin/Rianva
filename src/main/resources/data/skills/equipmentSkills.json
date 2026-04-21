@@ -2,7 +2,7 @@
   "S_Crush": {
     "name": "Crush",
     "className": "game.skills.trees.equipment.hammer.S_Crush",
-    "description": "Skip",
+    "description": "25% Chance to give Immobile 1.",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
     "damageMode": "PHYSICAL",
@@ -38,7 +38,7 @@
   "S_Merciless": {
     "name": "Merciless",
     "className": "game.skills.trees.equipment.hammer.S_Merciless",
-    "description": "Skip",
+    "description": "25% Chance to give Dazed 1.",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
     "damageMode": "PHYSICAL",
@@ -74,7 +74,7 @@
   "S_Brainsplitter": {
     "name": "Brainsplitter",
     "className": "game.skills.trees.equipment.hammer.S_Brainsplitter",
-    "description": "Skip",
+    "description": "If the target has a Status, give Brittle 1. Heal for 15% of the damage dealt.",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "ALL_TARGETS",
     "damageMode": "PHYSICAL",
@@ -127,15 +127,15 @@
   "S_FullSwing": {
     "name": "Full Swing",
     "className": "game.skills.trees.equipment.hammer.S_FullSwing",
-    "description": "Skip",
+    "description": "Stun.",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
-    "damageMode": "PHYSICAL",
-    "damageType": "NORMAL",
     "tags": [
       "TACTICAL",
       "WEAPON"
     ],
+    "damageType": "NORMAL",
+    "damageMode": "PHYSICAL",
     "dmg": 10,
     "push": 1,
     "maxCd": 6,
@@ -164,7 +164,7 @@
   "S_TakeCover": {
     "name": "Take Cover",
     "className": "game.skills.trees.equipment.shield.S_TakeCover",
-    "description": "Skip",
+    "description": "Receive Prepared 1. If you are Mighty, receive Protected.",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SELF",
     "tags": [
@@ -198,13 +198,15 @@
   "S_ShieldBash": {
     "name": "Shield Bash",
     "className": "game.skills.trees.equipment.shield.S_ShieldBash",
-    "description": "Skip",
+    "description": "Push 1. If you are Mighty, stun.",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
     "tags": [
       "TACTICAL",
       "WEAPON"
     ],
+    "damageType": "NORMAL",
+    "damageMode": "PHYSICAL",
     "maxCd": 3,
     "manaCost": 5,
     "push": 1,
@@ -230,13 +232,15 @@
   "S_Dice": {
     "name": "Dice",
     "className": "game.skills.trees.equipment.sword.S_Dice",
-    "description": "Skip",
+    "description": "If you have Advantage, mark the target.",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
     "tags": [
       "PRIMARY",
       "WEAPON"
     ],
+    "damageType": "NORMAL",
+    "damageMode": "PHYSICAL",
     "dmg": 10,
     "dmgMultipliers": [
       {
@@ -272,13 +276,15 @@
   "S_Slice": {
     "name": "Slice",
     "className": "game.skills.trees.equipment.sword.S_Slice",
-    "description": "Skip",
+    "description": "Receive Advantage.",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
     "tags": [
       "PRIMARY",
       "WEAPON"
     ],
+    "damageType": "NORMAL",
+    "damageMode": "PHYSICAL",
     "dmg": 10,
     "dmgMultipliers": [
       {
@@ -309,13 +315,15 @@
   "S_DuelingSlash": {
     "name": "Dueling Slash",
     "className": "game.skills.trees.equipment.sword.S_DuelingSlash",
-    "description": "Skip",
+    "description": "If you have Advantage, move forward. Otherwise move back.",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
     "tags": [
       "TACTICAL",
       "WEAPON"
     ],
+    "damageType": "NORMAL",
+    "damageMode": "PHYSICAL",
     "dmg": 12,
     "maxCd": 3,
     "manaCost": 5,
@@ -350,13 +358,15 @@
   "S_ShatterSwing": {
     "name": "Shatter Swing",
     "className": "game.skills.trees.equipment.sword.S_ShatterSwing",
-    "description": "Skip",
+    "description": "25% Chance to stun. 50% if you have Advantage.",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "ALL_TARGETS",
     "tags": [
       "TACTICAL",
       "WEAPON"
     ],
+    "damageType": "NORMAL",
+    "damageMode": "PHYSICAL",
     "dmg": 12,
     "maxCd": 4,
     "manaCost": 8,
@@ -413,13 +423,15 @@
   "S_DaggerThrow": {
     "name": "Dagger Throw",
     "className": "game.skills.trees.equipment.dagger.S_DaggerThrow",
-    "description": "Skip",
+    "description": " ",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
     "tags": [
       "PRIMARY",
       "WEAPON"
     ],
+    "damageType": "NORMAL",
+    "damageMode": "PHYSICAL",
     "dmg": 4,
     "dmgMultipliers": [
       {
@@ -441,13 +453,15 @@
   "S_GoForTheThroat": {
     "name": "Go For The Throat",
     "className": "game.skills.trees.equipment.dagger.S_GoForTheThroat",
-    "description": "Skip",
+    "description": " ",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
     "tags": [
       "PRIMARY",
       "WEAPON"
     ],
+    "damageType": "NORMAL",
+    "damageMode": "PHYSICAL",
     "dmg": 4,
     "dmgMultipliers": [
       {
@@ -467,13 +481,15 @@
   "S_AnkleSlice": {
     "name": "Ankle Slice",
     "className": "game.skills.trees.equipment.dagger.S_AnkleSlice",
-    "description": "Skip",
+    "description": "Give Immobile 1 and Shaken 1.",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
     "tags": [
       "TACTICAL",
       "WEAPON"
     ],
+    "damageType": "NORMAL",
+    "damageMode": "PHYSICAL",
     "dmg": 4,
     "maxCd": 4,
     "manaCost": 8,
@@ -508,13 +524,15 @@
   "S_Shiv": {
     "name": "Shiv",
     "className": "game.skills.trees.equipment.dagger.S_Shiv",
-    "description": "Skip",
+    "description": "Hits thrice.",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
     "tags": [
       "TACTICAL",
       "WEAPON"
     ],
+    "damageType": "NORMAL",
+    "damageMode": "PHYSICAL",
     "dmg": 4,
     "maxCd": 4,
     "manaCost": 8,
@@ -537,13 +555,15 @@
   "S_WeightedArrow": {
     "name": "Weighted Arrow",
     "className": "game.skills.trees.equipment.bow.S_WeightedArrow",
-    "description": "Skip",
+    "description": "25% Chance to give Brittle 1.",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
     "tags": [
       "PRIMARY",
       "WEAPON"
     ],
+    "damageType": "NORMAL",
+    "damageMode": "PHYSICAL",
     "dmg": 4,
     "dmgMultipliers": [
       {
@@ -574,13 +594,15 @@
   "S_AimedShot": {
     "name": "Aimed Shot",
     "className": "game.skills.trees.equipment.bow.S_AimedShot",
-    "description": "Skip",
+    "description": " ",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "SINGLE",
     "tags": [
       "PRIMARY",
       "WEAPON"
     ],
+    "damageType": "NORMAL",
+    "damageMode": "PHYSICAL",
     "dmg": 4,
     "dmgMultipliers": [
       {
@@ -600,7 +622,7 @@
   "S_CripplingShot": {
     "name": "Crippling Shot",
     "className": "game.skills.trees.equipment.bow.S_CripplingShot",
-    "description": "Skip",
+    "description": "Give Immobile 1.",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "ALL_TARGETS",
     "tags": [
@@ -609,6 +631,8 @@
     ],
     "dmg": 4,
     "maxCd": 4,
+    "damageType": "NORMAL",
+    "damageMode": "PHYSICAL",
     "manaCost": 8,
     "dmgMultipliers": [
       {
@@ -644,7 +668,7 @@
   "S_Barrage": {
     "name": "Barrage",
     "className": "game.skills.trees.equipment.bow.S_Barrage",
-    "description": "Skip",
+    "description": " ",
     "iconPath": "icons/skills/wingedboots.png",
     "targetType": "ALL_TARGETS",
     "tags": [
@@ -655,6 +679,8 @@
     "maxCd": 4,
     "manaCost": 8,
     "countsAsHits": 2,
+    "damageType": "NORMAL",
+    "damageMode": "PHYSICAL",
     "dmgMultipliers": [
       {
         "prof": "DEXTERITY",
