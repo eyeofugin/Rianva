@@ -1,5 +1,6 @@
 package framework.graphics.text;
 
+import framework.Logger;
 import framework.resources.SpriteLibrary;
 import framework.resources.SpriteSheet;
 
@@ -14,70 +15,6 @@ public class Symbol {
   public Integer primaryColor;
   public Integer secondaryColor;
   public String code;
-
-  public static Symbol zero5x8 = new Symbol(50, 0, 4, 0, 7, SpriteSheet.fonts5x8);
-  public static Symbol one5x8 = new Symbol(50, 5, 9, 0, 7, SpriteSheet.fonts5x8);
-  public static Symbol two5x8 = new Symbol(50, 10, 14, 0, 7, SpriteSheet.fonts5x8);
-  public static Symbol three5x8 = new Symbol(50, 15, 19, 0, 7, SpriteSheet.fonts5x8);
-  public static Symbol four5x8 = new Symbol(50, 20, 24, 0, 7, SpriteSheet.fonts5x8);
-  public static Symbol five5x8 = new Symbol(50, 25, 29, 0, 7, SpriteSheet.fonts5x8);
-  public static Symbol six5x8 = new Symbol(50, 30, 34, 0, 7, SpriteSheet.fonts5x8);
-  public static Symbol seven5x8 = new Symbol(50, 35, 39, 0, 7, SpriteSheet.fonts5x8);
-  public static Symbol eight5x8 = new Symbol(50, 40, 44, 0, 7, SpriteSheet.fonts5x8);
-  public static Symbol nine5x8 = new Symbol(50, 45, 49, 0, 7, SpriteSheet.fonts5x8);
-  public static Symbol A5x8 = new Symbol(50, 0, 4, 8, 15, SpriteSheet.fonts5x8);
-  public static Symbol B5x8 = new Symbol(50, 5, 9, 8, 15, SpriteSheet.fonts5x8);
-  public static Symbol C5x8 = new Symbol(50, 10, 14, 8, 15, SpriteSheet.fonts5x8);
-  public static Symbol D5x8 = new Symbol(50, 15, 19, 8, 15, SpriteSheet.fonts5x8);
-  public static Symbol E5x8 = new Symbol(50, 20, 24, 8, 15, SpriteSheet.fonts5x8);
-  public static Symbol F5x8 = new Symbol(50, 25, 29, 8, 15, SpriteSheet.fonts5x8);
-  public static Symbol G5x8 = new Symbol(50, 30, 34, 8, 15, SpriteSheet.fonts5x8);
-  public static Symbol H5x8 = new Symbol(50, 35, 39, 8, 15, SpriteSheet.fonts5x8);
-  public static Symbol I5x8 = new Symbol(50, 40, 44, 8, 15, SpriteSheet.fonts5x8);
-  public static Symbol J5x8 = new Symbol(50, 45, 49, 8, 15, SpriteSheet.fonts5x8);
-  public static Symbol K5x8 = new Symbol(50, 0, 4, 16, 23, SpriteSheet.fonts5x8);
-  public static Symbol L5x8 = new Symbol(50, 5, 9, 16, 23, SpriteSheet.fonts5x8);
-  public static Symbol M5x8 = new Symbol(50, 10, 14, 16, 23, SpriteSheet.fonts5x8);
-  public static Symbol N5x8 = new Symbol(50, 15, 19, 16, 23, SpriteSheet.fonts5x8);
-  public static Symbol O5x8 = new Symbol(50, 20, 24, 16, 23, SpriteSheet.fonts5x8);
-  public static Symbol P5x8 = new Symbol(50, 25, 29, 16, 23, SpriteSheet.fonts5x8);
-  public static Symbol Q5x8 = new Symbol(50, 30, 34, 16, 23, SpriteSheet.fonts5x8);
-  public static Symbol R5x8 = new Symbol(50, 35, 39, 16, 23, SpriteSheet.fonts5x8);
-  public static Symbol S5x8 = new Symbol(50, 40, 44, 16, 23, SpriteSheet.fonts5x8);
-  public static Symbol T5x8 = new Symbol(50, 45, 49, 16, 23, SpriteSheet.fonts5x8);
-  public static Symbol U5x8 = new Symbol(50, 0, 4, 24, 31, SpriteSheet.fonts5x8);
-  public static Symbol V5x8 = new Symbol(50, 5, 9, 24, 31, SpriteSheet.fonts5x8);
-  public static Symbol W5x8 = new Symbol(50, 10, 14, 24, 31, SpriteSheet.fonts5x8);
-  public static Symbol X5x8 = new Symbol(50, 15, 19, 24, 31, SpriteSheet.fonts5x8);
-  public static Symbol Y5x8 = new Symbol(50, 20, 24, 24, 31, SpriteSheet.fonts5x8);
-  public static Symbol Z5x8 = new Symbol(50, 25, 29, 24, 31, SpriteSheet.fonts5x8);
-
-  public static Symbol a5x8 = new Symbol(50, 0, 4, 32, 39, SpriteSheet.fonts5x8);
-  public static Symbol b5x8 = new Symbol(50, 5, 9, 32, 39, SpriteSheet.fonts5x8);
-  public static Symbol c5x8 = new Symbol(50, 10, 14, 32, 39, SpriteSheet.fonts5x8);
-  public static Symbol d5x8 = new Symbol(50, 15, 19, 32, 39, SpriteSheet.fonts5x8);
-  public static Symbol e5x8 = new Symbol(50, 20, 24, 32, 39, SpriteSheet.fonts5x8);
-  public static Symbol f5x8 = new Symbol(50, 25, 29, 32, 39, SpriteSheet.fonts5x8);
-  public static Symbol g5x8 = new Symbol(50, 30, 34, 32, 39, SpriteSheet.fonts5x8);
-  public static Symbol h5x8 = new Symbol(50, 35, 39, 32, 39, SpriteSheet.fonts5x8);
-  public static Symbol i5x8 = new Symbol(50, 40, 44, 32, 39, SpriteSheet.fonts5x8);
-  public static Symbol j5x8 = new Symbol(50, 45, 49, 32, 39, SpriteSheet.fonts5x8);
-  public static Symbol k5x8 = new Symbol(50, 0, 4, 40, 47, SpriteSheet.fonts5x8);
-  public static Symbol l5x8 = new Symbol(50, 5, 9, 40, 47, SpriteSheet.fonts5x8);
-  public static Symbol m5x8 = new Symbol(50, 10, 14, 40, 47, SpriteSheet.fonts5x8);
-  public static Symbol n5x8 = new Symbol(50, 15, 19, 40, 47, SpriteSheet.fonts5x8);
-  public static Symbol o5x8 = new Symbol(50, 20, 24, 40, 47, SpriteSheet.fonts5x8);
-  public static Symbol p5x8 = new Symbol(50, 25, 29, 40, 47, SpriteSheet.fonts5x8);
-  public static Symbol q5x8 = new Symbol(50, 30, 34, 40, 47, SpriteSheet.fonts5x8);
-  public static Symbol r5x8 = new Symbol(50, 35, 39, 40, 47, SpriteSheet.fonts5x8);
-  public static Symbol s5x8 = new Symbol(50, 40, 44, 40, 47, SpriteSheet.fonts5x8);
-  public static Symbol t5x8 = new Symbol(50, 45, 49, 40, 47, SpriteSheet.fonts5x8);
-  public static Symbol u5x8 = new Symbol(50, 0, 4, 48, 55, SpriteSheet.fonts5x8);
-  public static Symbol v5x8 = new Symbol(50, 5, 9, 48, 55, SpriteSheet.fonts5x8);
-  public static Symbol w5x8 = new Symbol(50, 10, 14, 48, 55, SpriteSheet.fonts5x8);
-  public static Symbol x5x8 = new Symbol(50, 15, 19, 48, 55, SpriteSheet.fonts5x8);
-  public static Symbol y5x8 = new Symbol(50, 20, 24, 48, 55, SpriteSheet.fonts5x8);
-  public static Symbol z5x8 = new Symbol(50, 25, 29, 48, 55, SpriteSheet.fonts5x8);
 
   public static Symbol Ax8 = new Symbol("A", 64, 0, 3, 0, 7, SpriteSheet.fonts8x);
   public static Symbol Bx8 = new Symbol("B", 64, 4, 7, 0, 7, SpriteSheet.fonts8x);
@@ -167,19 +104,6 @@ public class Symbol {
   public static Symbol bonusx8 = new Symbol("BON", "icons/gui/bonus.png", 8, 8);
   public static Symbol damagex8 = new Symbol("DMG", "icons/gui/damage.png", 8, 8);
   public static Symbol onhitx8 = new Symbol("OHT", "icons/gui/onhit.png", 8, 8);
-
-  public static Symbol point5x8 = initPoint5x8();
-  public static Symbol slash5x8 = initSlash5x8();
-  public static Symbol colon5x8 = initColon5x8();
-  public static Symbol moreThan5x8 = initMoreThan5x8();
-  public static Symbol lessThan5x8 = initLessThan5x8();
-  public static Symbol bracketopen5x8 = initBracketOpen5x8();
-  public static Symbol bracketclose5x8 = initBracketClose5x8();
-  public static Symbol minus5x8 = initMinus5x8();
-  public static Symbol plus5x8 = initPlus5x8();
-  public static Symbol equals5x8 = initEquals5x8();
-  public static Symbol percentage5x8 = initPercentage5x8();
-  public static Symbol comma5x8 = initComma5x8();
 
   public static Symbol faith = new Symbol("fonts/faith.png", 5, 8);
   public static Symbol faithmax = new Symbol("fonts/faithmax.png", 5, 8);
@@ -322,6 +246,7 @@ public class Symbol {
 
   private void getSymbol(String path) {
     try {
+      Logger.logLn("Get sprite:" + path);
       URI uri = SpriteLibrary.class.getClassLoader().getResource(path).toURI();
       BufferedImage image = ImageIO.read(new File(uri));
       int width = image.getWidth();

@@ -5,8 +5,7 @@
     "description": "When you receive damage, the caster receives Marked. [BRL] Whenever an enemy Mark is claimed, gain 3% Health and Energy.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
-      "PASSIVE",
-      "CLASS"
+      "CLASS","PASSIVE"
     ],
     "subscriptions": [
       {
@@ -41,7 +40,7 @@
       "CLASS"
     ],
     "maxCd": 3,
-    "manaCost": 10,
+    "manaCost": 11,
     "effects": [
       {
         "className": "game.effects.status.Taunted",
@@ -85,8 +84,8 @@
       "TACTICAL",
       "CLASS"
     ],
-    "maxCd": 3,
-    "manaCost": 10,
+    "maxCd": 4,
+    "manaCost": 13,
     "moveTo": true,
     "subscriptions": [
       {
@@ -132,8 +131,9 @@
       "TACTICAL",
       "CLASS"
     ],
-    "maxCd": 3,
-    "manaCost": 10,
+    "accuracy": 90,
+    "maxCd": 4,
+    "manaCost": 21,
     "effects": [
       {
         "className": "game.effects.stat.Brittle",
@@ -182,7 +182,7 @@
       "CLASS"
     ],
     "maxCd": 3,
-    "manaCost": 10,
+    "manaCost": 0,
     "subscriptions": [
       {
         "topicName": "ON_MARK",
@@ -251,7 +251,7 @@
       "CLASS"
     ],
     "maxCd": 2,
-    "manaCost": 10,
+    "manaCost": 16,
     "effects": [
       {
         "className": "game.effects.status.Threatening",
@@ -292,11 +292,10 @@
       "PASSIVE",
       "CLASS"
     ],
-    "shield": 2,
     "shieldMultipliers": [
       {
         "prof": "VITALITY",
-        "percentage": 0.05
+        "percentage": 0.10
       }
     ],
     "subscriptions": [
@@ -320,13 +319,12 @@
       "TACTICAL",
       "CLASS"
     ],
-    "maxCd": 5,
-    "manaCost": 4,
-    "heal": 3,
+    "maxCd": 3,
+    "manaCost": 20,
     "healMultipliers": [
       {
         "prof": "VITALITY",
-        "percentage": 0.07
+        "percentage": 0.25
       }
     ],
     "moveTo": true,
@@ -354,15 +352,14 @@
         "stacks": 0
       }
     ],
-    "heal": 3,
     "healMultipliers": [
       {
         "prof": "VITALITY",
-        "percentage": 0.07
+        "percentage": 0.2
       }
     ],
-    "maxCd": 3,
-    "manaCost": 10,
+    "maxCd": 2,
+    "manaCost": 26,
     "possibleCastPositions": [
       2,
       3
@@ -382,8 +379,8 @@
       "TACTICAL",
       "CLASS"
     ],
-    "maxCd": 3,
-    "manaCost": 10,
+    "maxCd": 5,
+    "manaCost": 35,
     "globalEffect": {
       "className": "game.effects.globals.GloriousDay",
       "turns": 5
@@ -405,8 +402,8 @@
       "TACTICAL",
       "CLASS"
     ],
-    "maxCd": 3,
-    "manaCost": 10,
+    "maxCd": 4,
+    "manaCost": 45,
     "effects": [
       {
         "className": "game.effects.status.DoubleStrike",
@@ -446,8 +443,8 @@
       "TACTICAL",
       "CLASS"
     ],
-    "maxCd": 3,
-    "manaCost": 10,
+    "maxCd": 4,
+    "manaCost": 45,
     "possibleCastPositions": [
       0,
       1,
@@ -516,8 +513,8 @@
       "TACTICAL",
       "CLASS"
     ],
-    "maxCd": 5,
-    "manaCost": 10,
+    "maxCd": 4,
+    "manaCost": 12,
     "possibleCastPositions": [
       0,
       1,
@@ -531,7 +528,7 @@
     "staticDmgMultipliers": [
       {
         "prof": "BODY",
-        "percentage": 0.1
+        "percentage": 0.25
       }
     ],
     "staticDamageType": "NORMAL",
@@ -550,7 +547,7 @@
       "TACTICAL",
       "CLASS"
     ],
-    "maxCd": 5,
+    "maxCd": 4,
     "manaCost": 10,
     "possibleCastPositions": [
       1,
@@ -574,13 +571,12 @@
       "TACTICAL",
       "CLASS"
     ],
-    "maxCd": 5,
-    "manaCost": 10,
+    "maxCd": 3,
+    "manaCost": 15,
     "effects": [
       {
         "className": "game.effects.hero.Advantage",
-        "turns": 1,
-        "stacks": 0
+        "turns": 1
       }
     ],
     "subscriptions": [
@@ -613,11 +609,10 @@
       "TACTICAL",
       "CLASS"
     ],
-    "dmg": 10,
     "dmgMultipliers": [
       {
         "prof": "BODY",
-        "percentage": 0.05
+        "percentage": 0.3
       }
     ],
     "subscriptions": [
@@ -635,13 +630,12 @@
         }
       }
     ],
-    "maxCd": 5,
-    "manaCost": 10,
+    "maxCd": 2,
+    "manaCost": 15,
     "effects": [
       {
         "className": "game.effects.status.Bleeding",
-        "turns": 1,
-        "stacks": 0
+        "turns": 1
       }
     ],
     "casterEffects": [
@@ -688,26 +682,25 @@
   "S_SporeBomb": {
     "name": "Spore Bomb",
     "className": "game.skills.trees.classes.flora.S_SporeBomb",
-    "description": "10% Chance to summon Poison Gasses.",
+    "description": "25% Chance to summon Poison Gasses.",
     "targetType": "SINGLE",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
       "CLASS"
     ],
-    "dmg": 10,
     "dmgMultipliers": [
       {
         "prof": "MIND",
-        "percentage": 0.1
+        "percentage": 0.65
       }
     ],
-    "maxCd": 5,
-    "manaCost": 10,
+    "accuracy": 85,
+    "manaCost": 20,
     "damageType": "TOXIC",
     "damageMode": "MAGICAL",
     "keyValues": {
-      "Chance": 10
+      "Chance": 25
     },
     "possibleCastPositions": [
       1,
@@ -733,7 +726,7 @@
       "turns": 5
     },
     "maxCd": 5,
-    "manaCost": 10,
+    "manaCost": 25,
     "subscriptions": [
       {
         "topicName": "CAST_CHANGE",
@@ -760,8 +753,8 @@
       "TACTICAL",
       "CLASS"
     ],
-    "maxCd": 5,
-    "manaCost": 10,
+    "maxCd": 2,
+    "manaCost": 20,
     "moveTo": true,
     "possibleCastPositions": [
       0,
@@ -788,17 +781,16 @@
     ],
     "damageType": "TOXIC",
     "damageMode": "MAGICAL",
-    "dmg": 5,
     "dmgMultipliers": [
       {
         "prof": "MIND",
-        "percentage": 0.05
+        "percentage": 0.25
       }
     ],
+    "accuracy": 95,
     "pull": 1,
-    "maxCd": 5,
-    "manaCost": 10,
-    "moveTo": true,
+    "maxCd": 3,
+    "manaCost": 35,
     "effects": [
       {
         "className": "game.effects.field.Thicket",
@@ -806,11 +798,12 @@
       }
     ],
     "possibleCastPositions": [
+      1,
       2,
       3
     ],
     "possibleTargetPositions": [
-      5
+      5,6
     ]
   },
   "S_ThornCage": {
@@ -823,8 +816,9 @@
       "TACTICAL",
       "CLASS"
     ],
-    "maxCd": 5,
-    "manaCost": 10,
+    "accuracy": 90,
+    "maxCd": 2,
+    "manaCost": 30,
     "effects": [
       {
         "className": "game.effects.field.Thicket",
@@ -833,11 +827,10 @@
     ],
     "damageType": "TOXIC",
     "damageMode": "MAGICAL",
-    "dmg": 5,
     "dmgMultipliers": [
       {
         "prof": "MIND",
-        "percentage": 0.05
+        "percentage": 0.35
       }
     ],
     "subscriptions": [
@@ -870,8 +863,8 @@
       "TACTICAL",
       "CLASS"
     ],
-    "maxCd": 5,
-    "manaCost": 10,
+    "maxCd": 1,
+    "manaCost": 20,
     "effects": [
       {
         "className": "game.effects.field.RecoveryField",
@@ -947,13 +940,12 @@
       "TACTICAL",
       "CLASS"
     ],
-    "maxCd": 5,
-    "manaCost": 10,
-    "dmg": 10,
+    "maxCd": 1,
+    "manaCost": 20,
     "dmgMultipliers": [
       {
         "prof": "DEXTERITY",
-        "percentage": 0.06
+        "percentage": 0.25
       }
     ],
     "damageType": "TOXIC",
@@ -992,13 +984,13 @@
       "TACTICAL",
       "CLASS"
     ],
-    "maxCd": 5,
-    "manaCost": 10,
-    "dmg": 10,
+    "accuracy": 75,
+    "maxCd": 1,
+    "manaCost": 30,
     "dmgMultipliers": [
       {
         "prof": "MIND",
-        "percentage": 0.06
+        "percentage": 0.5
       }
     ],
     "damageType": "HEAT",
@@ -1027,8 +1019,8 @@
       "TACTICAL",
       "CLASS"
     ],
-    "maxCd": 5,
-    "manaCost": 10,
+    "maxCd": 3,
+    "manaCost": 15,
     "moveTo": true,
     "casterEffects": [
       {
@@ -1052,23 +1044,23 @@
     "name": "Thunderbird Wing Clap",
     "className": "game.skills.trees.classes.fauna.S_ThunderBirdWingClap",
     "targetType": "SINGLE",
-    "description": "20% chance to give Immobile 1. Receive Thunderbird Form.",
+    "description": "Give Immobile 1. Receive Thunderbird Form.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
       "CLASS"
     ],
-    "maxCd": 5,
-    "manaCost": 10,
-    "dmg": 10,
+    "accuracy": 95,
+    "maxCd": 1,
+    "manaCost": 30,
     "dmgMultipliers": [
       {
         "prof": "BODY",
-        "percentage": 0.06
+        "percentage": 0.25
       },
       {
         "prof": "MIND",
-        "percentage": 0.06
+        "percentage": 0.25
       }
     ],
     "damageType": "SHOCK",
@@ -1076,10 +1068,7 @@
     "effects": [
       {
         "className": "game.effects.status.Immobile",
-        "turns": 1,
-        "condition": {
-          "successChance": 20
-        }
+        "turns": 1
       }
     ],
     "casterEffects": [
@@ -1107,13 +1096,12 @@
       "TACTICAL",
       "CLASS"
     ],
-    "maxCd": 5,
-    "manaCost": 10,
-    "heal": 10,
+    "maxCd": 1,
+    "manaCost": 15,
     "healMultipliers": [
       {
         "prof": "BODY",
-        "percentage": 0.06
+        "percentage": 0.5
       }
     ],
     "casterEffects": [
@@ -1138,21 +1126,20 @@
       "TACTICAL",
       "CLASS"
     ],
-    "maxCd": 5,
-    "manaCost": 10,
-    "dmg": 10,
+    "maxCd": 1,
+    "manaCost": 35,
     "dmgMultipliers": [
       {
         "prof": "BODY",
-        "percentage": 0.05
+        "percentage": 0.2
       },
       {
         "prof": "MIND",
-        "percentage": 0.05
+        "percentage": 0.2
       },
       {
         "prof": "DEXTERITY",
-        "percentage": 0.05
+        "percentage": 0.2
       }
     ],
     "damageType": "NORMAL",
@@ -1213,13 +1200,12 @@
       "TACTICAL",
       "CLASS"
     ],
-    "maxCd": 5,
-    "manaCost": 10,
-    "dmg": 5,
+    "maxCd": 1,
+    "manaCost": 25,
     "dmgMultipliers": [
       {
         "prof": "MIND",
-        "percentage": 0.05
+        "percentage": 0.35
       }
     ],
     "damageType": "LIGHT",
@@ -1250,12 +1236,12 @@
       "TACTICAL",
       "CLASS"
     ],
-    "maxCd": 5,
-    "manaCost": 10,
+    "maxCd": 1,
+    "manaCost": 25,
     "effects": [
       {
         "className": "game.effects.field.Barrier",
-        "turns": 1
+        "turns": 2
       }
     ],
     "subscriptions": [
@@ -1291,12 +1277,12 @@
       "TACTICAL",
       "CLASS"
     ],
-    "maxCd": 5,
-    "manaCost": 10,
+    "maxCd": 1,
+    "manaCost": 25,
     "effects": [
       {
         "className": "game.effects.field.Reflection",
-        "turns": 1
+        "turns": 2
       }
     ],
     "subscriptions": [
@@ -1332,14 +1318,14 @@
       "TACTICAL",
       "CLASS"
     ],
-    "maxCd": 5,
-    "manaCost": 10,
+    "accuracy": 75,
+    "maxCd": 1,
+    "manaCost": 25,
     "countsAsHits": 3,
-    "dmg": 2,
     "dmgMultipliers": [
       {
         "prof": "MIND",
-        "percentage": 0.05
+        "percentage": 0.15
       }
     ],
     "effects": [
@@ -1384,20 +1370,18 @@
       "TACTICAL",
       "CLASS"
     ],
-    "maxCd": 5,
-    "manaCost": 10,
-    "shield": 2,
+    "maxCd": 2,
+    "manaCost": 15,
     "shieldMultipliers": [
       {
         "prof": "MIND",
-        "percentage": 0.05
+        "percentage": 0.15
       }
     ],
-    "heal": 2,
     "healMultipliers": [
       {
         "prof": "MIND",
-        "percentage": 0.05
+        "percentage": 0.15
       }
     ],
     "effects": [
@@ -1476,8 +1460,9 @@
       "TACTICAL",
       "CLASS"
     ],
-    "maxCd": 5,
-    "manaCost": 10,
+    "accuracy": 95,
+    "maxCd": 3,
+    "manaCost": 15,
     "possibleCastPositions": [
       0,
       1,
@@ -1499,7 +1484,7 @@
       "CLASS"
     ],
     "maxCd": 5,
-    "manaCost": 10,
+    "manaCost": 15,
     "possibleCastPositions": [
       0,
       1,
@@ -1523,8 +1508,8 @@
       "TACTICAL",
       "CLASS"
     ],
-    "maxCd": 5,
-    "manaCost": 10,
+    "maxCd": 3,
+    "manaCost": 20,
     "pull": 1,
     "possibleCastPositions": [
       0,
@@ -1545,9 +1530,9 @@
       "TACTICAL",
       "CLASS"
     ],
-    "maxCd": 5,
-    "manaCost": 10,
-    "dmg": 4,
+    "accuracy": 90,
+    "maxCd": 3,
+    "manaCost": 15,
     "dmgMultipliers": [
       {
         "prof": "DEXTERITY",
@@ -1561,8 +1546,8 @@
       2
     ],
     "possibleTargetPositions": [
-      5,
-      6
+      4,5,
+      6,7
     ]
   },
   "S_Trick": {
@@ -1583,6 +1568,46 @@
     ],
     "maxCd": 5,
     "manaCost": 10,
+    "possibleCastPositions": [
+      0,
+      1,
+      2
+    ],
+    "possibleTargetPositions": [
+      4,
+      5,
+      6,
+      7
+    ]
+  },
+  "S_Feint": {
+    "name": "Feint",
+    "className": "game.skills.trees.classes.trickster.S_Feint",
+    "targetType": "SINGLE",
+    "description": "Receive Shaken 1. Give Taunted 2 and Blinded 1.",
+    "iconPath": "icons/skills/winterorb.png",
+    "tags": [
+      "TACTICAL",
+      "CLASS"
+    ],
+    "effects": [
+      {
+        "className": "game.effects.status.Taunted",
+        "turns": 2
+      },
+      {
+        "className": "game.effects.status.Blinded",
+        "turns": 1
+      }
+    ],
+    "casterEffects":[
+      {
+        "className": "game.effects.stat.Shaken",
+        "turns": 1
+      }
+    ],
+    "maxCd": 2,
+    "manaCost": 15,
     "possibleCastPositions": [
       0,
       1,
@@ -1665,7 +1690,7 @@
       }
     ],
     "maxCd": 5,
-    "manaCost": 10,
+    "manaCost": 15,
     "dodgeCost": 20,
     "possibleCastPositions": [
       0,
@@ -1720,8 +1745,8 @@
         "turns": 2
       }
     ],
-    "maxCd": 5,
-    "manaCost": 10,
+    "maxCd": 3,
+    "manaCost": 20,
     "possibleCastPositions": [
       2,
       3
@@ -1746,7 +1771,7 @@
         "turns": 3
       }
     ],
-    "maxCd": 5,
+    "maxCd": 3,
     "manaCost": 10,
     "possibleCastPositions": [
       0,
@@ -1815,8 +1840,8 @@
         "turns": 1
       }
     ],
-    "maxCd": 5,
-    "manaCost": 10,
+    "maxCd": 2,
+    "manaCost": 15,
     "possibleCastPositions": [
       0,
       1,
@@ -1901,8 +1926,8 @@
         "amount": -20
       }
     ],
-    "maxCd": 5,
-    "manaCost": 10,
+    "maxCd": 3,
+    "manaCost": 20,
     "possibleCastPositions": [
       2,
       3
@@ -1940,8 +1965,8 @@
         }
       }
     ],
-    "maxCd": 5,
-    "manaCost": 10,
+    "maxCd": 3,
+    "manaCost": 15,
     "possibleCastPositions": [
       2,
       3
@@ -2022,8 +2047,8 @@
         "amount": 25
       }
     ],
-    "maxCd": 5,
-    "lifeCost": 10,
+    "maxCd": 1,
+    "lifeCost": 25,
     "possibleCastPositions": [
       0,
       1,
@@ -2035,7 +2060,7 @@
     "name": "Wind Wall",
     "className": "game.skills.trees.classes.evoker.S_WindWall",
     "targetType": "SINGLE",
-    "description": "50% chance to Push 1.",
+    "description": "50% chance to Push 2.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
@@ -2043,11 +2068,10 @@
     ],
     "damageType": "NORMAL",
     "damageMode": "MAGICAL",
-    "dmg": 10,
     "dmgMultipliers": [
       {
         "prof": "MIND",
-        "percentage": 0.1
+        "percentage": 0.5
       }
     ],
     "subscriptions": [
@@ -2060,8 +2084,9 @@
         }
       }
     ],
-    "maxCd": 5,
-    "manaCost": 10,
+    "accuracy": 80,
+    "maxCd": 1,
+    "manaCost": 20,
     "possibleCastPositions": [
       1,
       2,
@@ -2079,17 +2104,17 @@
     "name": "Chain Lightning",
     "className": "game.skills.trees.classes.evoker.S_ChainLightning",
     "targetType": "ALL_TARGETS",
-    "description": "25% Chance to give Burning 1. 50% during Storm.",
+    "description": "50% Chance to give Burning 1. 100% during Storm.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
       "CLASS"
     ],
-    "dmg": 10,
+    "accuracy": 85,
     "dmgMultipliers": [
       {
         "prof": "MIND",
-        "percentage": 0.1
+        "percentage": 0.5
       }
     ],
     "damageMode": "MAGICAL",
@@ -2102,7 +2127,7 @@
           "trigger": "ARENA",
           "hasCheck": false,
           "effectName": "Storm",
-          "successChance": 25
+          "successChance": 50
         }
       },
       {
@@ -2112,12 +2137,12 @@
           "trigger": "ARENA",
           "hasCheck": true,
           "effectName": "Storm",
-          "successChance": 50
+          "successChance": 100
         }
       }
     ],
-    "maxCd": 5,
-    "manaCost": 10,
+    "maxCd": 2,
+    "manaCost": 45,
     "possibleCastPositions": [
       1,
       2
@@ -2139,11 +2164,10 @@
       "TACTICAL",
       "CLASS"
     ],
-    "dmg": 10,
     "dmgMultipliers": [
       {
         "prof": "MIND",
-        "percentage": 0.1
+        "percentage": 0.45
       }
     ],
     "damageType": "HEAT",
@@ -2155,8 +2179,8 @@
         "stacks": 1
       }
     ],
-    "maxCd": 5,
-    "manaCost": 10,
+    "maxCd": 2,
+    "manaCost": 45,
     "possibleCastPositions": [
       2,
       3
@@ -2176,11 +2200,10 @@
       "TACTICAL",
       "CLASS"
     ],
-    "dmg": 10,
     "dmgMultipliers": [
       {
         "prof": "MIND",
-        "percentage": 0.1
+        "percentage": 0.8
       }
     ],
     "damageMode": "MAGICAL",
@@ -2191,8 +2214,8 @@
         "turns": 3
       }
     ],
-    "maxCd": 5,
-    "manaCost": 10,
+    "maxCd": 3,
+    "manaCost": 60,
     "possibleCastPositions": [
       1,
       2,
@@ -2220,7 +2243,7 @@
       "turns": 5
     },
     "maxCd": 5,
-    "manaCost": 10,
+    "manaCost": 40,
     "possibleCastPositions": [
       0,
       1,
@@ -2265,11 +2288,10 @@
       "TACTICAL",
       "CLASS"
     ],
-    "dmg": 10,
     "dmgMultipliers": [
       {
         "prof": "DEXTERITY",
-        "percentage": 0.1
+        "percentage": 0.4
       }
     ],
     "damageType": "NORMAL",
@@ -2285,8 +2307,8 @@
       }
     ],
     "move": 1,
-    "maxCd": 5,
-    "manaCost": 10,
+    "maxCd": 3,
+    "manaCost": 15,
     "possibleCastPositions": [
       0,
       1
@@ -2306,8 +2328,7 @@
       "TACTICAL",
       "CLASS"
     ],
-    "heal": 10,
-    "maxCd": 5,
+    "maxCd": 4,
     "manaCost": 10,
     "possibleCastPositions": [
       0,
@@ -2376,7 +2397,7 @@
       "CLASS"
     ],
     "maxCd": 3,
-    "manaCost": 10,
+    "manaCost": 15,
     "effects": [
       {
         "className": "game.effects.stat.Flawless",

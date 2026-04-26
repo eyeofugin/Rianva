@@ -11,7 +11,7 @@ public class S_WindWall extends Skill {
         if (this.equals(pl.skill)) {
             int chance = MyMaths.percentageOf((double)keyValues.get("ChancePercentage"), this.hero.getStat(Stat.VITALITY));
             if (MyMaths.success(chance)) {
-                pl.skill.push = 1;
+                pl.skill.push = 2;
             }
         }
     }

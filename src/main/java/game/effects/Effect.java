@@ -159,7 +159,7 @@ public class Effect implements Subscriber {
   }
 
   public void tick() {
-    if (turns != -1) {
+    if (this.durability.equals(Durability.TIME)) {
       this.turns--;
     }
   }

@@ -243,5 +243,27 @@
     "keyValues": {
       "Mult": 0.15
     }
+  },
+  "S_FastRegen": {
+    "name": "Fast Regen",
+    "className": "game.skills.trees.races.S_FastRegen",
+    "description": "End of turn 30% chance to remove a debuff.",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "PASSIVE",
+      "RACE"
+    ],
+    "subscriptions": [
+      {
+        "topicName": "END_OF_TURN",
+        "methodName": "eot",
+        "trigger": {
+          "casterHeroReference": "SAME"
+        }
+      }
+    ],
+    "keyValues": {
+      "Chance": 30
+    }
   }
 }

@@ -220,12 +220,16 @@ public class Hero extends GUIElement {
     String idleAnim = dto.idleAnim != null ? dto.idleAnim : "idle_w.png";
     String damagedAnim = dto.damagedAnim != null ? dto.damagedAnim : "damaged_w.png";
     String actionAnim = dto.actionAnim != null ? dto.actionAnim : "action_w.png";
+    int[] idleKeys = dto.idleKeys;
+    int[] damagedKeys = dto.damagedKeys;
+    int[] actionKeys = dto.actionKeys;
+
     this.anim = new Animator();
     anim.width = 64;
     anim.height = 64;
-    anim.setupAnimation("sprites/" + idleAnim, "idle", new int[] {40, 80});
-    anim.setupAnimation("sprites/" + damagedAnim, "damaged", new int[] {40, 80});
-    anim.setupAnimation("sprites/" + actionAnim, "action", new int[] {15, 30, 45});
+    anim.setupAnimation("sprites/" + idleAnim, "idle", idleKeys);
+    anim.setupAnimation("sprites/" + damagedAnim, "damaged", damagedKeys);
+    anim.setupAnimation("sprites/" + actionAnim, "action", actionKeys);
 
     anim.setDefaultAnim("idle");
     anim.currentAnim = anim.getDefaultAnim();
@@ -259,6 +263,9 @@ public class Hero extends GUIElement {
   }
 
   public void addSkill(Skill skill) {
+    if (skill == null) {
+      return;
+    }
     this.skills.add(skill);
     skill.hero = this;
   }
@@ -730,8 +737,8 @@ public class Hero extends GUIElement {
             .filter(
                 e ->
                     (Effect.Durability.TIME.equals(e.durability) && e.turns < 1)
-                        || (e.stackable && e.stacks <= 0)
-                        || (e.durability.equals(Effect.Durability.ONCE) && e.used))
+                        || (Effect.Durability.STACK.equals(e.durability) && e.stacks < 1)
+                        || (Effect.Durability.ONCE.equals(e.durability) && e.used))
             .toList();
     for (Effect effectToRemove : toRemove) {
       removeEffect(effectToRemove);
@@ -785,11 +792,10 @@ public class Hero extends GUIElement {
         }
       }
       if (!added && this.effects.size() != 12) {
-        Effect newEffect = effect.copy();
-        newEffect.origin = caster;
-        newEffect.hero = this;
-        this.effects.add(newEffect);
-        newEffect.addSubscriptions();
+        effect.origin = caster;
+        effect.hero = this;
+        this.effects.add(effect);
+        effect.addSubscriptions();
         newlyAdded = true;
       }
       trigger_effectAdded(effect, caster, skill, newlyAdded);
@@ -1426,16 +1432,14 @@ public class Hero extends GUIElement {
   private String getManaString() {
     return this.stats.get(Stat.CURRENT_ENERGY)
         + "(+"
-        + this.stats.get(Stat.ENERGY_REGAIN)
+        + this.stats.get(Stat.FOCUS)
         + ")/"
         + this.stats.get(Stat.ENERGY);
   }
 
   public String getHealthString() {
     return this.stats.get(Stat.CURRENT_LIFE)
-        + "(+"
-        + this.stats.get(Stat.LIFE_REGAIN)
-        + ")/"
+        + "/"
         + this.stats.get(Stat.VITALITY);
   }
 

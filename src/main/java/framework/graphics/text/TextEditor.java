@@ -1,5 +1,6 @@
 package framework.graphics.text;
 
+import framework.Logger;
 import framework.Property;
 import game.entities.Role;
 import game.skills.logic.Stat;
@@ -15,13 +16,10 @@ public class TextEditor {
   public static String TURN_KEY = "TRN";
   public static String TURN_CD_KEY = "TCD";
 
-  public static String OVERHEAT_INACTIVE_KEY = "OHI";
-
   public int charWidth, charHeight, smallNumHeight, smallNumWidth;
   public boolean hasLowerCase = true;
   public static TextEditorConfig conf5x8 = new TextEditorConfig(5, 8, 3, 5);
   private final HashMap<String, int[]> smallNumeric;
-  private final HashMap<String, int[]> symbols;
   private final HashMap<String, Symbol> symbolMap;
   private final HashMap<String, String> iconCodes = new HashMap<>();
   private static final HashMap<String, String> staticIconCodes = new HashMap<>();
@@ -33,33 +31,12 @@ public class TextEditor {
     this.charHeight = conf.getCharHeight();
     this.smallNumHeight = conf.getSmallNumHeight();
     this.smallNumWidth = conf.getSmallNumWidth();
-    this.symbols = fillSymbols5x8();
     this.symbolMap = fillSymbolMap();
     this.smallNumeric = fillSmallNumeric();
-    fillIconMap();
-  }
-
-  private void fillIconMap() {
-    iconCodes.put("CARBON", "CBN");
-    iconCodes.put("FOOD", "FOD");
-    iconCodes.put("KYBER", "KBR");
-    iconCodes.put("BESKAR", "BSK");
-    iconCodes.put("GAS", "GAS");
-    iconCodes.put("COAXIUM", "CXM");
-    iconCodes.put("DURASTEEL", "DSL");
-    iconCodes.put("DURAPLAST", "DPL");
-    iconCodes.put("HYPERMATTER", "HYM");
-    iconCodes.put("BACTA", "BCT");
-    iconCodes.put("ENERGY", "NRG");
-    iconCodes.put("CREDITS", "CRD");
   }
 
   public String getIconCode(String key) {
     return iconCodes.get(key);
-  }
-
-  public int[] getIcon(String key) {
-    return symbols.get(key);
   }
 
   public static String getStaticIconCode(String key, boolean withBrackets) {
@@ -199,19 +176,6 @@ public class TextEditor {
     symbols.put(Stat.MENTAL_RESIST.getIconKey(), Symbol.mindRes);
     symbols.put(Stat.TOX_RESIST.getIconKey(), Symbol.toxRes);
     symbols.put(Stat.SHOCK_RESIST.getIconKey(), Symbol.shockRes);
-
-    //        symbols.put(Burning.ICON_STRING, Symbol.burning);
-    //        symbols.put(DoubleShot.ICON_STRING, Symbol.doubleshot);
-    //        symbols.put(Frost.ICON_STRING, Symbol.frost);
-    //        symbols.put(Immunity.ICON_STRING, Symbol.immunity);
-    //        symbols.put(LifeSteal.ICON_STRING, Symbol.lifesteal);
-    //        symbols.put(Threatening.ICON_STRING, Symbol.threatening);
-    //        symbols.put(Bleeding.ICON_STRING, Symbol.bleeding);
-    //        symbols.put(Dazed.ICON_STRING, Symbol.dazed);
-    //        symbols.put(Disenchanted.ICON_STRING, Symbol.disenchanted);
-    //        symbols.put(Injured.ICON_STRING, Symbol.injured);
-    //        symbols.put(Taunted.ICON_STRING, Symbol.taunted);
-    //        symbols.put(Protected.ICON_STRING, Symbol._protected);
     symbols.put("FTT", Symbol.friendTarget);
     symbols.put("ETT", Symbol.enemyTarget);
     symbols.put("OTT", Symbol.otherTarget);
@@ -226,101 +190,7 @@ public class TextEditor {
     symbols.put("DMG", Symbol.damagex8);
     symbols.put("OHT", Symbol.onhitx8);
     symbols.put("???", Symbol.missingx8);
-    symbols.put(Role.TANK.iconKey, Symbol.tank);
-    symbols.put(Role.FIGHTER.iconKey, Symbol.fighter);
-    symbols.put(Role.DPS.iconKey, Symbol.dps);
-    symbols.put(Role.SUPPORT.iconKey, Symbol.support);
 
-    return symbols;
-  }
-
-  private HashMap<String, int[]> fillSymbols5x8() {
-    HashMap<String, int[]> symbols = new HashMap<String, int[]>();
-
-    symbols.put("1", Symbol.one5x8.pixels);
-    symbols.put("2", Symbol.two5x8.pixels);
-    symbols.put("3", Symbol.three5x8.pixels);
-    symbols.put("4", Symbol.four5x8.pixels);
-    symbols.put("5", Symbol.five5x8.pixels);
-    symbols.put("6", Symbol.six5x8.pixels);
-    symbols.put("7", Symbol.seven5x8.pixels);
-    symbols.put("8", Symbol.eight5x8.pixels);
-    symbols.put("9", Symbol.nine5x8.pixels);
-    symbols.put("0", Symbol.zero5x8.pixels);
-    symbols.put("a", Symbol.a5x8.pixels);
-    symbols.put("b", Symbol.b5x8.pixels);
-    symbols.put("c", Symbol.c5x8.pixels);
-    symbols.put("d", Symbol.d5x8.pixels);
-    symbols.put("e", Symbol.e5x8.pixels);
-    symbols.put("f", Symbol.f5x8.pixels);
-    symbols.put("g", Symbol.g5x8.pixels);
-    symbols.put("h", Symbol.h5x8.pixels);
-    symbols.put("i", Symbol.i5x8.pixels);
-    symbols.put("j", Symbol.j5x8.pixels);
-    symbols.put("k", Symbol.k5x8.pixels);
-    symbols.put("l", Symbol.l5x8.pixels);
-    symbols.put("m", Symbol.m5x8.pixels);
-    symbols.put("n", Symbol.n5x8.pixels);
-    symbols.put("o", Symbol.o5x8.pixels);
-    symbols.put("p", Symbol.p5x8.pixels);
-    symbols.put("q", Symbol.q5x8.pixels);
-    symbols.put("r", Symbol.r5x8.pixels);
-    symbols.put("s", Symbol.s5x8.pixels);
-    symbols.put("t", Symbol.t5x8.pixels);
-    symbols.put("u", Symbol.u5x8.pixels);
-    symbols.put("v", Symbol.v5x8.pixels);
-    symbols.put("w", Symbol.w5x8.pixels);
-    symbols.put("x", Symbol.x5x8.pixels);
-    symbols.put("y", Symbol.y5x8.pixels);
-    symbols.put("z", Symbol.z5x8.pixels);
-    symbols.put("A", Symbol.A5x8.pixels);
-    symbols.put("B", Symbol.B5x8.pixels);
-    symbols.put("C", Symbol.C5x8.pixels);
-    symbols.put("D", Symbol.D5x8.pixels);
-    symbols.put("E", Symbol.E5x8.pixels);
-    symbols.put("F", Symbol.F5x8.pixels);
-    symbols.put("G", Symbol.G5x8.pixels);
-    symbols.put("H", Symbol.H5x8.pixels);
-    symbols.put("I", Symbol.I5x8.pixels);
-    symbols.put("J", Symbol.J5x8.pixels);
-    symbols.put("K", Symbol.K5x8.pixels);
-    symbols.put("L", Symbol.L5x8.pixels);
-    symbols.put("M", Symbol.M5x8.pixels);
-    symbols.put("N", Symbol.N5x8.pixels);
-    symbols.put("O", Symbol.O5x8.pixels);
-    symbols.put("P", Symbol.P5x8.pixels);
-    symbols.put("Q", Symbol.Q5x8.pixels);
-    symbols.put("R", Symbol.R5x8.pixels);
-    symbols.put("S", Symbol.S5x8.pixels);
-    symbols.put("T", Symbol.T5x8.pixels);
-    symbols.put("U", Symbol.U5x8.pixels);
-    symbols.put("V", Symbol.V5x8.pixels);
-    symbols.put("W", Symbol.W5x8.pixels);
-    symbols.put("X", Symbol.X5x8.pixels);
-    symbols.put("Y", Symbol.Y5x8.pixels);
-    symbols.put("Z", Symbol.Z5x8.pixels);
-    symbols.put(".", Symbol.point5x8.pixels);
-    symbols.put(",", Symbol.comma5x8.pixels);
-    symbols.put("/", Symbol.slash5x8.pixels);
-    symbols.put("(", Symbol.bracketopen5x8.pixels);
-    symbols.put(")", Symbol.bracketclose5x8.pixels);
-    symbols.put("+", Symbol.plus5x8.pixels);
-    symbols.put(":", Symbol.colon5x8.pixels);
-    symbols.put(">", Symbol.moreThan5x8.pixels);
-    symbols.put("<", Symbol.lessThan5x8.pixels);
-    symbols.put("-", Symbol.minus5x8.pixels);
-    symbols.put("=", Symbol.equals5x8.pixels);
-    symbols.put("%", Symbol.percentage5x8.pixels);
-    symbols.put(Stat.ENERGY.getIconKey(), Symbol.mana.pixels);
-    symbols.put(TURN_KEY, Symbol.turn.pixels);
-    symbols.put(TURN_CD_KEY, Symbol.turnCD.pixels);
-    symbols.put(Stat.VITALITY.getIconKey(), Symbol.life.pixels);
-    symbols.put(Stat.MIND.getIconKey(), Symbol.magic.pixels);
-    symbols.put(Stat.BODY.getIconKey(), Symbol.finesse.pixels);
-    symbols.put(Stat.DEXTERITY.getIconKey(), Symbol.speed.pixels);
-    symbols.put(Stat.SHIELD.getIconKey(), Symbol.shield.pixels);
-    symbols.put(Stat.CRIT_CHANCE.getIconKey(), Symbol.critchance.pixels);
-    symbols.put(Stat.DODGE.getIconKey(), Symbol.evasion.pixels);
     return symbols;
   }
 
@@ -353,12 +223,17 @@ public class TextEditor {
     if (text == null) {
       return new int[targetWidth * targetHeight];
     }
+    Logger.logLn("Print:"+ text);
     int backgroundColor = backGroundColor.VALUE;
     int fontcolor = fontColor.VALUE;
 
     int[] result = new int[targetWidth * targetHeight];
     int textLength = getTextWidth(text);
     int resultWidth = Math.max(1, textLength * this.smallNumWidth + textLength - 1);
+    if (resultWidth > targetWidth) {
+      Arrays.fill(result, Color.MEDIUMGREEN.VALUE);
+      return result;
+    }
     int[] word = new int[this.smallNumHeight * resultWidth];
 
     char[] textArray = new char[text.length()];
@@ -406,6 +281,7 @@ public class TextEditor {
     for (int y = 0; y < targetHeight; y++) {
       for (int x = leftOverhead; x < (targetWidth - rightOverhead); x++) {
         int newx = x - leftOverhead;
+
         result[x + y * targetWidth] = word[newx + y * resultWidth];
       }
     }
@@ -601,28 +477,6 @@ public class TextEditor {
       rightOverhead = 5;
       leftOverhead = widthOverhead - 5;
     }
-    //
-    //        for (int row = 0; row < topOverhead; row++) {
-    //            for (int column = 0; column < targetWidth; column++) {
-    //                result[column + row * targetWidth] = backgroundColor;
-    //            }
-    //        }
-    //        for (int row = (targetHeight - bottomOverhead) - 1; row < targetHeight; row++) {
-    //            for (int column = 0; column < targetWidth; column++) {
-    //                result[column + row * targetWidth] = backgroundColor;
-    //            }
-    //        }
-    //        for (int row = 0; row < targetHeight; row++) {
-    //            for (int column = 0; column < leftOverhead; column++) {
-    //                result[column + row * targetWidth] = backgroundColor;
-    //            }
-    //        }
-    //        for (int row = 0; row < targetHeight; row++) {
-    //            for (int column = (targetWidth - rightOverhead) - 1; column < targetWidth;
-    // column++) {
-    //                result[column + row * targetWidth] = backgroundColor;
-    //            }
-    //        }
 
     int lastWrittenWidth = 0;
     text.getChars(0, text.length(), textArray, 0);
@@ -637,10 +491,7 @@ public class TextEditor {
 
       } else {
         if (symbol == '[') {
-          int[] symbolArray = getSpecialSymbol(charindex, textArray);
-          if (symbolArray == null) {
-            symbolArray = new int[this.charWidth * this.charHeight];
-          }
+          int[] symbolArray = getSpecialSymbol(charindex, textArray).pixels;
           int index = 0;
           for (int y = 0; y < this.charHeight; y++) {
             for (int x = lastWrittenWidth; x < lastWrittenWidth + this.charWidth; x++) {
@@ -656,7 +507,7 @@ public class TextEditor {
           } else {
             s = String.valueOf(symbol).toLowerCase();
           }
-          int[] symbolarray = symbols.get(s);
+          int[] symbolarray = getSymbol(s).pixels;
 
           int index = 0;
 
@@ -671,7 +522,7 @@ public class TextEditor {
 
         } else if (Character.isDigit(symbol)) {
 
-          int[] symbolarray = symbols.get((symbol + ""));
+          int[] symbolarray = getSymbol(String.valueOf(symbol)).pixels;
           int index = 0;
 
           for (int y = 0; y < this.charHeight; y++) {
@@ -701,8 +552,7 @@ public class TextEditor {
           word[(lastWrittenWidth + 3) + 5 * resultWidth] = fontColorValue;
         } else {
           String symbolS = String.valueOf(symbol);
-          int[] symbolarray = symbols.get(symbolS);
-          if (symbolarray == null || symbolarray.length == 0) symbolarray = symbols.get("0");
+          int[] symbolarray = getSymbol(symbolS).pixels;
           int index = 0;
 
           for (int y = 0; y < this.charHeight; y++) {
@@ -754,12 +604,16 @@ public class TextEditor {
     return text.length() - (int) iconCount * 4 - (int) colorCount * 5;
   }
 
-  private int[] getSpecialSymbol(int index, char[] textArray) {
+  private Symbol getSpecialSymbol(int index, char[] textArray) {
     StringBuilder specialSymbolCode = new StringBuilder();
     for (int i = index + 1; i < index + 4; i++) {
       specialSymbolCode.append(textArray[i]);
     }
-    return symbols.get(specialSymbolCode.toString());
+    Symbol symbol = symbolMap.get(specialSymbolCode.toString());
+    if (symbol == null) {
+      return Symbol.missingx8.copy();
+    }
+    return symbol.copy();
   }
 
   private Symbol getSpecialCharacter(int index, char[] textArray) {
@@ -852,7 +706,11 @@ public class TextEditor {
   }
 
   public Symbol getSymbol(String symbolKey) {
-    return this.symbolMap.get(symbolKey).copy();
+    Symbol symbol = this.symbolMap.get(symbolKey);
+    if (symbol == null) {
+      Symbol.missingx8.copy();
+    }
+    return symbol.copy();
   }
 
   protected int[] getTextBlock(

@@ -17,6 +17,7 @@
       "SHOCK_RESIST": 10,
       "TOX_RESIST": 10,
       "MENTAL_RESIST": 10,
+      "ARMOR": 1,
       "ENERGY": 70,
       "FOCUS": 70
     }
@@ -28,10 +29,10 @@
       "S_Aggression"
     ],
     "stats": {
-      "BODY": 92,
+      "BODY": 87,
       "MIND": 48,
       "DEXTERITY": 45,
-      "VITALITY": 89,
+      "VITALITY": 86,
       "HEAT_RESIST": 14,
       "COLD_RESIST": 17,
       "LIGHT_RESIST": 5,
@@ -39,6 +40,7 @@
       "SHOCK_RESIST": 20,
       "TOX_RESIST": 14,
       "MENTAL_RESIST": 3,
+      "ARMOR": 2,
       "ENERGY": 75,
       "FOCUS": 43
     }
@@ -60,7 +62,7 @@
       "DARK_RESIST": 1,
       "SHOCK_RESIST": 1,
       "TOX_RESIST": 0,
-      "MENTAL_RESIST": 5,
+      "MENTAL_RESIST": 13,
       "ENERGY": 89,
       "FOCUS": 94
     }
@@ -83,6 +85,7 @@
       "SHOCK_RESIST": 7,
       "TOX_RESIST": 9,
       "MENTAL_RESIST": 3,
+      "ARMOR": 2,
       "ENERGY": 80,
       "FOCUS": 54
     }
@@ -127,6 +130,7 @@
       "SHOCK_RESIST": 7,
       "TOX_RESIST": 12,
       "MENTAL_RESIST": 18,
+      "ARMOR": 2,
       "ENERGY": 66,
       "FOCUS": 65
     }
@@ -149,6 +153,7 @@
       "SHOCK_RESIST": 2,
       "TOX_RESIST": 3,
       "MENTAL_RESIST": 1,
+      "ARMOR": 2,
       "ENERGY": 66,
       "FOCUS": 66
     }
@@ -193,6 +198,7 @@
       "SHOCK_RESIST": 21,
       "TOX_RESIST": 20,
       "MENTAL_RESIST": 5,
+      "ARMOR": 3,
       "ENERGY": 46,
       "FOCUS": 62
     }
@@ -215,6 +221,7 @@
       "SHOCK_RESIST": 18,
       "TOX_RESIST": 22,
       "MENTAL_RESIST": 2,
+      "ARMOR": 4,
       "ENERGY": 71,
       "FOCUS": 59
     }

@@ -4,9 +4,12 @@ import framework.Engine;
 import framework.states.dev.AbilityGlossaryState;
 import framework.states.dev.DevState;
 import framework.states.dev.HeroBuilderTest;
+import game.Libraries;
 import game.entities.DraftBuilder;
 import game.entities.Hero;
 import game.entities.HeroTeam;
+import game.libraries.EffectLibrary;
+import game.libraries.HeroBackgroundLibrary;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +29,13 @@ public class StateManager {
   public StateManager(Engine e) {
     this.engine = e;
     this.memory = engine.memory;
+    Libraries.init();
     //        dungeonDraft();
-    dev();
+//    dev();
 //    heroBuilder();
     //        pvpDraft();
-    //        arena();
+    this.memory = new Memory(GameMode.PVP);
+    arena();
 //    abilityGlossary();
   }
 
@@ -47,8 +52,10 @@ public class StateManager {
   private void arena() {
 
     this.memory.teams =
-        new HeroTeam[] {DraftBuilder.getRandomTeam(1, 1), DraftBuilder.getRandomTeam(-1, 2)};
-    Arena arena = new Arena(memory, false);
+        new HeroTeam[] {
+                DraftBuilder.getHeroTeam(1,1,"4","1","3","2"),
+                DraftBuilder.getHeroTeam(-1,2,"8","7","6","5")};
+    Arena arena = new Arena(memory, true);
     this.scenes.add(arena);
   }
 

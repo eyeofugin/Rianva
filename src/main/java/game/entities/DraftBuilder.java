@@ -22,6 +22,7 @@ package game.entities;
 // import game.entities.heroes.sniper.H_Sniper;
 // import game.entities.heroes.thehealer.H_TheHealer;
 // import game.entities.heroes.thewizard.H_TheWizard;
+import game.libraries.HeroLibrary;
 import game.objects.Equipment;
 import game.objects.equipments.SimpleDagger;
 import game.skills.Skill;
@@ -33,6 +34,12 @@ import java.util.*;
 
 public class DraftBuilder {
 
+
+  public static HeroTeam getHeroTeam(int fillUpDirection, int teamNumber, String pos1, String pos2, String pos3, String pos4) {
+
+    Hero[] heroes = new Hero[]{HeroLibrary.getHero(pos1), HeroLibrary.getHero(pos2), HeroLibrary.getHero(pos3), HeroLibrary.getHero(pos4)};
+    return new HeroTeam(fillUpDirection, heroes, teamNumber);
+  }
   private static final Map<Integer, List<Integer>> dungeonEncounterLevelDistribution = initMap();
   public static List<Class<? extends Hero>> all =
       List.of(

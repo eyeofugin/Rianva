@@ -77,8 +77,9 @@ public class EffectLibrary {
 
   public static Effect getEffect(String className) {
     try {
-      Class<?> effectClass = Class.forName(className);
-      return (Effect) effectClass.getDeclaredConstructor().newInstance();
+      Class<?> clazz = Class.forName(className);
+      Class<? extends Effect> effectClass = clazz.asSubclass(Effect.class);
+      return effectClass.getDeclaredConstructor().newInstance();
     } catch (ClassNotFoundException
              | InvocationTargetException
              | InstantiationException
@@ -88,8 +89,8 @@ public class EffectLibrary {
     }
   }
 
-  public static Effect getEffect(String className, int stacks, int turns, Condition condition) {
-    Effect effect = getEffect(className);
+  public static <T extends Effect> T getEffect(String className, int stacks, int turns, Condition condition) {
+    T effect = (T) getEffect(className);
     if (effect != null) {
       effect.turns = turns;
       effect.stacks = stacks;

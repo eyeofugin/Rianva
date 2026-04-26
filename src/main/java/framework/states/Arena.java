@@ -43,7 +43,7 @@ public class Arena extends State {
 
   public boolean roundStarted = false;
 
-  public boolean pvp = true;
+  public boolean pvp = false;
   public Status status;
   public String nextAction = null;
   public int activePointer = -1;
@@ -158,16 +158,18 @@ public class Arena extends State {
   public void start() {
     this.setTeams(memory.teams[0], memory.teams[1]);
     this.getAllLivingEntities().forEach(Hero::arenaStart);
+    initialOrder();
     this.activeHero = this.queue.peek();
     this.hud.setActiveHero(this.activeHero);
     trigger_startOfMatch();
-    initialOrder();
+    this.started = true;
   }
 
   public void startRound() {
     this.getAllLivingEntities().forEach(hero -> hero.getSkills().forEach(Skill::setToInitial));
     trigger_startOfRound();
     this.activeHero = this.queue.peek();
+    roundStarted = true;
   }
 
   public void startTurn() {

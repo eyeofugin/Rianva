@@ -342,8 +342,7 @@ public class Skill implements Subscriber {
             arenaTarget = arenaTarget.getPermanentEffect(Guarded.class).origin;
           }
           int evasion = arenaTarget.getStat(Stat.DODGE);
-          int hitChance = this.accuracy / 100;
-          if (!this.cannotMiss && !MyMaths.success(hitChance - evasion)) {
+          if (!this.cannotMiss && !MyMaths.success(this.accuracy - evasion)) {
             this.trigger_onMiss(arenaTarget);
             this.hero.arena.logCard.addToLog("Missed " + arenaTarget.getName() + "!");
             continue;

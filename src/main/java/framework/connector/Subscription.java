@@ -9,6 +9,9 @@ public class Subscription {
     public SubscriptionTrigger trigger;
 
     public boolean triggered(ConnectionPayload pl) {
+        if (trigger == null) {
+            return true;
+        }
         return trigger.triggered(pl);
     }
     public void setPosition(int position) {

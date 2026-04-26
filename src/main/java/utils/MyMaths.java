@@ -85,7 +85,7 @@ public class MyMaths {
 
   public static int getDamage(int att, int def, boolean rdmize) {
 
-    int reduction = (int)(0.7 * Math.sqrt(50 * def));
+    int reduction = (int)(0.15 * def + Math.sqrt(15 * def));
     reduction = rdmize(reduction);
 
     return percentageOf(1-reduction, att);
@@ -143,7 +143,7 @@ public class MyMaths {
 
   public static int calculateDefense(DamageType dt, Hero hero) {
     if (DamageType.NORMAL.equals(dt)) {
-      return 10 * hero.getStat(Stat.ARMOR) + MyMaths.percentageOf(10, hero.getStat(Stat.BODY));
+      return 5 * hero.getStat(Stat.ARMOR) + MyMaths.percentageOf(5, hero.getStat(Stat.BODY));
     }
     return hero.getStat(Utils.getDefenseStatForDt(dt)) + hero.getStat(Stat.ARMOR);
   }
@@ -151,10 +151,10 @@ public class MyMaths {
   public static int getEffectResistChance(Hero hero, Effect effect) {
     DamageType damageType = effect.damageType;
     if (damageType == DamageType.NORMAL) {
-      return percentageOf(20, hero.getDefense(damageType));
+      hero.getDefense(damageType);
     }
     if (damageType != null) {
-      return percentageOf(20, hero.getDefense(damageType)) + percentageOf(10, hero.getStat(Stat.MIND));
+      return hero.getDefense(damageType) + percentageOf(10, hero.getStat(Stat.MIND));
     }
     if (effect instanceof Dazed || effect instanceof Immobile || effect instanceof Stunned) {
       return percentageOf(20, hero.getStat(Stat.DEXTERITY));

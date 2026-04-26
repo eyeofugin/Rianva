@@ -30,16 +30,6 @@ public class Bar extends GUIElement {
       fill(barStringPixels);
     }
     fill(barPixels);
-    if (withIcon) {
-      int[] iconPixels = editor.getIcon(resource.getIconKey());
-      fillWithGraphicsSize(
-          2,
-          (this.height - editor.charHeight) / 2,
-          editor.charWidth,
-          editor.charHeight,
-          iconPixels,
-          false);
-    }
     return pixels;
   }
 

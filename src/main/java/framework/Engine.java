@@ -25,7 +25,7 @@ public class Engine extends JPanel implements Runnable {
   private Thread gameThread;
   public static final int X = 640;
   public static final int Y = 360;
-  public final int fps = 60;
+  public final int fps = 120;
 
   Sound music = new Sound();
   Sound effect = new Sound();
@@ -51,6 +51,7 @@ public class Engine extends JPanel implements Runnable {
     int frame = 0;
     double drawInterval = 1000000000 / (double) this.fps;
     double delta = 0;
+    double tick = 0;
     long lastTime = System.nanoTime();
     long currentTime;
 
@@ -60,8 +61,11 @@ public class Engine extends JPanel implements Runnable {
         this.frame.dispose();
       }
       currentTime = System.nanoTime();
-      delta += (currentTime - lastTime) / drawInterval;
+      double elapsedTime = (currentTime - lastTime);
+//      deltaTime += elapsedTime;
+      delta += elapsedTime / drawInterval;
       lastTime = currentTime;
+      tick++;
       if (delta >= 1) {
         stateManager.update(frame++);
         keyB.resetOnceClicks();
@@ -69,13 +73,8 @@ public class Engine extends JPanel implements Runnable {
         delta = 0;
       }
       if (frame >= this.fps) {
-        if (test) {
-          test = false;
-          this.frame.setTitle("---------------");
-        } else {
-          test = true;
-          this.frame.setTitle("");
-        }
+        this.frame.setTitle(tick + "");
+        tick = 0;
         frame = 0;
       }
     }
