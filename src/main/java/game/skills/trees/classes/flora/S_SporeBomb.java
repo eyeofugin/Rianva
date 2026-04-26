@@ -11,7 +11,7 @@ public class S_SporeBomb extends Skill {
     @Override
     public void oncePerActivationEffect() {
         int chance = (int) keyValues.get("Chance");
-        chance = Utils.chanceChanges(null, this.hero, chance, this, null, null, 1);
+        chance = Utils.chanceChanges(null, this.hero, chance, this, null, null);
         if (MyMaths.success(chance)) {
             this.hero.arena.globalEffect = EffectLibrary.getEffect(PoisonGasses.class.getName(), 0, 5, null);
         }

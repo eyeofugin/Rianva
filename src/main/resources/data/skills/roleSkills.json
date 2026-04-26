@@ -215,7 +215,7 @@
       "turns": 5
     },
     "maxCd": 5,
-    "manaCost": 10,
+    "manaCost": 25,
     "possibleCastPositions": [
       0,
       1,
@@ -267,13 +267,14 @@
   "S_TimeTrick": {
     "name": "Time Trick",
     "className": "game.skills.trees.roles.inspiration.S_TimeTrick",
-    "description": "Reduce a random active Cooldown by 1.",
+    "description": "Reduce a random active Cooldown by 2.",
     "targetType": "ALL_TARGETS",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
       "ROLE"
     ],
+    "maxCd": 5,
     "possibleCastPositions": [
       0,
       1,
@@ -331,7 +332,7 @@
   "S_Sabotage": {
     "name": "Sabotage",
     "className": "game.skills.trees.roles.tempo.S_Sabotage",
-    "description": "Give {004}Stunned{001}.",
+    "description": "Give {004}Stunned{001}, Brittle 1, Dull 1, Shaken 1.",
     "targetType": "SINGLE",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
@@ -341,9 +342,21 @@
     "effects": [
       {
         "className": "game.effects.status.Stunned"
+      },
+      {
+        "className": "game.effects.stat.Shaken",
+        "turns": 1
+      },
+      {
+        "className": "game.effects.stat.Dull",
+        "turns": 1
+      },
+      {
+        "className": "game.effects.stat.Brittle",
+        "turns": 1
       }
     ],
-    "maxCd": 4,
+    "maxCd": 5,
     "possibleTargetPositions": [
       4,
       5,
@@ -411,7 +424,7 @@
       "TACTICAL",
       "ROLE"
     ],
-    "pull": 1,
+    "pull": 2,
     "maxCd": 5,
     "possibleTargetPositions": [
       1,
@@ -483,17 +496,26 @@
   "S_Aid": {
     "name": "Aid",
     "className": "game.skills.trees.roles.tempo.S_Aid",
-    "description": "Skip",
+    "description": " ",
     "targetType": "SINGLE_OTHER",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
       "ROLE"
     ],
-    "maxCd": 10,
-    "casterEffects": [
+    "maxCd": 5,
+    "healMultipliers": [
       {
-        "className": "game.effects.hero.Initiative"
+        "prof": "BODY",
+        "percentage": 0.1
+      },
+      {
+        "prof": "MIND",
+        "percentage": 0.1
+      },
+      {
+        "prof": "DEXTERITY",
+        "percentage": 0.1
       }
     ],
     "effects": [
@@ -560,10 +582,11 @@
       "TACTICAL",
       "ROLE"
     ],
+    "maxCd": 5,
     "effects": [
       {
         "className": "game.effects.status.Guarded",
-        "turns": 2
+        "turns": 3
       }
     ],
     "possibleCastPositions": [
@@ -625,14 +648,13 @@
       "TACTICAL",
       "ROLE"
     ],
-    "dmg": 10,
     "dmgMultipliers": [
       {
         "prof": "BODY",
-        "percentage": 0.5
+        "percentage": 0.35
       }
     ],
-    "maxCd": 10,
+    "maxCd": 5,
     "damageType": "NORMAL",
     "damageMode": "PHYSICAL",
     "push": 1,
@@ -647,17 +669,17 @@
     "name": "Draw Fire",
     "className": "game.skills.trees.roles.resolve.S_DrawFire",
     "targetType": "SELF",
-    "description": "Receive {004}Threatening{001}(2). +1 Duration if you have {004}Mighty{001}.",
+    "description": "Receive {004}Threatening{001}(3). +2 Duration if you have {004}Mighty{001}.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "TACTICAL",
       "ROLE"
     ],
-    "maxCd": 10,
+    "maxCd": 5,
     "effects": [
       {
         "className": "game.effects.status.Threatening",
-        "turns": 2
+        "turns": 3
       }
     ],
     "subscriptions": [
@@ -691,11 +713,11 @@
       "TACTICAL",
       "ROLE"
     ],
-    "maxCd": 10,
+    "maxCd": 5,
     "healMultipliers": [
       {
         "prof": "VITALITY",
-        "percentage": 0.25
+        "percentage": 0.75
       }
     ],
     "possibleCastPositions": [

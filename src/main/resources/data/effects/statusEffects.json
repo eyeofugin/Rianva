@@ -363,7 +363,7 @@
     ],
     "subscriptions": [
       {
-        "topicName": "ON_DAMAGE",
+        "topicName": "DMG_TRIGGER",
         "methodName": "onDamage",
         "trigger": {
           "targetHeroReference": "SAME"
@@ -388,7 +388,7 @@
     ],
     "subscriptions": [
       {
-        "topicName": "ON_DAMAGE",
+        "topicName": "DMG_TRIGGER",
         "methodName": "onDamage",
         "trigger": {
           "targetHeroReference": "SAME"

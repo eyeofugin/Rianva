@@ -35,24 +35,24 @@ public class StatField extends GUIElement {
   public StatField(HeroDTO dto) {
     this.heroDTO = dto;
     this.hero = null;
-    this.setSize(200, 150);
+    this.setSize(200, 100);
   }
   public StatField(Hero hero) {
     this.hero = hero;
     this.heroDTO = null;
-    this.setSize(200, 150);
+    this.setSize(200, 100);
   }
   public StatField(HeroDTO dto, Stat[] lArray, Stat[] rArray) {
     this.heroDTO = dto;
     this.hero = null;
-    this.setSize(200, 150);
+    this.setSize(200, 100);
     this.leftStatArray = lArray;
     this.rightStatArray = rArray;
   }
   public StatField(Hero hero, Stat[] lArray, Stat[] rArray) {
     this.hero = hero;
     this.heroDTO = null;
-    this.setSize(200, 150);
+    this.setSize(200, 100);
     this.leftStatArray = lArray;
     this.rightStatArray = rArray;
   }
@@ -68,7 +68,7 @@ public class StatField extends GUIElement {
   private void renderSide(Stat[] stats, int x) {
     int yf = 3;
     for (Stat stat : stats) {
-      int totalValue = hero != null? hero.getStat(stat) : 0;//heroDTO.getStat(stat);
+      int totalValue = hero != null? hero.getCachedStat(stat) : 0;//heroDTO.getStat(stat);
       int statChange = hero != null?hero.getStatChange(stat) :0;
       int baseValue = totalValue - statChange;
       //            if (baseValue != 100 && (statChange != 0 || baseValue != 0)) {

@@ -7,7 +7,7 @@ import utils.Utils;
 
 public class Blinded extends Effect {
   public void baseStatChange(ConnectionPayload pl) {
-    int changeValue = Utils.statChangesChanges(this.hero, this.hero, pl.stat, (int) keyValues.get("AccuracyMalus"), null, null, this, pl.depth);
+    int changeValue = Utils.statChangesChanges(this.hero, this.hero, pl.stat, (int) keyValues.get("AccuracyMalus"), null, null, this);
     pl.value += changeValue;
   }
 }

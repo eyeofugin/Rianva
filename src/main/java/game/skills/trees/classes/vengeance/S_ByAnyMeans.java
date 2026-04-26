@@ -22,7 +22,7 @@ public class S_ByAnyMeans extends Skill {
 
     @Override
     public void oncePerActivationEffect() {
-        ConnectionPayload.CondEffectImpact impact = Utils.condTriggerChanges(this.hero, this, null, null, 1);
+        ConnectionPayload.CondEffectImpact impact = Utils.condTriggerChanges(this.hero, this, null, null);
         if (impact.equals(ConnectionPayload.CondEffectImpact.ALLOW) || marks > 9) {
             this.hero.arena.extraTurn(this.hero);
         }

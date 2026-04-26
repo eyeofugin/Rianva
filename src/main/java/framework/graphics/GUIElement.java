@@ -11,6 +11,7 @@ public class GUIElement {
   protected int width, height;
   protected Color background = Color.VOID;
   protected int[] pixels;
+  protected int[] g;
   public int x, y; // location in parent
   protected TextEditor editor = new TextEditor(TextEditor.baseConf);
   protected List<GUIElement> children = new ArrayList<>();
@@ -20,6 +21,8 @@ public class GUIElement {
   protected int borderThickness;
 
   protected boolean active;
+
+  public boolean lazy;
 
   public GUIElement() {
     this.pixels = new int[0];
@@ -381,6 +384,9 @@ public class GUIElement {
     }
   }
 
+  public void background(int colorVal) {
+    Arrays.fill(this.pixels, colorVal);
+  }
   public void background(Color color) {
     Arrays.fill(this.pixels, color.VALUE);
   }

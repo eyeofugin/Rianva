@@ -9,6 +9,6 @@ public class S_TimeTrick extends Skill {
 
     @Override
     public void customTargetEffect(Hero target) {
-        target.changeRandomActiveCdBy(-1);
+        target.changeRandomActiveCdBy(-2);
     }
 }

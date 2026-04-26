@@ -13,7 +13,7 @@ public class S_LookForTrouble extends Skill{
     }
     public void castChange(ConnectionPayload pl) {
         if (pl.skill.equals(this)) {
-            ConnectionPayload.CondEffectImpact impact = Utils.condTriggerChanges(this.hero, this, null, null, pl.depth+1);
+            ConnectionPayload.CondEffectImpact impact = Utils.condTriggerChanges(this.hero, this, null, null);
             if (impact.equals(ConnectionPayload.CondEffectImpact.ALLOW) || marks > 4) {
                 this.effects.add(EffectLibrary.getEffect(Immunity.class.getName(), 0,1,null));
             }

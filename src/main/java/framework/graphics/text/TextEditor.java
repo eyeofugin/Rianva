@@ -159,6 +159,7 @@ public class TextEditor {
     symbols.put(TURN_KEY, Symbol.turn);
     symbols.put(TURN_CD_KEY, Symbol.turnCD);
     symbols.put(Stat.VITALITY.getIconKey(), Symbol.life);
+    symbols.put(Stat.LIFE.getIconKey(), Symbol.life);
     symbols.put(Stat.CURRENT_LIFE.getIconKey(), Symbol.life);
     symbols.put(Stat.LIFE_REGAIN.getIconKey(), Symbol.liferegain);
     symbols.put(Stat.MIND.getIconKey(), Symbol.magic);

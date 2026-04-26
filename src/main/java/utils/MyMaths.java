@@ -88,7 +88,7 @@ public class MyMaths {
     int reduction = (int)(0.15 * def + Math.sqrt(15 * def));
     reduction = rdmize(reduction);
 
-    return percentageOf(1-reduction, att);
+    return percentageOf(100-reduction, att);
   }
 
   private static int rdmize(int a) {

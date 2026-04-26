@@ -1,7 +1,9 @@
 package framework.resources;
 
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import framework.Property;
 import framework.graphics.text.Color;
+import game.effects.hero.Marked;
 import game.skills.logic.Stat;
 
 import javax.imageio.ImageIO;
@@ -52,8 +54,7 @@ public class SpriteLibrary {
     sprites.put("SHOCK", sprite(10, 10, 10, 10, "icons/damagetype/shock.png", 0));
     sprites.put("MAGICAL", sprite(10, 10, 10, 10, "icons/damagetype/magical.png", 0));
     sprites.put("PHYSICAL", sprite(10, 10, 10, 10, "icons/damagetype/physical.png", 0));
-
-
+    sprites.put(Marked.class.getName(), sprite(Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE, "icons/gui/mark.png", 0));
     //        sprites.put(Burning.class.getName(), sprite(Property.EFFECT_ICON_SIZE,
     // Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,Property.EFFECT_ICON_SIZE,
     //                "icons/effect/burning.png", 0));

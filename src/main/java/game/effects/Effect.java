@@ -154,7 +154,7 @@ public class Effect implements Subscriber {
   }
 
   public void removeFromHero() {
-    Connector.fireTopic(Connector.EFFECT_REMOVED, new ConnectionPayload(1).setEffect(this));
+    Connector.fireTopic(Connector.EFFECT_REMOVED, new ConnectionPayload().setEffect(this));
     Connector.removeSubscriptions(this);
   }
 

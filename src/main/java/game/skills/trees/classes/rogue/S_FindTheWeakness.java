@@ -10,7 +10,7 @@ import utils.Utils;
 
 public class S_FindTheWeakness extends Skill {
   public void onDamage(ConnectionPayload pl) {
-    int chance = Utils.chanceChanges(pl.target, this.hero, (int)keyValues.get("Chance"), this, null, null, pl.depth + 1);
+    int chance = Utils.chanceChanges(pl.target, this.hero, (int)keyValues.get("Chance"), this, null, null);
     if (MyMaths.success(chance)) {
       pl.target.addEffect(EffectLibrary.getEffect(Bleeding.class.getName(), 0, 1, null), this.hero);
     }

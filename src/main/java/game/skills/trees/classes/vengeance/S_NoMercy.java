@@ -18,7 +18,7 @@ public class S_NoMercy extends Skill {
 
   public void dmgChangesMult(ConnectionPayload pl) {
     ConnectionPayload.CondEffectImpact impact =
-        Utils.condTriggerChanges(this.hero, this, null, null, 1);
+        Utils.condTriggerChanges(this.hero, this, null, null);
     int percentage = (int) keyValues.get("BasePercentage");
     if (impact.equals(ConnectionPayload.CondEffectImpact.ALLOW) || marks > 4) {
       percentage = (int) keyValues.get("FullPercentage");

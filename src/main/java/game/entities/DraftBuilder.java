@@ -22,6 +22,7 @@ package game.entities;
 // import game.entities.heroes.sniper.H_Sniper;
 // import game.entities.heroes.thehealer.H_TheHealer;
 // import game.entities.heroes.thewizard.H_TheWizard;
+import framework.graphics.text.Color;
 import game.libraries.HeroLibrary;
 import game.objects.Equipment;
 import game.objects.equipments.SimpleDagger;
@@ -35,9 +36,19 @@ import java.util.*;
 public class DraftBuilder {
 
 
+  public static List<Hero> getHeroes(List<String> names){
+    List<Hero> heroes = new ArrayList<>();
+    names.forEach(s->heroes.add(HeroLibrary.getHero(s)));
+    return heroes;
+  }
   public static HeroTeam getHeroTeam(int fillUpDirection, int teamNumber, String pos1, String pos2, String pos3, String pos4) {
 
     Hero[] heroes = new Hero[]{HeroLibrary.getHero(pos1), HeroLibrary.getHero(pos2), HeroLibrary.getHero(pos3), HeroLibrary.getHero(pos4)};
+    heroes[0].devColor = Color.GREEN;
+    heroes[1].devColor = Color.RED;
+    heroes[2].devColor = Color.BLUE;
+    heroes[3].devColor = Color.SPEED_YELLOW;
+
     return new HeroTeam(fillUpDirection, heroes, teamNumber);
   }
   private static final Map<Integer, List<Integer>> dungeonEncounterLevelDistribution = initMap();

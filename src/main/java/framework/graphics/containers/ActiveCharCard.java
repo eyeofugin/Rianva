@@ -116,7 +116,7 @@ public class ActiveCharCard extends GUIElement {
   }
 
   private void activateItems() {
-    this.items = new ItemField(this.activeHero, engine);
+    this.items = new ItemField(this.activeHero);
     this.items.setPosition(16, MODES_Y);
     this.items.setActive(true);
     this.children.add(this.items);
@@ -177,14 +177,14 @@ public class ActiveCharCard extends GUIElement {
     this.healthBar.setSize(45, 3);
     this.healthBar.setPosition(2, 14);
     this.healthBar.setHero(this.activeHero);
-    this.healthBar.setResource(Stat.VITALITY);
+    this.healthBar.setResource(Stat.LIFE);
     this.healthBar.setColor(Color.MEDIUMGREEN);
 
     this.health = new TextField();
     this.health.setSize(45, 5);
     this.health.setPosition(2, 18);
     this.health.setTextSize(1);
-    this.health.setString(this.activeHero.getResourceString(Stat.VITALITY));
+    this.health.setString(this.activeHero.getResourceString(Stat.LIFE));
     this.health.setFontColor(Color.WHITE);
     this.health.setSmall(true);
 

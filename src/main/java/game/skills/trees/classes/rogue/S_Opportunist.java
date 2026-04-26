@@ -10,7 +10,7 @@ import utils.Utils;
 public class S_Opportunist extends Skill {
   public void onCrit(ConnectionPayload pl) {
     ConnectionPayload.CondEffectImpact impact =
-        Utils.condTriggerChanges(this.hero, this, null, null, pl.depth + 1);
+        Utils.condTriggerChanges(this.hero, this, null, null);
     if (ConnectionPayload.CondEffectImpact.ALLOW.equals(impact)
         || this.hero.hasPermanentEffect(Advantage.class)) {
       this.hero.addEffect(

@@ -8,8 +8,7 @@ public class S_Aid extends Skill {
     @Override
     public String getDescription() {
         if (this.hero == null) {
-            return  "Give {003}Initiative{001}." + " [BRL] [BRL] "
-                    + "[CHN] 50% BODY chance to give {003}Mighty{001}." + " [BRL] [BRL] "
+            return  "[CHN] 50% BODY chance to give {003}Mighty{001}." + " [BRL] [BRL] "
                     + "[CHN] 50% MIND chance to give {003}Enlightened{001}." + " [BRL] [BRL] "
                     + "[CHN] 50% DEXTERITY chance to give {003}Flawless{001}.";
         }
@@ -17,8 +16,7 @@ public class S_Aid extends Skill {
         String mindChance = MyMaths.percentageOf(50, this.hero.getStat(Stat.MIND)) + "";
         String dexChance = MyMaths.percentageOf(50, this.hero.getStat(Stat.DEXTERITY)) + "";
 
-        return  "Give {003}Initiative{001}." + " [BRL] [BRL] "
-                + "[CHN] "+bodyChance+"(50% BODY) chance to give {003}Mighty{001}." + " [BRL] [BRL] "
+        return  "[CHN] "+bodyChance+"(50% BODY) chance to give {003}Mighty{001}." + " [BRL] [BRL] "
                 + "[CHN] "+mindChance+"(50% MIND) chance to give {003}Enlightened{001}." + " [BRL] [BRL] "
                 + "[CHN] "+dexChance+"(50% DEXTERITY) chance to give {003}Flawless{001}.";
 

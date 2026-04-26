@@ -8,7 +8,7 @@ import utils.Utils;
 public class BearForm extends Effect {
   public void statChangeBase(ConnectionPayload pl) {
     int changeValue = this.hero.getLevel() * (int) keyValues.get("AdaptiveResist");
-    changeValue = Utils.statChangesChanges(this.hero, this.hero, pl.stat, changeValue, null, null, this, pl.depth);
+    changeValue = Utils.statChangesChanges(this.hero, this.hero, pl.stat, changeValue, null, null, this);
     pl.value += changeValue;
   }
 

@@ -49,8 +49,8 @@ public class SkillDTO {
   public Integer maxCd = 0;
   public Integer accuracy = 100;
   public Boolean cannotMiss = false;
-  public Integer countsAsHits;
-  public Integer move;
+  public Integer countsAsHits = 1;
+  public Integer move = 0;
   public boolean moveTo;
   public List<Subscription> subscriptions;
   public Map<String, Object> keyValues;

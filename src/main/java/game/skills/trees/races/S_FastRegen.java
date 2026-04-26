@@ -14,7 +14,7 @@ public class S_FastRegen extends Skill {
         if (!this.hero.hasDebuff()) {
             return;
         }
-        int chance = Utils.chanceChanges(null, this.hero, (int)keyValues.get("Chance"), this, null, null, ++pl.depth);
+        int chance = Utils.chanceChanges(null, this.hero, (int)keyValues.get("Chance"), this, null, null);
         if (MyMaths.success(chance)) {
             this.hero.removeRdmEffectOfTypes(List.of(Effect.SubType.DEBUFF));
         }

@@ -11,8 +11,10 @@ public class LogStatement extends GUIElement {
   private final int textWidth = Property.LOG_STATEMENT_WIDTH - (2 * paddingX);
   private final int textHeight;
   private final int[] textPixels;
+  private final String text;
 
   public LogStatement(String text) {
+    this.text = text;
     this.textPixels = this.getTextBlock(text, textWidth, Color.BLACK, Color.WHITE);
     this.textHeight = textPixels.length / textWidth;
     this.width = Property.LOG_STATEMENT_WIDTH;

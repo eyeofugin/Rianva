@@ -26,13 +26,11 @@ public class ItemField extends GUIElement {
   private GUIElement[] itemIcons;
   ItemInfo itemInfo;
 
-  private Engine engine;
 
-  public ItemField(Hero hero, Engine engine) {
+  public ItemField(Hero hero) {
     this.hero = hero;
     this.itemIcons = new GUIElement[0];
     this.setSize(WIDTH, 100);
-    this.engine = engine;
     recalculateItemList(0);
   }
 

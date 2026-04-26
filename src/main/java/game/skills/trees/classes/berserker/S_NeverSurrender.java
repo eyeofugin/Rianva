@@ -9,7 +9,7 @@ import java.util.List;
 
 public class S_NeverSurrender extends Skill {
     public void startOfTurn(ConnectionPayload pl) {
-        ConnectionPayload.CondEffectImpact impact = Utils.condTriggerChanges(this.hero, this, null, null, pl.depth + 1);
+        ConnectionPayload.CondEffectImpact impact = Utils.condTriggerChanges(this.hero, this, null, null);
         if (ConnectionPayload.CondEffectImpact.DISALLOW.equals(impact)) {
             return;
         }

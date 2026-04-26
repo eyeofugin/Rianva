@@ -13,7 +13,7 @@ public class S_PrismRay extends Skill {
   @Override
   public void customTargetEffect(Hero target) {
     int chance = (int)keyValues.get("Chance");
-    chance = Utils.chanceChanges(target, this.hero, chance, this, null, null, 1);
+    chance = Utils.chanceChanges(target, this.hero, chance, this, null, null);
     tryEffect(EffectLibrary.getEffect(Bleeding.class.getName(), 0,1,null), target, chance);
     tryEffect(EffectLibrary.getEffect(Blight.class.getName(), 0,1,null), target, chance);
     tryEffect(EffectLibrary.getEffect(Blinded.class.getName(), 0,1,null), target, chance);

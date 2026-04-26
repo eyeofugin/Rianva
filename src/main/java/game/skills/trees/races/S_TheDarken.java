@@ -8,7 +8,7 @@ import utils.Utils;
 public class S_TheDarken extends Skill {
   public void dmgChanges(ConnectionPayload pl) {
     ConnectionPayload.CondEffectImpact impact =
-        Utils.condTriggerChanges(this.hero, this, null, null, ++pl.depth);
+        Utils.condTriggerChanges(this.hero, this, null, null);
 
     if (ConnectionPayload.CondEffectImpact.ALLOW.equals(impact)
         || (ConnectionPayload.CondEffectImpact.IGNORE.equals(impact)

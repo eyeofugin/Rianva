@@ -139,7 +139,9 @@ public class SkillInfo extends GUIElement {
   @Override
   public int[] render() {
     renderHeader();
-    renderSubHeader();
+    if (!this.skill.isPassive()) {
+      renderSubHeader();
+    }
     renderTags();
     renderDescription();
     return pixels;

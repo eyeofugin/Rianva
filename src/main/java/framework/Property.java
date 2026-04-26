@@ -25,7 +25,7 @@ public class Property {
   // HUD
   public static int HUD_BOXES_Y = 200;
   public static int ACTIVE_CHAR_OV_X = 10;
-  public static int ACTIVE_CHAR_OV_WIDTH = 114;
+  public static int ACTIVE_CHAR_OV_WIDTH = 214;
   public static int ACTIVE_CHAR_OV_HEIGHT = 150;
   public static int ACTIVE_ABILITY_WIDTH = 240;
   public static int ACTIVE_ABILITY_HEIGHT = 150;

@@ -22,7 +22,7 @@ public class S_TrophyHunt extends Skill {
     public void statChange(ConnectionPayload pl) {
         if (marks > 9) {
             int change = MyMaths.percentageOf((int) keyValues.get("DextIncrease"), pl.value);
-            change = Utils.statChangesChanges(this.hero, this.hero, Stat.DEXTERITY, change, this, null, null, pl.depth + 1);
+            change = Utils.statChangesChanges(this.hero, this.hero, Stat.DEXTERITY, change, this, null, null);
             pl.value += change;
         }
     }

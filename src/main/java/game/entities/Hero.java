@@ -80,6 +80,8 @@ public class Hero extends GUIElement {
 
   public int effectiveRange = 0;
 
+  public Color devColor = Color.VOID;
+
   public static Hero getForDraft() {
     return null;
   }
@@ -96,6 +98,7 @@ public class Hero extends GUIElement {
     this.baseStats = Utils.copyStats(raceDto.stats);
     this.initBackgrounds(classDto, raceDto, roleDto);
     this.addLevel();
+    cacheStats();
   }
   public Hero(HeroDTO dto) {
     this.width = 64;
@@ -110,6 +113,7 @@ public class Hero extends GUIElement {
     this.initSkills(dto);
     this.setStatBase();
     this.addLevel();
+    cacheStats();
   }
 
   protected Hero(String name) {
@@ -119,7 +123,7 @@ public class Hero extends GUIElement {
     this.pixels = new int[this.width * this.height];
     this.name = name;
     this.stats.putAll(statBase());
-    this.statCache.putAll(this.stats);
+    cacheStats();
   }
 
   public void setPosition(int position, Arena arena) {
@@ -144,8 +148,10 @@ public class Hero extends GUIElement {
   }
 
   public void resetResources() {
-    this.stats.put(Stat.CURRENT_LIFE, this.stats.get(Stat.VITALITY));
+    this.stats.put(Stat.LIFE, this.stats.get(Stat.VITALITY) * 3);
+    this.stats.put(Stat.CURRENT_LIFE, this.stats.get(Stat.LIFE));
     this.stats.put(Stat.CURRENT_ENERGY, this.stats.get(Stat.ENERGY));
+    this.stats.put(Stat.ENERGY_REGAIN, this.stats.getOrDefault(Stat.FOCUS, 0) / 10);
   }
 
   public void leaveArena() {
@@ -366,7 +372,7 @@ public class Hero extends GUIElement {
         yf,
         64,
         3,
-        getBar(64, 3, 0, getResourcePercentage(Stat.VITALITY), Color.GREEN, Color.DARKRED),
+        getBar(64, 3, 0, getResourcePercentage(Stat.LIFE), Color.GREEN, Color.DARKRED),
         false);
     if (this.getStat(Stat.SHIELD) > 0) {
       fillWithGraphicsSize(0, yf, 64, 3, getShieldBar(), false);
@@ -399,9 +405,9 @@ public class Hero extends GUIElement {
   }
 
   private int[] getShieldBar() {
-    double currentLifePercentage = getResourcePercentage(Stat.VITALITY);
+    double currentLifePercentage = getResourcePercentage(Stat.LIFE);
     int missingLifePercentage = getMissingLifePercentage();
-    double shieldPercentage = (double) getStat(Stat.SHIELD) / getStat(Stat.VITALITY);
+    double shieldPercentage = (double) getStat(Stat.SHIELD) / getStat(Stat.LIFE);
     int lifeFill = (int) (64 * currentLifePercentage);
 
     if (missingLifePercentage < shieldPercentage) {
@@ -471,25 +477,6 @@ public class Hero extends GUIElement {
         effectsX += Property.EFFECT_ICON_SIZE + paddingX;
       }
     }
-    //        for (Map.Entry<Stat, Integer> statChange : this.statChanges.entrySet()) {
-    //            if (Stat.nonResourceStats.contains(statChange.getKey())) {
-    //                Color borderColor  = statChange.getValue() > 0 ? Color.GREEN : Color.RED;
-    //                int [] stat = getTextLine(statChange.getKey().getIconString(),
-    // Property.EFFECT_ICON_SIZE, Property.EFFECT_ICON_SIZE,
-    //                       Color.WHITE);
-    //                fillWithGraphicsSize(effectsX, yf, Property.EFFECT_ICON_SIZE,
-    // Property.EFFECT_ICON_SIZE, stat, borderColor);
-    //
-    //                paintedEffects++;
-    //
-    //                if (paintedEffects % 6 == 0) {
-    //                    yf += Property.EFFECT_ICON_SIZE + paddingY;
-    //                    effectsX = 0;
-    //                } else {
-    //                    effectsX += Property.EFFECT_ICON_SIZE + paddingX;
-    //                }
-    //            }
-    //        }
   }
 
   private void renderDraftInfo() {
@@ -503,26 +490,8 @@ public class Hero extends GUIElement {
     fillWithGraphicsSize(2, roleYf, 10, 10, role, false);
   }
 
-  // StatMagic
-
-  //    public void levelUp() {
-  //        int newLevel = this.level + 1;
-  //        this.setLevel(newLevel);
-  //        List<Skill> newSkills = this.learnableSkillList.stream().filter(s->s.getLevel() ==
-  // newLevel).toList();
-  //        newSkills.forEach(s-> {
-  //            if (!this.skills.contains(s)) {
-  //                this.skills.add(s);
-  //                sortSkills();
-  //            }
-  //        });
-  //    }
-
   private void cacheStats() {
-    for (Map.Entry<Stat, Integer> stat : statCache.entrySet()) {
-      Integer currentValue = this.getStat(stat.getKey());
-      stat.setValue(currentValue);
-    }
+    this.statCache = Utils.copyStats(this.stats);
   }
 
   private void sortSkills() {
@@ -651,8 +620,8 @@ public class Hero extends GUIElement {
       return 0.0;
     }
     return switch (resource) {
-      case VITALITY -> ((double) this.getStat(Stat.CURRENT_LIFE)) / this.getStat(Stat.VITALITY);
-      case ENERGY -> ((double) this.getStat(Stat.CURRENT_ENERGY)) / this.getStat(Stat.ENERGY);
+      case LIFE -> ((double) this.stats.get(Stat.CURRENT_LIFE)) / this.stats.get(Stat.LIFE);
+      case ENERGY -> ((double) this.stats.get(Stat.CURRENT_ENERGY)) / this.stats.get(Stat.ENERGY);
       //            case MAX_ACTION -> ((double) this.getStat(Stat.CURRENT_ACTION)) /
       // this.getStat(Stat.MAX_ACTION);
       default -> 0.0;
@@ -660,7 +629,7 @@ public class Hero extends GUIElement {
   }
 
   public int getCurrentLifePercentage() {
-    return this.stats.get(Stat.CURRENT_LIFE) * 100 / this.stats.get(Stat.VITALITY);
+    return this.stats.get(Stat.CURRENT_LIFE) * 100 / this.stats.get(Stat.LIFE);
   }
 
   public int getMissingLifePercentage() {
@@ -684,10 +653,11 @@ public class Hero extends GUIElement {
     if (!this.isAlive()) {
       return;
     }
+    cacheStats();
     trigger_endOfTurn();
   }
 
-  private void regain() {
+  public void regain() {
     int heal = getStat(Stat.LIFE_REGAIN);
     if (!(this.hasPermanentEffect(Bleeding.class))) {
       heal(heal, this, null, null, null, true);
@@ -696,13 +666,6 @@ public class Hero extends GUIElement {
       energy(this.getStat(Stat.ENERGY_REGAIN), this, null, null, null, true);
     }
   }
-
-  //    public void refreshAction() {
-  //        if (this.hasPermanentEffect(Exhausted.class) == 0 && (!this.movedLast ||
-  // getStat(Stat.CURRENT_ACTION) == 0)) {
-  //            this.changeStatTo(Stat.CURRENT_ACTION, this.getStat(Stat.MAX_ACTION));
-  //        }
-  //    }
 
   // Equipment Magic
   public void equip(Equipment equipment) {
@@ -954,7 +917,7 @@ public class Hero extends GUIElement {
   }
 
   public void payForSkill(Skill s) {
-    payResource(Stat.CURRENT_LIFE, Stat.VITALITY, -1 * s.getLifeCost(this));
+    payResource(Stat.CURRENT_LIFE, Stat.LIFE, -1 * s.getLifeCost(this));
     payResource(Stat.CURRENT_ENERGY, Stat.ENERGY, -1 * s.getManaCost());
     payResource(Stat.DODGE, null, -1 * s.getDodgeCost());
     Logger.logLn("Paid life:" + s.getLifeCost(this));
@@ -1040,8 +1003,8 @@ public class Hero extends GUIElement {
     int pureHeal = trigger_healChanges(heal, caster, skill, effect, equipment, false);
 
     int actualHeal =
-        Math.min(pureHeal, this.stats.get(Stat.VITALITY) - this.stats.get(Stat.CURRENT_LIFE));
-    return actualHeal * 100 / this.stats.get(Stat.VITALITY);
+        Math.min(pureHeal, this.stats.get(Stat.LIFE) - this.stats.get(Stat.CURRENT_LIFE));
+    return actualHeal * 100 / this.stats.get(Stat.LIFE);
   }
 
   public void payResource(Stat resource, Stat max, int amount) {
@@ -1061,20 +1024,20 @@ public class Hero extends GUIElement {
 
   public void percentageHeal(
       int percentage, Hero caster, Skill skill, Effect effect, Equipment equipment, boolean regen) {
-    int heal = MyMaths.percentageOf(percentage, this.getStat(Stat.VITALITY));
+    int heal = MyMaths.percentageOf(percentage, this.getStat(Stat.LIFE));
     heal(heal, caster, skill, effect, equipment, regen);
   }
 
   public void heal(
       int heal, Hero caster, Skill skill, Effect effect, Equipment equipment, boolean regen) {
     heal = trigger_healChanges(heal, caster, skill, effect, equipment, regen);
-    addResource(Stat.CURRENT_LIFE, Stat.VITALITY, heal, caster, skill, effect, equipment, false);
+    addResource(Stat.CURRENT_LIFE, Stat.LIFE, heal, caster, skill, effect, equipment, false);
     trigger_onHeal(heal, caster, skill, effect,equipment, regen);
   }
 
   public void shield(int shield, Hero caster, Skill skill, Effect effect, Equipment equipment) {
     shield = trigger_shieldChanges(shield, caster, skill, effect, equipment);
-    addResource(Stat.SHIELD, Stat.VITALITY, shield, caster, skill, effect, equipment, false);
+    addResource(Stat.SHIELD, Stat.LIFE, shield, caster, skill, effect, equipment, false);
   }
 
   public void dodge(int dodge, Hero caster, Skill skill, Effect effect, Equipment equipment) {
@@ -1096,7 +1059,7 @@ public class Hero extends GUIElement {
       Effect effect,
       Equipment equipment,
       int lethality) {
-    int damage = MyMaths.percentageOf(percentageDamage, this.getStat(Stat.VITALITY));
+    int damage = MyMaths.percentageOf(percentageDamage, this.getStat(Stat.LIFE));
     return damage(damage, damageType, mode, caster, skill, effect, equipment, lethality);
   }
 
@@ -1113,11 +1076,11 @@ public class Hero extends GUIElement {
     damage = trigger_dmgChanges(damage, damageType, mode, caster, skill, effect, equipment);
 
     int def = MyMaths.calculateDefense(damageType, this);
-    def -= lethality;
+    def = Math.max(0, def - lethality);
     int result = MyMaths.getDamage(damage, def);
 
     System.out.println("dmg:" + result);
-    Logger.logLn("1play dmg animation of " + this.name + "/" + this.id);
+    Logger.logLn("play dmg animation of " + this.name + "/" + this.id);
     playAnimation("damaged", true);
 
     int dmgToShield = 0;
@@ -1139,7 +1102,7 @@ public class Hero extends GUIElement {
       }
     }
     this.arena.logCard.addToLog(this.getName() + " was dealt " + result + " damage.");
-    addResource(Stat.CURRENT_LIFE, Stat.VITALITY, -1 * result, caster, skill, effect, equipment, false);
+    addResource(Stat.CURRENT_LIFE, Stat.LIFE, -1 * result, caster, skill, effect, equipment, false);
     if (DamageMode.PHYSICAL.equals(mode)) {
       trigger_onHit(result, dmgToShield, damageType, skill, caster);
       trigger_onDamage(result, dmgToShield, damageType, mode, skill, effect, caster);
@@ -1154,7 +1117,7 @@ public class Hero extends GUIElement {
     damage = trigger_dmgChanges(damage, type, mode, caster, skill, null, null);
     int def = getStat(Stat.ARMOR);
     int result = MyMaths.getDamage(damage, def);
-    return result * 100 / this.stats.get(Stat.VITALITY);
+    return result * 100 / this.stats.get(Stat.LIFE);
   }
 
   // GUI
@@ -1174,7 +1137,7 @@ public class Hero extends GUIElement {
       return "";
     }
     return switch (resource) {
-      case VITALITY -> getHealthString();
+      case LIFE -> getHealthString();
       case ENERGY -> getManaString();
       default -> "";
     };
@@ -1199,7 +1162,7 @@ public class Hero extends GUIElement {
 
   public void trigger_onHeal(
           int heal, Hero caster, Skill skill, Effect effect, Equipment equipment, boolean regen) {
-    ConnectionPayload pl = new ConnectionPayload(1)
+    ConnectionPayload pl = new ConnectionPayload()
             .setHeal(heal)
             .setCaster(caster)
             .setTarget(this)
@@ -1217,7 +1180,7 @@ public class Hero extends GUIElement {
           Skill skill,
           Hero caster) {
     ConnectionPayload ConnectionPayload =
-            new ConnectionPayload(1)
+            new ConnectionPayload()
                     .setTarget(this)
                     .setCaster(caster)
                     .setSkill(skill)
@@ -1235,7 +1198,7 @@ public class Hero extends GUIElement {
       Effect effect,
       Hero caster) {
     ConnectionPayload ConnectionPayload =
-        new ConnectionPayload(1)
+        new ConnectionPayload()
             .setTarget(this)
             .setCaster(caster)
             .setSkill(skill)
@@ -1248,20 +1211,20 @@ public class Hero extends GUIElement {
   }
 
   public void trigger_shieldBroken(Hero target) {
-    ConnectionPayload pl = new ConnectionPayload(1).setTarget(target);
+    ConnectionPayload pl = new ConnectionPayload().setTarget(target);
     Connector.fireTopic(Connector.SHIELD_BROKEN, pl);
   }
 
   public boolean trigger_performFailure(Skill skill, int[] targetPositions) {
     ConnectionPayload canPerformPayload =
-        new ConnectionPayload(1).setSkill(skill).setTargetPositions(targetPositions);
+        new ConnectionPayload().setSkill(skill).setTargetPositions(targetPositions);
     Connector.fireTopic(Connector.CAN_PERFORM, canPerformPayload);
     return canPerformPayload.failure;
   }
 
   public void trigger_effectAdded(Effect effect, Hero caster, Skill skill, boolean newlyAdded) {
     ConnectionPayload effectAddedPayload =
-        new ConnectionPayload(1)
+        new ConnectionPayload()
             .setEffect(effect)
             .setCaster(caster)
             .setSkill(skill)
@@ -1272,19 +1235,19 @@ public class Hero extends GUIElement {
 
   public boolean trigger_effectFailure(Effect effect, Hero caster, Skill skill) {
     ConnectionPayload payload =
-        new ConnectionPayload(1).setSkill(skill).setEffect(effect).setTarget(this).setCaster(caster);
+        new ConnectionPayload().setSkill(skill).setEffect(effect).setTarget(this).setCaster(caster);
     Connector.fireTopic(Connector.EFFECT_FAILURE_CHECK, payload);
     return payload.failure;
   }
 
   public void trigger_startOfTurn() {
-    ConnectionPayload pl = new ConnectionPayload(1);
+    ConnectionPayload pl = new ConnectionPayload();
     pl.setCaster(this);
     Connector.fireTopic(this.id + Connector.START_OF_TURN, pl);
   }
 
   public void trigger_endOfTurn() {
-    ConnectionPayload pl = new ConnectionPayload(1);
+    ConnectionPayload pl = new ConnectionPayload();
     pl.setCaster(this);
     Connector.fireTopic(this.id + Connector.END_OF_TURN, pl);
   }
@@ -1292,7 +1255,7 @@ public class Hero extends GUIElement {
   public void trigger_excessResource(
       Stat stat, int value, Hero source, Skill skill, Effect effect, Equipment equipment) {
     ConnectionPayload pl =
-        new ConnectionPayload(1)
+        new ConnectionPayload()
             .setStat(stat)
             .setValue(value)
             .setCaster(source)
@@ -1306,7 +1269,7 @@ public class Hero extends GUIElement {
   public int trigger_energyChanges(
       int energy, Hero caster, Skill skill, Effect effect, Equipment equipment, boolean regen) {
     ConnectionPayload energyChangesPayload =
-        new ConnectionPayload(1)
+        new ConnectionPayload()
             .setCaster(caster)
             .setTarget(this)
             .setEffect(effect)
@@ -1322,7 +1285,7 @@ public class Hero extends GUIElement {
     public int trigger_healChanges(
       int heal, Hero caster, Skill skill, Effect effect, Equipment equipment, boolean regen) {
     ConnectionPayload healChangesPayload =
-        new ConnectionPayload(1)
+        new ConnectionPayload()
             .setCaster(caster)
             .setTarget(this)
             .setEffect(effect)
@@ -1344,7 +1307,7 @@ public class Hero extends GUIElement {
       Effect effect,
       Equipment equipment) {
     ConnectionPayload dmgChangesPayload =
-        new ConnectionPayload(1)
+        new ConnectionPayload()
             .setCaster(caster)
             .setTarget(this)
             .setSkill(skill)
@@ -1362,7 +1325,7 @@ public class Hero extends GUIElement {
   public int trigger_shieldChanges(
       int shield, Hero caster, Skill skill, Effect effect, Equipment equipment) {
     ConnectionPayload shieldChangesPayload =
-        new ConnectionPayload(1)
+        new ConnectionPayload()
             .setCaster(caster)
             .setTarget(this)
             .setSkill(skill)
@@ -1377,7 +1340,7 @@ public class Hero extends GUIElement {
   public int trigger_permanentLethalityChanges(
           int lethality, Hero caster, Skill skill, Effect effect, Equipment equipment) {
     ConnectionPayload shieldChangesPayload =
-            new ConnectionPayload(1)
+            new ConnectionPayload()
                     .setCaster(caster)
                     .setTarget(this)
                     .setSkill(skill)
@@ -1392,7 +1355,7 @@ public class Hero extends GUIElement {
   public int trigger_permanentDodgeChanges(
           int shield, Hero caster, Skill skill, Effect effect, Equipment equipment) {
     ConnectionPayload shieldChangesPayload =
-            new ConnectionPayload(1)
+            new ConnectionPayload()
                     .setCaster(caster)
                     .setTarget(this)
                     .setSkill(skill)
@@ -1407,22 +1370,22 @@ public class Hero extends GUIElement {
 
   public int trigger_statChange(Stat stat, int statValue) {
     ConnectionPayload bsc =
-        new ConnectionPayload(1).setStat(stat).setValue(statValue).setTarget(this);
+        new ConnectionPayload().setStat(stat).setValue(statValue).setTarget(this);
     Connector.fireTopic(Connector.BASE_STAT_CHANGE, bsc);
 
     ConnectionPayload scm =
-        new ConnectionPayload(1).setStat(stat).setTarget(this).setValue(bsc.value);
+        new ConnectionPayload().setStat(stat).setTarget(this).setValue(bsc.value);
     Connector.fireTopic(Connector.STAT_CHANGE_MULT, scm);
     return scm.value;
   }
 
   public int trigger_statChangeChange(Stat stat, int statValue) {
     ConnectionPayload bsc =
-        new ConnectionPayload(1).setStat(stat).setValue(statValue).setTarget(this);
+        new ConnectionPayload().setStat(stat).setValue(statValue).setTarget(this);
     Connector.fireTopic(Connector.STAT_BASE_CHANGE_CHANGE, bsc);
 
     ConnectionPayload scm =
-        new ConnectionPayload(1).setStat(stat).setTarget(this).setValue(bsc.value);
+        new ConnectionPayload().setStat(stat).setTarget(this).setValue(bsc.value);
     Connector.fireTopic(Connector.STAT_MULT_CHANGE_CHANGE, scm);
     return scm.value;
   }
@@ -1431,16 +1394,16 @@ public class Hero extends GUIElement {
 
   private String getManaString() {
     return this.stats.get(Stat.CURRENT_ENERGY)
-        + "(+"
-        + this.stats.get(Stat.FOCUS)
-        + ")/"
+        + "+"
+        + this.stats.get(Stat.FOCUS) / 10
+        + "/"
         + this.stats.get(Stat.ENERGY);
   }
 
   public String getHealthString() {
     return this.stats.get(Stat.CURRENT_LIFE)
         + "/"
-        + this.stats.get(Stat.VITALITY);
+        + this.stats.get(Stat.LIFE);
   }
 
   public static Color getResourceColor(Stat stat) {
@@ -1448,7 +1411,7 @@ public class Hero extends GUIElement {
       return Color.BLACK;
     }
     return switch (stat) {
-      case VITALITY -> Color.GREEN;
+      case LIFE -> Color.GREEN;
       case ENERGY -> Color.BLUE;
       default -> Color.WHITE;
     };

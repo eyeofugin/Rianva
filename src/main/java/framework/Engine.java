@@ -30,6 +30,7 @@ public class Engine extends JPanel implements Runnable {
   Sound music = new Sound();
   Sound effect = new Sound();
   boolean test = false;
+  public static boolean redraw = true;
 
   public Engine(JFrame window) {
     setPreferredSize(new Dimension(X * multiplier, Y * multiplier));
@@ -40,7 +41,6 @@ public class Engine extends JPanel implements Runnable {
   }
 
   public void start() {
-
     stateManager = new StateManager(this);
     gameThread = new Thread(this);
     gameThread.start();
@@ -89,6 +89,7 @@ public class Engine extends JPanel implements Runnable {
     g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
     g.dispose();
     paint(g);
+    redraw = false;
   }
 
   private void paintP(int[] p) {
@@ -151,7 +152,7 @@ public class Engine extends JPanel implements Runnable {
     @Override
     public void keyPressed(KeyEvent e) {
       int code = e.getKeyCode();
-
+      redraw = true;
       if (code == KeyEvent.VK_W) {
         if (!upPressed) {
           _upPressed = true;

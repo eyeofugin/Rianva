@@ -13,7 +13,7 @@ public class S_Judgment extends Skill {
     }
     public void castChange(ConnectionPayload pl) {
         if (pl.skill.equals(this)) {
-            ConnectionPayload.CondEffectImpact impact = Utils.condTriggerChanges(this.hero, this, null, null, pl.depth+1);
+            ConnectionPayload.CondEffectImpact impact = Utils.condTriggerChanges(this.hero, this, null, null);
             if (impact.equals(ConnectionPayload.CondEffectImpact.ALLOW) || marks > 9) {
                 this.effects.add(EffectLibrary.getEffect(Debuff.class.getName(), 0, 0, null));
             }

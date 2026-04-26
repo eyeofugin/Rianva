@@ -1,4 +1,482 @@
 {
+  "0": {
+    "name": "Dummy",
+    "heroClass": "Hunter",
+    "heroRace": "Human",
+    "heroRole": "Resolve",
+    "idleAnim": "characters/baze/baze_idle.png",
+    "damagedAnim": "characters/baze/baze_idle.png",
+    "actionAnim": "characters/baze/baze_act1.png",
+    "idleKeys": [40,80,120,160,200,205,210,215,220],
+    "damagedKeys": [20,40,60,80],
+    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "equipments": [
+      "MundaneRing"
+    ],
+    "learnedSkills": [
+      "S_Aid"
+    ],
+    "additionalSkills": []
+  },
+  "FullEvoker": {
+  "name": "Evoker",
+  "heroClass": "Evoker",
+  "heroRace": "Human",
+  "heroRole": "Inspiration",
+  "idleAnim": "characters/baze/baze_idle.png",
+  "damagedAnim": "characters/baze/baze_idle.png",
+  "actionAnim": "characters/baze/baze_act1.png",
+  "idleKeys": [40,80,120,160,200,205,210,215,220],
+  "damagedKeys": [20,40,60,80],
+  "actionKeys": [15,30,45,60,75,90,105,120,135],
+  "equipments": [
+    "MundaneRing"
+  ],
+  "learnedSkills": [
+    "S_ChainLightning",
+    "S_Evoker",
+    "S_FireBlast",
+    "S_Meteors",
+    "S_RiskyChannel",
+    "S_StorkSeeker",
+    "S_WindWall"
+  ],
+  "additionalSkills": []
+},
+  "FullBerserker": {
+    "name": "Berserker",
+    "heroClass": "Berserker",
+    "heroRace": "Human",
+    "heroRole": "Inspiration",
+    "idleAnim": "characters/baze/baze_idle.png",
+    "damagedAnim": "characters/baze/baze_idle.png",
+    "actionAnim": "characters/baze/baze_act1.png",
+    "idleKeys": [40,80,120,160,200,205,210,215,220],
+    "damagedKeys": [20,40,60,80],
+    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "equipments": [
+      "MundaneSword"
+    ],
+    "learnedSkills": [
+      "S_Berserker",
+      "S_DeathIsNoObstacle",
+      "S_IntimidatingRoar",
+      "S_NeverSurrender",
+      "S_RecklessAttack",
+      "S_Reengage"
+    ],
+    "additionalSkills": []
+  },
+  "FullFauna": {
+    "name": "Fauna",
+    "heroClass": "Fauna",
+    "heroRace": "Human",
+    "heroRole": "Inspiration",
+    "idleAnim": "characters/baze/baze_idle.png",
+    "damagedAnim": "characters/baze/baze_idle.png",
+    "actionAnim": "characters/baze/baze_act1.png",
+    "idleKeys": [40,80,120,160,200,205,210,215,220],
+    "damagedKeys": [20,40,60,80],
+    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "equipments": [
+      "MundaneSword"
+    ],
+    "learnedSkills": [
+      "S_Fauna",
+      "S_BeastBlast",
+      "S_DragonFire",
+      "S_ResolveOfTheBear",
+      "S_SnakeBite",
+      "S_ThunderBirdWindClap",
+      "S_WendigoDash"
+    ],
+    "additionalSkills": []
+  },
+  "FullFlora": {
+    "name": "Flora",
+    "heroClass": "Flora",
+    "heroRace": "Human",
+    "heroRole": "Inspiration",
+    "idleAnim": "characters/baze/baze_idle.png",
+    "damagedAnim": "characters/baze/baze_idle.png",
+    "actionAnim": "characters/baze/baze_act1.png",
+    "idleKeys": [40,80,120,160,200,205,210,215,220],
+    "damagedKeys": [20,40,60,80],
+    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "equipments": [
+      "MundaneSword"
+    ],
+    "learnedSkills": [
+      "S_Flora",
+      "S_HarvestSun",
+      "S_LifeBlossom",
+      "S_SpreadingVines",
+      "S_ThornCage",
+      "S_TraverseTheRoots",
+      "S_SporeBomb",
+      "S_VineGrip"
+    ],
+    "additionalSkills": []
+  },
+  "FullHunter": {
+    "name": "Hunter",
+    "heroClass": "Hunter",
+    "heroRace": "Human",
+    "heroRole": "Inspiration",
+    "idleAnim": "characters/baze/baze_idle.png",
+    "damagedAnim": "characters/baze/baze_idle.png",
+    "actionAnim": "characters/baze/baze_act1.png",
+    "idleKeys": [40,80,120,160,200,205,210,215,220],
+    "damagedKeys": [20,40,60,80],
+    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "equipments": [
+      "MundaneSword"
+    ],
+    "learnedSkills": [
+      "S_Hunter",
+      "S_Hideout",
+      "S_Net",
+      "S_ShareTheSpoils",
+      "S_Trapper",
+      "S_TrophyHunt"
+    ],
+    "additionalSkills": []
+  },
+  "FullMedic": {
+    "name": "Medic",
+    "heroClass": "Medic",
+    "heroRace": "Human",
+    "heroRole": "Inspiration",
+    "idleAnim": "characters/baze/baze_idle.png",
+    "damagedAnim": "characters/baze/baze_idle.png",
+    "actionAnim": "characters/baze/baze_act1.png",
+    "idleKeys": [40,80,120,160,200,205,210,215,220],
+    "damagedKeys": [20,40,60,80],
+    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "equipments": [
+      "MundaneSword"
+    ],
+    "learnedSkills": [
+      "S_ANewHope",
+      "S_CarePackage",
+      "S_LastStand",
+      "S_Medic",
+      "S_MedicineUnderFire",
+      "S_Motivate"
+    ],
+    "additionalSkills": []
+  },
+  "FullRadiance": {
+    "name": "Dummy",
+    "heroClass": "Radiance",
+    "heroRace": "Human",
+    "heroRole": "Inspiration",
+    "idleAnim": "characters/baze/baze_idle.png",
+    "damagedAnim": "characters/baze/baze_idle.png",
+    "actionAnim": "characters/baze/baze_act1.png",
+    "idleKeys": [40,80,120,160,200,205,210,215,220],
+    "damagedKeys": [20,40,60,80],
+    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "equipments": [
+      "MundaneSword"
+    ],
+    "learnedSkills": [
+      "S_Halo",
+      "S_LightBarrier",
+      "S_LightReflection",
+      "S_LightSalve",
+      "S_PrayForGuidance",
+      "S_Radiance",
+      "S_PrismRay"
+    ],
+    "additionalSkills": []
+  },
+  "FullRogue": {
+    "name": "Dummy",
+    "heroClass": "Rogue",
+    "heroRace": "Human",
+    "heroRole": "Inspiration",
+    "idleAnim": "characters/baze/baze_idle.png",
+    "damagedAnim": "characters/baze/baze_idle.png",
+    "actionAnim": "characters/baze/baze_act1.png",
+    "idleKeys": [40,80,120,160,200,205,210,215,220],
+    "damagedKeys": [20,40,60,80],
+    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "equipments": [
+      "MundaneSword"
+    ],
+    "learnedSkills": [
+      "S_FindTheWeakness",
+      "S_Gambit",
+      "S_Opportunist",
+      "S_PoisonTip",
+      "S_Rogue",
+      "S_SmokeBomb"
+    ],
+    "additionalSkills": []
+  },
+  "FullStrider": {
+    "name": "Dummy",
+    "heroClass": "Strider",
+    "heroRace": "Human",
+    "heroRole": "Inspiration",
+    "idleAnim": "characters/baze/baze_idle.png",
+    "damagedAnim": "characters/baze/baze_idle.png",
+    "actionAnim": "characters/baze/baze_act1.png",
+    "idleKeys": [40,80,120,160,200,205,210,215,220],
+    "damagedKeys": [20,40,60,80],
+    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "equipments": [
+      "MundaneSword"
+    ],
+    "learnedSkills": [
+      "S_Ambush",
+      "S_HealingPlants",
+      "S_Pathfinder",
+      "S_Strider",
+      "S_Trailblaze",
+      "S_TrueShot"
+    ],
+    "additionalSkills": []
+  },
+  "FullTrickster": {
+    "name": "Dummy",
+    "heroClass": "Trickster",
+    "heroRace": "Human",
+    "heroRole": "Inspiration",
+    "idleAnim": "characters/baze/baze_idle.png",
+    "damagedAnim": "characters/baze/baze_idle.png",
+    "actionAnim": "characters/baze/baze_act1.png",
+    "idleKeys": [40,80,120,160,200,205,210,215,220],
+    "damagedKeys": [20,40,60,80],
+    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "equipments": [
+      "MundaneSword"
+    ],
+    "learnedSkills": [
+      "S_CheapShot",
+      "S_Feint",
+      "S_Lure",
+      "S_PocketHex",
+      "S_SleighOfHand",
+      "S_Trick",
+      "S_Trickster"
+    ],
+    "additionalSkills": []
+  },
+  "FullVengeance": {
+    "name": "Dummy",
+    "heroClass": "Vengeance",
+    "heroRace": "Human",
+    "heroRole": "Inspiration",
+    "idleAnim": "characters/baze/baze_idle.png",
+    "damagedAnim": "characters/baze/baze_idle.png",
+    "actionAnim": "characters/baze/baze_act1.png",
+    "idleKeys": [40,80,120,160,200,205,210,215,220],
+    "damagedKeys": [20,40,60,80],
+    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "equipments": [
+      "MundaneSword"
+    ],
+    "learnedSkills": [
+      "S_ByAnyMeans",
+      "S_GoAfterEvil",
+      "S_Judgment",
+      "S_LookForTrouble",
+      "S_NoMercy",
+      "S_TightenTheGrip",
+      "S_Vengeance"
+    ],
+    "additionalSkills": []
+  },
+  "FullEquipment": {
+    "name": "Dummy",
+    "heroClass": "Hunter",
+    "heroRace": "Human",
+    "heroRole": "Inspiration",
+    "idleAnim": "characters/baze/baze_idle.png",
+    "damagedAnim": "characters/baze/baze_idle.png",
+    "actionAnim": "characters/baze/baze_act1.png",
+    "idleKeys": [40,80,120,160,200,205,210,215,220],
+    "damagedKeys": [20,40,60,80],
+    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "equipments": [
+      "MundaneSword"
+    ],
+    "learnedSkills": [
+      "S_AimedShot",
+      "S_Barrage",
+      "S_CripplingShot",
+      "S_WeightedArrow",
+      "S_AnkleSlice",
+      "S_DaggerThrow",
+      "S_GoForTheThroat",
+      "S_Shiv",
+      "S_Brainsplitter",
+      "S_Crush",
+      "S_FullSwing",
+      "S_Merciless",
+      "S_Dice",
+      "S_Slice",
+      "S_DuelingSlash",
+      "S_ShatterSwing"
+    ],
+    "additionalSkills": []
+  },
+  "Shapeshifter": {
+    "name": "Dummy",
+    "heroClass": "Hunter",
+    "heroRace": "Human",
+    "heroRole": "Inspiration",
+    "idleAnim": "characters/baze/baze_idle.png",
+    "damagedAnim": "characters/baze/baze_idle.png",
+    "actionAnim": "characters/baze/baze_act1.png",
+    "idleKeys": [40,80,120,160,200,205,210,215,220],
+    "damagedKeys": [20,40,60,80],
+    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "equipments": [
+      "MundaneSword"
+    ],
+    "learnedSkills": [
+      "S_Adapt",
+      "S_Aggression",
+      "S_Agility",
+      "S_BornInFlames",
+      "S_Ethereal",
+      "S_FastRegen",
+      "S_HandSewnArmor",
+      "S_KeenEye",
+      "S_TheDarken",
+      "S_Unlife"
+    ],
+    "additionalSkills": []
+  },
+  "Inspiration": {
+    "name": "Dummy",
+    "heroClass": "Hunter",
+    "heroRace": "Human",
+    "heroRole": "Inspiration",
+    "idleAnim": "characters/baze/baze_idle.png",
+    "damagedAnim": "characters/baze/baze_idle.png",
+    "actionAnim": "characters/baze/baze_act1.png",
+    "idleKeys": [40,80,120,160,200,205,210,215,220],
+    "damagedKeys": [20,40,60,80],
+    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "equipments": [
+      "MundaneSword"
+    ],
+    "learnedSkills": [
+      "S_CoolVeins",
+      "S_FreshManaPool",
+      "S_ManaFlow",
+      "S_MightAndMagic",
+      "S_SpellShield",
+      "S_TimeTrick",
+      "S_WindChant"
+    ],
+    "additionalSkills": []
+  },
+  "Hunger": {
+    "name": "Dummy",
+    "heroClass": "Hunter",
+    "heroRace": "Human",
+    "heroRole": "Hunger",
+    "idleAnim": "characters/baze/baze_idle.png",
+    "damagedAnim": "characters/baze/baze_idle.png",
+    "actionAnim": "characters/baze/baze_act1.png",
+    "idleKeys": [40,80,120,160,200,205,210,215,220],
+    "damagedKeys": [20,40,60,80],
+    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "equipments": [
+      "MundaneSword"
+    ],
+    "learnedSkills": [
+      "S_AbuseWeakness",
+      "S_Assassin",
+      "S_BloodLust",
+      "S_DoubleTime",
+      "S_Frenzy",
+      "S_Momentum",
+      "S_PreyOnTheWeak"
+    ],
+    "additionalSkills": []
+  },
+  "Resolve": {
+    "name": "Dummy",
+    "heroClass": "Hunter",
+    "heroRace": "Human",
+    "heroRole": "Resolve",
+    "idleAnim": "characters/baze/baze_idle.png",
+    "damagedAnim": "characters/baze/baze_idle.png",
+    "actionAnim": "characters/baze/baze_act1.png",
+    "idleKeys": [40,80,120,160,200,205,210,215,220],
+    "damagedKeys": [20,40,60,80],
+    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "equipments": [
+      "MundaneSword"
+    ],
+    "learnedSkills": [
+      "S_Bulwark",
+      "S_Cover",
+      "S_DeepBreath",
+      "S_DrawFire",
+      "S_HoldTheBanner",
+      "S_IronClad",
+      "S_Kick"
+    ],
+    "additionalSkills": []
+  },
+  "Tempo": {
+    "name": "Dummy",
+    "heroClass": "Hunter",
+    "heroRace": "Human",
+    "heroRole": "Tempo",
+    "idleAnim": "characters/baze/baze_idle.png",
+    "damagedAnim": "characters/baze/baze_idle.png",
+    "actionAnim": "characters/baze/baze_act1.png",
+    "idleKeys": [40,80,120,160,200,205,210,215,220],
+    "damagedKeys": [20,40,60,80],
+    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "equipments": [
+      "MundaneSword"
+    ],
+    "learnedSkills": [
+      "S_Aid",
+      "S_BattleTactics",
+      "S_Commandeer",
+      "S_Logistics",
+      "S_QuickStep",
+      "S_Sabotage",
+      "S_WeaponExpert"
+    ],
+    "additionalSkills": []
+  },
+  "Cantrip": {
+    "name": "Dummy",
+    "heroClass": "Hunter",
+    "heroRace": "Human",
+    "heroRole": "Tempo",
+    "idleAnim": "characters/baze/baze_idle.png",
+    "damagedAnim": "characters/baze/baze_idle.png",
+    "actionAnim": "characters/baze/baze_act1.png",
+    "idleKeys": [40,80,120,160,200,205,210,215,220],
+    "damagedKeys": [20,40,60,80],
+    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "equipments": [
+      "MundaneSword"
+    ],
+    "learnedSkills": [
+      "S_AcidicSpout",
+      "S_DarkSpark",
+      "S_FireBall",
+      "S_FrostShard",
+      "S_HealingWords",
+      "S_LightBeam",
+      "S_MagicMissile",
+      "S_MinorHex"
+    ],
+    "additionalSkills": []
+  },
   "1": {
     "name": "Brutalitops",
     "heroClass": "Evoker",

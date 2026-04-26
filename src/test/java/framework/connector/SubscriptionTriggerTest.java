@@ -21,8 +21,8 @@ public class SubscriptionTriggerTest {
     trigger.targetHeroReference = SubscriptionTriggerHeroReference.SAME;
     trigger.setSkill(skill);
 
-    ConnectionPayload otherPayload = new ConnectionPayload(0).setTarget(payloadHero);
-    ConnectionPayload samePayload = new ConnectionPayload(0).setTarget(hero);
+    ConnectionPayload otherPayload = new ConnectionPayload().setTarget(payloadHero);
+    ConnectionPayload samePayload = new ConnectionPayload().setTarget(hero);
 
     assertFalse(trigger.triggered(otherPayload));
     assertTrue(trigger.triggered(samePayload));

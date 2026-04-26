@@ -11,6 +11,6 @@ public class Marked extends Effect {
   }
   public void dmgTrigger(ConnectionPayload pl) {
     this.used = true;
-    Utils.onMark(this.hero, pl.depth);
+    Utils.onMark(this.hero);
   }
 }

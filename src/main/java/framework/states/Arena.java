@@ -307,12 +307,29 @@ public class Arena extends State {
 
   private void performSkill() {
     this.logCard.openLog("");
+    setTargets();
     this.activeSkill.perform();
     this.targetPointers = new int[0];
     this.nextAction = "resolveSkill";
     this.status = Status.WAIT_ON_ANIMATION;
     this.activeHero.setMoved(true);
   }
+  private void setTargets() {
+    if (this.targetPointers.length == 0) {
+      this.targetPointers = new int[]{this.targetPointer};
+    }
+    Hero[] targets = getTargetedHeroes();
+    this.activeSkill.setTargets(targets);
+  }
+
+  private Hero[] getTargetedHeroes() {
+    Hero[] heroes = new Hero[this.targetPointers.length];
+    for (int i = 0; i < this.targetPointers.length; i++) {
+      heroes[i] = getAtPosition(this.targetPointers[i]);
+    }
+    return heroes;
+  }
+
 
   public void resolveSkill() {
     this.activeSkill.resolve();
@@ -407,12 +424,12 @@ public class Arena extends State {
 
   private void enters(Hero hero, int position) {
     Connector.fireTopic(
-        Connector.ON_ENTER, new ConnectionPayload(1).setTarget(hero).setValue(position));
+        Connector.ON_ENTER, new ConnectionPayload().setTarget(hero).setValue(position));
   }
 
   private void leaves(Hero hero, int position) {
     Connector.fireTopic(
-        Connector.ON_LEAVE, new ConnectionPayload(1).setTarget(hero).setValue(position));
+        Connector.ON_LEAVE, new ConnectionPayload().setTarget(hero).setValue(position));
   }
 
   private void removeTheDead() {
@@ -473,7 +490,7 @@ public class Arena extends State {
   // triggers
 
   public void trigger_move(Hero caster, Hero target, int oldPos, int newPos, boolean forced) {
-    ConnectionPayload pl = new ConnectionPayload(1)
+    ConnectionPayload pl = new ConnectionPayload()
             .setCaster(caster)
             .setTarget(target)
             .setOldValue(oldPos)
@@ -482,36 +499,36 @@ public class Arena extends State {
     Connector.fireTopic(Connector.ON_MOVE, pl);
   }
   public void trigger_startOfMatch() {
-    ConnectionPayload pl = new ConnectionPayload(1).setArena(this);
+    ConnectionPayload pl = new ConnectionPayload().setArena(this);
     Connector.fireTopic(Connector.START_OF_MATCH, pl);
   }
 
   public void trigger_startOfRound() {
-    ConnectionPayload pl = new ConnectionPayload(1).setArena(this);
+    ConnectionPayload pl = new ConnectionPayload().setArena(this);
     Connector.fireTopic(Connector.START_OF_ROUND, pl);
   }
 
   public void trigger_endOfRound() {
-    ConnectionPayload endOfTurnPayload = new ConnectionPayload(1).setArena(this);
+    ConnectionPayload endOfTurnPayload = new ConnectionPayload().setArena(this);
     Connector.fireTopic(Connector.END_OF_ROUND, endOfTurnPayload);
   }
 
   public boolean trigger_effectFailure(Effect effect, Hero caster, Hero target) {
     ConnectionPayload payload =
-        new ConnectionPayload(1).setEffect(effect).setCaster(caster).setTarget(target);
+        new ConnectionPayload().setEffect(effect).setCaster(caster).setTarget(target);
     Connector.fireTopic(Connector.EFFECT_FAILURE_CHECK, payload);
     return payload.failure;
   }
 
   public void trigger_effectAdded(Effect effect, Hero caster, boolean newlyAdded) {
     ConnectionPayload effectAddedPayload =
-        new ConnectionPayload(1).setEffect(effect).setCaster(caster).setNewEffect(newlyAdded);
+        new ConnectionPayload().setEffect(effect).setCaster(caster).setNewEffect(newlyAdded);
     Connector.fireTopic(Connector.EFFECT_ADDED, effectAddedPayload);
   }
 
   private void trigger_globalEffectChange(Effect globalEffect, Effect oldEffect) {
     ConnectionPayload globalEffectChangePayload =
-        new ConnectionPayload(1).setGlobalEffect(globalEffect).setOldGlobalEffect(oldEffect);
+        new ConnectionPayload().setGlobalEffect(globalEffect).setOldGlobalEffect(oldEffect);
     Connector.fireTopic(Connector.GLOBAL_EFFECT_CHANGE, globalEffectChangePayload);
   }
 

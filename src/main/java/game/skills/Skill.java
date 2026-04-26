@@ -342,12 +342,12 @@ public class Skill implements Subscriber {
             arenaTarget = arenaTarget.getPermanentEffect(Guarded.class).origin;
           }
           int evasion = arenaTarget.getStat(Stat.DODGE);
-          if (!this.cannotMiss && !MyMaths.success(this.accuracy - evasion)) {
+          if (this.cannotMiss || MyMaths.success(this.accuracy - evasion)) {
+            this.individualResolve(arenaTarget);
+          } else {
             this.trigger_onMiss(arenaTarget);
             this.hero.arena.logCard.addToLog("Missed " + arenaTarget.getName() + "!");
-            continue;
           }
-          this.individualResolve(arenaTarget);
         }
         if (this.moveTo) {
           this.hero.arena.moveTo(this.hero, arenaTarget.getPosition(), false);
@@ -462,7 +462,7 @@ public class Skill implements Subscriber {
     }
     int result = 0;
     for (Multiplier m : multipliers) {
-      result += (int) (m.percentage * this.hero.getStat(m.prof));
+      result += (int) (m.percentage * this.hero.getCachedStat(m.prof));
     }
     return result;
   }
@@ -510,17 +510,17 @@ public class Skill implements Subscriber {
   // triggers
 
   public void trigger_onPerform() {
-    ConnectionPayload pl = new ConnectionPayload(1).setSkill(this).setCaster(this.hero);
+    ConnectionPayload pl = new ConnectionPayload().setSkill(this).setCaster(this.hero);
     Connector.fireTopic(Connector.ON_PERFORM, pl);
   }
 
   public void trigger_onCrit(Hero target, Skill cast) {
     ConnectionPayload criticalTriggerPayload =
-        new ConnectionPayload(1).setTarget(target).setSkill(cast);
+        new ConnectionPayload().setTarget(target).setSkill(cast);
     Connector.fireTopic(Connector.CRITICAL_TRIGGER, criticalTriggerPayload);
   }
   public boolean trigger_moveFailure(Hero target) {
-    ConnectionPayload pl = new ConnectionPayload(1)
+    ConnectionPayload pl = new ConnectionPayload()
             .setSkill(this)
             .setCaster(this.hero)
             .setTarget(target);
@@ -528,25 +528,25 @@ public class Skill implements Subscriber {
     return pl.failure;
   }
   public void trigger_castChanges() {
-    ConnectionPayload payload = new ConnectionPayload(1).setSkill(this).setCaster(this.hero);
+    ConnectionPayload payload = new ConnectionPayload().setSkill(this).setCaster(this.hero);
     Connector.fireTopic(Connector.CAST_CHANGE, payload);
   }
 
   public void trigger_onTarget() {
-    ConnectionPayload pl = new ConnectionPayload(1)
+    ConnectionPayload pl = new ConnectionPayload()
             .setSkill(this);
     Connector.fireTopic(Connector.ON_TARGET, pl);
   }
 
   public void trigger_onMiss(Hero target) {
-    ConnectionPayload pl = new ConnectionPayload(1)
+    ConnectionPayload pl = new ConnectionPayload()
             .setTarget(target)
             .setCaster(this.hero)
             .setSkill(this);
     Connector.fireTopic(Connector.ON_MISS, pl);
   }
   public void trigger_changeTargets() {
-    ConnectionPayload payload = new ConnectionPayload(1).setSkill(this).setCaster(this.hero);
+    ConnectionPayload payload = new ConnectionPayload().setSkill(this).setCaster(this.hero);
     Connector.fireTopic(Connector.TARGET_CHANGE, payload);
   }
 

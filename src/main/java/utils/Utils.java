@@ -70,8 +70,8 @@ public class Utils {
             Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (a, b) -> b, HashMap::new));
   }
 
-  public static int chanceChanges(Hero target, Hero origin, int value, Skill skill, Equipment equipment, Effect effect, int depth) {
-    ConnectionPayload pl = new ConnectionPayload(++depth)
+  public static int chanceChanges(Hero target, Hero origin, int value, Skill skill, Equipment equipment, Effect effect) {
+    ConnectionPayload pl = new ConnectionPayload()
             .setTarget(target)
             .setCaster(origin)
             .setValue(value)
@@ -83,14 +83,14 @@ public class Utils {
     return pl.value;
   }
 
-  public static void onMark(Hero marked, int depth) {
-    ConnectionPayload pl = new ConnectionPayload(++depth)
+  public static void onMark(Hero marked) {
+    ConnectionPayload pl = new ConnectionPayload()
             .setTarget(marked);
     Connector.fireTopic(Connector.ON_MARK, pl);
   }
 
-  public static int statChangesChanges(Hero target, Hero origin, Stat stat, int value, Skill skill, Equipment equipment, Effect effect, int depth) {
-    ConnectionPayload pl = new ConnectionPayload(++depth)
+  public static int statChangesChanges(Hero target, Hero origin, Stat stat, int value, Skill skill, Equipment equipment, Effect effect) {
+    ConnectionPayload pl = new ConnectionPayload()
             .setTarget(target)
             .setCaster(origin)
             .setStat(stat)
@@ -102,8 +102,8 @@ public class Utils {
     Connector.fireTopic(Connector.STAT_MULT_CHANGE_CHANGE, pl);
     return pl.value;
   }
-  public static ConnectionPayload.CondEffectImpact condTriggerChanges(Hero origin, Skill skill, Equipment equipment, Effect effect, int depth) {
-    ConnectionPayload pl = new ConnectionPayload(++depth)
+  public static ConnectionPayload.CondEffectImpact condTriggerChanges(Hero origin, Skill skill, Equipment equipment, Effect effect) {
+    ConnectionPayload pl = new ConnectionPayload()
             .setCaster(origin)
             .setCondEffectImpact(ConnectionPayload.CondEffectImpact.IGNORE)
             .setSkill(skill)

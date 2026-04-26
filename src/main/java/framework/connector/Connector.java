@@ -78,6 +78,9 @@ public class Connector {
 
   public static Map<String, ArrayList<SubscriberSubscriptionConnection>> subscriptions = new HashMap<>();
 
+
+  private static int depth = 1;
+
   public static void addSubscription(String topic, SubscriberSubscriptionConnection subscriberSubscriptionConnection) {
     if (subscriptions.containsKey(topic)) {
       subscriptions.get(topic).add(subscriberSubscriptionConnection);
@@ -109,7 +112,7 @@ public class Connector {
 
   public static void fireTopic(String topic, ConnectionPayload payload) {
     //Loop protection
-    if (payload.depth > 5) {
+    if (depth > 10) {
       return;
     }
     if (subscriptions.containsKey(topic)) {
@@ -122,12 +125,14 @@ public class Connector {
 
       for (SubscriberSubscriptionConnection subscriberSubscriptionConnection : triggeredSubscriberSubscriptionConnections) {
         try {
+          depth++;
           Method method =
               subscriberSubscriptionConnection
                   .element
                   .getClass()
                   .getMethod(subscriberSubscriptionConnection.subscription.methodName, ConnectionPayload.class);
           method.invoke(subscriberSubscriptionConnection.element, payload);
+          depth--;
         } catch (NoSuchMethodException e) {
           System.out.println("Hä" + subscriberSubscriptionConnection.subscription.methodName);
         } catch (InvocationTargetException e) {

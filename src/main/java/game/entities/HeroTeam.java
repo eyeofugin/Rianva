@@ -26,6 +26,16 @@ public class HeroTeam {
     }
     this.fillUpDirection = fillUpDirection;
   }
+  public HeroTeam(int fillUpDirection, int nr, List<Hero> heroes) {
+    this.heroes = heroes.toArray(new Hero[0]);
+    this.teamNumber = nr;
+    this.fillUpDirection = fillUpDirection;
+    for (Hero hero : this.heroes) {
+      if (hero != null) {
+        hero.team = this;
+      }
+    }
+  }
 
   public void updateAnimations(int frame) {
     Arrays.stream(this.heroes).filter(Objects::nonNull).forEach(e -> e.animate(frame));
@@ -45,7 +55,7 @@ public class HeroTeam {
       if (this.heroes[i] != null && this.heroes[i].getStat(Stat.CURRENT_LIFE) < 1) {
         this.deadHeroes.add(this.heroes[i]);
         removed.add(this.heroes[i]);
-        ConnectionPayload pl = new ConnectionPayload(this.teamNumber).setTarget(this.heroes[i]);
+        ConnectionPayload pl = new ConnectionPayload().setTarget(this.heroes[i]);
         Connector.fireTopic(Connector.DEATH_TRIGGER, pl);
         this.heroes[i] = null;
         for (int j = i - 1; j >= 0 && j < this.heroes.length; j--) {

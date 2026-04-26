@@ -41,8 +41,7 @@ public class ConnectionPayload {
 
   public int depth;
 
-  public ConnectionPayload(int depth) {
-    this.depth = depth;
+  public ConnectionPayload() {
   }
 
   public enum EquipmentChangeMode {

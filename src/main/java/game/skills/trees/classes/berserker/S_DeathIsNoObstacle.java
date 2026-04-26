@@ -14,7 +14,7 @@ public class S_DeathIsNoObstacle extends Skill {
             if (this.hero.hasPermanentEffect(Enraged.class)) {
                 chance = (int) keyValues.get("EnragedChance");
             }
-            chance = Utils.chanceChanges(this.hero, this.hero, chance, this, null, null, pl.depth + 1);
+            chance = Utils.chanceChanges(this.hero, this.hero, chance, this, null, null);
             if (MyMaths.success(chance)) {
                 this.hero.getStats().put(Stat.CURRENT_LIFE, 1);
             }

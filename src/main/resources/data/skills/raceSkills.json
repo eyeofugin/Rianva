@@ -12,7 +12,7 @@
   "S_Unlife": {
     "name": "Unlife",
     "className": "game.skills.trees.races.S_Unlife",
-    "description": "Cannot be healed by allies.",
+    "description": "Cannot be healed by allies. Heals from Blight.",
     "iconPath": "icons/skills/wingedboots.png",
     "tags": [
       "PASSIVE",
@@ -72,7 +72,7 @@
     },
     "subscriptions": [
       {
-        "topicName": "ON_DAMAGE",
+        "topicName": "DMG_TRIGGER",
         "methodName": "onHit",
         "trigger": {
           "casterHeroReference": "SAME",
@@ -179,6 +179,13 @@
       {
         "topicName": "CAST_CHANGE",
         "methodName": "castChange",
+        "trigger": {
+          "casterHeroReference": "SAME"
+        }
+      },
+      {
+        "topicName": "START_OF_TURN",
+        "methodName": "sot",
         "trigger": {
           "casterHeroReference": "SAME"
         }

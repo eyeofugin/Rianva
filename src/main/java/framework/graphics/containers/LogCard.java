@@ -5,6 +5,8 @@ import framework.Property;
 import framework.graphics.GUIElement;
 import framework.graphics.elements.LogStatement;
 import framework.graphics.text.Color;
+
+import java.util.Random;
 import java.util.Stack;
 
 public class LogCard extends GUIElement {
@@ -17,6 +19,7 @@ public class LogCard extends GUIElement {
     super(Property.LOG_WIDTH, Property.LOG_HEIGHT);
     this.x = Property.LOG_X;
     this.y = Property.HUD_BOXES_Y;
+    this.lazy = true;
   }
 
   public void finishLog() {
@@ -53,14 +56,19 @@ public class LogCard extends GUIElement {
 
   @Override
   public int[] render() {
-    clear();
-    background(Color.VOID);
-    renderVisibleLogs();
-    //        renderXButton();
-    if (this.active) {
-      addBorder(this.width, this.height, this.pixels, Color.WHITE);
+    if (Engine.redraw) {
+      clear();
+      background(new Random().nextInt(10000));
+      renderVisibleLogs();
+      //        renderXButton();
+      if (this.active) {
+        addBorder(this.width, this.height, this.pixels, Color.WHITE);
+      }
+      this.g = this.pixels;
+      return this.pixels;
+    } else {
+      return g;
     }
-    return this.pixels;
   }
 
   private void renderVisibleLogs() {
@@ -70,7 +78,7 @@ public class LogCard extends GUIElement {
       LogStatement log = new LogStatement(this.logs.get(i));
       if (tempY + log.getHeight() < this.height - padding) {
         fillWithGraphicsSize(
-            padding, tempY, Property.LOG_STATEMENT_WIDTH, height, log.render(), Color.WHITE);
+            padding, tempY, Property.LOG_STATEMENT_WIDTH, log.getHeight(), log.render(), Color.WHITE);
         tempY += log.getHeight() + 5;
       }
     }

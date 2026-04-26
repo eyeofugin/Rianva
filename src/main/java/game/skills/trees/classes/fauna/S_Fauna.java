@@ -12,7 +12,7 @@ import utils.Utils;
 public class S_Fauna extends Skill {
     public void onGetEffect(ConnectionPayload pl) {
         if (!this.equals(pl.skill) && pl.effect.type.equals(Effect.ChangeEffectType.HERO)) {
-            ConnectionPayload.CondEffectImpact impact = Utils.condTriggerChanges(this.hero, this, null, null, ++pl.depth);
+            ConnectionPayload.CondEffectImpact impact = Utils.condTriggerChanges(this.hero, this, null, null);
             if (impact.equals(ConnectionPayload.CondEffectImpact.DISALLOW)) {
                 return;
             }

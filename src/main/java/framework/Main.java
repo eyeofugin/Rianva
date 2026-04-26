@@ -11,7 +11,7 @@ public class Main {
     window.setBounds(0, 0, 0, 0);
     window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     window.setResizable(false);
-    window.setUndecorated(true);
+//    window.setUndecorated(true);
 
     Engine engine = new Engine(window);
 

@@ -88,7 +88,7 @@ public class Condition {
       } else {
         value = this.successChance;
       }
-      value = Utils.chanceChanges(target, hero, value, skill, null, effect, 1);
+      value = Utils.chanceChanges(target, hero, value, skill, null, effect);
       return MyMaths.success(value);
     }
     return true;

@@ -31,7 +31,7 @@ public class S_Berserker extends Skill {
         }
     }
     public void dmgChangesMult(ConnectionPayload pl) {
-        ConnectionPayload.CondEffectImpact impact = Utils.condTriggerChanges(this.hero, this, null, null, pl.depth + 1);
+        ConnectionPayload.CondEffectImpact impact = Utils.condTriggerChanges(this.hero, this, null, null);
         if (impact.equals(ConnectionPayload.CondEffectImpact.DISALLOW)) {
             return;
         }

@@ -10,7 +10,7 @@ import utils.Utils;
 
 public class S_Medic extends Skill {
     public void onHeal(ConnectionPayload pl) {
-        ConnectionPayload.CondEffectImpact impact = Utils.condTriggerChanges(this.hero, this, null, null, ++pl.depth);
+        ConnectionPayload.CondEffectImpact impact = Utils.condTriggerChanges(this.hero, this, null, null);
         if (impact.equals(ConnectionPayload.CondEffectImpact.DISALLOW)) {
             return;
         }

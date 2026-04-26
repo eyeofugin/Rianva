@@ -9,7 +9,7 @@ import utils.Utils;
 public class S_Rogue extends Skill {
     public void statChange(ConnectionPayload pl) {
         int change = MyMaths.percentageOf((double)keyValues.get("Percentage"), this.hero.getStat(Stat.DEXTERITY));
-        change = Utils.statChangesChanges(this.hero, this.hero, Stat.DEXTERITY, change, this, null, null, pl.depth + 1);
+        change = Utils.statChangesChanges(this.hero, this.hero, Stat.DEXTERITY, change, this, null, null);
         pl.value += change;
     }
 }

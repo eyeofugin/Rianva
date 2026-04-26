@@ -7,7 +7,7 @@ import utils.Utils;
 public class Trophy extends Effect {
   public void baseStatChange(ConnectionPayload pl) {
     int changeValue = this.stacks + (int) keyValues.get("Bonus");
-    changeValue = Utils.statChangesChanges(this.hero, this.hero, pl.stat, changeValue, null, null, this, pl.depth);
+    changeValue = Utils.statChangesChanges(this.hero, this.hero, pl.stat, changeValue, null, null, this);
     pl.value += changeValue;
   }
 }
