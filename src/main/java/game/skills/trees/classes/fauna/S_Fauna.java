@@ -1,5 +1,6 @@
 package game.skills.trees.classes.fauna;
 
+import framework.Logger;
 import framework.connector.ConnectionPayload;
 import game.effects.Effect;
 import game.libraries.EffectLibrary;
@@ -11,6 +12,7 @@ import utils.Utils;
 
 public class S_Fauna extends Skill {
     public void onGetEffect(ConnectionPayload pl) {
+        Logger.logLn("S_Fauna.onGetEffect()");
         if (!this.equals(pl.skill) && pl.effect.type.equals(Effect.ChangeEffectType.HERO)) {
             ConnectionPayload.CondEffectImpact impact = Utils.condTriggerChanges(this.hero, this, null, null);
             if (impact.equals(ConnectionPayload.CondEffectImpact.DISALLOW)) {

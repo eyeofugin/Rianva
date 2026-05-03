@@ -1,14 +1,14 @@
 {
   "0": {
     "name": "Dummy",
-    "heroClass": "Hunter",
-    "heroRace": "Human",
+    "heroClass": "Berserker",
+    "heroRace": "Orc",
     "heroRole": "Resolve",
     "idleAnim": "characters/baze/baze_idle.png",
-    "damagedAnim": "characters/baze/baze_idle.png",
+    "damagedAnim": "characters/baze/baze_dmg.png",
     "actionAnim": "characters/baze/baze_act1.png",
     "idleKeys": [40,80,120,160,200,205,210,215,220],
-    "damagedKeys": [20,40,60,80],
+    "damagedKeys": [5,10,15,20],
     "actionKeys": [15,30,45,60,75,90,105,120,135],
     "equipments": [
       "MundaneRing"
@@ -24,15 +24,16 @@
   "heroRace": "Human",
   "heroRole": "Inspiration",
   "idleAnim": "characters/baze/baze_idle.png",
-  "damagedAnim": "characters/baze/baze_idle.png",
+  "damagedAnim": "characters/baze/baze_dmg.png",
   "actionAnim": "characters/baze/baze_act1.png",
   "idleKeys": [40,80,120,160,200,205,210,215,220],
   "damagedKeys": [20,40,60,80],
-  "actionKeys": [15,30,45,60,75,90,105,120,135],
+  "actionKeys": [5,10,15,20,25,30,35,40,45],
   "equipments": [
     "MundaneRing"
   ],
   "learnedSkills": [
+    "S_MagicMissile",
     "S_ChainLightning",
     "S_Evoker",
     "S_FireBlast",
@@ -206,6 +207,7 @@
       "MundaneSword"
     ],
     "learnedSkills": [
+      "S_Slice",
       "S_FindTheWeakness",
       "S_Gambit",
       "S_Opportunist",

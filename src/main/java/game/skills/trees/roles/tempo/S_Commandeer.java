@@ -1,5 +1,6 @@
 package game.skills.trees.roles.tempo;
 
+import framework.Logger;
 import framework.connector.ConnectionPayload;
 import game.libraries.EffectLibrary;
 import game.effects.hero.Initiative;
@@ -8,6 +9,7 @@ import game.skills.Skill;
 
 public class S_Commandeer extends Skill {
     public void onTarget(ConnectionPayload pl) {
+        Logger.logLn("S_Commandeer.onTarget()");
         if (this.equals(pl.skill)) {
             Hero target = this.targets.getFirst();
             if (target != null) {

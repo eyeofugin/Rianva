@@ -322,7 +322,8 @@
         "topicName": "CAST_CHANGE",
         "methodName": "castChange",
         "trigger": {
-          "casterHeroReference": "SAME"
+          "casterHeroReference": "SAME",
+          "skillName": "S_DuelingSlash"
         }
       }
     ],

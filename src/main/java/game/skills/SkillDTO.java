@@ -14,7 +14,7 @@ public class SkillDTO {
   public String className;
   public String description;
   public String iconPath;
-  public String animationName;
+  public String animationName = "action";
   public List<SkillTag> tags = new ArrayList<>();
   public List<AiSkillTag> aiTags = new ArrayList<>();
   public TargetType targetType;

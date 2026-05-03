@@ -1,5 +1,6 @@
 package game.skills.trees.classes.berserker;
 
+import framework.Logger;
 import framework.connector.ConnectionPayload;
 import game.libraries.EffectLibrary;
 import game.effects.hero.Enraged;
@@ -11,10 +12,13 @@ public class S_Berserker extends Skill {
     private int rage = 0;
     private boolean dealtDmg = false;
     public void dmgTrigger(ConnectionPayload pl) {
+        Logger.logLn("S_Berserker.dmgTrigger()");
         if (this.hero.equals(pl.caster) || this.hero.equals(pl.target)) {
+            Logger.logLn("rage++");
             rage = Math.min(5, rage + 1);
         }
         if (this.hero.equals(pl.caster)) {
+            Logger.logLn("damageDone");
             dealtDmg = true;
         }
         if (rage == 5) {
@@ -22,15 +26,19 @@ public class S_Berserker extends Skill {
         }
     }
     public void startOfRound(ConnectionPayload pl) {
+        Logger.logLn("S_Berserker.startOfRound()");
         dealtDmg = false;
     }
     public void endOfTurn(ConnectionPayload pl) {
+        Logger.logLn("S_Berserker.endOfTurn()");
         if (!dealtDmg) {
+            Logger.logLn("rage-=2");
             rage = Math.max(0, rage - 2);
             this.hero.removeEffectByName(Enraged.class.getName());
         }
     }
     public void dmgChangesMult(ConnectionPayload pl) {
+        Logger.logLn("S_Berserker.dmgChangesMult()");
         ConnectionPayload.CondEffectImpact impact = Utils.condTriggerChanges(this.hero, this, null, null);
         if (impact.equals(ConnectionPayload.CondEffectImpact.DISALLOW)) {
             return;

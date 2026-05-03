@@ -1,5 +1,6 @@
 package game.skills.trees.races;
 
+import framework.Logger;
 import framework.connector.ConnectionPayload;
 import game.effects.globals.Darkness;
 import game.skills.Skill;
@@ -7,6 +8,7 @@ import utils.Utils;
 
 public class S_TheDarken extends Skill {
   public void dmgChanges(ConnectionPayload pl) {
+    Logger.logLn("S_TheDarken.dmgChanges()");
     ConnectionPayload.CondEffectImpact impact =
         Utils.condTriggerChanges(this.hero, this, null, null);
 

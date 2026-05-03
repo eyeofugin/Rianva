@@ -1,5 +1,6 @@
 package game.skills.trees.classes.hunter;
 
+import framework.Logger;
 import framework.connector.ConnectionPayload;
 import game.libraries.EffectLibrary;
 import game.effects.hero.Advantage;
@@ -18,6 +19,7 @@ public class S_Hunter extends Skill {
     }
 
     public void startOfRound(ConnectionPayload pl) {
+        Logger.logLn("S_Hunter.startOfRound()");
         Hero enemy = CollectionUtils.getRandom(this.hero.getEnemies());
         if (enemy != null) {
             enemy.addEffect(EffectLibrary.getEffect(Marked.class.getName(), 0,0,null), this.hero);
@@ -25,12 +27,14 @@ public class S_Hunter extends Skill {
     }
 
     public void startOfTurn(ConnectionPayload pl) {
+        Logger.logLn("S_Hunter.startOfTurn()");
         if (marks > 4) {
             this.hero.addEffect(EffectLibrary.getEffect(Advantage.class.getName(), 0,0,null), this.hero);
         }
     }
 
     public void castChange(ConnectionPayload pl) {
+        Logger.logLn("S_Hunter.castChange()");
         List<Integer> enemyPositions = this.hero.getEnemies().stream().filter(e->e.hasPermanentEffect(Marked.class))
                 .map(Hero::getSkillPos).toList();
         if (CollectionUtils.isNotEmpty(enemyPositions)) {

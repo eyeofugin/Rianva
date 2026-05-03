@@ -1,5 +1,7 @@
 package framework.connector;
 
+import framework.Logger;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
@@ -111,7 +113,8 @@ public class Connector {
   }
 
   public static void fireTopic(String topic, ConnectionPayload payload) {
-    //Loop protection
+    // Loop protection
+    Logger.logLn("Fire topic: " + topic);
     if (depth > 10) {
       return;
     }
@@ -135,10 +138,13 @@ public class Connector {
           depth--;
         } catch (NoSuchMethodException e) {
           System.out.println("Hä" + subscriberSubscriptionConnection.subscription.methodName);
+          e.printStackTrace();
         } catch (InvocationTargetException e) {
           System.out.println("Hä2" + subscriberSubscriptionConnection.subscription.methodName);
+          e.printStackTrace();
         } catch (IllegalAccessException e) {
           System.out.println("Hä3" + subscriberSubscriptionConnection.subscription.methodName);
+          e.printStackTrace();
         }
       }
     }

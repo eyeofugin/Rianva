@@ -1,5 +1,6 @@
 package game.skills.trees.classes.radiance;
 
+import framework.Logger;
 import game.effects.Effect;
 import game.libraries.EffectLibrary;
 import game.effects.status.*;
@@ -12,6 +13,7 @@ public class S_PrismRay extends Skill {
 
   @Override
   public void customTargetEffect(Hero target) {
+    Logger.logLn("S_PrismRay.customTargetEffect()");
     int chance = (int)keyValues.get("Chance");
     chance = Utils.chanceChanges(target, this.hero, chance, this, null, null);
     tryEffect(EffectLibrary.getEffect(Bleeding.class.getName(), 0,1,null), target, chance);
@@ -26,6 +28,7 @@ public class S_PrismRay extends Skill {
     tryEffect(EffectLibrary.getEffect(Taunted.class.getName(), 0,1,null), target, chance);
   }
   private void tryEffect(Effect effect, Hero target, int chance) {
+    Logger.logLn("S_PrismRay.tryEffect()");
     if (MyMaths.success(chance)) {
       target.addEffect(effect, this.hero);
       this.hero.addEffect(effect.copy(), this.hero);

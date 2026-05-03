@@ -1,5 +1,6 @@
 package game.skills.trees.classes.flora;
 
+import framework.Logger;
 import framework.connector.ConnectionPayload;
 import game.effects.Effect;
 import game.skills.Skill;
@@ -10,6 +11,7 @@ import java.util.List;
 
 public class S_SpreadingVines extends Skill {
     public void endOfRound(ConnectionPayload pl) {
+        Logger.logLn("S_SpreadingVines.endOfRound()");
         int chance = (int) keyValues.get("Chance");
         if (this.hero.arena.globalEffect != null) {
             chance = (int) keyValues.get("WeatherChance");

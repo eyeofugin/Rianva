@@ -351,7 +351,7 @@ public class GUIElement {
       for (int j = xfrom; j <= xuntil; j++) {
 
         if (index >= graphics.length) {
-          Logger.logLn("Index over graph length");
+//          Logger.logLn("Index over graph length");
           continue;
         }
         if (j + i * this.width >= pixels.length) {

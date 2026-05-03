@@ -1,5 +1,6 @@
 package game.skills.trees.classes.rogue;
 
+import framework.Logger;
 import framework.connector.ConnectionPayload;
 import game.libraries.EffectLibrary;
 import game.effects.hero.Advantage;
@@ -9,6 +10,7 @@ import utils.Utils;
 
 public class S_Opportunist extends Skill {
   public void onCrit(ConnectionPayload pl) {
+    Logger.logLn("S_Opportunist.onCrit()");
     ConnectionPayload.CondEffectImpact impact =
         Utils.condTriggerChanges(this.hero, this, null, null);
     if (ConnectionPayload.CondEffectImpact.ALLOW.equals(impact)

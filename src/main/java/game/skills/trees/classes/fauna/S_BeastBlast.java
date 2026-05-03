@@ -1,5 +1,6 @@
 package game.skills.trees.classes.fauna;
 
+import framework.Logger;
 import framework.connector.ConnectionPayload;
 import game.effects.hero.*;
 import game.skills.Skill;
@@ -7,6 +8,7 @@ import game.skills.logic.DamageType;
 
 public class S_BeastBlast extends Skill {
     public void castChange(ConnectionPayload pl) {
+        Logger.logLn("S_BeastBlast.castChange()");
         if (this.equals(pl.skill)) {
             if (this.hero.hasPermanentEffect(WendigoForm.class)) {
                 this.damageType = DamageType.COLD;

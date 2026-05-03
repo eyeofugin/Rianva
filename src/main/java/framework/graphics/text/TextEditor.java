@@ -224,7 +224,7 @@ public class TextEditor {
     if (text == null) {
       return new int[targetWidth * targetHeight];
     }
-    Logger.logLn("Print:"+ text);
+//    Logger.logLn("Print:"+ text);
     int backgroundColor = backGroundColor.VALUE;
     int fontcolor = fontColor.VALUE;
 
@@ -659,9 +659,7 @@ public class TextEditor {
 
     int[] label = getTextLine(text, labelWidth, labelHeight, 1, TextAlignment.CENTER);
 
-    for (int i = 0; i < button.length; i++) {
-      button[i] = backgroundColor;
-    }
+    Arrays.fill(button, backgroundColor);
     for (int x = 0; x < targetWidth; x++) {
       for (int y = 0; y < buttonLine; y++) {
         button[x + y * targetWidth] = -1;

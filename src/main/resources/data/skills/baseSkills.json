@@ -16,7 +16,7 @@
     ],
     "maxCd" : 5,
     "moveTo": true,
-    "countsAsHits": 0
+    "countsAsHits": 1
   },
   "S_Skip": {
     "name":"Skip",

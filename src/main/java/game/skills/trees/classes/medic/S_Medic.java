@@ -1,5 +1,6 @@
 package game.skills.trees.classes.medic;
 
+import framework.Logger;
 import framework.connector.ConnectionPayload;
 import game.libraries.EffectLibrary;
 import game.effects.status.Immunity;
@@ -10,6 +11,7 @@ import utils.Utils;
 
 public class S_Medic extends Skill {
     public void onHeal(ConnectionPayload pl) {
+        Logger.logLn("S_Medic.onHeal()");
         ConnectionPayload.CondEffectImpact impact = Utils.condTriggerChanges(this.hero, this, null, null);
         if (impact.equals(ConnectionPayload.CondEffectImpact.DISALLOW)) {
             return;

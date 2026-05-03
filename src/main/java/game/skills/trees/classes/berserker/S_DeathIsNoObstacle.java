@@ -1,5 +1,6 @@
 package game.skills.trees.classes.berserker;
 
+import framework.Logger;
 import framework.connector.ConnectionPayload;
 import game.effects.hero.Enraged;
 import game.skills.Skill;
@@ -9,6 +10,7 @@ import utils.Utils;
 
 public class S_DeathIsNoObstacle extends Skill {
     public void onDamage(ConnectionPayload pl) {
+        Logger.logLn("S_DeathIsNoObstacle.onDamage()");
         if (this.hero.getStat(Stat.CURRENT_LIFE) < 0) {
             int chance = (int) keyValues.get("Chance");
             if (this.hero.hasPermanentEffect(Enraged.class)) {

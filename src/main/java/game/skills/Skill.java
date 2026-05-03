@@ -7,8 +7,6 @@ import framework.connector.ConnectionPayload;
 import framework.connector.Connector;
 import framework.connector.Subscriber;
 import framework.graphics.text.Color;
-import framework.graphics.text.TextAlignment;
-import framework.graphics.text.TextEditor;
 import framework.resources.SpriteLibrary;
 import framework.states.Arena;
 import framework.connector.Subscription;
@@ -263,11 +261,10 @@ public class Skill implements Subscriber {
   }
 
   public void setToInitial() {
-    Logger.logLn("Set to initial");
     Skill.writeInitialsFromTo(this.saveState, this);
   }
 
-  public boolean performCheck(Hero hero) {
+  public boolean positionCheck(Hero hero) {
     return Arrays.stream(this.possibleCastPositions).anyMatch(i -> i == hero.getTeamPosition());
   }
 
@@ -307,6 +304,7 @@ public class Skill implements Subscriber {
 
   // SKILL LOGIC
   public void perform() {
+    Logger.logLn("perform()");
     this.hero.arena.logCard.addToLog(this.getName() + " performed by " + this.hero.getName() + ".");
     trigger_onPerform();
     this.hero.playAnimation(this.animationName);
@@ -319,6 +317,7 @@ public class Skill implements Subscriber {
   }
 
   public void resolve() {
+    Logger.logLn("resolve()");
     // init action summary
     this.trigger_onTarget();
     if (this.targetType.equals(TargetType.ARENA)) {
@@ -335,10 +334,12 @@ public class Skill implements Subscriber {
           this.individualResolve(arenaTarget);
         } else {
           if (arenaTarget.hasPermanentEffect(Protected.class) && !arenaTarget.isAlly(this.hero)) {
+            Logger.logLn(arenaTarget.getName() + " is shielded!");
             this.hero.arena.logCard.addToLog(arenaTarget.getName() + " is shielded!");
             return;
           }
           if (arenaTarget.hasPermanentEffect(Guarded.class) && !arenaTarget.isAlly(this.hero)) {
+            Logger.logLn(arenaTarget.getName() + " is guarded!");
             arenaTarget = arenaTarget.getPermanentEffect(Guarded.class).origin;
           }
           int evasion = arenaTarget.getStat(Stat.DODGE);
@@ -346,12 +347,13 @@ public class Skill implements Subscriber {
             this.individualResolve(arenaTarget);
           } else {
             this.trigger_onMiss(arenaTarget);
+            Logger.logLn("Missed " + arenaTarget.getName());
             this.hero.arena.logCard.addToLog("Missed " + arenaTarget.getName() + "!");
           }
         }
-        if (this.moveTo) {
-          this.hero.arena.moveTo(this.hero, arenaTarget.getPosition(), false);
-        }
+//        if (this.moveTo) {
+//          this.hero.arena.moveTo(this.hero, arenaTarget.getPosition(), false);
+//        }
       }
     }
   }
@@ -359,9 +361,11 @@ public class Skill implements Subscriber {
   protected void oncePerActivationEffect() {}
 
   protected void individualResolve(Hero target) {
+    Logger.logLn("individualResolve()");
     int dmg = getDmgWithMulti(target);
     int heal = this.getHealWithMulti(target);
     for (int i = 0; i < getCountsAsHits(); i++) {
+      Logger.logLn("Hit " + (i+1) + "/" + getCountsAsHits());
       int dmgPerHit = dmg;
       int critChance = this.hero.getStat(Stat.CRIT_CHANCE);
       critChance += this.critChance;
@@ -392,6 +396,7 @@ public class Skill implements Subscriber {
 
   public void applySkillEffects(Hero target) {
 
+    Logger.logLn("applySkillEffects()");
     for (Effect effect : this.casterEffects) {
       if (Effect.ChangeEffectType.FIELD.equals(effect.type)) {
         this.hero.arena.addFieldEffect(this.hero.getPosition(), effect, this.hero);
@@ -402,9 +407,15 @@ public class Skill implements Subscriber {
       }
     }
     if (!trigger_moveFailure(target)) {
-      if (this.move != 0) {
+      if (this.moveTo) {
         this.hero.arena.moveTo(
-                target, target.getPosition() + (target.isTeam2() ? this.move : -1 * this.move), false);
+                this.hero, target.getPosition(), false);
+      }
+      if (this.move != 0) {
+        int move = this.hero.team.fillUpDirection * this.move;
+        int nextPos = this.hero.getPosition() + move;
+        this.hero.arena.moveTo(
+                this.hero, nextPos, false);
       }
       if (this.push != null && this.push > 0) {
         this.hero.arena.push(target, push);
@@ -552,9 +563,6 @@ public class Skill implements Subscriber {
 
   /*
    *       Getters / Setters
-   *
-   *
-   *
    *
    */
 

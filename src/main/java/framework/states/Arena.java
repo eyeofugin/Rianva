@@ -55,6 +55,7 @@ public class Arena extends State {
   public Skill activeSkill;
   public Hero activeHero = null;
   public Hero[] activeTargets = null;
+  public List<Hero> devHeroes = new ArrayList<>();
   public final List<HeroTeam> teams = new ArrayList<>();
   public HeroTeam activeTeam;
   public Effect globalEffect;
@@ -141,7 +142,7 @@ public class Arena extends State {
           Method method = this.getClass().getMethod(this.nextAction);
           method.invoke(this);
         } catch (Exception e) {
-          System.out.println(Arrays.toString(e.getStackTrace()));
+          e.printStackTrace();
           this.nextAction = null;
         }
       } else {
@@ -165,7 +166,17 @@ public class Arena extends State {
     this.started = true;
   }
 
+  public void devStart() {
+      this.getAllLivingEntities().forEach(Hero::arenaStart);
+      initialOrder();
+      this.activeHero = this.queue.peek();
+      this.hud.setActiveHero(this.activeHero);
+      trigger_startOfMatch();
+      this.started = true;
+  }
+
   public void startRound() {
+    Logger.logLn("startRound()");
     this.getAllLivingEntities().forEach(hero -> hero.getSkills().forEach(Skill::setToInitial));
     trigger_startOfRound();
     this.activeHero = this.queue.peek();
@@ -173,9 +184,10 @@ public class Arena extends State {
   }
 
   public void startTurn() {
+    Logger.logLn("Start Turn for " + this.activeHero.getName());
     this.activeHero.getSkills().forEach(Skill::getCurrentVersion);
     this.activeHero.startOfTurn();
-    if (this.activeHero.hasPermanentEffect(Stunned.class)) {
+    if (this.activeHero.hasPermanentEffect(Stunned.class) || (this.activeHero.isTeam2())) {
       this.activeHero.removePermanentEffectOfClass(Stunned.class);
       this.activeHero.setMoved(true);
     } else {
@@ -188,6 +200,8 @@ public class Arena extends State {
   }
 
   private void endTurn() {
+
+    Logger.logLn("endTurn()");
     if (this.activeHero.isAlive()) {
       this.activeHero.endOfTurn();
     }
@@ -202,6 +216,7 @@ public class Arena extends State {
   }
 
   private void endOfRound() {
+    Logger.logLn("endOfRound()");
     for (HeroTeam team : this.teams) {
       if (team.getHeroesAsList().stream().allMatch(Hero::isMoved)) {
         team.getHeroesAsList().forEach(hero -> hero.setMoved(false));
@@ -221,6 +236,10 @@ public class Arena extends State {
     this.queue.sendToBack(hero);
   }
 
+  public void addHero(Hero hero, int position) {
+      hero.setPosition(position);
+      this.devHeroes.add(hero);
+  }
   public void setTeams(HeroTeam friends, HeroTeam enemies) {
     this.teams.add(0, friends);
     this.teams.add(1, enemies);
@@ -281,6 +300,7 @@ public class Arena extends State {
           break;
         case ALL_TARGETS:
           this.targetPointers = activeSkill.getConvertedTargetPos();
+          break;
         case ALL_OTHER_ALLY:
           this.targetPointers =
               this.activeHero.getAllies().stream()
@@ -352,6 +372,7 @@ public class Arena extends State {
   }
 
   public void addFieldEffect(int position, Effect effect, Hero caster) {
+    Logger.log("Attempt field effect: " + effect.getName());
     if (trigger_effectFailure(effect, caster, getAtPosition(position))) {
       return;
     }
@@ -375,15 +396,16 @@ public class Arena extends State {
       this.fieldEffects.add(effect);
       newEffect.addSubscriptions();
     }
-
     trigger_effectAdded(effect, caster, newlyAdded);
   }
 
   public void push(Hero h, int push) {
+    Logger.logLn("push " + h.getName());
     int targetPos = h.getPosition() + (h.isTeam2() ? push : -1 * push);
     moveTo(h, targetPos, true);
   }
   public void pull(Hero h, int push) {
+    Logger.logLn("pull " + h.getName());
     int targetPos = h.getPosition() - (h.isTeam2() ? push : -1 * push);
     moveTo(h, targetPos, true);
   }
@@ -447,6 +469,9 @@ public class Arena extends State {
   }
 
   public List<Hero> getAllLivingEntities() {
+      if (!this.devHeroes.isEmpty()) {
+          return devHeroes;
+      }
     return new ArrayList<>(
         this.teams.stream().flatMap(ht -> ht.getHeroesAsList().stream()).toList());
   }

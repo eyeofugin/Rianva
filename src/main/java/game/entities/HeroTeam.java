@@ -53,11 +53,13 @@ public class HeroTeam {
     List<Hero> removed = new ArrayList<>();
     for (int i = 0; i < this.heroes.length; i++) {
       if (this.heroes[i] != null && this.heroes[i].getStat(Stat.CURRENT_LIFE) < 1) {
-        this.deadHeroes.add(this.heroes[i]);
-        removed.add(this.heroes[i]);
-        ConnectionPayload pl = new ConnectionPayload().setTarget(this.heroes[i]);
+        Hero deadHero = this.heroes[i];
+        this.deadHeroes.add(deadHero);
+        removed.add(deadHero);
+        ConnectionPayload pl = new ConnectionPayload().setTarget(deadHero);
         Connector.fireTopic(Connector.DEATH_TRIGGER, pl);
-        this.heroes[i] = null;
+        deadHero.leaveArena();
+        deadHero = null;
         for (int j = i - 1; j >= 0 && j < this.heroes.length; j--) {
           if (this.heroes[j] != null) {
             this.heroes[j + 1] = this.heroes[j];

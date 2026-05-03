@@ -53,8 +53,8 @@ public class StateManager {
 
     this.memory.teams =
         new HeroTeam[] {
-                DraftBuilder.getHeroTeam(1,1,"4","1","3","2"),
-                DraftBuilder.getHeroTeam(-1,2,"8","7","6","5")};
+                DraftBuilder.getTeamFullOf("FullEvoker"),
+                DraftBuilder.getDummyTeam()};
     Arena arena = new Arena(memory, true);
     this.scenes.add(arena);
   }

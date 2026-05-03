@@ -41,6 +41,31 @@ public class DraftBuilder {
     names.forEach(s->heroes.add(HeroLibrary.getHero(s)));
     return heroes;
   }
+
+  public static HeroTeam getDummyTeam() {
+
+    Hero[] heroes = new Hero[]{
+            HeroLibrary.getHero("0"),
+            HeroLibrary.getHero("0"),
+            HeroLibrary.getHero("0"),
+            HeroLibrary.getHero("0")};
+    heroes[0].devColor = Color.GREEN;
+    heroes[1].devColor = Color.RED;
+    heroes[2].devColor = Color.BLUE;
+    heroes[3].devColor = Color.SPEED_YELLOW;
+
+    return new HeroTeam(-1, heroes, 2);
+  }
+  public static HeroTeam getTeamFullOf(String name) {
+
+    Hero[] heroes = new Hero[]{HeroLibrary.getHero(name), HeroLibrary.getHero(name), HeroLibrary.getHero(name), HeroLibrary.getHero(name)};
+    heroes[0].devColor = Color.GREEN;
+    heroes[1].devColor = Color.RED;
+    heroes[2].devColor = Color.BLUE;
+    heroes[3].devColor = Color.SPEED_YELLOW;
+    Arrays.stream(heroes).forEach(h->h.isDev = true);
+    return new HeroTeam(1, heroes, 1);
+  }
   public static HeroTeam getHeroTeam(int fillUpDirection, int teamNumber, String pos1, String pos2, String pos3, String pos4) {
 
     Hero[] heroes = new Hero[]{HeroLibrary.getHero(pos1), HeroLibrary.getHero(pos2), HeroLibrary.getHero(pos3), HeroLibrary.getHero(pos4)};
@@ -399,10 +424,6 @@ public class DraftBuilder {
     }
   }
 
-  public static Hero[] getDummyTeam() {
-    //        return new Hero[]{new DUMMY(1), new DUMMY(2), new DUMMY(3)};
-    return null;
-  }
 
   public static Hero[] getDungeonEncounterTeam(int level) {
     Hero[] heroes = new Hero[3];

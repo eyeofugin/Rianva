@@ -125,7 +125,7 @@ public class Condition {
         return resourceCheck(target.getCurrentLifePercentage());
       }
     }
-    if (this.manaComparison) {
+    if (this.manaComparison != null) {
       if (trigger == ConditionReference.CASTER) {
         return resourceCheck(hero.getCurrentManaPercentage());
       }

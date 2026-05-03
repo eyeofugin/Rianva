@@ -61,7 +61,7 @@
         "methodName": "castChange",
         "trigger": {
           "casterHeroReference": "SAME",
-          "skillNotNull": true
+          "skillName": "S_TightenTheGrip"
         }
       }
     ],
@@ -100,7 +100,7 @@
         "methodName": "castChange",
         "trigger": {
           "casterHeroReference": "SAME",
-          "skillNotNull": true
+          "skillName": "S_GoAfterEvil"
         }
       }
     ],
@@ -157,7 +157,7 @@
         "methodName": "castChange",
         "trigger": {
           "casterHeroReference": "SAME",
-          "skillNotNull": true
+          "skillName": "S_Judgment"
         }
       }
     ],
@@ -265,7 +265,7 @@
         "methodName": "castChange",
         "trigger": {
           "casterHeroReference": "SAME",
-          "skillNotNull": true
+          "skillName": "S_LookForTrouble"
         }
       },
       {
@@ -838,7 +838,8 @@
         "topicName": "CAST_CHANGE",
         "methodName": "castChange",
         "trigger": {
-          "casterHeroReference": "SAME"
+          "casterHeroReference": "SAME",
+          "skillName": "S_ThornCage"
         }
       }
     ],
@@ -876,7 +877,8 @@
         "topicName": "CAST_CHANGE",
         "methodName": "castChange",
         "trigger": {
-          "casterHeroReference": "SAME"
+          "casterHeroReference": "SAME",
+          "skillName": "S_LifeBlossom"
         }
       }
     ],
@@ -1250,7 +1252,7 @@
         "methodName": "castChange",
         "trigger": {
           "casterHeroReference": "SAME",
-          "skillNotNull": true
+          "skillName": "S_LightBarrier"
         }
       }
     ],
@@ -1291,7 +1293,7 @@
         "methodName": "castChange",
         "trigger": {
           "casterHeroReference": "SAME",
-          "skillNotNull": true
+          "skillName": "S_LightReflection"
         }
       }
     ],
@@ -2080,7 +2082,7 @@
         "methodName": "castChange",
         "trigger": {
           "casterHeroReference": "SAME",
-          "skillNotNull": true
+          "skillName": "S_WindWall"
         }
       }
     ],
@@ -2409,7 +2411,8 @@
         "topicName": "CAST_CHANGE",
         "methodName": "castChange",
         "trigger": {
-          "casterHeroReference": "SAME"
+          "casterHeroReference": "SAME",
+          "skillName": "S_TrueShot"
         }
       }
     ],

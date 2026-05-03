@@ -60,7 +60,7 @@ public class Hero extends GUIElement {
   public static int draftDimensionX = 64;
   public static int draftDimensionY = 74;
 
-  protected int level = 1;
+  protected int level = 0;
   protected int exp = 0;
   protected int[] levelCaps = new int[] {0, 5, 10, 15, 20};
   protected int draftChoice = 0;
@@ -81,6 +81,7 @@ public class Hero extends GUIElement {
   public int effectiveRange = 0;
 
   public Color devColor = Color.VOID;
+  public boolean isDev = false;
 
   public static Hero getForDraft() {
     return null;
@@ -132,19 +133,21 @@ public class Hero extends GUIElement {
   }
 
   public void arenaStart() {
+    Logger.logLn("arenaStart()");
     this.resetResources();
     this.startTrigger();
     this.addGenericSkills();
   }
 
   private void startTrigger() {
+    Logger.logLn("startTrigger()");
     this.equipments.forEach(Equipment::addSubscriptions);
     this.skills.forEach(Skill::addSubscriptions);
   }
 
   private void addGenericSkills() {
     this.addSkill(new S_Boots());
-    this.addSkill(new S_Skip());
+//    this.addSkill(new S_Skip());
   }
 
   public void resetResources() {
@@ -155,6 +158,7 @@ public class Hero extends GUIElement {
   }
 
   public void leaveArena() {
+    Logger.logLn("leaveArena()");
     this.effects.forEach(Effect::removeFromHero);
     this.equipments.forEach(Equipment::reset);
     this.equipments.forEach(Equipment::removeSubscriptions);
@@ -314,19 +318,6 @@ public class Hero extends GUIElement {
     return base;
   }
 
-  //    protected void randomizeSkills() {
-  //        this.skills = new Skill[5];
-  //        int primaryUpper = this.primary.length-1;
-  //        this.skills[0] = primary[MyMaths.getFromToIncl(0,primaryUpper, new ArrayList<>())];
-  //        int tacticalUpper = this.tactical.length-1;
-  //        int tac1 = MyMaths.getFromToIncl(0, tacticalUpper, new ArrayList<>());
-  //        int tac2 = MyMaths.getFromToIncl(0, tacticalUpper, List.of(tac1));
-  //        this.skills[1] = tactical[tac1];
-  //        this.skills[2] = tactical[tac2];
-  //        this.skills[3] = ult;
-  //        this.skills[4] = new S_Skip(this);
-  //    }
-
   public int getLastEffectivePosition() {
     return this.team.getFirstPosition() - (effectiveRange * this.team.fillUpDirection);
   }
@@ -372,9 +363,9 @@ public class Hero extends GUIElement {
         yf,
         64,
         3,
-        getBar(64, 3, 0, getResourcePercentage(Stat.LIFE), Color.GREEN, Color.DARKRED),
+        getBar(64, 3, 0, getResourcePercentage(Stat.LIFE), devColor != null? devColor : Color.GREEN, Color.DARKRED),
         false);
-    if (this.getStat(Stat.SHIELD) > 0) {
+    if (this.getCachedStat(Stat.SHIELD) > 0) {
       fillWithGraphicsSize(0, yf, 64, 3, getShieldBar(), false);
     }
     yf += 4;
@@ -504,6 +495,7 @@ public class Hero extends GUIElement {
     this.baseStats.putAll(this.stats);
   }
   public void addLevel() {
+    Logger.logLn("addLevel()");
     this.level++;
     Utils.addStats(this.stats, this.heroClass.statsIncrease, 1);
   }
@@ -514,6 +506,7 @@ public class Hero extends GUIElement {
   }
 
   public int getDefense(DamageType dt) {
+    Logger.logLn("getDefense()");
     Stat defenseStat = Utils.getDefenseStatForDt(dt);
     if (defenseStat == Stat.ARMOR) {
       return getStat(defenseStat) * 10 + MyMaths.percentageOf(10, getStat(Stat.BODY));
@@ -521,6 +514,7 @@ public class Hero extends GUIElement {
     return getStat(defenseStat) + getStat(Stat.ARMOR);
   }
   public int getStat(Stat stat) {
+    Logger.logLn("getStat(" + stat.getTranslationString() + ")");
     if (stat == null) {
       return 0;
     }
@@ -570,6 +564,8 @@ public class Hero extends GUIElement {
       Effect effect,
       Equipment equipment,
       boolean negative) {
+
+    Logger.logLn("addResource(" + currentStat.getTranslationString() + "," + value + ")");
     int target = value + this.getStat(currentStat);
     int max = 99999;
     if (maxStat != null) {
@@ -622,8 +618,6 @@ public class Hero extends GUIElement {
     return switch (resource) {
       case LIFE -> ((double) this.stats.get(Stat.CURRENT_LIFE)) / this.stats.get(Stat.LIFE);
       case ENERGY -> ((double) this.stats.get(Stat.CURRENT_ENERGY)) / this.stats.get(Stat.ENERGY);
-      //            case MAX_ACTION -> ((double) this.getStat(Stat.CURRENT_ACTION)) /
-      // this.getStat(Stat.MAX_ACTION);
       default -> 0.0;
     };
   }
@@ -642,11 +636,13 @@ public class Hero extends GUIElement {
 
   // TurnMagic
   public void startOfTurn() {
+    Logger.logLn("startOfTurn()");
     trigger_startOfTurn();
     cacheStats();
   }
 
   public void endOfTurn() {
+    Logger.logLn("endOfTurn()");
     regain();
     tickEffects();
     cleanUpEffect();
@@ -658,6 +654,7 @@ public class Hero extends GUIElement {
   }
 
   public void regain() {
+    Logger.logLn("regain()");
     int heal = getStat(Stat.LIFE_REGAIN);
     if (!(this.hasPermanentEffect(Bleeding.class))) {
       heal(heal, this, null, null, null, true);
@@ -723,7 +720,7 @@ public class Hero extends GUIElement {
     addEffect(effect, caster, null);
   }
   public void addEffect(Effect effect, Hero caster, Skill skill) {
-
+    Logger.logLn("Attempt effect: " + effect.getName());
     if (getEffectFailure(effect, caster, skill)) {
       return;
     }
@@ -774,9 +771,11 @@ public class Hero extends GUIElement {
 
   private boolean getEffectFailure(Effect effect, Hero caster, Skill skill) {
     if (hasPermanentEffect(Immunity.class)) {
+      Logger.logLn("Failed: Immunity.");
       return true;
     }
     if (isResisted(effect, caster)) {
+      Logger.logLn("Failed: Resisted.");
       return true;
     }
     return trigger_effectFailure(effect, caster, skill);
@@ -903,7 +902,10 @@ public class Hero extends GUIElement {
     if (trigger_performFailure(s, targetPositions)) {
       return false;
     }
-    return s.performCheck(this);
+    if (this.isDev) {
+      return true;
+    }
+    return s.positionCheck(this);
   }
 
   private boolean canPerformResourceCheck(Skill s) {
@@ -913,6 +915,7 @@ public class Hero extends GUIElement {
     return this.stats.get(Stat.CURRENT_LIFE) > s.getLifeCost()
         && this.stats.get(Stat.CURRENT_ENERGY) >= s.getManaCost()
         && this.stats.get(Stat.DODGE) >= s.getDodgeCost()
+        && s.getCurrentCd() == 0
         && !s.isPassive();
   }
 
@@ -920,7 +923,12 @@ public class Hero extends GUIElement {
     payResource(Stat.CURRENT_LIFE, Stat.LIFE, -1 * s.getLifeCost(this));
     payResource(Stat.CURRENT_ENERGY, Stat.ENERGY, -1 * s.getManaCost());
     payResource(Stat.DODGE, null, -1 * s.getDodgeCost());
+    s.setCurrentCd(s.getMaxCd());
     Logger.logLn("Paid life:" + s.getLifeCost(this));
+    Logger.logLn("Paid mana:" + s.getManaCost());
+    Logger.logLn("Paid cd:" + s.getMaxCd());
+    Logger.logLn("Paid dodge:" + s.getDodgeCost());
+
   }
 
   public boolean hasFieldEffect() {
@@ -1074,13 +1082,13 @@ public class Hero extends GUIElement {
       int lethality) {
 
     damage = trigger_dmgChanges(damage, damageType, mode, caster, skill, effect, equipment);
-
+    Logger.logLn("raw damage " + damage);
     int def = MyMaths.calculateDefense(damageType, this);
     def = Math.max(0, def - lethality);
+    Logger.logLn("def " + def);
     int result = MyMaths.getDamage(damage, def);
-
-    System.out.println("dmg:" + result);
-    Logger.logLn("play dmg animation of " + this.name + "/" + this.id);
+    Logger.logLn("resulting damage " + result);
+    Logger.logLn("play dmg animation of " + this.name );
     playAnimation("damaged", true);
 
     int dmgToShield = 0;
@@ -1122,6 +1130,7 @@ public class Hero extends GUIElement {
 
   // GUI
   public void playAnimation(String anim) {
+    Logger.logLn("Play animation " + anim);
     this.playAnimation(anim, true);
   }
 
@@ -1243,7 +1252,7 @@ public class Hero extends GUIElement {
   public void trigger_startOfTurn() {
     ConnectionPayload pl = new ConnectionPayload();
     pl.setCaster(this);
-    Connector.fireTopic(this.id + Connector.START_OF_TURN, pl);
+    Connector.fireTopic(Connector.START_OF_TURN, pl);
   }
 
   public void trigger_endOfTurn() {

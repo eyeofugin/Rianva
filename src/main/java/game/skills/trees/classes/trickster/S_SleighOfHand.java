@@ -1,5 +1,6 @@
 package game.skills.trees.classes.trickster;
 
+import framework.Logger;
 import game.effects.Effect;
 import game.entities.Hero;
 import game.skills.Skill;
@@ -8,6 +9,7 @@ import utils.CollectionUtils;
 public class S_SleighOfHand extends Skill {
     @Override
     public void customTargetEffect(Hero target) {
+        Logger.logLn("S_SleighOfHand.customTargetEffect()");
         Effect debuff = CollectionUtils.getRandom(this.hero.getEffects().stream()
                 .filter(e->e.subTypes.contains(Effect.SubType.DEBUFF))
                 .toList());

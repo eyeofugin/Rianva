@@ -56,9 +56,9 @@ public class LogCard extends GUIElement {
 
   @Override
   public int[] render() {
-    if (Engine.redraw) {
+    if (true) {
       clear();
-      background(new Random().nextInt(10000));
+//      background(new Random().nextInt(10000));
       renderVisibleLogs();
       //        renderXButton();
       if (this.active) {

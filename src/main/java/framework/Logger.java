@@ -6,7 +6,7 @@ public class Logger {
 
   public static void logLn(String s) {
     if (DEBUG) {
-      System.out.println(s);
+      System.out.println("LOGGER:" + s);
     }
   }
 

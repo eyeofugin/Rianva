@@ -67,9 +67,16 @@ public class SkillInfo extends GUIElement {
             TextAlignment.CENTER,
             Color.VOID,
             this.skill.getCostColor());
+    String cdString = "";
+    if (this.skill.getCurrentCd() > 1) {
+      cdString += Color.RED.getCodeString();
+      cdString += this.skill.getCurrentCd();
+      cdString += Color.WHITE.getCodeString() + " " ;
+    }
+    cdString += this.skill.getMaxCd();
     int[] cdPixels =
         getTextLine(
-            this.skill.getMaxCd() + "",
+            cdString,
             CD_WIDTH,
             ELEMENT_HEIGHT,
             TextAlignment.CENTER,

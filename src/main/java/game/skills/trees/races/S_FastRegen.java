@@ -1,5 +1,6 @@
 package game.skills.trees.races;
 
+import framework.Logger;
 import framework.connector.ConnectionPayload;
 import framework.graphics.elements.EffectInfo;
 import game.effects.Effect;
@@ -11,6 +12,7 @@ import java.util.List;
 
 public class S_FastRegen extends Skill {
     public void eot(ConnectionPayload pl) {
+        Logger.logLn("S_FastRegen.eot()");
         if (!this.hero.hasDebuff()) {
             return;
         }

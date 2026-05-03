@@ -15,15 +15,25 @@ import java.util.List;
 class HeroTest {
 
   @Test
+  void baseTest() {
+    Libraries.init();
+    Memory memory = mockMemory();
+    Arena arena = mockArena(memory);
+
+    Hero hero = HeroLibrary.getHero("0");
+    arena.addHero(hero, 3);
+    arena.addHero(HeroLibrary.getHero("0"),4);
+
+    arena.devStart();
+  }
+
+  @Test
   void testEvoker() {
     Libraries.init();
     Memory memory = mockMemory();
     memory.teams = new HeroTeam[]{mockTeam1(),mockTeam2()};
     Arena arena = mockArena(memory);
     arena.start();
-
-
-
 
   }
 

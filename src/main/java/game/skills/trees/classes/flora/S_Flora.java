@@ -1,5 +1,6 @@
 package game.skills.trees.classes.flora;
 
+import framework.Logger;
 import framework.connector.ConnectionPayload;
 import game.effects.Effect;
 import game.skills.Skill;
@@ -7,6 +8,7 @@ import game.skills.Skill;
 public class S_Flora extends Skill {
 
   public void castChange(ConnectionPayload pl) {
+    Logger.logLn("S_Flora.castChange()");
     if (this.hero.arena.globalEffect != null) {
       pl.skill.getEffects().stream()
           .filter(e -> e.turns > 0 && e.type.equals(Effect.ChangeEffectType.FIELD))

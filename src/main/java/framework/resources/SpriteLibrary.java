@@ -170,7 +170,7 @@ public class SpriteLibrary {
 
   public static int[] getSprite(String name) {
     if (SpriteLibrary.sprites.get(name) == null) {
-      System.out.println("no sprite found for " + name);
+//      System.out.println("no sprite found for " + name);
       return new int[0];
     }
     return SpriteLibrary.sprites.get(name).clone();

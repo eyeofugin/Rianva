@@ -1,5 +1,6 @@
 package game.skills.trees.roles.inspiration;
 
+import framework.Logger;
 import framework.connector.ConnectionPayload;
 import game.entities.Hero;
 import game.skills.Skill;
@@ -9,6 +10,7 @@ public class S_TimeTrick extends Skill {
 
     @Override
     public void customTargetEffect(Hero target) {
+        Logger.logLn("S_TimeTrick.customTargetEffect()");
         target.changeRandomActiveCdBy(-2);
     }
 }
