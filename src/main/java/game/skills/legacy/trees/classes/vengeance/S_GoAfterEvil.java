@@ -1,0 +1,32 @@
+package game.skills.legacy.trees.classes.vengeance;
+
+import framework.Logger;
+import framework.connector.ConnectionPayload;
+import game.skills.Skill;
+import game.skills.legacy.logic.DamageMode;
+import game.skills.legacy.logic.DamageType;
+import utils.Utils;
+
+import java.util.List;
+
+public class S_GoAfterEvil extends Skill {
+    int marks = 0;
+    public void onMark(ConnectionPayload pl) {
+        Logger.logLn("S_GoAfterEvil.onMark()");
+        this.marks++;
+    }
+    @SuppressWarnings("unchecked")
+    public void castChange(ConnectionPayload pl) {
+        Logger.logLn("S_GoAfterEvil.castChange()");
+        if (pl.skill.equals(this)) {
+            ConnectionPayload.CondEffectImpact impact = Utils.condTriggerChanges(this.hero, this, null, null);
+            if (impact.equals(ConnectionPayload.CondEffectImpact.ALLOW) || marks > 9) {
+                this.staticDmg = marks;
+
+                this.staticDmgTargets = (List<Integer>) keyValues.get("StaticDmgTargets");
+                this.staticDamageMode = (DamageMode) keyValues.get("StaticDamageMode");
+                this.staticDamageType = (DamageType) keyValues.get("StaticDamageType");
+            }
+        }
+    }
+}

@@ -4,8 +4,8 @@ import framework.connector.ConnectionPayload;
 import game.effects.Effect;
 import game.libraries.EffectLibrary;
 import game.effects.stat.Shaken;
-import game.skills.logic.DamageMode;
-import game.skills.logic.DamageType;
+import game.skills.legacy.logic.DamageMode;
+import game.skills.legacy.logic.DamageType;
 
 public class Frost extends Effect {
 

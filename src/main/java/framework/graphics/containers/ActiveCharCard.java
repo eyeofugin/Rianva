@@ -14,7 +14,7 @@ import framework.resources.SpriteLibrary;
 import framework.states.Arena;
 import framework.states.Draft;
 import game.entities.Hero;
-import game.skills.logic.Stat;
+import game.skills.legacy.logic.Stat;
 
 import java.util.List;
 

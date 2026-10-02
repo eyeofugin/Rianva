@@ -5,8 +5,8 @@ import framework.states.Arena;
 import game.entities.Hero;
 import game.entities.HeroTeam;
 import game.skills.Skill;
-import game.skills.logic.TargetType;
-import game.skills.trees.genericskills.S_Skip;
+import game.skills.legacy.logic.TargetType;
+import game.skills.legacy.trees.genericskills.S_Skip;
 import utils.ActionOption;
 
 import java.util.*;

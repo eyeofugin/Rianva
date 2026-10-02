@@ -1,0 +1,156 @@
+{
+  "S_FireBlast": {
+    "name": "Fire Blast",
+    "className": "game.skills.tactical.S_FireBlast",
+    "targetType": "ALL_TARGETS",
+    "description": "Move back 1. Receive Burning 1.",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL"
+    ],
+    "dmgMultipliers": [
+      {
+        "prof": "MIND",
+        "percentage": 0.45
+      }
+    ],
+    "damageType": "HEAT",
+    "damageMode": "MAGICAL",
+    "move": -1,
+    "casterEffects": [
+      {
+        "className": "game.effects.status.Burning",
+        "stacks": 1
+      }
+    ],
+    "effects": [
+      {
+        "className": "game.effects.stat.Dull",
+        "turns": 2,
+        "condition": {
+          "trigger": "CASTER",
+          "effectName": "game.effects.hero.BlueFlame",
+          "hasCheck": true
+        }
+      },
+      {
+        "className": "game.effects.stat.Shaken",
+        "turns": 2,
+        "condition": {
+          "trigger": "CASTER",
+          "effectName": "game.effects.hero.BlueFlame",
+          "hasCheck": true
+        }
+      }
+    ],
+    "maxCd": 2,
+    "manaCost": 45,
+    "possibleCastPositions": [
+      2,
+      3
+    ],
+    "possibleTargetPositions": [
+      4,
+      5
+    ]
+  },
+  "S_BurnUp": {
+    "name": "Burn Up",
+    "className": "game.skills.tactical.S_BurnUp",
+    "targetType": "SELF",
+    "description": "Cleanse and receive Flawless 2 and Enlightened 2.",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL"
+    ],
+    "lifeCost": 20,
+    "casterEffects": [
+      {
+        "className": "game.effects.status.Cleanse"
+      },
+      {
+        "className": "game.effects.stat.Flawless",
+        "turn": 2
+      },
+      {
+        "className": "game.effects.stat.Enlightened",
+        "turn": 2
+      }
+    ],
+    "maxCd": 2,
+    "manaCost": 45,
+    "possibleCastPositions": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "S_FanTheTorch": {
+    "name": "Fan The Torch",
+    "className": "game.skills.tactical.S_FanTheTorch",
+    "targetType": "ARENA",
+    "description": "Summon Scorching Sun. During Scorching Sun: End of Turn receive Energy equal to your enemies Burning Stacks.",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL"
+    ],
+    "globalEffect": {
+      "className": "game.effects.globals.ScorchingSun",
+      "turns": 5
+    },
+    "subscriptions": [
+      {
+        "topicName": "END_OF_TURN",
+        "methodName": "endOfTurn",
+        "trigger": {
+          "casterHeroReference": "SAME"
+        }
+      }
+    ],
+    "maxCd": 5,
+    "manaCost": 50,
+    "possibleCastPositions": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "S_HeatUp": {
+    "name": "Heat Up",
+    "className": "game.skills.tactical.S_HeatUp",
+    "targetType": "ALL_TARGETS",
+    "description": "Give Flawless 2. Non-Flameborn allies get Burning 1.",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "TACTICAL"
+    ],
+    "effects": [
+      {
+        "className": "game.effects.stat.Flawless",
+        "turns": 2
+      }
+    ],
+    "subscriptions": [
+      {
+        "topicName": "ON_SINGLE_TARGET",
+        "methodName": "onTarget",
+        "trigger": {
+          "targetHeroReference": "ALLY",
+          "casterHeroReference": "SAME",
+          "skillName": "S_HeatUp"
+        }
+      }
+    ],
+    "maxCd": 2,
+    "manaCost": 40,
+    "possibleCastPositions": [
+      0,
+      1
+    ],
+    "possibleTargetPositions": [
+      0,1,2,3
+    ]
+  }
+}

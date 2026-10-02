@@ -5,8 +5,8 @@ import game.effects.Effect;
 import game.libraries.EffectLibrary;
 import game.effects.status.Bleeding;
 import game.entities.Hero;
-import game.skills.logic.DamageMode;
-import game.skills.logic.DamageType;
+import game.skills.legacy.logic.DamageMode;
+import game.skills.legacy.logic.DamageType;
 
 public class SmallTrap extends Effect {
   public void onEnter(ConnectionPayload pl) {

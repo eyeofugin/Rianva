@@ -5,7 +5,7 @@ import framework.graphics.text.Color;
 import framework.graphics.text.TextAlignment;
 import game.entities.Hero;
 import game.entities.HeroDTO;
-import game.skills.logic.Stat;
+import game.skills.legacy.logic.Stat;
 
 public class StatField extends GUIElement {
   private final Hero hero;

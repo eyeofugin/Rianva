@@ -2,7 +2,7 @@ package game.effects.status;
 
 import framework.connector.ConnectionPayload;
 import game.effects.Effect;
-import game.skills.logic.TargetType;
+import game.skills.legacy.logic.TargetType;
 
 public class Threatening extends Effect {
 

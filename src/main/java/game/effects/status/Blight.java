@@ -2,9 +2,9 @@ package game.effects.status;
 
 import framework.connector.ConnectionPayload;
 import game.effects.Effect;
-import game.skills.logic.DamageMode;
-import game.skills.logic.DamageType;
-import game.skills.trees.races.S_Unlife;
+import game.skills.legacy.logic.DamageMode;
+import game.skills.legacy.logic.DamageType;
+import game.skills.legacy.trees.races.S_Unlife;
 
 public class Blight extends Effect {
   public void onDamage(ConnectionPayload pl) {

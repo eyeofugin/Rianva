@@ -17,12 +17,12 @@ public class SkillLibrary {
   private static Map<String, String> raceSkillsJson = new HashMap<>();
 
   public static void init() {
-    baseSkillsJson = FileWalker.loadJsonMap("data/skills/baseSkills.json");
-    cantripSkillsJson = FileWalker.loadJsonMap("data/skills/cantripSkills.json");
-    classSkillsJson = FileWalker.loadJsonMap("data/skills/classSkills.json");
-    roleSkillsJson = FileWalker.loadJsonMap("data/skills/roleSkills.json");
-    weaponSkillsJson = FileWalker.loadJsonMap("data/skills/equipmentSkills.json");
-    raceSkillsJson = FileWalker.loadJsonMap("data/skills/raceSkills.json");
+    baseSkillsJson = FileWalker.loadJsonMap("data/skills/legacy/baseSkills.json");
+    cantripSkillsJson = FileWalker.loadJsonMap("data/skills/legacy/cantripSkills.json");
+    classSkillsJson = FileWalker.loadJsonMap("data/skills/legacy/classSkills.json");
+    roleSkillsJson = FileWalker.loadJsonMap("data/skills/legacy/roleSkills.json");
+    weaponSkillsJson = FileWalker.loadJsonMap("data/skills/legacy/equipmentSkills.json");
+    raceSkillsJson = FileWalker.loadJsonMap("data/skills/legacy/raceSkills.json");
   }
 
   public static List<Skill> fullSkillList() {

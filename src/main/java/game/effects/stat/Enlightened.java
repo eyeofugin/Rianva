@@ -2,7 +2,6 @@ package game.effects.stat;
 
 import framework.connector.ConnectionPayload;
 import game.effects.Effect;
-import game.skills.logic.Stat;
 import utils.Utils;
 
 public class Enlightened extends Effect {

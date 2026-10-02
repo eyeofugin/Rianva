@@ -10,5 +10,6 @@ public class Libraries {
         HeroBackgroundLibrary.init();
         SkillLibrary.init();
         EquipmentLibrary.init();
+        HeroSpriteLibrary.init();
     }
 }

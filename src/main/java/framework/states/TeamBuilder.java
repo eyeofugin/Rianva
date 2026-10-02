@@ -9,7 +9,7 @@ import framework.graphics.elements.StatField;
 import framework.graphics.text.Color;
 import game.entities.Hero;
 import game.entities.HeroTeam;
-import game.skills.logic.Stat;
+import game.skills.legacy.logic.Stat;
 
 import java.util.HashMap;
 import java.util.Map;

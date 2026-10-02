@@ -6,8 +6,8 @@ import game.effects.status.Dazed;
 import game.effects.status.Immobile;
 import game.effects.status.Stunned;
 import game.entities.Hero;
-import game.skills.logic.DamageType;
-import game.skills.logic.Stat;
+import game.skills.legacy.logic.DamageType;
+import game.skills.legacy.logic.Stat;
 
 import java.util.List;
 import java.util.Random;

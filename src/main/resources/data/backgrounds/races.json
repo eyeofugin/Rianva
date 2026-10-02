@@ -225,5 +225,24 @@
       "ENERGY": 71,
       "FOCUS": 59
     }
+  },
+  "Flameborn": {
+    "name": "Flameborn",
+    "icon": "Flameborn",
+    "stats": {
+      "BODY": 15,
+      "MIND": 71,
+      "DEXTERITY": 79,
+      "VITALITY": 46,
+      "HEAT_RESIST": 17,
+      "COLD_RESIST": 17,
+      "LIGHT_RESIST": 5,
+      "DARK_RESIST": 17,
+      "SHOCK_RESIST": 17,
+      "TOX_RESIST": 21,
+      "MENTAL_RESIST": 12,
+      "ENERGY": 80,
+      "FOCUS": 94
+    }
   }
 }

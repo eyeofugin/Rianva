@@ -2,7 +2,7 @@ package game.libraries;
 
 import game.effects.Effect;
 import game.effects.EffectDTO;
-import game.skills.logic.Condition;
+import game.skills.legacy.logic.Condition;
 import utils.CollectionUtils;
 import utils.FileWalker;
 

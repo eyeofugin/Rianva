@@ -1,0 +1,21 @@
+package game.skills.legacy.trees.classes.flora;
+
+import framework.Logger;
+import game.libraries.EffectLibrary;
+import game.effects.globals.PoisonGasses;
+import game.skills.Skill;
+import utils.MyMaths;
+import utils.Utils;
+
+public class S_SporeBomb extends Skill {
+
+    @Override
+    public void oncePerActivationEffect() {
+        Logger.logLn("S_SporeBomb.oncePerActivationEffect()");
+        int chance = (int) keyValues.get("Chance");
+        chance = Utils.chanceChanges(null, this.hero, chance, this, null, null);
+        if (MyMaths.success(chance)) {
+            this.hero.arena.globalEffect = EffectLibrary.getEffect(PoisonGasses.class.getName(), 0, 5, null);
+        }
+    }
+}

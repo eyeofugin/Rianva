@@ -1,0 +1,15 @@
+package game.skills.legacy.trees.classes.flora;
+
+import framework.Logger;
+import framework.connector.ConnectionPayload;
+import game.skills.Skill;
+import game.skills.legacy.logic.TargetType;
+
+public class S_ThornCage extends Skill {
+    public void castChange(ConnectionPayload pl) {
+        Logger.logLn("S_ThornCage.castChange()");
+        if (pl.skill.equals(this) && this.hero.arena.globalEffect != null) {
+            this.targetType = TargetType.ALL_TARGETS;
+        }
+    }
+}

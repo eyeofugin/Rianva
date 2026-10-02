@@ -2,7 +2,7 @@ package game.entities;
 
 import framework.connector.ConnectionPayload;
 import framework.connector.Connector;
-import game.skills.logic.Stat;
+import game.skills.legacy.logic.Stat;
 
 import java.util.ArrayList;
 import java.util.Arrays;

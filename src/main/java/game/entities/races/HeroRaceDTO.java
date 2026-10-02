@@ -1,6 +1,6 @@
 package game.entities.races;
 
-import game.skills.logic.Stat;
+import game.skills.legacy.logic.Stat;
 
 import java.util.List;
 import java.util.Map;

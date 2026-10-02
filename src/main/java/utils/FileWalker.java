@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import framework.Logger;
 import game.entities.DraftEntityDTO;
-import game.skills.logic.Stat;
+import game.skills.legacy.logic.Stat;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;

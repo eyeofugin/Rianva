@@ -18,7 +18,7 @@ public class SubscriptionTriggerTest {
     skill.hero = hero;
 
     SubscriptionTrigger trigger = new SubscriptionTrigger();
-    trigger.targetHeroReference = SubscriptionTriggerHeroReference.SAME;
+    trigger.targetHeroReference = HeroReference.SAME;
     trigger.setSkill(skill);
 
     ConnectionPayload otherPayload = new ConnectionPayload().setTarget(payloadHero);

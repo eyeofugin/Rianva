@@ -5,6 +5,7 @@ import framework.Property;
 import framework.connector.ConnectionPayload;
 import framework.connector.Connector;
 import framework.graphics.GUIElement;
+import framework.graphics.elements.HeroSprite;
 import framework.graphics.text.Color;
 import framework.graphics.text.TextAlignment;
 import framework.resources.SpriteLibrary;
@@ -17,16 +18,13 @@ import game.entities.races.HeroRace;
 import game.entities.races.HeroRaceDTO;
 import game.entities.roles.HeroRole;
 import game.entities.roles.HeroRoleDTO;
-import game.libraries.EffectLibrary;
+import game.libraries.*;
 import game.effects.status.*;
-import game.libraries.EquipmentLibrary;
-import game.libraries.HeroBackgroundLibrary;
-import game.libraries.SkillLibrary;
 import game.objects.Equipment;
 import game.skills.Skill;
-import game.skills.trees.genericskills.S_Boots;
-import game.skills.trees.genericskills.S_Skip;
-import game.skills.logic.*;
+import game.skills.legacy.logic.*;
+import game.skills.legacy.trees.genericskills.S_Boots;
+import game.skills.legacy.trees.genericskills.S_Skip;
 import utils.CollectionUtils;
 import utils.MyMaths;
 import utils.Utils;
@@ -192,7 +190,7 @@ public class Hero extends GUIElement {
     this.heroRace.name = dto.name;
     this.heroRace.icon = dto.icon;
     this.heroRace.stats = Utils.copyStats(dto.stats);
-    this.heroRace.learnableSkills = new ArrayList<>(dto.learnableSkills);
+//    this.heroRace.learnableSkills = new ArrayList<>(dto.learnableSkills);
   }
 
   private void initHeroRace(String name) {
@@ -211,7 +209,7 @@ public class Hero extends GUIElement {
     this.heroRole = new HeroRole();
     this.heroRole.name = dto.name;
     this.heroRole.icon = dto.icon;
-    this.heroRole.learnableSkills = new ArrayList<>(dto.learnableSkills);
+//    this.heroRole.learnableSkills = new ArrayList<>(dto.learnableSkills);
   }
   private void initHeroClass(HeroClassDTO dto) {
     if (dto == null) { return; }
@@ -219,7 +217,7 @@ public class Hero extends GUIElement {
     this.heroClass.name = dto.name;
     this.heroClass.icon = dto.icon;
     this.heroClass.statsIncrease = Utils.copyStats(dto.statsIncrease);
-    this.heroClass.learnableSkills = new ArrayList<>(dto.learnableSkills);
+//    this.heroClass.learnableSkills = new ArrayList<>(.learnableSkills);
   }
   private void initHeroClass(String name) {
     if (name == null) { return; }
@@ -227,19 +225,16 @@ public class Hero extends GUIElement {
     initHeroClass(dto);
   }
   private void initAnimator(HeroDTO dto) {
-    String idleAnim = dto.idleAnim != null ? dto.idleAnim : "idle_w.png";
-    String damagedAnim = dto.damagedAnim != null ? dto.damagedAnim : "damaged_w.png";
-    String actionAnim = dto.actionAnim != null ? dto.actionAnim : "action_w.png";
-    int[] idleKeys = dto.idleKeys;
-    int[] damagedKeys = dto.damagedKeys;
-    int[] actionKeys = dto.actionKeys;
-
+    HeroSprite heroSprite = HeroSpriteLibrary.getHeroSprite(dto.heroSprite);
     this.anim = new Animator();
     anim.width = 64;
     anim.height = 64;
-    anim.setupAnimation("sprites/" + idleAnim, "idle", idleKeys);
-    anim.setupAnimation("sprites/" + damagedAnim, "damaged", damagedKeys);
-    anim.setupAnimation("sprites/" + actionAnim, "action", actionKeys);
+    if (heroSprite == null) {
+      return;
+    }
+    anim.setupAnimation(heroSprite.idle.source, "idle", heroSprite.idle.frames);
+    anim.setupAnimation(heroSprite.damaged.source, "damaged", heroSprite.damaged.frames);
+    anim.setupAnimation(heroSprite.action.source, "action", heroSprite.action.frames);
 
     anim.setDefaultAnim("idle");
     anim.currentAnim = anim.getDefaultAnim();
@@ -248,9 +243,9 @@ public class Hero extends GUIElement {
 
   private void initSkills(HeroDTO dto) {
     this.learnableSkillList = new ArrayList<>();
-    this.learnableSkillList.addAll(this.heroClass.learnableSkills);
-    this.learnableSkillList.addAll(this.heroRace.learnableSkills);
-    this.learnableSkillList.addAll(this.heroRole.learnableSkills);
+//    this.learnableSkillList.addAll(this.heroClass.learnableSkills);
+//    this.learnableSkillList.addAll(this.heroRace.learnableSkills);
+//    this.learnableSkillList.addAll(this.heroRole.learnableSkills);
     this.learnableSkillList.addAll(dto.additionalSkills);
     this.equipments.forEach(e->this.learnableSkillList.addAll(e.learnableSkills));
     addActiveSkills(dto);
@@ -584,7 +579,7 @@ public class Hero extends GUIElement {
   }
 
   public void addSkillResources(
-      List<Resource> resources, Skill skill, Hero source, Equipment equipment) {
+          List<Resource> resources, Skill skill, Hero source, Equipment equipment) {
     for (Resource resource : resources) {
       addSkillResource(resource, skill, source, equipment);
     }
@@ -763,7 +758,7 @@ public class Hero extends GUIElement {
     this.arena.logCard.addToLog(
         this.getName()
             + " received "
-            + effect.getIconString()
+            + effect.name
             + "("
             + (effect.stackable ? effect.stacks : effect.turns)
             + ").");
@@ -1258,7 +1253,7 @@ public class Hero extends GUIElement {
   public void trigger_endOfTurn() {
     ConnectionPayload pl = new ConnectionPayload();
     pl.setCaster(this);
-    Connector.fireTopic(this.id + Connector.END_OF_TURN, pl);
+    Connector.fireTopic(Connector.END_OF_TURN, pl);
   }
 
   public void trigger_excessResource(
@@ -1572,7 +1567,9 @@ public class Hero extends GUIElement {
   public Role getRole() {
     return this.role;
   }
-
+  public HeroRace getRace() {
+    return this.heroRace;
+  }
   public int getLevel() {
     return level;
   }

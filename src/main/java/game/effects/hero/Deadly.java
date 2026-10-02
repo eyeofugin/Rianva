@@ -4,8 +4,8 @@ import framework.connector.ConnectionPayload;
 import game.effects.Effect;
 import game.libraries.EffectLibrary;
 import game.effects.status.Blight;
-import game.skills.logic.DamageMode;
-import game.skills.logic.DamageType;
+import game.skills.legacy.logic.DamageMode;
+import game.skills.legacy.logic.DamageType;
 
 public class Deadly extends Effect {
   public void onDmg(ConnectionPayload pl) {

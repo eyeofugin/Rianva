@@ -1,0 +1,95 @@
+{
+  "CinderSprite": {
+    "idle": {
+      "source": "sprites/cindersprite/idle.png",
+      "frames": [
+        30,
+        60,
+        90
+      ]
+    },
+    "damaged": {
+      "source": "sprites/cindersprite/damaged.png",
+      "frames": [
+        10,
+        20,
+        30,
+        40
+      ]
+    },
+    "action": {
+      "source": "sprites/cindersprite/action.png",
+      "frames": [
+        30,
+        60,
+        90
+      ]
+    }
+  },
+  "Baze": {
+    "idle": {
+      "source": "sprites/characters/baze/baze_idle.png",
+      "frames": [
+        40,
+        80,
+        120,
+        160,
+        200,
+        205,
+        210,
+        215,
+        220
+      ]
+    },
+    "damaged": {
+      "source": "sprites/characters/baze/baze_damaged.png",
+      "frames": [
+        20,
+        40,
+        60,
+        80
+      ]
+    },
+    "action": {
+      "source": "sprites/characters/baze/baze_act1.png",
+      "frames": [
+        15,
+        30,
+        45,
+        60,
+        75,
+        90,
+        105,
+        120,
+        135
+      ]
+    }
+  },
+  "Scholar": {
+    "idle": {
+      "source": "sprites/scholar/idle.png",
+      "frames": [
+        30,
+        60,
+        90
+      ]
+    },
+    "damaged": {
+      "source": "sprites/scholar/damaged.png",
+      "frames": [
+        10,
+        20,
+        30,
+        40
+      ]
+    },
+    "action": {
+      "source": "sprites/scholar/action.png",
+      "frames": [
+        30,
+        60,
+        90
+      ]
+    }
+  }
+}

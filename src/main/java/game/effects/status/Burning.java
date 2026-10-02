@@ -4,9 +4,9 @@ import framework.connector.ConnectionPayload;
 import game.effects.Effect;
 import game.libraries.EffectLibrary;
 import game.effects.stat.Brittle;
-import game.skills.logic.DamageMode;
-import game.skills.logic.DamageType;
-import game.skills.trees.races.S_BornInFlames;
+import game.skills.legacy.logic.DamageMode;
+import game.skills.legacy.logic.DamageType;
+import game.skills.legacy.trees.races.S_BornInFlames;
 
 public class Burning extends Effect {
 

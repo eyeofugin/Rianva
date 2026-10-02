@@ -2,8 +2,8 @@ package game.effects.globals;
 
 import framework.connector.ConnectionPayload;
 import game.effects.Effect;
-import game.skills.logic.DamageMode;
-import game.skills.logic.DamageType;
+import game.skills.legacy.logic.DamageMode;
+import game.skills.legacy.logic.DamageType;
 
 public class PoisonGasses extends Effect {
 

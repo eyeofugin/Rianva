@@ -13,13 +13,12 @@ import framework.graphics.containers.HUD;
 
 import game.controllers.ArenaAIController;
 import game.effects.Effect;
-import game.effects.globals.Darkness;
 import game.effects.status.Stunned;
 import game.entities.Hero;
 import game.entities.HeroTeam;
 import game.skills.Skill;
-import game.skills.logic.Stat;
-import game.skills.logic.TargetType;
+import game.skills.legacy.logic.Stat;
+import game.skills.legacy.logic.TargetType;
 import utils.MyMaths;
 
 import java.lang.reflect.Method;
@@ -367,7 +366,7 @@ public class Arena extends State {
     trigger_globalEffectChange(globalEffect, oldEffect);
   }
 
-  public boolean hasGlobalEffect(Class<Darkness> darknessClass) {
+  public boolean hasGlobalEffect(Class<? extends Effect> darknessClass) {
     return this.globalEffect != null && this.globalEffect.getClass().equals(darknessClass);
   }
 

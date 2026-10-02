@@ -1,8 +1,7 @@
 package game.effects;
 
 import framework.connector.Subscription;
-import game.skills.logic.DamageType;
-import game.skills.logic.Stat;
+import game.skills.legacy.logic.DamageType;
 
 import java.util.List;
 import java.util.Map;

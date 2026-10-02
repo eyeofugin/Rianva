@@ -303,5 +303,62 @@
       "ENERGY": 11,
       "FOCUS": 7
     }
+  },
+  "Arcane": {
+    "name": "Arcane",
+    "icon": "Arcane",
+    "statsIncrease": {
+      "BODY": 0,
+      "MIND": 32,
+      "DEXTERITY": 10,
+      "VITALITY": 4,
+      "HEAT_RESIST": 2,
+      "COLD_RESIST": 1,
+      "LIGHT_RESIST": 0,
+      "DARK_RESIST": 0,
+      "SHOCK_RESIST": 3,
+      "TOX_RESIST": 0,
+      "MENTAL_RESIST": 12,
+      "ENERGY": 26,
+      "FOCUS": 18
+    }
+  },
+  "Sage": {
+    "name": "Sage",
+    "icon": "Sage",
+    "statsIncrease": {
+      "BODY": 0,
+      "MIND": 32,
+      "DEXTERITY": 10,
+      "VITALITY": 4,
+      "HEAT_RESIST": 2,
+      "COLD_RESIST": 1,
+      "LIGHT_RESIST": 0,
+      "DARK_RESIST": 0,
+      "SHOCK_RESIST": 3,
+      "TOX_RESIST": 0,
+      "MENTAL_RESIST": 12,
+      "ENERGY": 26,
+      "FOCUS": 18
+    }
+  },
+  "Slayer": {
+    "name": "Slayer",
+    "icon": "Slayer",
+    "statsIncrease": {
+      "BODY": 0,
+      "MIND": 32,
+      "DEXTERITY": 10,
+      "VITALITY": 4,
+      "HEAT_RESIST": 2,
+      "COLD_RESIST": 1,
+      "LIGHT_RESIST": 0,
+      "DARK_RESIST": 0,
+      "SHOCK_RESIST": 3,
+      "TOX_RESIST": 0,
+      "MENTAL_RESIST": 12,
+      "ENERGY": 26,
+      "FOCUS": 18
+    }
   }
 }

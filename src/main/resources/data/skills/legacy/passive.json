@@ -1,0 +1,57 @@
+{
+  "S_BlueFlame": {
+    "name": "Blue Flame",
+    "className": "game.skills.hero.passive.S_BlueFlame",
+    "description": "When falling under 50% life for the first time, you turn into the blue flame form, changing your skills.",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "PASSIVE"
+    ],
+    "subscriptions": [
+      {
+        "topicName": "DMG_TRIGGER",
+        "methodName": "dmgTrigger",
+        "trigger": {
+          "targetHeroReference": "SAME"
+        }
+      }
+    ]
+  },
+  "S_TorchLight": {
+    "name": "Torch Light",
+    "className": "game.skills.hero.passive.S_TorchLight",
+    "description": "Allies always hit enemies with Burning.",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "PASSIVE"
+    ],
+    "subscriptions": [
+      {
+        "topicName": "ON_SINGLE_TARGET",
+        "methodName": "onTarget",
+        "trigger": {
+          "targetHeroReference": "ALLY"
+        }
+      }
+    ]
+  },
+  "S_MarkedByFire": {
+    "name": "Marked By Fire",
+    "className": "game.skills.hero.passive.S_MarkedByFire",
+    "description": "+15 lethality when attacking enemies with Burning.",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "PASSIVE"
+    ],
+    "subscriptions": [
+      {
+        "topicName": "ON_SINGLE_TARGET",
+        "methodName": "onTarget",
+        "trigger": {
+          "targetHeroReference": "ENEMY",
+          "casterHeroReference": "SAME"
+        }
+      }
+    ]
+  }
+}

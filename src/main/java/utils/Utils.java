@@ -7,9 +7,9 @@ import game.entities.Multiplier;
 import game.effects.Effect;
 import game.objects.Equipment;
 import game.skills.Skill;
-import game.skills.logic.DamageType;
-import game.skills.logic.Resource;
-import game.skills.logic.Stat;
+import game.skills.legacy.logic.DamageType;
+import game.skills.legacy.logic.Resource;
+import game.skills.legacy.logic.Stat;
 
 import java.util.ArrayList;
 import java.util.HashMap;

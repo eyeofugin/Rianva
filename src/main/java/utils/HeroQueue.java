@@ -1,7 +1,7 @@
 package utils;
 
 import game.entities.Hero;
-import game.skills.logic.Stat;
+import game.skills.legacy.logic.Stat;
 
 import java.util.ArrayList;
 import java.util.List;

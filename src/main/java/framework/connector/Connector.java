@@ -13,14 +13,18 @@ public class Connector {
   public static String START_OF_ROUND = "START_OF_ROUND";
   public static String END_OF_ROUND = "END_OF_ROUND";
 
-  public static String IS_MOVE_FAILURE = "IS_MOVE_LEGAL";
-  public static String ON_MOVE = "ON_MOVE";
-  public static String ON_MARK = "ON_MARK";
-
   public static String START_OF_TURN = "START_OF_TURN";
   public static String END_OF_TURN = "END_OF_TURN";
 
   public static String CAST_CHANGE = "CAST_CHANGE";
+
+
+
+  public static String IS_MOVE_FAILURE = "IS_MOVE_LEGAL";
+  public static String ON_MOVE = "ON_MOVE";
+  public static String ON_MARK = "ON_MARK";
+
+
 
   public static String BASE_STAT_CHANGE = "BASE_STAT_CHANGE";
   public static String STAT_CHANGE_MULT = "STAT_CHANGE_MULT";
@@ -32,6 +36,7 @@ public class Connector {
 
   public static String CAN_PERFORM = "CAN_PERFORM";
   public static String ON_PERFORM = "ON_PERFORM";
+  public static String ON_SINGLE_TARGET = "ON_SINGLE_TARGET";
   public static String ON_TARGET = "ON_TARGET";
   public static String ON_MISS = "ON_MISS";
   public static String TARGET_CHANGE = "TARGET_CHANGE";
@@ -137,7 +142,7 @@ public class Connector {
           method.invoke(subscriberSubscriptionConnection.element, payload);
           depth--;
         } catch (NoSuchMethodException e) {
-          System.out.println("Hä" + subscriberSubscriptionConnection.subscription.methodName);
+          System.out.println("Hä" + subscriberSubscriptionConnection.element.getClass() + subscriberSubscriptionConnection.subscription.methodName);
           e.printStackTrace();
         } catch (InvocationTargetException e) {
           System.out.println("Hä2" + subscriberSubscriptionConnection.subscription.methodName);

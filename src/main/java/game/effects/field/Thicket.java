@@ -3,8 +3,8 @@ package game.effects.field;
 import framework.connector.ConnectionPayload;
 import game.effects.Effect;
 import game.entities.Hero;
-import game.skills.logic.DamageMode;
-import game.skills.logic.DamageType;
+import game.skills.legacy.logic.DamageMode;
+import game.skills.legacy.logic.DamageType;
 
 public class Thicket extends Effect {
   public void endOfTurn(ConnectionPayload pl) {

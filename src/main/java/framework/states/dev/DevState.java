@@ -1,9 +1,7 @@
 package framework.states.dev;
 
 import framework.Engine;
-import framework.Logger;
 import framework.graphics.GUIElement;
-import framework.graphics.elements.SkillElement;
 import framework.graphics.elements.SkillInfo;
 import framework.graphics.elements.StatField;
 import framework.graphics.text.Color;
@@ -15,12 +13,9 @@ import game.entities.roles.HeroRoleDTO;
 import game.libraries.*;
 import game.objects.EquipmentDTO;
 import game.skills.Skill;
-import game.skills.logic.Stat;
-import utils.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class DevState extends State {
 
@@ -51,21 +46,20 @@ public class DevState extends State {
   public DevState(Memory memory) {
     super(memory);
     this.id = StateManager.DEV;
-    HeroLibrary.init();
-    SkillLibrary.init();
-    EffectLibrary.init();
-    EquipmentLibrary.init();
-    HeroBackgroundLibrary.init();
-    HeroBuilder.init();
-    this.hero = HeroLibrary.getHero(h+ "");
-    this.stats = new StatField(hero);
+//    HeroLibrary.init();
+//    SkillLibrary.init();
+//    EffectLibrary.init();
+//    EquipmentLibrary.init();
+//    HeroBackgroundLibrary.init();
+//    HeroBuilder.init();
+    this.hero = HeroLibrary.getHero("Scholar");
   }
 
   @Override
   public void update(int frame) {
     if (active) {
       this.hero.animate(frame);
-      updateKeys();
+//      updateKeys();
 //      updateKeysHeroDevSelections();
     }
   }
@@ -99,9 +93,9 @@ public class DevState extends State {
   public int[] render() {
     background(Color.BLACK);
     renderHero();
-    renderStats();
-    renderSkillGrid();
-    renderSkillInfo();
+//    renderStats();
+//    renderSkillGrid();
+//    renderSkillInfo();
     return this.pixels;
   }
 

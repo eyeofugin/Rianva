@@ -1,6 +1,6 @@
 package game.entities;
 
-import game.skills.logic.Stat;
+import game.skills.legacy.logic.Stat;
 
 public class Multiplier {
   public Stat prof;

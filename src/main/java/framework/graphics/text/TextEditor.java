@@ -1,9 +1,7 @@
 package framework.graphics.text;
 
-import framework.Logger;
 import framework.Property;
-import game.entities.Role;
-import game.skills.logic.Stat;
+import game.skills.legacy.logic.Stat;
 
 import java.util.*;
 

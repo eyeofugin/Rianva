@@ -5,7 +5,7 @@ import framework.graphics.text.Color;
 import framework.graphics.text.TextAlignment;
 import framework.resources.SpriteLibrary;
 import game.skills.Skill;
-import game.skills.logic.SkillTag;
+import game.skills.legacy.logic.SkillTag;
 
 public class SkillInfo extends GUIElement {
   private static final int FULL_WIDTH = 200;

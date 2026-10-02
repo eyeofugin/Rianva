@@ -2,7 +2,7 @@ package game.skills;
 
 import framework.connector.Subscription;
 import game.entities.Multiplier;
-import game.skills.logic.*;
+import game.skills.legacy.logic.*;
 
 import java.util.ArrayList;
 import java.util.List;

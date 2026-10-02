@@ -1,6 +1,6 @@
 package game.objects;
 
-import game.skills.logic.Stat;
+import game.skills.legacy.logic.Stat;
 
 import java.util.ArrayList;
 import java.util.HashMap;

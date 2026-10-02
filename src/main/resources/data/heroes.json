@@ -7,9 +7,34 @@
     "idleAnim": "characters/baze/baze_idle.png",
     "damagedAnim": "characters/baze/baze_dmg.png",
     "actionAnim": "characters/baze/baze_act1.png",
-    "idleKeys": [40,80,120,160,200,205,210,215,220],
-    "damagedKeys": [5,10,15,20],
-    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "idleKeys": [
+      40,
+      80,
+      120,
+      160,
+      200,
+      205,
+      210,
+      215,
+      220
+    ],
+    "damagedKeys": [
+      5,
+      10,
+      15,
+      20
+    ],
+    "actionKeys": [
+      15,
+      30,
+      45,
+      60,
+      75,
+      90,
+      105,
+      120,
+      135
+    ],
     "equipments": [
       "MundaneRing"
     ],
@@ -19,31 +44,56 @@
     "additionalSkills": []
   },
   "FullEvoker": {
-  "name": "Evoker",
-  "heroClass": "Evoker",
-  "heroRace": "Human",
-  "heroRole": "Inspiration",
-  "idleAnim": "characters/baze/baze_idle.png",
-  "damagedAnim": "characters/baze/baze_dmg.png",
-  "actionAnim": "characters/baze/baze_act1.png",
-  "idleKeys": [40,80,120,160,200,205,210,215,220],
-  "damagedKeys": [20,40,60,80],
-  "actionKeys": [5,10,15,20,25,30,35,40,45],
-  "equipments": [
-    "MundaneRing"
-  ],
-  "learnedSkills": [
-    "S_MagicMissile",
-    "S_ChainLightning",
-    "S_Evoker",
-    "S_FireBlast",
-    "S_Meteors",
-    "S_RiskyChannel",
-    "S_StorkSeeker",
-    "S_WindWall"
-  ],
-  "additionalSkills": []
-},
+    "name": "Evoker",
+    "heroClass": "Evoker",
+    "heroRace": "Human",
+    "heroRole": "Inspiration",
+    "idleAnim": "characters/baze/baze_idle.png",
+    "damagedAnim": "characters/baze/baze_dmg.png",
+    "actionAnim": "characters/baze/baze_act1.png",
+    "idleKeys": [
+      40,
+      80,
+      120,
+      160,
+      200,
+      205,
+      210,
+      215,
+      220
+    ],
+    "damagedKeys": [
+      20,
+      40,
+      60,
+      80
+    ],
+    "actionKeys": [
+      5,
+      10,
+      15,
+      20,
+      25,
+      30,
+      35,
+      40,
+      45
+    ],
+    "equipments": [
+      "MundaneRing"
+    ],
+    "learnedSkills": [
+      "S_MagicMissile",
+      "S_ChainLightning",
+      "S_Evoker",
+      "S_FireBlast",
+      "S_Meteors",
+      "S_RiskyChannel",
+      "S_StorkSeeker",
+      "S_WindWall"
+    ],
+    "additionalSkills": []
+  },
   "FullBerserker": {
     "name": "Berserker",
     "heroClass": "Berserker",
@@ -52,9 +102,34 @@
     "idleAnim": "characters/baze/baze_idle.png",
     "damagedAnim": "characters/baze/baze_idle.png",
     "actionAnim": "characters/baze/baze_act1.png",
-    "idleKeys": [40,80,120,160,200,205,210,215,220],
-    "damagedKeys": [20,40,60,80],
-    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "idleKeys": [
+      40,
+      80,
+      120,
+      160,
+      200,
+      205,
+      210,
+      215,
+      220
+    ],
+    "damagedKeys": [
+      20,
+      40,
+      60,
+      80
+    ],
+    "actionKeys": [
+      15,
+      30,
+      45,
+      60,
+      75,
+      90,
+      105,
+      120,
+      135
+    ],
     "equipments": [
       "MundaneSword"
     ],
@@ -76,9 +151,34 @@
     "idleAnim": "characters/baze/baze_idle.png",
     "damagedAnim": "characters/baze/baze_idle.png",
     "actionAnim": "characters/baze/baze_act1.png",
-    "idleKeys": [40,80,120,160,200,205,210,215,220],
-    "damagedKeys": [20,40,60,80],
-    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "idleKeys": [
+      40,
+      80,
+      120,
+      160,
+      200,
+      205,
+      210,
+      215,
+      220
+    ],
+    "damagedKeys": [
+      20,
+      40,
+      60,
+      80
+    ],
+    "actionKeys": [
+      15,
+      30,
+      45,
+      60,
+      75,
+      90,
+      105,
+      120,
+      135
+    ],
     "equipments": [
       "MundaneSword"
     ],
@@ -101,9 +201,34 @@
     "idleAnim": "characters/baze/baze_idle.png",
     "damagedAnim": "characters/baze/baze_idle.png",
     "actionAnim": "characters/baze/baze_act1.png",
-    "idleKeys": [40,80,120,160,200,205,210,215,220],
-    "damagedKeys": [20,40,60,80],
-    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "idleKeys": [
+      40,
+      80,
+      120,
+      160,
+      200,
+      205,
+      210,
+      215,
+      220
+    ],
+    "damagedKeys": [
+      20,
+      40,
+      60,
+      80
+    ],
+    "actionKeys": [
+      15,
+      30,
+      45,
+      60,
+      75,
+      90,
+      105,
+      120,
+      135
+    ],
     "equipments": [
       "MundaneSword"
     ],
@@ -127,9 +252,34 @@
     "idleAnim": "characters/baze/baze_idle.png",
     "damagedAnim": "characters/baze/baze_idle.png",
     "actionAnim": "characters/baze/baze_act1.png",
-    "idleKeys": [40,80,120,160,200,205,210,215,220],
-    "damagedKeys": [20,40,60,80],
-    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "idleKeys": [
+      40,
+      80,
+      120,
+      160,
+      200,
+      205,
+      210,
+      215,
+      220
+    ],
+    "damagedKeys": [
+      20,
+      40,
+      60,
+      80
+    ],
+    "actionKeys": [
+      15,
+      30,
+      45,
+      60,
+      75,
+      90,
+      105,
+      120,
+      135
+    ],
     "equipments": [
       "MundaneSword"
     ],
@@ -151,9 +301,34 @@
     "idleAnim": "characters/baze/baze_idle.png",
     "damagedAnim": "characters/baze/baze_idle.png",
     "actionAnim": "characters/baze/baze_act1.png",
-    "idleKeys": [40,80,120,160,200,205,210,215,220],
-    "damagedKeys": [20,40,60,80],
-    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "idleKeys": [
+      40,
+      80,
+      120,
+      160,
+      200,
+      205,
+      210,
+      215,
+      220
+    ],
+    "damagedKeys": [
+      20,
+      40,
+      60,
+      80
+    ],
+    "actionKeys": [
+      15,
+      30,
+      45,
+      60,
+      75,
+      90,
+      105,
+      120,
+      135
+    ],
     "equipments": [
       "MundaneSword"
     ],
@@ -175,9 +350,34 @@
     "idleAnim": "characters/baze/baze_idle.png",
     "damagedAnim": "characters/baze/baze_idle.png",
     "actionAnim": "characters/baze/baze_act1.png",
-    "idleKeys": [40,80,120,160,200,205,210,215,220],
-    "damagedKeys": [20,40,60,80],
-    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "idleKeys": [
+      40,
+      80,
+      120,
+      160,
+      200,
+      205,
+      210,
+      215,
+      220
+    ],
+    "damagedKeys": [
+      20,
+      40,
+      60,
+      80
+    ],
+    "actionKeys": [
+      15,
+      30,
+      45,
+      60,
+      75,
+      90,
+      105,
+      120,
+      135
+    ],
     "equipments": [
       "MundaneSword"
     ],
@@ -200,9 +400,34 @@
     "idleAnim": "characters/baze/baze_idle.png",
     "damagedAnim": "characters/baze/baze_idle.png",
     "actionAnim": "characters/baze/baze_act1.png",
-    "idleKeys": [40,80,120,160,200,205,210,215,220],
-    "damagedKeys": [20,40,60,80],
-    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "idleKeys": [
+      40,
+      80,
+      120,
+      160,
+      200,
+      205,
+      210,
+      215,
+      220
+    ],
+    "damagedKeys": [
+      20,
+      40,
+      60,
+      80
+    ],
+    "actionKeys": [
+      15,
+      30,
+      45,
+      60,
+      75,
+      90,
+      105,
+      120,
+      135
+    ],
     "equipments": [
       "MundaneSword"
     ],
@@ -225,9 +450,34 @@
     "idleAnim": "characters/baze/baze_idle.png",
     "damagedAnim": "characters/baze/baze_idle.png",
     "actionAnim": "characters/baze/baze_act1.png",
-    "idleKeys": [40,80,120,160,200,205,210,215,220],
-    "damagedKeys": [20,40,60,80],
-    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "idleKeys": [
+      40,
+      80,
+      120,
+      160,
+      200,
+      205,
+      210,
+      215,
+      220
+    ],
+    "damagedKeys": [
+      20,
+      40,
+      60,
+      80
+    ],
+    "actionKeys": [
+      15,
+      30,
+      45,
+      60,
+      75,
+      90,
+      105,
+      120,
+      135
+    ],
     "equipments": [
       "MundaneSword"
     ],
@@ -249,9 +499,34 @@
     "idleAnim": "characters/baze/baze_idle.png",
     "damagedAnim": "characters/baze/baze_idle.png",
     "actionAnim": "characters/baze/baze_act1.png",
-    "idleKeys": [40,80,120,160,200,205,210,215,220],
-    "damagedKeys": [20,40,60,80],
-    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "idleKeys": [
+      40,
+      80,
+      120,
+      160,
+      200,
+      205,
+      210,
+      215,
+      220
+    ],
+    "damagedKeys": [
+      20,
+      40,
+      60,
+      80
+    ],
+    "actionKeys": [
+      15,
+      30,
+      45,
+      60,
+      75,
+      90,
+      105,
+      120,
+      135
+    ],
     "equipments": [
       "MundaneSword"
     ],
@@ -274,9 +549,34 @@
     "idleAnim": "characters/baze/baze_idle.png",
     "damagedAnim": "characters/baze/baze_idle.png",
     "actionAnim": "characters/baze/baze_act1.png",
-    "idleKeys": [40,80,120,160,200,205,210,215,220],
-    "damagedKeys": [20,40,60,80],
-    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "idleKeys": [
+      40,
+      80,
+      120,
+      160,
+      200,
+      205,
+      210,
+      215,
+      220
+    ],
+    "damagedKeys": [
+      20,
+      40,
+      60,
+      80
+    ],
+    "actionKeys": [
+      15,
+      30,
+      45,
+      60,
+      75,
+      90,
+      105,
+      120,
+      135
+    ],
     "equipments": [
       "MundaneSword"
     ],
@@ -299,9 +599,34 @@
     "idleAnim": "characters/baze/baze_idle.png",
     "damagedAnim": "characters/baze/baze_idle.png",
     "actionAnim": "characters/baze/baze_act1.png",
-    "idleKeys": [40,80,120,160,200,205,210,215,220],
-    "damagedKeys": [20,40,60,80],
-    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "idleKeys": [
+      40,
+      80,
+      120,
+      160,
+      200,
+      205,
+      210,
+      215,
+      220
+    ],
+    "damagedKeys": [
+      20,
+      40,
+      60,
+      80
+    ],
+    "actionKeys": [
+      15,
+      30,
+      45,
+      60,
+      75,
+      90,
+      105,
+      120,
+      135
+    ],
     "equipments": [
       "MundaneSword"
     ],
@@ -333,9 +658,34 @@
     "idleAnim": "characters/baze/baze_idle.png",
     "damagedAnim": "characters/baze/baze_idle.png",
     "actionAnim": "characters/baze/baze_act1.png",
-    "idleKeys": [40,80,120,160,200,205,210,215,220],
-    "damagedKeys": [20,40,60,80],
-    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "idleKeys": [
+      40,
+      80,
+      120,
+      160,
+      200,
+      205,
+      210,
+      215,
+      220
+    ],
+    "damagedKeys": [
+      20,
+      40,
+      60,
+      80
+    ],
+    "actionKeys": [
+      15,
+      30,
+      45,
+      60,
+      75,
+      90,
+      105,
+      120,
+      135
+    ],
     "equipments": [
       "MundaneSword"
     ],
@@ -361,9 +711,34 @@
     "idleAnim": "characters/baze/baze_idle.png",
     "damagedAnim": "characters/baze/baze_idle.png",
     "actionAnim": "characters/baze/baze_act1.png",
-    "idleKeys": [40,80,120,160,200,205,210,215,220],
-    "damagedKeys": [20,40,60,80],
-    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "idleKeys": [
+      40,
+      80,
+      120,
+      160,
+      200,
+      205,
+      210,
+      215,
+      220
+    ],
+    "damagedKeys": [
+      20,
+      40,
+      60,
+      80
+    ],
+    "actionKeys": [
+      15,
+      30,
+      45,
+      60,
+      75,
+      90,
+      105,
+      120,
+      135
+    ],
     "equipments": [
       "MundaneSword"
     ],
@@ -386,9 +761,34 @@
     "idleAnim": "characters/baze/baze_idle.png",
     "damagedAnim": "characters/baze/baze_idle.png",
     "actionAnim": "characters/baze/baze_act1.png",
-    "idleKeys": [40,80,120,160,200,205,210,215,220],
-    "damagedKeys": [20,40,60,80],
-    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "idleKeys": [
+      40,
+      80,
+      120,
+      160,
+      200,
+      205,
+      210,
+      215,
+      220
+    ],
+    "damagedKeys": [
+      20,
+      40,
+      60,
+      80
+    ],
+    "actionKeys": [
+      15,
+      30,
+      45,
+      60,
+      75,
+      90,
+      105,
+      120,
+      135
+    ],
     "equipments": [
       "MundaneSword"
     ],
@@ -411,9 +811,34 @@
     "idleAnim": "characters/baze/baze_idle.png",
     "damagedAnim": "characters/baze/baze_idle.png",
     "actionAnim": "characters/baze/baze_act1.png",
-    "idleKeys": [40,80,120,160,200,205,210,215,220],
-    "damagedKeys": [20,40,60,80],
-    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "idleKeys": [
+      40,
+      80,
+      120,
+      160,
+      200,
+      205,
+      210,
+      215,
+      220
+    ],
+    "damagedKeys": [
+      20,
+      40,
+      60,
+      80
+    ],
+    "actionKeys": [
+      15,
+      30,
+      45,
+      60,
+      75,
+      90,
+      105,
+      120,
+      135
+    ],
     "equipments": [
       "MundaneSword"
     ],
@@ -436,9 +861,34 @@
     "idleAnim": "characters/baze/baze_idle.png",
     "damagedAnim": "characters/baze/baze_idle.png",
     "actionAnim": "characters/baze/baze_act1.png",
-    "idleKeys": [40,80,120,160,200,205,210,215,220],
-    "damagedKeys": [20,40,60,80],
-    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "idleKeys": [
+      40,
+      80,
+      120,
+      160,
+      200,
+      205,
+      210,
+      215,
+      220
+    ],
+    "damagedKeys": [
+      20,
+      40,
+      60,
+      80
+    ],
+    "actionKeys": [
+      15,
+      30,
+      45,
+      60,
+      75,
+      90,
+      105,
+      120,
+      135
+    ],
     "equipments": [
       "MundaneSword"
     ],
@@ -461,9 +911,34 @@
     "idleAnim": "characters/baze/baze_idle.png",
     "damagedAnim": "characters/baze/baze_idle.png",
     "actionAnim": "characters/baze/baze_act1.png",
-    "idleKeys": [40,80,120,160,200,205,210,215,220],
-    "damagedKeys": [20,40,60,80],
-    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "idleKeys": [
+      40,
+      80,
+      120,
+      160,
+      200,
+      205,
+      210,
+      215,
+      220
+    ],
+    "damagedKeys": [
+      20,
+      40,
+      60,
+      80
+    ],
+    "actionKeys": [
+      15,
+      30,
+      45,
+      60,
+      75,
+      90,
+      105,
+      120,
+      135
+    ],
     "equipments": [
       "MundaneSword"
     ],
@@ -487,9 +962,34 @@
     "idleAnim": "characters/baze/baze_idle.png",
     "damagedAnim": "characters/baze/baze_idle.png",
     "actionAnim": "characters/baze/baze_act1.png",
-    "idleKeys": [40,80,120,160,200,205,210,215,220],
-    "damagedKeys": [20,40,60,80],
-    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "idleKeys": [
+      40,
+      80,
+      120,
+      160,
+      200,
+      205,
+      210,
+      215,
+      220
+    ],
+    "damagedKeys": [
+      20,
+      40,
+      60,
+      80
+    ],
+    "actionKeys": [
+      15,
+      30,
+      45,
+      60,
+      75,
+      90,
+      105,
+      120,
+      135
+    ],
     "equipments": [
       "MundaneRing"
     ],
@@ -511,9 +1011,34 @@
     "idleAnim": "characters/baze/baze_idle.png",
     "damagedAnim": "characters/baze/baze_idle.png",
     "actionAnim": "characters/baze/baze_act1.png",
-    "idleKeys": [40,80,120,160,200,205,210,215,220],
-    "damagedKeys": [20,40,60,80],
-    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "idleKeys": [
+      40,
+      80,
+      120,
+      160,
+      200,
+      205,
+      210,
+      215,
+      220
+    ],
+    "damagedKeys": [
+      20,
+      40,
+      60,
+      80
+    ],
+    "actionKeys": [
+      15,
+      30,
+      45,
+      60,
+      75,
+      90,
+      105,
+      120,
+      135
+    ],
     "equipments": [
       "MundaneHammer"
     ],
@@ -535,9 +1060,34 @@
     "idleAnim": "characters/baze/baze_idle.png",
     "damagedAnim": "characters/baze/baze_idle.png",
     "actionAnim": "characters/baze/baze_act1.png",
-    "idleKeys": [40,80,120,160,200,205,210,215,220],
-    "damagedKeys": [20,40,60,80],
-    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "idleKeys": [
+      40,
+      80,
+      120,
+      160,
+      200,
+      205,
+      210,
+      215,
+      220
+    ],
+    "damagedKeys": [
+      20,
+      40,
+      60,
+      80
+    ],
+    "actionKeys": [
+      15,
+      30,
+      45,
+      60,
+      75,
+      90,
+      105,
+      120,
+      135
+    ],
     "equipments": [
       "MundaneSword"
     ],
@@ -559,9 +1109,34 @@
     "idleAnim": "characters/baze/baze_idle.png",
     "damagedAnim": "characters/baze/baze_idle.png",
     "actionAnim": "characters/baze/baze_act1.png",
-    "idleKeys": [40,80,120,160,200,205,210,215,220],
-    "damagedKeys": [20,40,60,80],
-    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "idleKeys": [
+      40,
+      80,
+      120,
+      160,
+      200,
+      205,
+      210,
+      215,
+      220
+    ],
+    "damagedKeys": [
+      20,
+      40,
+      60,
+      80
+    ],
+    "actionKeys": [
+      15,
+      30,
+      45,
+      60,
+      75,
+      90,
+      105,
+      120,
+      135
+    ],
     "equipments": [
       "MundaneRing"
     ],
@@ -583,9 +1158,34 @@
     "idleAnim": "characters/baze/baze_idle.png",
     "damagedAnim": "characters/baze/baze_idle.png",
     "actionAnim": "characters/baze/baze_act1.png",
-    "idleKeys": [40,80,120,160,200,205,210,215,220],
-    "damagedKeys": [20,40,60,80],
-    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "idleKeys": [
+      40,
+      80,
+      120,
+      160,
+      200,
+      205,
+      210,
+      215,
+      220
+    ],
+    "damagedKeys": [
+      20,
+      40,
+      60,
+      80
+    ],
+    "actionKeys": [
+      15,
+      30,
+      45,
+      60,
+      75,
+      90,
+      105,
+      120,
+      135
+    ],
     "equipments": [
       "MundaneRing"
     ],
@@ -607,9 +1207,34 @@
     "idleAnim": "characters/baze/baze_idle.png",
     "damagedAnim": "characters/baze/baze_idle.png",
     "actionAnim": "characters/baze/baze_act1.png",
-    "idleKeys": [40,80,120,160,200,205,210,215,220],
-    "damagedKeys": [20,40,60,80],
-    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "idleKeys": [
+      40,
+      80,
+      120,
+      160,
+      200,
+      205,
+      210,
+      215,
+      220
+    ],
+    "damagedKeys": [
+      20,
+      40,
+      60,
+      80
+    ],
+    "actionKeys": [
+      15,
+      30,
+      45,
+      60,
+      75,
+      90,
+      105,
+      120,
+      135
+    ],
     "equipments": [
       "MundaneBow"
     ],
@@ -631,9 +1256,34 @@
     "idleAnim": "characters/baze/baze_idle.png",
     "damagedAnim": "characters/baze/baze_idle.png",
     "actionAnim": "characters/baze/baze_act1.png",
-    "idleKeys": [40,80,120,160,200,205,210,215,220],
-    "damagedKeys": [20,40,60,80],
-    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "idleKeys": [
+      40,
+      80,
+      120,
+      160,
+      200,
+      205,
+      210,
+      215,
+      220
+    ],
+    "damagedKeys": [
+      20,
+      40,
+      60,
+      80
+    ],
+    "actionKeys": [
+      15,
+      30,
+      45,
+      60,
+      75,
+      90,
+      105,
+      120,
+      135
+    ],
     "equipments": [
       "MundaneDagger"
     ],
@@ -655,9 +1305,34 @@
     "idleAnim": "characters/baze/baze_idle.png",
     "damagedAnim": "characters/baze/baze_dmg.png",
     "actionAnim": "characters/baze/baze_act1.png",
-    "idleKeys": [40,80,120,160,200,205,210,215,220],
-    "damagedKeys": [20,40,60,80],
-    "actionKeys": [15,30,45,60,75,90,105,120,135],
+    "idleKeys": [
+      40,
+      80,
+      120,
+      160,
+      200,
+      205,
+      210,
+      215,
+      220
+    ],
+    "damagedKeys": [
+      20,
+      40,
+      60,
+      80
+    ],
+    "actionKeys": [
+      15,
+      30,
+      45,
+      60,
+      75,
+      90,
+      105,
+      120,
+      135
+    ],
     "equipments": [
       "MundaneBow"
     ],
@@ -668,6 +1343,149 @@
       "S_MedicineUnderFire",
       "S_LastStand",
       "S_Aid"
+    ],
+    "additionalSkills": []
+  },
+  "Support1": {
+    "name": "Support1",
+    "heroClass": "Flora",
+    "heroRace": "Elf",
+    "heroRole": "Inspiration",
+    "idleAnim": "characters/baze/baze_idle.png",
+    "damagedAnim": "characters/baze/baze_dmg.png",
+    "actionAnim": "characters/baze/baze_act1.png",
+    "idleKeys": [
+      40,
+      80,
+      120,
+      160,
+      200,
+      205,
+      210,
+      215,
+      220
+    ],
+    "damagedKeys": [
+      20,
+      40,
+      60,
+      80
+    ],
+    "actionKeys": [
+      15,
+      30,
+      45,
+      60,
+      75,
+      90,
+      105,
+      120,
+      135
+    ],
+    "equipments": [
+      "MundaneRing"
+    ],
+    "learnedSkills": [
+      "S_KeenEye",
+      "S_Flora",
+      "S_HealingWords",
+      "S_ThornCage",
+      "S_LifeBlossom",
+      "S_ManaFlow"
+    ],
+    "additionalSkills": []
+  },
+  "Support2": {
+    "name": "Support2",
+    "heroClass": "Flora",
+    "heroRace": "Elf",
+    "heroRole": "Inspiration",
+    "idleAnim": "characters/baze/baze_idle.png",
+    "damagedAnim": "characters/baze/baze_dmg.png",
+    "actionAnim": "characters/baze/baze_act1.png",
+    "idleKeys": [
+      40,
+      80,
+      120,
+      160,
+      200,
+      205,
+      210,
+      215,
+      220
+    ],
+    "damagedKeys": [
+      20,
+      40,
+      60,
+      80
+    ],
+    "actionKeys": [
+      15,
+      30,
+      45,
+      60,
+      75,
+      90,
+      105,
+      120,
+      135
+    ],
+    "equipments": [
+      "MundaneRing"
+    ],
+    "learnedSkills": [
+      "S_KeenEye",
+      "S_Flora",
+      "S_HealingWords",
+      "S_ThornCage",
+      "S_LifeBlossom",
+      "S_ManaFlow"
+    ],
+    "additionalSkills": []
+  },
+  "CinderSprite": {
+    "name": "Cinder Sprite",
+    "heroClass": "Arcane",
+    "heroRace": "Flameborn",
+    "heroSprite": "Baze",
+    "equipments": [],
+    "learnedSkills": [
+      "S_BlueFlame",
+      "S_CinderShard",
+      "S_BurnUp",
+      "S_FireBlast",
+      "S_FlameThrower"
+    ],
+    "additionalSkills": []
+  },
+  "Scholar": {
+    "name": "Scholar",
+    "heroClass": "Sage",
+    "heroSprite": "Scholar",
+    "heroRace": "Flameborn",
+    "equipments": [],
+    "learnedSkills": [
+      "S_TorchLight",
+      "S_Ember",
+      "S_FanTheTorch",
+      "S_HeatUp",
+      "S_SigilOfEndlessFire"
+    ],
+    "additionalSkills": []
+  },
+  "AshenBlade": {
+    "name": "Ashen Blade",
+    "heroClass": "Slayer",
+    "heroSprite": "Scholar",
+    "heroRace": "Flameborn",
+    "equipments": [],
+    "learnedSkills": [
+      "S_TorchLight",
+      "S_Ember",
+      "S_FanTheTorch",
+      "S_HeatUp",
+      "S_SigilOfEndlessFire"
     ],
     "additionalSkills": []
   }

@@ -1,0 +1,77 @@
+{
+  "S_CinderShard": {
+    "name": "Cinder Shard",
+    "className": "game.skills.primary.S_CinderShard",
+    "description": "Can never miss. [BRL] Blue Flame: Chance to give Stunned.",
+    "targetType": "SINGLE",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "PRIMARY"
+    ],
+    "cannotMiss": true,
+    "damageType": "HEAT",
+    "damageMode": "MAGICAL",
+    "dmgMultipliers": [
+      {
+        "prof": "MIND",
+        "percentage": 0.3
+      }
+    ],
+    "effects": [
+      {
+        "className": "game.effects.status.Stunned",
+        "condition": {
+          "trigger": "CASTER",
+          "effectName": "game.effects.hero.BlueFlame",
+          "hasCheck": true,
+          "successChance": 30
+        }
+      }
+    ],
+    "possibleCastPositions": [
+      0,
+      1,
+      2
+    ],
+    "possibleTargetPositions": [
+      4,
+      5
+    ]
+  },
+  "S_Ember": {
+    "name": "Ember",
+    "className": "game.skills.primary.S_Ember",
+    "description": "Hits twice. 10% Chance to give Burning.",
+    "targetType": "SINGLE",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "PRIMARY"
+    ],
+    "damageType": "HEAT",
+    "damageMode": "MAGICAL",
+    "dmgMultipliers": [
+      {
+        "prof": "MIND",
+        "percentage": 0.1
+      }
+    ],
+    "effects": [
+      {
+        "className": "game.effects.status.Burning",
+        "condition": {
+          "successChance": 10
+        }
+      }
+    ],
+    "possibleCastPositions": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "possibleTargetPositions": [
+      4,
+      5
+    ]
+  }
+}

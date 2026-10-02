@@ -2,7 +2,6 @@ package game.effects.status;
 
 import framework.connector.ConnectionPayload;
 import game.effects.Effect;
-import game.skills.logic.Stat;
 import utils.Utils;
 
 public class Blinded extends Effect {

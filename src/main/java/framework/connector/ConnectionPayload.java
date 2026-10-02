@@ -5,10 +5,10 @@ import game.entities.Hero;
 import game.objects.Equipment;
 import game.skills.Skill;
 import game.effects.Effect;
-import game.skills.logic.DamageMode;
-import game.skills.logic.DamageType;
-import game.skills.logic.Stat;
-import game.skills.logic.TargetMode;
+import game.skills.legacy.logic.DamageMode;
+import game.skills.legacy.logic.DamageType;
+import game.skills.legacy.logic.Stat;
+import game.skills.legacy.logic.TargetMode;
 
 public class ConnectionPayload {
   public int dmg;

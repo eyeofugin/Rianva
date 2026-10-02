@@ -2,7 +2,7 @@ package game.effects.globals;
 
 import framework.connector.ConnectionPayload;
 import game.effects.Effect;
-import game.skills.logic.Stat;
+import game.skills.legacy.logic.Stat;
 
 public class AetherWinds extends Effect {
 

@@ -1,0 +1,78 @@
+{
+  "S_Flamethrower": {
+    "name": "Flamethrower",
+    "className": "game.skills.ultimate.S_Flamethrower",
+    "targetType": "SINGLE",
+    "description": "Receive Burning 1. [BRL] Blue Flame: All targets.",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "ULTIMATE"
+    ],
+    "dmgMultipliers": [
+      {
+        "prof": "MIND",
+        "percentage": 0.75
+      }
+    ],
+    "damageType": "HEAT",
+    "damageMode": "MAGICAL",
+    "casterEffects": [
+      {
+        "className": "game.effects.status.Burning",
+        "stacks": 1
+      }
+    ],
+    "subscriptions": [
+      {
+        "topicName": "CAST_CHANGE",
+        "methodName": "castChange",
+        "trigger": {
+          "casterHeroReference": "SAME",
+          "effectName": "game.effects.hero.BlueFlame",
+          "hasCheck": true
+        }
+      }
+    ],
+    "maxCd": 1,
+    "manaCost": 35,
+    "possibleCastPositions": [
+      1,
+      2
+    ],
+    "possibleTargetPositions": [
+      4,
+      5,
+      6
+    ]
+  },
+  "S_SigilOfEndlessFire": {
+    "name": "Sigil of Endless Fire",
+    "className": "game.skills.ultimate.S_SigilOfEndlessFire",
+    "targetType": "ALL_TARGETS",
+    "description": "Give Flaming 2 and Englightened 2.",
+    "iconPath": "icons/skills/wingedboots.png",
+    "tags": [
+      "ULTIMATE"
+    ],
+    "effects": [
+      {
+        "className": "game.effects.stat.Enlightened",
+        "turns": 2
+      },
+      {
+        "className": "game.effects.hero.Flaming",
+        "turns": 2
+      }
+    ],
+    "maxCd": 3,
+    "manaCost": 35,
+    "possibleCastPositions": [
+      0,
+      1,
+      2
+    ],
+    "possibleTargetPositions": [
+      2,3
+    ]
+  }
+}

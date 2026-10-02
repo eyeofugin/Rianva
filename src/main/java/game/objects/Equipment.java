@@ -6,9 +6,7 @@ import framework.connector.Connector;
 import framework.graphics.text.Color;
 import framework.resources.SpriteLibrary;
 import game.entities.Hero;
-import game.skills.Skill;
-import game.skills.logic.Stat;
-import utils.FileWalker;
+import game.skills.legacy.logic.Stat;
 import utils.Utils;
 
 import java.util.ArrayList;

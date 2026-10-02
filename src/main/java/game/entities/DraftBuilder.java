@@ -27,7 +27,7 @@ import game.libraries.HeroLibrary;
 import game.objects.Equipment;
 import game.objects.equipments.SimpleDagger;
 import game.skills.Skill;
-import game.skills.trees.genericskills.S_Skip;
+import game.skills.legacy.trees.genericskills.S_Skip;
 import utils.FileWalker;
 
 import java.lang.reflect.InvocationTargetException;

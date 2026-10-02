@@ -7,7 +7,7 @@ import framework.graphics.elements.SkillInfo;
 import framework.graphics.text.Color;
 import game.entities.Hero;
 import game.skills.Skill;
-import game.skills.logic.SkillTag;
+import game.skills.legacy.logic.SkillTag;
 
 import java.util.ArrayList;
 import java.util.List;

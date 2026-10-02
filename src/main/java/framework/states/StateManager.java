@@ -30,12 +30,12 @@ public class StateManager {
     this.engine = e;
     this.memory = engine.memory;
     Libraries.init();
-    //        dungeonDraft();
-//    dev();
+//    dungeonDraft();
+    dev();
 //    heroBuilder();
-    //        pvpDraft();
-    this.memory = new Memory(GameMode.PVP);
-    arena();
+//    pvpDraft();
+//    this.memory = new Memory(GameMode.PVP);
+//    arena();
 //    abilityGlossary();
   }
 

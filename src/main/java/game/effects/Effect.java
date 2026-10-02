@@ -11,9 +11,9 @@ import framework.states.Arena;
 import framework.connector.Subscription;
 import game.entities.Hero;
 import game.libraries.EffectLibrary;
-import game.skills.logic.Condition;
-import game.skills.logic.DamageType;
-import game.skills.logic.Stat;
+import game.skills.legacy.logic.Condition;
+import game.skills.legacy.logic.DamageType;
+import game.skills.legacy.logic.Stat;
 import utils.Utils;
 
 import java.util.*;
@@ -249,7 +249,8 @@ public class Effect implements Subscriber {
     return nameSplit[nameSplit.length - 1];
   }
   public Effect copy() {
-    return new Effect(
+
+      return new Effect(
         iconString,
         turns,
         stacks,

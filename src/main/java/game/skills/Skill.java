@@ -17,7 +17,7 @@ import game.entities.Hero;
 import game.entities.Multiplier;
 import game.libraries.SkillLibrary;
 import game.objects.Equipment;
-import game.skills.logic.*;
+import game.skills.legacy.logic.*;
 import utils.CollectionUtils;
 import utils.MyMaths;
 import utils.Utils;
@@ -205,12 +205,12 @@ public class Skill implements Subscriber {
     this.hero = hero;
   }
 
-  private void initEffects(SkillDTO dto) {
+  private <T extends Effect> void initEffects(SkillDTO dto) {
     try {
       if (dto.effects != null) {
         for (SkillEffectDTO sed : dto.effects) {
           Class<?> effectClass = Class.forName(sed.className);
-          Effect effect = (Effect) effectClass.getDeclaredConstructor().newInstance();
+          T effect = (T) effectClass.getDeclaredConstructor().newInstance();
           effect.stacks = sed.stacks;
           effect.turns = sed.turns;
           effect.condition = sed.condition;
@@ -220,7 +220,7 @@ public class Skill implements Subscriber {
       if (dto.casterEffects != null) {
         for (SkillEffectDTO sed : dto.casterEffects) {
           Class<?> effectClass = Class.forName(sed.className);
-          Effect effect = (Effect) effectClass.getDeclaredConstructor().newInstance();
+          T effect = (T) effectClass.getDeclaredConstructor().newInstance();
           effect.stacks = sed.stacks;
           effect.turns = sed.turns;
           effect.condition = sed.condition;
@@ -229,7 +229,7 @@ public class Skill implements Subscriber {
       }
       if (dto.globalEffect != null) {
         Class<?> effectClass = Class.forName(dto.globalEffect.className);
-        Effect effect = (Effect) effectClass.getDeclaredConstructor().newInstance();
+        T effect = (T) effectClass.getDeclaredConstructor().newInstance();
         effect.turns = dto.globalEffect.turns;
         this.globalEffect = effect;
       }
@@ -328,6 +328,7 @@ public class Skill implements Subscriber {
       this.trigger_changeTargets();
       for (Hero arenaTarget : targets) {
 
+        this.trigger_onSingleTarget(arenaTarget);
         if (this.targetType.equals(TargetType.SELF)
             || this.targetType.equals(TargetType.SINGLE_OTHER)
                 || this.targetType.equals(TargetType.ALL_OTHER_ALLY)) {
@@ -547,6 +548,12 @@ public class Skill implements Subscriber {
     ConnectionPayload pl = new ConnectionPayload()
             .setSkill(this);
     Connector.fireTopic(Connector.ON_TARGET, pl);
+  }
+  public void trigger_onSingleTarget(Hero target) {
+    ConnectionPayload pl = new ConnectionPayload()
+            .setSkill(this)
+            .setTarget(target);
+    Connector.fireTopic(Connector.ON_SINGLE_TARGET, pl);
   }
 
   public void trigger_onMiss(Hero target) {

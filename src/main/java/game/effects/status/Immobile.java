@@ -2,7 +2,7 @@ package game.effects.status;
 
 import framework.connector.ConnectionPayload;
 import game.effects.Effect;
-import game.skills.logic.SkillTag;
+import game.skills.legacy.logic.SkillTag;
 
 public class Immobile extends Effect {
   public void canPerformCheck(ConnectionPayload pl) {

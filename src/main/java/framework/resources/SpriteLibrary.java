@@ -1,10 +1,9 @@
 package framework.resources;
 
-import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import framework.Property;
 import framework.graphics.text.Color;
 import game.effects.hero.Marked;
-import game.skills.logic.Stat;
+import game.skills.legacy.logic.Stat;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

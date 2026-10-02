@@ -4,10 +4,9 @@ import game.effects.Effect;
 import game.entities.Hero;
 import game.objects.EquipmentType;
 import game.skills.Skill;
-import game.skills.logic.*;
+import game.skills.legacy.logic.*;
 import utils.CollectionUtils;
 
-import java.util.HashSet;
 import java.util.List;
 
 public class SubscriptionTrigger {
@@ -17,8 +16,8 @@ public class SubscriptionTrigger {
   public int position;
   private ConnectionPayload pl;
 
-  public SubscriptionTriggerHeroReference targetHeroReference;
-  public SubscriptionTriggerHeroReference casterHeroReference;
+  public HeroReference targetHeroReference;
+  public HeroReference casterHeroReference;
   public Boolean samePosition;
   public Boolean dmgTypeIsElemental;
   public Boolean statIsElementalDef;
@@ -68,28 +67,28 @@ public class SubscriptionTrigger {
     if (damageTypes == null) {
       return true;
     }
-    return conditionalListIsMet(damageTypes, List.of(pl.damageType));
+    return damageTypes.isMet(List.of(pl.damageType));
   }
 
   private boolean checkSkillName() {
     if (skillName == null) {
       return true;
     }
-    return pl.skill != null && pl.skill.name.equals(skillName);
+    return pl.skill != null && pl.skill.getClassName().equals(skillName);
   }
 
   private boolean checkDamageMode() {
     if (damageModes == null) {
       return true;
     }
-    return conditionalListIsMet(damageModes, List.of(pl.damageMode));
+    return damageModes.isMet(List.of(pl.damageMode));
   }
 
   private boolean checkStat() {
     if (stats == null) {
       return true;
     }
-    return conditionalListIsMet(stats, List.of(pl.stat));
+    return stats.isMet(List.of(pl.stat));
   }
 
   private boolean checkEffects() {
@@ -99,7 +98,7 @@ public class SubscriptionTrigger {
     if (pl.effect == null) {
       return false;
     }
-    return conditionalListIsMet(effects, List.of(pl.effect.name));
+    return effects.isMet(List.of(pl.effect.name));
   }
 
   private boolean checkTargetEffects() {
@@ -121,59 +120,59 @@ public class SubscriptionTrigger {
       return false;
     }
     List<String> targetEffectNames = hero.getEffects().stream().map(Effect::getName).toList();
-    return conditionalListIsMet(condList, targetEffectNames);
+    return condList.isMet(targetEffectNames);
   }
 
   private boolean checkTargetTypes() {
     if (targetTypes == null) {
       return true;
     }
-    return pl.skill != null && conditionalListIsMet(targetTypes, List.of(pl.skill.getTargetType()));
+    return pl.skill != null && targetTypes.isMet(List.of(pl.skill.getTargetType()));
   }
 
   private boolean checkSkillTags() {
     if (skillTags == null) {
       return true;
     }
-    return pl.skill != null && conditionalListIsMet(skillTags, pl.skill.tags);
+    return pl.skill != null && skillTags.isMet(pl.skill.tags);
   }
 
   private boolean equipmentTypeMet() {
     if (equipmentTypes == null) {
       return true;
     }
-    return pl.equipment != null && conditionalListIsMet(equipmentTypes, List.of(pl.equipment.getType()));
+    return pl.equipment != null && equipmentTypes.isMet(List.of(pl.equipment.getType()));
   }
-  private <T> boolean conditionalListIsMet(
-      ConditionalList<T> checkList, List<T> connectionObjects) {
-    if (checkList.objects == null) {
-      return false;
-    }
-    switch (checkList.boolLogic) {
-      case SOME_OF -> {
-        return hasSome(connectionObjects, checkList.objects);
-      }
-      case NONE_OF -> {
-        return hasNone(connectionObjects, checkList.objects);
-      }
-      case ALL_OF -> {
-        return hasAll(connectionObjects, checkList.objects);
-      }
-    }
-    return false;
-  }
+//  private <T> boolean conditionalListIsMet(
+//      ConditionalList<T> checkList, List<T> connectionObjects) {
+//    if (checkList.objects == null) {
+//      return false;
+//    }
+//    switch (checkList.boolLogic) {
+//      case SOME_OF -> {
+//        return hasSome(connectionObjects, checkList.objects);
+//      }
+//      case NONE_OF -> {
+//        return hasNone(connectionObjects, checkList.objects);
+//      }
+//      case ALL_OF -> {
+//        return hasAll(connectionObjects, checkList.objects);
+//      }
+//    }
+//    return false;
+//  }
 
-  public <T> boolean hasSome(List<T> connectionObjects, List<T> check) {
-    return check.stream().anyMatch(connectionObjects::contains);
-  }
-
-  public <T> boolean hasNone(List<T> connectionObjects, List<T> check) {
-    return check.stream().noneMatch(connectionObjects::contains);
-  }
-
-  public <T> boolean hasAll(List<T> connectionObjects, List<T> check) {
-    return new HashSet<>(connectionObjects).containsAll(check);
-  }
+//  public <T> boolean hasSome(List<T> connectionObjects, List<T> check) {
+//    return check.stream().anyMatch(connectionObjects::contains);
+//  }
+//
+//  public <T> boolean hasNone(List<T> connectionObjects, List<T> check) {
+//    return check.stream().noneMatch(connectionObjects::contains);
+//  }
+//
+//  public <T> boolean hasAll(List<T> connectionObjects, List<T> check) {
+//    return new HashSet<>(connectionObjects).containsAll(check);
+//  }
 
   private boolean targetHasStatusBuffMet() {
     if (targetHasStatusBuff == null) {
@@ -255,7 +254,7 @@ public class SubscriptionTrigger {
     return isHeroReferenceMet(casterHeroReference, pl.caster);
   }
 
-  private boolean isHeroReferenceMet(SubscriptionTriggerHeroReference reference, Hero plHero) {
+  private boolean isHeroReferenceMet(HeroReference reference, Hero plHero) {
     if (reference == null) {
       return true;
     }
